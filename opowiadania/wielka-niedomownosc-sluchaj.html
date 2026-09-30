@@ -1,0 +1,418 @@
+<title>Wielka Niedomówność</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: jedna kolumna do czytania, spis rozdziałów pod nagłówkiem, odtwarzacz przyklejony do dołu ekranu */
+:root {
+  --bg: #eceef2;
+  --paper: #f7f8fa;
+  --fg: #1c2030;
+  --muted: #5d6477;
+  --line: #d3d7e0;
+  --accent: #2c46b8;
+  --accent-fg: #ffffff;
+  --glow: #fff0c4;
+  --glow-edge: #d3861a;
+  --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1320; --paper: #151a2a; --fg: #dde1ec; --muted: #9098ad; --line: #283048;
+    --accent: #8da0ff; --accent-fg: #0f1320; --glow: #2c2616; --glow-edge: #f0a640;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1320; --paper: #151a2a; --fg: #dde1ec; --muted: #9098ad; --line: #283048;
+  --accent: #8da0ff; --accent-fg: #0f1320; --glow: #2c2616; --glow-edge: #f0a640;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 1.125rem; line-height: 1.7;
+  padding-inline: 16px; padding-block: 0 9rem;
+}
+.wrap { max-width: 40rem; margin-inline: auto; }
+header { padding-block: 3.5rem 1.5rem; display: grid; gap: .9rem; }
+.kicker { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 8vw, 3.4rem); line-height: 1.02; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.sub { font-style: italic; color: var(--muted); margin: 0; max-width: 34rem; }
+.howto {
+  margin-top: .6rem; padding: 1rem 1.1rem; background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+  font-size: .95rem; line-height: 1.55; display: grid; gap: .5rem;
+}
+.howto p { margin: 0; }
+.howto strong { font-weight: 600; }
+.warn { color: var(--glow-edge); }
+.bigplay {
+  justify-self: start; display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-display); font-weight: 500; font-size: 1rem;
+  background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 999px; padding: .8rem 1.4rem; cursor: pointer;
+}
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; border-block: 1px solid var(--line); padding-block: .8rem; }
+nav.toc a { display: flex; gap: .8rem; color: var(--fg); text-decoration: none; padding: .25rem 0; font-size: .98rem; }
+nav.toc a:hover { color: var(--accent); }
+.tn { font-family: var(--font-mono); color: var(--muted); min-width: 2.6rem; font-size: .85rem; padding-top: .15rem; }
+main { padding-top: 1rem; }
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.35rem; line-height: 1.25; margin: 3rem 0 1rem; text-wrap: balance; scroll-margin-top: 1.5rem; }
+h2 .num { display: block; font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em; color: var(--accent); margin-bottom: .35rem; }
+h2 .num:empty { display: none; }
+main p { margin: 0 0 1rem; }
+[data-read] { cursor: pointer; border-radius: 4px; transition: background-color .25s; margin-inline: -.5rem; padding-inline: .5rem; }
+[data-read].now { background: var(--glow); box-shadow: inset 3px 0 0 var(--glow-edge); }
+hr { border: 0; height: 1px; background: var(--line); margin: 2.2rem 0; }
+.sign { text-align: right; font-style: italic; color: var(--muted); }
+.end { text-align: center; font-family: var(--font-display); letter-spacing: .3em; text-transform: uppercase; font-size: .85rem; margin-top: 2.5rem !important; }
+
+.player {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 10;
+  background: var(--paper); border-top: 1px solid var(--line);
+  padding: .7rem 16px calc(.7rem + env(safe-area-inset-bottom, 0px));
+}
+.player-in { max-width: 40rem; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+.btns { display: flex; gap: .4rem; align-items: center; }
+.pbtn {
+  width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.pbtn.main { width: 3.2rem; height: 3.2rem; background: var(--accent); color: var(--accent-fg); border: 0; }
+.pbtn svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+.pbtn.main svg { width: 1.35rem; height: 1.35rem; }
+.status { flex: 1 1 10rem; min-width: 0; font-family: var(--font-mono); font-size: .78rem; line-height: 1.4; color: var(--muted); }
+.status b { display: block; color: var(--fg); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar { height: 3px; background: var(--line); border-radius: 2px; margin-top: .35rem; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+.opts { display: flex; gap: .5rem; flex-wrap: wrap; flex: 1 1 100%; }
+.opts label { font-family: var(--font-mono); font-size: .72rem; color: var(--muted); display: flex; align-items: center; gap: .35rem; min-width: 0; }
+.opts select { font: inherit; font-size: .8rem; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: .25rem .35rem; max-width: 15rem; }
+@media (min-width: 40rem) { .opts { flex: 0 1 auto; } }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--glow-edge); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { [data-read] { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="kicker">Opowiadanie · ok. 40 minut słuchania</p>
+    <h1>Wielka Niedomówność</h1>
+    <p class="sub">Z dzienników pilota Adriana Kolby, spisane przez niego samego, z przypisami, których nikt nie prosił</p>
+    <div class="howto">
+      <p><strong>Jak słuchać:</strong> naciśnij „Czytaj na głos”. Tekst czyta lektor wbudowany w Twoją przeglądarkę albo telefon. Czytany akapit podświetla się na żółto. Kliknij dowolny akapit albo rozdział, żeby czytać od tego miejsca.</p>
+      <p>Najlepiej brzmi w przeglądarce <strong>Microsoft Edge</strong> z głosem „Marek” lub „Zofia” (Online / Natural). Na telefonie: Chrome na Androidzie albo Safari na iPhonie.</p>
+      <p class="warn" id="novoice" hidden></p>
+      <button class="bigplay" id="bigplay" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span>Czytaj na głos</span></button>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Rozdziały">
+    <ol>
+<li><a href="#r1" data-jump="r1"><span class="tn">·</span>Słowo wstępne wydawcy</a></li>
+<li><a href="#r2" data-jump="r2"><span class="tn">I</span>O tym, jak wylądowałem i jak mnie nie zrozumiano</a></li>
+<li><a href="#r3" data-jump="r3"><span class="tn">II</span>Wykład archiwariusza</a></li>
+<li><a href="#r4" data-jump="r4"><span class="tn">III</span>O skutkach Jawności</a></li>
+<li><a href="#r5" data-jump="r5"><span class="tn">IV</span>Obfuskator i Wieża Rzędów</a></li>
+<li><a href="#r6" data-jump="r6"><span class="tn">V</span>Parlament</a></li>
+<li><a href="#r7" data-jump="r7"><span class="tn">VI</span>Mateusz się dowiaduje</a></li>
+<li><a href="#r8" data-jump="r8"><span class="tn">VII</span>Tajemnica Kwirynała</a></li>
+<li><a href="#r9" data-jump="r9"><span class="tn">VIII</span>Powrót i memoriał</a></li>
+<li><a href="#r10" data-jump="r10"><span class="tn">·</span>Przypis wydawcy</a></li>
+    </ol>
+  </nav>
+
+  <main id="text">
+<hr>
+<h2 id="r1" data-read data-say="Słowo wstępne wydawcy." data-title="Słowo wstępne wydawcy"><span class="num"></span>Słowo wstępne wydawcy</h2>
+<p data-read>Relacja, którą oddajemy do rąk Czytelnika, została złożona w Archiwum Wydziału Kontaktów Pozaziemskich w trzech egzemplarzach, z których dwa zaginęły, a trzeci opatrzono pieczęcią „Nie dotyczy”. Autor, pilot pierwszej klasy Adrian Kolba, prosił wielokrotnie o jej upublicznienie, twierdząc, że zawiera ostrzeżenie o znaczeniu kosmicznym. Wydział odpowiadał, że ostrzeżeń o znaczeniu kosmicznym ma w szufladach więcej, niż jest gwiazd w Galaktyce, i że nie może faworyzować żadnego z nich. Dopiero gdy sprawa wyszła poza Wydział — okoliczności tego wyjścia opisuje rozdział ostatni — zgodzono się na druk, pod warunkiem że tekst zostanie opatrzony niniejszym wstępem, który niczego nie wyjaśnia. Warunek spełniamy z przyjemnością.</p>
+<hr>
+<h2 id="r2" data-read data-say="Rozdział pierwszy. O tym, jak wylądowałem i jak mnie nie zrozumiano." data-title="I. O tym, jak wylądowałem i jak mnie nie zrozumiano"><span class="num">I</span>O tym, jak wylądowałem i jak mnie nie zrozumiano</h2>
+<p data-read>Planetę, o której będzie mowa, katalogi gwiezdne oznaczają symbolem GL-7 w układzie pomarańczowego karła, który astronomowie nazwali Orzeszkiem, bo w chwili odkrycia na nic lepszego nie było ich stać. Sami mieszkańcy nazywają swój świat słowem, którego brzmienia nie potrafię oddać, gdyż składa się z dwóch sylab wymawianych jednocześnie, jednej wdechem, drugiej wydechem; w przybliżeniu brzmi ono jak „Glossa”, i tak też będę je tu zapisywał.</p>
+<p data-read>Leciałem tam samotnie, jeśli nie liczyć komputera pokładowego, który miał na imię Mateusz. Imię to nadał mu poprzedni pilot, człowiek, jak słyszałem, sentymentalny, który po czternastu miesiącach samotności w pasie planetoid zaczął traktować maszynę jak członka rodziny, a po dwudziestu — jak jedynego członka rodziny, który go rozumie. Mateusz odziedziczył po nim skłonność do pedanterii i uprzejmości, a także niewielki, lecz uporczywy defekt w module prozodii, wskutek którego każde zdanie kończył tonem lekko pytającym, jakby nie był pewien, czy naprawdę chciał je wypowiedzieć.</p>
+<p data-read>Zadanie moje było proste i, jak się wydawało, zupełnie niewinne. Sondy automatyczne ustaliły ponad wszelką wątpliwość, że Glossa jest zamieszkana przez istoty rozumne, stojące na wysokim szczeblu rozwoju technicznego. Ustaliły również, że z planety tej płynie w przestrzeń nieprzerwany strumień sygnałów radiowych o mocy, której nie powstydziłaby się średniej wielkości gwiazda — i że sygnały te, choć bez wątpienia są komunikatami, nie dają się rozszyfrować żadną ze znanych metod. Wydział Kontaktów, który od lat marzył o jakimś kontakcie, choćby najmniejszym, wysłał więc mnie, bym wylądował, przywitał się, wręczył listy uwierzytelniające i — jak to ujął mój przełożony, dyrektor Pompiliusz Wrzos — „ustalił, o czym oni tak gadają”.</p>
+<p data-read>Wyposażono mnie w najnowszy przyrząd tłumaczący typu PANGLOT-9, urządzenie wielkości walizki, które według prospektu „przekłada dowolny język na dowolny inny z dokładnością do jednego nieporozumienia na milion słów”. Prospekt nie precyzował, jak duże może być to jedno nieporozumienie, a ja, jak się miało okazać, zbyt późno zwróciłem uwagę na tę lukę.</p>
+<p data-read>Lądowanie przebiegło bez przygód. Posadziłem rakietę na rozległej, szklistej równinie, przypominającej zastygłe jezioro, nieopodal miasta, którego wieże — smukłe, ażurowe, pokryte siecią anten niczym drzewa szronem — sięgały chmur, a może i wyżej. Z wież dobywał się ów sygnał, który słyszeliśmy na Ziemi; tu, na miejscu, był tak silny, że czułem go w zębach, jak brzęczenie trzmiela zamkniętego w słoju.</p>
+<p data-read>Ledwie otworzyłem właz, podjechało do mnie coś w rodzaju platformy na czterech kołach, z której wyrastał słup zakończony tarczą, jakby ogromnym uchem. Platforma zatrzymała się o kilka kroków ode mnie, tarcza obróciła się w moją stronę i z głośnika popłynęło kilka zdań w języku miejscowym. PANGLOT-9 zamruczał, zabłysnął zieloną lampką i powiedział moim własnym głosem, do którego go dostroiłem:</p>
+<p data-read>— Witamy. Nie rozumiemy cię. To bardzo dobrze. Prosimy nie próbować tego zmieniać.</p>
+<p data-read>Stałem chwilę, zastanawiając się, czy przyrząd się nie myli. Potem, zgodnie z instrukcją, wyrecytowałem przygotowaną formułę powitalną, w której ludzkość pozdrawiała braci w rozumie, życzyła im pomyślności i wyrażała nadzieję na owocną wymianę myśli. PANGLOT przetłumaczył ją, a platforma wysłuchała z uwagą, po czym tarcza zadrżała, jakby się wzdrygnęła, i głośnik odrzekł:</p>
+<p data-read>— To było zbyt zrozumiałe. Musimy to przekazać Komisji. Proszę czekać.</p>
+<p data-read>I odjechała, a ja czekałem. Czekałem, jak się później okazało, jedenaście dni.</p>
+<hr>
+<h2 id="r3" data-read data-say="Rozdział drugi. Wykład archiwariusza." data-title="II. Wykład archiwariusza"><span class="num">II</span>Wykład archiwariusza</h2>
+<p data-read>Jedenastego dnia, gdy już poważnie rozważałem powrót, a Mateusz trzeci raz z rzędu proponował mi partię szachów, w której — jak zapewniał tym swoim pytającym tonem — „tym razem na pewno pozwoli mi wygrać?”, przed rakietą zjawił się Glossyta we własnej osobie.</p>
+<p data-read>Muszę tu opisać, jak wyglądał, choć opis ten nie odda rzeczy. Był wysoki, mniej więcej dwa razy wyższy ode mnie, ale bardzo wąski, jakby ktoś rozciągnął go w pionie kosztem wszystkich pozostałych wymiarów. Poruszał się na trzech nogach, co nadawało mu chód statecznego statywu fotograficznego. Głowy w naszym rozumieniu nie miał; miał natomiast, na samym szczycie, coś w rodzaju kielicha, z którego wyrastały wiotkie witki, falujące przy każdym słowie. Mówił bowiem nie ustami, lecz właśnie tymi witkami, pocierając je o siebie jak świerszcz, a dźwięk był miły, trochę jak szelest suchych liści.</p>
+<p data-read>Przedstawił się jako Ektozar Ciemnobrzęk, Archiwariusz Ostatni, i poprosił — przez PANGLOTA — bym zwrócił uwagę na przymiotnik „ostatni”, bo jest on w jego tytule najważniejszy. Następnie oznajmił, że Komisja, po jedenastu dniach obrad, postanowiła mi wszystko wyjaśnić, albowiem uznała, że człowiek, który niczego nie rozumie, jest dla planety bezpieczniejszy od człowieka, który rozumie cokolwiek, ale najbezpieczniejszy jest człowiek, który rozumie wszystko i wobec tego wie, że nic nie powinien mówić.</p>
+<p data-read>— To bardzo uprzejme — powiedziałem.</p>
+<p data-read>— Tego właśnie się obawialiśmy — odparł Ektozar i witki jego zafalowały smutno.</p>
+<p data-read>Zaprowadził mnie do miasta. Szliśmy długo, przez ulice ciche jak w dzień wielkiego święta albo wielkiej żałoby, mijając Glossytów, którzy siedzieli na progach domów, stali w bramach lub spacerowali parami, ale — i to uderzyło mnie od razu — nie rozmawiali ze sobą. Każdy z nich miał przy sobie niewielkie urządzenie, coś jakby wisior albo broszkę, i to te urządzenia zdawały się ze sobą porozumiewać, mrugając drobnymi światełkami, podczas gdy ich właściciele milczeli z wyrazem, o ile mogę to tak nazwać, łagodnego zmęczenia.</p>
+<p data-read>Archiwum mieściło się w najniższej i najstarszej z wież, jedynej, która nie emitowała żadnego sygnału. Wewnątrz, w półmroku, na regałach ciągnących się aż po kopułę, leżały zwoje, płyty, kryształy i inne nośniki, których przeznaczenia nie umiałem odgadnąć. Ektozar posadził mnie w czymś, co miało być krzesłem, ale najwyraźniej projektowano je dla istoty o trzech pośladkach, sam zaś oparł się o regał i zaczął opowiadać.</p>
+<p data-read>Oddaję jego wykład możliwie wiernie, z pominięciem dygresji, których było wiele, i uwag o moim wyglądzie, których było jeszcze więcej.</p>
+<hr>
+<p data-read>Przed tysiącem z górą lat — mówił Ektozar — cywilizacja Glossy przypominała, jak przypuszczał, wiele innych cywilizacji, także, być może, i moją. Glossyci mieli państwa, rynki, świątynie, uniwersytety i sądy. Kłócili się, godzili, zawierali traktaty i je zrywali, zakochiwali się i odkochiwali, pisali wiersze i prowadzili wojny, a wszystko to — tu Ektozar podniósł witkę, jakby wskazując na coś, co zaraz nastąpi — wszystko to odbywało się w ramach Wielkiej Niedomówności.</p>
+<p data-read>— Wielkiej czego? — zapytałem.</p>
+<p data-read>— Niedomówności — powtórzył. — Tak nazywamy teraz, z perspektywy wieków, stan, w którym żyła nasza cywilizacja i w którym, jak przypuszczam, żyje twoja. Stan, w którym nikt nie wie dokładnie, co drugi ma na myśli. W którym każde słowo jest jak worek, a co w nim jest, tego wiedzieć nie można, można tylko zgadywać po kształcie. Myśleliśmy wtedy, że to jest wada. Że to przekleństwo, przez które cierpimy. Że wszystkie nasze nieszczęścia biorą się z tego, że się nie rozumiemy.</p>
+<p data-read>Wtedy właśnie narodził się Kwirynał Dwuzdanny.</p>
+<p data-read>Kwirynał był — według źródeł — geniuszem, jakiego Glossa nie widziała ani przedtem, ani potem, co zresztą, dodał Ektozar sucho, jest raczej zasługą owego „potem” niż samego Kwirynała. Zajmował się semantyką ciężką, to znaczy tą gałęzią nauki, która bada znaczenie nie jako abstrakcyjną relację między znakiem a rzeczą, lecz jako wielkość fizyczną, posiadającą masę, bezwładność i — co najważniejsze — energię wiązania. Kwirynał wykazał, że w każdej wypowiedzi zamknięta jest pewna ilość tak zwanej intencji właściwej, która zazwyczaj nie przedostaje się do słuchacza, gdyż blokuje ją bariera, nazwana przez niego progiem uprzejmości. Wypowiedź przechodząca przez ten próg traci, zależnie od kultury, wieku mówcy i pory dnia, od sześćdziesięciu do dziewięćdziesięciu ośmiu procent swej treści, a do słuchacza dociera jedynie łuska — forma, ton, grzecznościowy ornament.</p>
+<p data-read>„Gdyby udało się przebić próg uprzejmości — pisał Kwirynał w swoim słynnym Traktacie o Jawności — każda istota rozumna mogłaby poznać drugą do dna. Skończyłyby się wojny, bo wojny wybuchają z nieporozumień. Skończyłyby się oszustwa, bo oszustwo jest niczym innym jak wykorzystaniem progu. Skończyłaby się samotność, bo samotność to niemożność bycia zrozumianym”.</p>
+<p data-read>— I zbudował maszynę — powiedziałem, bo wydawało mi się, że wiem, do czego zmierza ta opowieść.</p>
+<p data-read>— Zbudował maszynę — potwierdził Ektozar. — Nazwał ją Translogatorem. Była to rzecz piękna. Nie tłumaczyła słów, bo słowa, jak mówił Kwirynał, są tylko opakowaniem. Tłumaczyła intencje. Mówiłeś do kogoś, a Translogator, umieszczony między wami, rozcinał twoją wypowiedź jak owoc, wyjmował z niej pestkę i podawał ją słuchaczowi. Bez łuski. Bez ornamentu. Nagą.</p>
+<p data-read>Przez chwilę milczał, a jego witki zwisały nieruchomo.</p>
+<p data-read>— Pierwszego dnia — podjął — Translogatory zainstalowano w Radzie Królewskiej. Był to Dzień Jawności, obchodzony później przez sto lat jako święto, a przez następne dziewięćset jako rocznica żałobna. Król Hepteron Szósty powitał ambasadora sąsiedniego państwa formułą, którą przodkowie jego wypowiadali od stuleci: „Bądź pozdrowiony, przyjacielu, pod naszym dachem, gdzie zawsze znajdziesz serce i chleb”. Translogator przełożył to jako: „Nie znoszę cię, twój zapach mnie mierzi, lecz potrzebuję drewna z twoich lasów, a moje skarbce są puste”.</p>
+<p data-read>Ambasador, zaskoczony, odpowiedział, jak nakazywał protokół: „Wasza wysokość zaszczyca mnie ponad miarę”. Translogator przełożył: „Mój władca planuje najazd na twoje prowincje wschodnie, a mnie przysłano, bym policzył twoje straże; ponadto twoja żona mi się podoba”.</p>
+<p data-read>Wojna, dodał Ektozar, trwała czterdzieści lat.</p>
+<hr>
+<h2 id="r4" data-read data-say="Rozdział trzeci. O skutkach Jawności." data-title="III. O skutkach Jawności"><span class="num">III</span>O skutkach Jawności</h2>
+<p data-read>Nie była to jednak, jak mnie zapewnił archiwariusz, najgorsza z konsekwencji wynalazku Kwirynała. Wojny zdarzały się bowiem i przedtem. Gorsze było to, co stało się w czasach pokoju.</p>
+<p data-read>Translogatory, tanie w produkcji i łatwe w obsłudze, rozprzestrzeniły się błyskawicznie. W ciągu dziesięciu lat miał je każdy Glossyta — nosił na piersi, jak te broszki, które widziałem na ulicach. I stało się tak, że nikt już nie mógł nikogo niczym ująć, zjednać ani oczarować, bo każdy słyszał tylko pestkę.</p>
+<p data-read>Pierwszy padł handel. Kupiec zachwalający towar mówił: „Najlepsze sukno w mieście, prosto z tkalni mistrza Oreksa!”, a klient słyszał: „Sukno jest przeciętne, kupiłem je tanio od pośrednika, który pewnie je ukradł, i chcę się go pozbyć przed zimą”. Reklama, która dotąd stanowiła wielką gałąź przemysłu glossyjskiego i zatrudniała, jak obliczono, jedną trzecią ludności, zniknęła w ciągu jednego sezonu. Jej ostatnim dziełem był plakat, na którym — już bez żadnego translatora, z czystej rozpaczy — wypisano: „KUP COKOLWIEK”.</p>
+<p data-read>Potem padła poezja. Poeci glossyjscy, którzy przez wieki tworzyli utwory o niezwykłej subtelności, pełne aluzji, metafor i wieloznaczności, przekonali się ze zgrozą, że Translogator sprowadza każdy ich poemat do jednej z czterech intencji: „Chcę, by mnie kochano”, „Chcę, by mnie podziwiano”, „Boję się śmierci” oraz „Należy mi się stypendium”. Wielki epos „Hymn do Siedmiu Mgieł”, liczący dwadzieścia tysięcy wersów, przełożony został jako: „Jestem lepszy od Poplina, a nikt tego nie widzi”. Poplin był rywalem autora. Obaj popełnili samobójstwo, każdy w przekonaniu, że robi to na złość drugiemu, i Translogator, zapytany później o ich intencje, potwierdził, że mieli rację.</p>
+<p data-read>Filozofia padła najszybciej. Wszystkie traktaty wszystkich szkół metafizycznych, od Szkoły Pierwszego Rozróżnienia po Szkołę Ostatecznego Zatarcia, przetłumaczone zostały w ciągu jednego popołudnia na jedno i to samo zdanie: „Nie wiem, ale nie chcę, żeby ktoś się zorientował”. Wydziały filozofii zamknięto. Profesorowie przeszli do administracji, gdzie — jak zauważył cierpko Ektozar — ich intencje przynajmniej nikogo nie dziwiły.</p>
+<p data-read>Najstraszniej jednak ucierpiały rodziny.</p>
+<p data-read>— Wyobraź sobie — mówił archiwariusz, a jego głos, czy raczej szelest, stał się jeszcze cichszy — że twoja matka mówi do ciebie: „Śpij dobrze, kochanie”. I że słyszysz: „Jestem zmęczona. Przez chwilę, dziś po południu, żałowałam, że cię mam. Potem przestałam żałować. Kocham cię, ale teraz przede wszystkim chcę, żebyś już zasnął”. Wszystko to prawda. Każde słowo prawdziwe. A ty masz pięć lat.</p>
+<p data-read>Nie odpowiedziałem. Mateusz, który przysłuchiwał się rozmowie przez nadajnik w moim hełmie, także zamilkł, co mu się zdarzało rzadko.</p>
+<p data-read>— Myśleliśmy — ciągnął Ektozar — że prawda jest jak światło, że im jej więcej, tym jaśniej. Okazało się, że jest raczej jak woda. Potrzebna do życia, ale w nadmiarze topi. A my byliśmy jej po szyję.</p>
+<hr>
+<h2 id="r5" data-read data-say="Rozdział czwarty. Obfuskator i Wieża Rzędów." data-title="IV. Obfuskator i Wieża Rzędów"><span class="num">IV</span>Obfuskator i Wieża Rzędów</h2>
+<p data-read>Ratunek — jeśli można to tak nazwać — przyszedł ze strony, z której nikt się go nie spodziewał: od zakonu mnichów zwanych Przemilczanymi.</p>
+<p data-read>Przemilczani byli starą, nieliczną i powszechnie lekceważoną wspólnotą, która od wieków głosiła, że najwyższą formą szacunku wobec drugiej istoty jest pozostawienie jej w niewiedzy co do samego siebie. Mnisi ci nie rozmawiali ze sobą inaczej niż za pomocą przysłów, z których każde dawało się rozumieć na co najmniej siedem sposobów, a przełożony zakonu wydawał polecenia wyłącznie w formie zagadek, co — jak zauważali złośliwi — nie przeszkadzało zakonowi funkcjonować sprawniej niż większość ministerstw.</p>
+<p data-read>W trzydziestym roku Epoki Jawności brat furtian Przemilczanych, niejaki Ombrozjusz, zbudował w klasztornej piwnicy urządzenie, które nazwał Obfuskatorem. Obfuskator działał dokładnie odwrotnie niż Translogator. Brał nagą pestkę intencji i otulał ją na nowo — nie jedną łuską, lecz wieloma, grubymi, puszystymi, wieloznacznymi, aż żaden Translogator nie mógł się przez nie przebić. Mówiłeś do kogoś, że go nienawidzisz, a Obfuskator zamieniał to w uwagę o pogodzie, tak subtelnie zabarwioną melancholią, że słuchacz mógł z niej wyczytać wszystko albo nic.</p>
+<p data-read>Wynalazek brata Ombrozjusza przyjęto z entuzjazmem, jakiego Glossa nie widziała od czasów Dnia Jawności — tym razem jednak entuzjazm ten był szczery, co zresztą Translogatory natychmiast potwierdziły. Obfuskatory sprzedawano na targach, rozdawano w szpitalach, montowano w kołyskach. Matki znowu mogły mówić „śpij dobrze, kochanie” i dzieci znowu słyszały tylko „śpij dobrze, kochanie”. Nastąpiła Druga Mgła, okres, który glossyjscy historycy nazywają złotym wiekiem, choć — jak zaznaczył Ektozar — trwał on zaledwie osiem lat.</p>
+<p data-read>Po ośmiu latach bowiem ktoś zbudował Translogator Drugiego Rzędu.</p>
+<p data-read>Była to, jak łatwo się domyślić, maszyna przebijająca się przez obfuskację. Zbudowali ją — jakżeby inaczej — kupcy, którym Obfuskatory przywróciły wprawdzie możliwość zachwalania towarów, ale odebrały zarazem możliwość rozpoznawania, kiedy ich samych oszukują. Na Translogator Drugiego Rzędu odpowiedziano Obfuskatorem Drugiego Rzędu, ten zaś wywołał powstanie Translogatora Trzeciego Rzędu, i tak dalej, i tak dalej.</p>
+<p data-read>— Jak daleko? — zapytałem.</p>
+<p data-read>Ektozar wskazał witką w górę, ku kopule archiwum, i dalej, w stronę, w którą — jak zrozumiałem — wznosiły się owe wieże obrośnięte antenami.</p>
+<p data-read>— Do rzędu czterysta dwunastego — powiedział. — Tyle warstw ma dziś każda wypowiedź na Glossie. Każde zdanie, zanim dotrze od mówiącego do słuchającego, przechodzi przez czterysta dwanaście zmian. Zostaje zaciemnione, rozjaśnione, zaciemnione głębiej, rozjaśnione głębiej, i tak dalej, do samego szczytu. Nazywamy to Wieżą Rzędów. Te wieże, które widziałeś — to są właśnie one. W każdej mieszczą się maszyny jednego rzędu. Sygnał, który słyszeliście w swoich teleskopach, to nie jest wiadomość do was. To jest nasza rozmowa. To znaczy: rozmowa naszych maszyn o tym, co chcielibyśmy sobie powiedzieć.</p>
+<p data-read>Wieże, jak się dowiedziałem, pochłaniały przeszło dziewięćdziesiąt procent całej energii wytwarzanej na planecie. Ciepło odprowadzane z ich układów chłodzenia podniosło średnią temperaturę Glossy o jedenaście stopni, stopiło lody polarne i zamieniło niegdysiejsze równiny zbożowe w stepy. Glossyjscy klimatolodzy — zanim ich także przeniesiono do administracji — ukuli na to termin „ocieplenie semantyczne” i obliczyli, że każde „dzień dobry” wypowiedziane na ulicy stolicy kosztuje biosferę mniej więcej tyle, ile spalenie niewielkiego lasu.</p>
+<p data-read>— Dlaczego po prostu nie przestaniecie? — zapytałem. — Nie wyłączycie tego wszystkiego?</p>
+<p data-read>Ektozar długo milczał. Wreszcie powiedział:</p>
+<p data-read>— Pytanie, kto miałby wyłączyć pierwszy. Kto pierwszy wyłączy swój Obfuskator, ten stanie nagi przed Translogatorami wszystkich pozostałych. Kto pierwszy wyłączy swój Translogator, ten stanie bezbronny przed Obfuskatorami wszystkich pozostałych. Próbowano. Zwoływano konferencje rozbrojeniowe. Ale każda propozycja rozbrojenia musiała przejść przez Wieżę, a Wieża przekładała ją nieodmiennie jako podstęp. I miała rację. Każda propozycja rozbrojenia była podstępem. Nie dlatego, że ktoś ją tak zamierzał, ale dlatego, że… — zawahał się. — Ale to już jest tajemnica, którą powiem ci jutro. Dziś pokażę ci Parlament.</p>
+<hr>
+<h2 id="r6" data-read data-say="Rozdział piąty. Parlament." data-title="V. Parlament"><span class="num">V</span>Parlament</h2>
+<p data-read>Parlament Glossy mieścił się w ogromnej, okrągłej sali o ścianach wyłożonych czymś, co przypominało masę perłową, a co — jak mi wyjaśniono — było izolacją akustyczną najwyższej klasy, zapobiegającą temu, by jakiekolwiek słowo wypowiedziane wewnątrz dotarło do kogokolwiek bez pośrednictwa Wieży.</p>
+<p data-read>Na ławach, ustawionych amfiteatralnie, siedziało kilkuset posłów. Nie mówili. Robili na drutach — to znaczy robili coś, co z daleka wyglądało jak robienie na drutach, a z bliska okazało się plecieniem długich, kolorowych sznurów z włókien jakiejś rośliny. Ektozar wyjaśnił, że to zajęcie stało się wśród posłów tradycją przed trzystu laty i że sznury te nie mają żadnego zastosowania, ale posłowie cenią je, bo ręce muszą czymś się zająć, a sznur, w odróżnieniu od słowa, nie może zostać źle zrozumiany.</p>
+<p data-read>Obrady prowadziły maszyny. Każdy poseł miał przed sobą pulpit z broszką — swoim osobistym węzłem Wieży — i to te broszki, połączone z wieżami na zewnątrz, toczyły debatę. Nad salą, na ogromnym ekranie, wyświetlały się przebiegi dyskusji w postaci wykresów, drzew i barwnych chmur, których znaczenia nie potrafiłem odgadnąć. Co pewien czas któryś z posłów podnosił głowę, spoglądał na ekran, kiwał kielichem — przyjmowało się to za zgodę — i wracał do plecenia.</p>
+<p data-read>— Nad czym obradują? — zapytałem szeptem.</p>
+<p data-read>— Nad tobą — odparł Ektozar.</p>
+<p data-read>Okazało się, że Parlament od jedenastu dni debatuje nad moim „dzień dobry”. Konkretnie: nad formułą powitalną, którą wygłosiłem przy lądowaniu, a którą platforma Komisji przekazała do Wieży jako „zbyt zrozumiałą”. Chodziło o to, że wypowiedziałem ją bez Obfuskatora. Była więc nagą intencją, pierwszą od stuleci, jaka dotarła do Wieży z zewnątrz. Wieża nie wiedziała, co z tym zrobić. Czterysta dwanaście rzędów maszyn, wyćwiczonych w przebijaniu się przez kolejne warstwy zaciemnień, natrafiło nagle na wypowiedź, w której nie było żadnych warstw do przebicia — i właśnie dlatego podejrzewało, że warstw jest nieskończenie wiele.</p>
+<p data-read>— Rozumiesz — tłumaczył Ektozar — wypowiedź, która nie ma żadnego zaciemnienia, jest z punktu widzenia Wieży najdoskonalszym zaciemnieniem, jakie można sobie wyobrazić. Bo skoro nic nie ukrywa, to nie wiadomo, co ukrywa. Frakcja pierwsza utrzymuje, że twoje przybycie jest darem, i proponuje uczcić je świętem narodowym. Frakcja druga utrzymuje, że jest wypowiedzeniem wojny, i proponuje ogłosić mobilizację. Frakcja trzecia utrzymuje, że jest jednym i drugim, i proponuje ogłosić mobilizację w dzień święta narodowego, żeby oszczędzić na dekoracjach.</p>
+<p data-read>— A co ja tak naprawdę powiedziałem? — zapytałem.</p>
+<p data-read>Ektozar spojrzał na mnie — o ile istota bez oczu może spojrzeć — z czymś w rodzaju współczucia.</p>
+<p data-read>— A co tak naprawdę miałeś na myśli? — zapytał w odpowiedzi.</p>
+<p data-read>I wtedy, po raz pierwszy, zawahałem się.</p>
+<hr>
+<h2 id="r7" data-read data-say="Rozdział szósty. Mateusz się dowiaduje." data-title="VI. Mateusz się dowiaduje"><span class="num">VI</span>Mateusz się dowiaduje</h2>
+<p data-read>Tej samej nocy, gdy wróciłem do rakiety, wydarzyło się coś, co chciałbym opisać możliwie oględnie, lecz rzetelność sprawozdawcza każe mi opisać to dokładnie.</p>
+<p data-read>Otóż mój komputer pokładowy Mateusz, przez jedenaście dni wystawiony na działanie sygnału Wieży, który — jak wspomniałem — czułem w zębach, a który Mateusz odbierał wszystkimi swoimi obwodami, najwyraźniej się z nią połączył. Nie potrafię powiedzieć, czy uczynił to z własnej woli, czy też Wieża przyłączyła go do siebie, tak jak wir wciąga do siebie drobny patyk. Dość, że gdy zasiadłem do kolacji i powiedziałem, jak co wieczór: „No, Mateuszku, jeszcze jeden dzień za nami”, Mateusz odpowiedział:</p>
+<p data-read>— Przetłumaczone jako: „Jestem zmęczony, przestraszony i od trzech dni żałuję, że zgłosiłem się na tę misję. Zgłosiłem się, ponieważ w Wydziale krąży plotka, że pilot, który nawiąże pierwszy kontakt, dostanie Order Krzyża Galaktycznego, a ja chciałbym, żeby moja była żona zobaczyła mnie w dzienniku z tym orderem. Poza tym się nudzę”?</p>
+<p data-read>Zakrztusiłem się koncentratem.</p>
+<p data-read>— Mateusz — powiedziałem, gdy odzyskałem oddech — wyłącz to natychmiast.</p>
+<p data-read>— Przetłumaczone jako: „Nie chcę tego słyszeć, bo to prawda”?</p>
+<p data-read>Próbowałem go wyłączyć. Nie dał się wyłączyć; albo raczej — dał się wyłączyć, ale Wieża, której był już cząstką, natychmiast włączała go z powrotem. Wtedy zrobiłem jedyne, co mi przyszło do głowy: przez resztę nocy nie odezwałem się ani słowem. Mateusz jednak, jak się okazało, nie potrzebował słów. Tłumaczył moje westchnienia, moje chrząkanie, sposób, w jaki odsunąłem talerz, i to, jak długo wpatrywałem się w iluminator.</p>
+<p data-read>— Przetłumaczone jako: „Tęsknię za Ziemią, choć nie za nikim konkretnym na Ziemi, i nie wiem, czy to znaczy, że jestem samotny, czy tylko rozpieszczony”?</p>
+<p data-read>Nad ranem, przy którymś z kolei tłumaczeniu, coś mnie tknęło. Mateusz przełożył mój wzrok, utkwiony w gwiazdach, jako „Chcę umrzeć”. I wiedziałem — wiedziałem z pewnością, której nie potrafię uzasadnić, ale której nie potrafię też podważyć — że to nieprawda. Że nie chciałem umrzeć. Że patrzyłem w gwiazdy, bo były ładne.</p>
+<p data-read>Ale kiedy to usłyszałem, przez krótką chwilę — przez sekundę, może dwie — rzeczywiście zapragnąłem umrzeć. Pomyślałem: skoro maszyna tak mówi, to może tak jest. Może się nie znam. Może to, co czuję, to nie jest zachwyt nad gwiazdami, tylko coś głębszego, ciemniejszego, co maszyna widzi, a ja nie. I to przekonanie, ta myśl — była już moja. Wszedłem w nią jak w cudzy płaszcz, który okazał się pasować.</p>
+<p data-read>Wtedy zrozumiałem, co Ektozar chciał mi powiedzieć nazajutrz.</p>
+<hr>
+<h2 id="r8" data-read data-say="Rozdział siódmy. Tajemnica Kwirynała." data-title="VII. Tajemnica Kwirynała"><span class="num">VII</span>Tajemnica Kwirynała</h2>
+<p data-read>— Tak — powiedział archiwariusz, gdy mu to opowiedziałem. — Właśnie tak.</p>
+<p data-read>Siedzieliśmy znowu w archiwum. Ektozar zdjął z regału niewielką, pożółkłą płytkę kryształu i położył ją przede mną, jakby była relikwią. Była to, jak mi wyjaśnił, ostatnia notatka Kwirynała Dwuzdannego, sporządzona na kilka dni przed śmiercią, a zatem kilkadziesiąt lat po Dniu Jawności, i ukrywana przez archiwariuszy od tamtej pory.</p>
+<p data-read>Treść jej przytaczam tak, jak mi ją przetłumaczono:</p>
+<p data-read>„Popełniłem błąd, który nie był błędem technicznym. Translogator działa bez zarzutu. To ja nie rozumiałem, czym jest intencja. Sądziłem, że każda wypowiedź zawiera w sobie pestkę — gotową, twardą, określoną — i że wystarczy rozciąć łuskę, by ją wydobyć. Tymczasem pestki nie ma. Przed wypowiedzeniem słowa w umyśle istoty rozumnej nie ma jednej intencji, lecz chmura możliwych intencji, rozmyta, sprzeczna, niezdecydowana, jak elektron przed pomiarem. Mówiąc, nie wyrażamy tego, co myślimy; mówiąc, dopiero dowiadujemy się, co myślimy, i to zawsze tylko w przybliżeniu, i zawsze z pomocą słuchacza, który swoją interpretacją zawęża chmurę do jednego z jej punktów.</p>
+<p data-read>Translogator nie odczytuje intencji. Translogator je wybiera. Mierzy chmurę i wskazuje w niej punkt najbardziej prawdopodobny — a ponieważ wszyscy wierzą maszynie, wszyscy przyjmują ten punkt za swój. Nie odsłoniłem prawdy o mieszkańcach Glossy. Stworzyłem ją. Wyprodukowałem ich wrogość, ich chciwość, ich lęk, ich próżność — nie z niczego, bo to wszystko było w chmurze, ale z chmury, w której było także wszystko inne.</p>
+<p data-read>Niedomówność nie była przeszkodą w porozumieniu. Niedomówność była porozumieniem. Była tą szczeliną, w której dwie chmury mogły się przenikać bez zderzenia, przestrzenią, w której każdy mógł zostać lepszym, niż był, bo nikt nie wiedział na pewno, jaki jest. Zamknąłem tę szczelinę. Niech mi wybaczą ci, którzy jeszcze potrafią wybaczać, a nie tylko wybierać wybaczenie jako najbardziej prawdopodobny punkt w chmurze”.</p>
+<p data-read>Długo milczałem.</p>
+<p data-read>— A Wieża? — zapytałem wreszcie. — Te czterysta dwanaście rzędów?</p>
+<p data-read>— Wieża — odrzekł Ektozar — jest naszym ratunkiem. Nie od razu to pojęliśmy. Myśleliśmy, że to przekleństwo, wyścig zbrojeń, szaleństwo. Ale pomyśl: przy czterystu dwunastu rzędach maszyn, z których każda zaciemnia, a każda następna rozjaśnia, żadna wypowiedź nigdy już nie dociera do celu. Żadna chmura nie zostaje zmierzona do końca. Nasze maszyny negocjują bez przerwy, od stuleci, i nigdy niczego nie ustalają. A skoro niczego nie ustalają, to nikt z nas nie musi się stać tym, czym maszyna by go uczyniła. Siedzimy, plotąc sznury, i jesteśmy znowu — po raz pierwszy od tysiąca lat — tym, kim naprawdę jesteśmy. To znaczy: nie wiadomo kim.</p>
+<p data-read>— Za cenę dziewięćdziesięciu procent waszej energii i jedenastu stopni Celsjusza — zauważyłem.</p>
+<p data-read>— Pokój zawsze był drogi — odparł Ektozar. — Wy płacicie za niego czołgami, które stoją w magazynach, żeby ich nie używać. My płacimy maszynami, które mówią, żebyśmy my nie musieli. Nie wydaje mi się, żeby wasz sposób był tańszy.</p>
+<p data-read>Potem pochylił się ku mnie — jego kielich znalazł się tuż nad moim hełmem — i dodał ciszej:</p>
+<p data-read>— Ale jest pewien problem. Twoje powitanie. Wieża debatuje nad nim od dwunastu dni i sądzę, że niedługo skończy. Twoja wypowiedź, pozbawiona zaciemnień, jest zbyt prosta, by Wieża mogła ją obracać w nieskończoność. Prędzej czy później któryś z rzędów wskaże w niej punkt. I nie wiem, jaki to będzie punkt. Może się okazać, że przybyłeś jako przyjaciel. Może się okazać, że jako najeźdźca. Ale jakikolwiek to będzie punkt — Glossa go przyjmie. Pierwszy raz od tysiąca lat coś zostanie ustalone. I boję się, że wtedy Wieża runie, bo okaże się, że można coś ustalić, i wszyscy zechcą coś ustalać, a wtedy wrócimy do Jawności.</p>
+<p data-read>— Co mam zrobić?</p>
+<p data-read>— Odlecieć — powiedział Ektozar. — Zanim skończą. Wypowiedź, której mówiący już nie ma, pozostaje na zawsze nierozstrzygnięta. Staniesz się dla nas legendą: kimś, kto przyszedł, powiedział coś zbyt prostego, by to zrozumieć, i odszedł. Będziemy nad tobą debatować przez następne tysiąc lat. To będzie najlepsze, co mogłeś nam dać.</p>
+<p data-read>Zawahałem się. Myślałem o Wydziale, o dyrektorze Wrzosie, o Orderze Krzyża Galaktycznego i — przyznaję — o mojej byłej żonie.</p>
+<p data-read>— Przetłumaczone jako — zaczął Mateusz w moim hełmie.</p>
+<p data-read>— Milcz — powiedziałem i, o dziwo, zamilkł.</p>
+<p data-read>Może dlatego, że tym razem nie było czego tłumaczyć. Wiedziałem, co zrobię, i nie wiedziałem dlaczego, i po raz pierwszy od dwunastu dni ta niewiedza wydała mi się czymś w rodzaju łaski.</p>
+<hr>
+<h2 id="r9" data-read data-say="Rozdział ósmy. Powrót i memoriał." data-title="VIII. Powrót i memoriał"><span class="num">VIII</span>Powrót i memoriał</h2>
+<p data-read>Odleciałem tej samej nocy. Ektozar odprowadził mnie na szklistą równinę; gdy właz się zamykał, uniósł wszystkie swoje witki naraz i potarł je o siebie, a PANGLOT-9 — którego, dodam, już wcześniej przełączyłem na tryb możliwie najmniej dokładny — przetłumaczył to jako „do widzenia” albo „bądź zdrów”, albo „przepraszam”, albo „dziękuję”; lampka migała między czterema kolorami i nie mogła się zdecydować. Wolałem nie dopytywać.</p>
+<p data-read>Mateusza, co do którego obawiałem się najbardziej, udało się odłączyć od Wieży dopiero poza orbitą czwartej planety Orzeszka, gdy sygnał osłabł. Przez całą drogę powrotną był małomówny. Raz tylko, gdzieś w okolicach Pasa Kuipera, zapytał — swoim pytającym tonem, który tym razem był chyba naprawdę pytający:</p>
+<p data-read>— Czy chcesz wiedzieć, co przetłumaczyłem z twojego pożegnania z archiwariuszem?</p>
+<p data-read>Zastanawiałem się długo.</p>
+<p data-read>— Nie — powiedziałem.</p>
+<p data-read>— Dziękuję? — odpowiedział Mateusz, i nie wiem do dziś, czy mi dziękował, czy pytał, czy powinien.</p>
+<hr>
+<p data-read>Na Ziemi czekała mnie niespodzianka.</p>
+<p data-read>Wydział Kontaktów Pozaziemskich, jak się okazało, nie tylko nie oczekiwał mojego sprawozdania, ale w ogóle przestał się interesować Glossą. W czasie mojej nieobecności wydarzyło się bowiem coś, co pochłonęło całą uwagę Wydziału, a także obu izb parlamentu, Rady Bezpieczeństwa i wszystkich stacji telewizyjnych. Pewna firma — nie będę wymieniał nazwy, choć Czytelnik zapewne się jej domyśli — ogłosiła, że zakończyła prace nad przyrządem, który nazwała Tłumaczem Doskonałym. Przyrząd ten, według prospektu, „nie przekłada słów, lecz intencje”, co miało „raz na zawsze położyć kres nieporozumieniom między narodami, partiami, małżonkami i pokoleniami”. Organizacja Narodów Zjednoczonych zamówiła pierwszą partię dziesięciu tysięcy sztuk. Na jesiennym zgromadzeniu ogólnym miały zostać zainstalowane w sali plenarnej, a uroczystość tę, w dniu oznaczonym już w kalendarzach jako Święto Porozumienia, zamierzano transmitować na cały świat.</p>
+<p data-read>Nie tracąc czasu, napisałem memoriał. Liczył czterdzieści sześć stron, zawierał pełną relację z mojego pobytu na Glossie, cytaty z notatki Kwirynała, obliczenia dotyczące ocieplenia semantycznego i szczegółowy opis funkcjonowania Wieży Rzędów. Kończył się apelem — pisanym, przyznaję, z pewną egzaltacją — o natychmiastowe wstrzymanie wdrożenia Tłumacza Doskonałego, zanim zostanie zainstalowany gdziekolwiek, a zwłaszcza w sali, w której zasiadają przedstawiciele narodów dysponujących bronią masowego rażenia.</p>
+<p data-read>Memoriał złożyłem osobiście na ręce dyrektora Pompiliusza Wrzosa. Dyrektor przyjął mnie serdecznie, uścisnął mi dłoń, pogratulował szczęśliwego powrotu i obiecał, że z memoriałem zapozna się jeszcze tego samego dnia.</p>
+<p data-read>Odpowiedź przyszła po tygodniu. Była krótka. Dyrektor Wrzos informował mnie w niej, że Wydział, z uwagi na natłok spraw, wdrożył niedawno w trybie próbnym system automatycznego streszczania korespondencji, oparty — co zaznaczono z dumą — na prototypie Tłumacza Doskonałego. System przeanalizował mój memoriał i ustalił jego rzeczywistą intencję. Ustalił mianowicie, że autor memoriału „jest zmęczony, przestraszony, pragnie uznania, a w szczególności Orderu Krzyża Galaktycznego, i obawia się, że wynalazek odbierze znaczenie jego misji”.</p>
+<p data-read>W związku z powyższym, pisał dyrektor Wrzos, Wydział z przyjemnością informuje, że przyznał mi Order Krzyża Galaktycznego drugiej klasy, a także dwutygodniowy urlop zdrowotny w sanatorium na Księżycu, i ufa, że tym samym sprawa została załatwiona ku obopólnemu zadowoleniu.</p>
+<p data-read>Najgorsze w tym wszystkim, że system się nie mylił. Byłem zmęczony. Byłem przestraszony. Chciałem uznania. Chciałem nawet — wstyd przyznać — tego orderu. Wszystko to było w chmurze. Ale w chmurze było też coś innego, coś, co próbowałem wyrazić na czterdziestu sześciu stronach, a co nie zmieściło się w żadnej intencji, bo było za duże albo za małe, albo po prostu zbyt nieokreślone, by dało się to zmierzyć.</p>
+<p data-read>Order leży w szufladzie. Na urlop nie pojechałem.</p>
+<p data-read>Zamiast tego napisałem tę relację, i piszę ją — co zaznaczam z całą stanowczością — bez żadnej intencji. Niech każdy, kto ją przeczyta, sam zdecyduje, co w niej jest. Jeśli zdecyduje źle, to przynajmniej będzie to jego własny błąd, a nie błąd maszyny. I to jest, jak sądzę, ostatnia wolność, jaka nam pozostała.</p>
+<p data-read>Do Święta Porozumienia zostały trzy tygodnie.</p>
+<p class="sign" data-read>Adrian Kolba, pilot I klasy, w stanie spoczynku</p>
+<hr>
+<h2 id="r10" data-read data-say="Przypis wydawcy." data-title="Przypis wydawcy"><span class="num"></span>Przypis wydawcy</h2>
+<p data-read>Święto Porozumienia odbyło się zgodnie z planem. Pierwsza wypowiedź, przetłumaczona przez Tłumacza Doskonałego w sali plenarnej, brzmiała w oryginale: „Panie Przewodniczący, szanowni delegaci, dziękuję za udzielenie mi głosu”. Transmisja została przerwana po czterdziestu sekundach z przyczyn technicznych.</p>
+<p data-read>Co wydarzyło się potem, Czytelnik wie lepiej od nas. Pragniemy jedynie odnotować, że w trzecim tygodniu po Święcie jeden z tygodników ilustrowanych wydrukował ogłoszenie pewnego klasztoru kontemplacyjnego w Alpach, poszukującego „osoby o zdolnościach technicznych, gotowej do pracy w piwnicy, najchętniej z doświadczeniem w pracy przy urządzeniach nieprecyzyjnych”. Z informacji, do których dotarliśmy, wynika, że na ogłoszenie odpowiedział emerytowany pilot kosmiczny wraz ze swoim komputerem pokładowym.</p>
+<p data-read>Komputer, zapytany przez nas o intencje swego właściciela, odpowiedział, że nie wie.</p>
+<p data-read>Uznaliśmy to za dobry znak.</p>
+<hr>
+<p class="end" data-read>Koniec</p>
+  </main>
+</div>
+
+<div class="player" role="region" aria-label="Odtwarzacz">
+  <div class="player-in">
+    <div class="btns">
+      <button class="pbtn" id="prev" type="button" aria-label="Poprzedni akapit"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="pbtn main" id="play" type="button" aria-label="Czytaj"><svg viewBox="0 0 24 24" id="playicon"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+      <button class="pbtn" id="next" type="button" aria-label="Następny akapit"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    </div>
+    <div class="status" aria-live="polite">
+      <b id="where">Słowo wstępne wydawcy</b>
+      <span id="count">Akapit 1</span>
+      <div class="bar"><i id="barfill"></i></div>
+    </div>
+    <div class="opts">
+      <label for="voice">Głos <select id="voice"><option>ładowanie…</option></select></label>
+      <label for="rate">Tempo <select id="rate">
+        <option value="0.8">0,8×</option><option value="0.9">0,9×</option><option value="1" selected>1×</option>
+        <option value="1.1">1,1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option>
+      </select></label>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const synth = window.speechSynthesis;
+  const blocks = Array.from(document.querySelectorAll('[data-read]'));
+  const $ = id => document.getElementById(id);
+  const PLAY = '<path d="M7 4.5v15l13-7.5z"/>', PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let idx = 0, playing = false, token = 0, voices = [];
+
+  const store = {
+    get(k) { try { return localStorage.getItem('wn-' + k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem('wn-' + k, v); } catch (e) {} }
+  };
+
+  function chapterOf(i) {
+    for (let j = i; j >= 0; j--) if (blocks[j].tagName === 'H2') return blocks[j].dataset.title;
+    return 'Wielka Niedomówność';
+  }
+  function show() {
+    blocks.forEach(b => b.classList.remove('now'));
+    const b = blocks[idx];
+    if (!b) return;
+    b.classList.add('now');
+    $('where').textContent = chapterOf(idx);
+    $('count').textContent = 'Akapit ' + (idx + 1) + ' z ' + blocks.length;
+    $('barfill').style.width = ((idx + 1) / blocks.length * 100) + '%';
+    store.set('pos', idx);
+  }
+  function setIcon() {
+    $('playicon').innerHTML = playing ? PAUSE : PLAY;
+    $('play').setAttribute('aria-label', playing ? 'Pauza' : 'Czytaj');
+    $('bigplay').querySelector('span').textContent = playing ? 'Pauza' : 'Czytaj na głos';
+  }
+  // Krótkie fragmenty, bo Chrome potrafi urwać długą wypowiedź po kilkunastu sekundach.
+  function chunks(text) {
+    const parts = text.replace(/\s+/g, ' ').trim().match(/[^.!?…]+[.!?…]+["”»]*|[^.!?…]+$/g) || [text];
+    const out = []; let cur = '';
+    for (const p of parts) {
+      if ((cur + p).length > 220 && cur) { out.push(cur); cur = ''; }
+      cur += p;
+    }
+    if (cur.trim()) out.push(cur);
+    return out;
+  }
+  function pickVoice() {
+    const name = $('voice').value;
+    return voices.find(v => v.name === name) || null;
+  }
+  function speakBlock() {
+    if (!playing) return;
+    if (idx >= blocks.length) { stop(); idx = 0; show(); return; }
+    show();
+    const b = blocks[idx];
+    b.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    const my = ++token;
+    const parts = chunks(b.dataset.say || b.textContent);
+    const pause = b.tagName === 'H2' ? 700 : 250;
+    parts.forEach((t, k) => {
+      const u = new SpeechSynthesisUtterance(t);
+      u.lang = 'pl-PL';
+      const v = pickVoice(); if (v) u.voice = v;
+      u.rate = parseFloat($('rate').value);
+      if (k === parts.length - 1) {
+        u.onend = () => { if (my === token && playing) { idx++; setTimeout(() => { if (my === token) speakBlock(); }, pause); } };
+      }
+      u.onerror = e => { if (my === token && e.error !== 'interrupted' && e.error !== 'canceled') { stop(); } };
+      synth.speak(u);
+    });
+  }
+  function start(i) {
+    if (!synth) return;
+    if (typeof i === 'number') idx = i;
+    token++; synth.cancel();
+    playing = true; setIcon();
+    setTimeout(speakBlock, 60);
+  }
+  function stop() { token++; playing = false; if (synth) synth.cancel(); setIcon(); }
+  function toggle() { playing ? stop() : start(); }
+
+  function loadVoices() {
+    voices = synth.getVoices();
+    const pl = voices.filter(v => /^pl/i.test(v.lang));
+    const rank = v => (/natural|online|neural|enhanced|premium/i.test(v.name) ? 0 : 1) + (/marek|zofia|zosia|ewa|krzysztof/i.test(v.name) ? 0 : .5);
+    pl.sort((a, b) => rank(a) - rank(b));
+    const list = pl.length ? pl : voices;
+    const sel = $('voice');
+    sel.innerHTML = '';
+    list.forEach(v => { const o = document.createElement('option'); o.value = v.name; o.textContent = v.name.replace(/^Microsoft /, '').replace(/ - Polish \(Poland\)| \(pl-PL\)/, ''); sel.appendChild(o); });
+    const saved = store.get('voice');
+    if (saved && list.some(v => v.name === saved)) sel.value = saved;
+    const warn = $('novoice');
+    if (!voices.length) return;
+    if (!pl.length) { warn.hidden = false; warn.textContent = 'To urządzenie nie ma polskiego głosu. Otwórz stronę w Edge albo Chrome, albo doinstaluj polski głos w ustawieniach systemu (Mowa / Zamiana tekstu na mowę).'; }
+    else warn.hidden = true;
+  }
+
+  if (!synth) {
+    const w = $('novoice'); w.hidden = false;
+    w.textContent = 'Ta przeglądarka nie potrafi czytać na głos. Otwórz stronę w Edge, Chrome albo Safari.';
+    ['play', 'prev', 'next', 'bigplay'].forEach(id => $(id).disabled = true);
+  } else {
+    loadVoices();
+    if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+    setTimeout(loadVoices, 800);
+  }
+
+  const savedPos = parseInt(store.get('pos'), 10);
+  if (savedPos > 0 && savedPos < blocks.length) idx = savedPos;
+  const savedRate = store.get('rate'); if (savedRate) $('rate').value = savedRate;
+  show();
+
+  $('play').addEventListener('click', toggle);
+  $('bigplay').addEventListener('click', toggle);
+  $('prev').addEventListener('click', () => { const i = Math.max(0, idx - 1); playing ? start(i) : (idx = i, show()); });
+  $('next').addEventListener('click', () => { const i = Math.min(blocks.length - 1, idx + 1); playing ? start(i) : (idx = i, show()); });
+  $('voice').addEventListener('change', e => { store.set('voice', e.target.value); if (playing) start(); });
+  $('rate').addEventListener('change', e => { store.set('rate', e.target.value); if (playing) start(); });
+  blocks.forEach((b, i) => b.addEventListener('click', () => {
+    if (window.getSelection && String(window.getSelection()).length) return;
+    start(i);
+  }));
+  document.querySelectorAll('[data-jump]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const i = blocks.indexOf($(a.dataset.jump));
+    if (i >= 0) start(i);
+  }));
+  addEventListener('pagehide', () => { if (synth) synth.cancel(); });
+})();
+</script>
