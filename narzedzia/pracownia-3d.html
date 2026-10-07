@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Pracownia 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: warsztat — wąska szyna kształtów | widok 3D nad stołem drukarki | kolumna właściwości */
+:root {
+  --bg: #e6e9ec;
+  --surface: #f6f7f8;
+  --surface-2: #dde2e7;
+  --ink: #18202a;
+  --ink-2: #55606d;
+  --line: #c6cdd5;
+  --accent: #d4831a;
+  --accent-ink: #1c1204;
+  --accent-soft: #f3dfc1;
+  --ok: #24804f;
+  --warn: #9a6200;
+  --bad: #b8352a;
+  --ax-x: #c4443a;
+  --ax-y: #3a8f4c;
+  --ax-z: #3570c4;
+  --viewport: #d2d8de;
+  --bed: #c9a86b;
+  --bed-line: #b08e52;
+  --bed-line-major: #8a6a32;
+  --hole: #7c8794;
+  --hole-line: #4d5763;
+  --volume-line: #8d98a4;
+  --f-display: "Chakra Petch", "Bahnschrift", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101419; --surface: #171c22; --surface-2: #222930; --ink: #e4e8ec; --ink-2: #97a1ad; --line: #2d353f;
+    --accent: #f0a03a; --accent-ink: #1c1204; --accent-soft: #3b2a12;
+    --ok: #5cc28a; --warn: #e7b04a; --bad: #ff7a6b;
+    --ax-x: #ff7b70; --ax-y: #6fd283; --ax-z: #79a8ff;
+    --viewport: #0c1014; --bed: #3a3124; --bed-line: #554631; --bed-line-major: #7a6440;
+    --hole: #93a0ad; --hole-line: #c3ccd5; --volume-line: #3e4954;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101419; --surface: #171c22; --surface-2: #222930; --ink: #e4e8ec; --ink-2: #97a1ad; --line: #2d353f;
+  --accent: #f0a03a; --accent-ink: #1c1204; --accent-soft: #3b2a12;
+  --ok: #5cc28a; --warn: #e7b04a; --bad: #ff7a6b;
+  --ax-x: #ff7b70; --ax-y: #6fd283; --ax-z: #79a8ff;
+  --viewport: #0c1014; --bed: #3a3124; --bed-line: #554631; --bed-line-major: #7a6440;
+  --hole: #93a0ad; --hole-line: #c3ccd5; --volume-line: #3e4954;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.45 var(--f-body);
+  padding-inline: 16px;
+  padding-block: 12px;
+}
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 320px;
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas: "top top top" "rail stage panel";
+  gap: 12px;
+}
+
+/* ---------- górny pasek ---------- */
+.topbar { grid-area: top; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 600 19px/1 var(--f-display); letter-spacing: .02em; white-space: nowrap; }
+.brand svg { width: 26px; height: 26px; color: var(--accent); }
+.proj { flex: 1 1 180px; min-width: 0; max-width: 340px; }
+.proj input {
+  width: 100%; border: 1px solid transparent; background: transparent; border-radius: 6px;
+  padding: 6px 8px; font-weight: 500; color: var(--ink-2);
+}
+.proj input:hover, .proj input:focus { border-color: var(--line); background: var(--surface); color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-left: auto; }
+.sep { width: 1px; height: 22px; background: var(--line); margin-inline: 4px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 7px 12px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface); color: var(--ink); font-size: 13px; font-weight: 500;
+  cursor: pointer; white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: var(--surface-2); }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.icon { padding: 6px 8px; }
+.btn.icon svg { width: 18px; height: 18px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 85%, var(--ink)); }
+.btn.danger { color: var(--bad); }
+.btn.armed { background: var(--bad); border-color: var(--bad); color: var(--surface); }
+
+/* ---------- szyna kształtów ---------- */
+.rail {
+  grid-area: rail; display: flex; flex-direction: column; gap: 4px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 6px; overflow-y: auto;
+}
+.rail h2 { font: 600 10px/1 var(--f-display); text-transform: uppercase; letter-spacing: .1em; color: var(--ink-2); text-align: center; padding: 6px 0 4px; margin: 0; }
+.shape {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 7px 2px 6px; border: 1px solid transparent; border-radius: 6px;
+  background: transparent; cursor: pointer; font-size: 10.5px; line-height: 1.15; color: var(--ink-2);
+}
+.shape svg { width: 30px; height: 30px; color: var(--ink); }
+.shape:hover { background: var(--surface-2); color: var(--ink); }
+.shape.holeish svg { color: var(--hole); }
+
+/* ---------- widok 3D ---------- */
+.stage { grid-area: stage; min-width: 0; min-height: 0; }
+.viewport {
+  position: relative; width: 100%; height: 100%; min-height: 320px;
+  border-radius: var(--r); overflow: hidden; background: var(--viewport);
+  border: 1px solid var(--line);
+}
+.viewport canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.hud {
+  position: absolute; top: 10px; left: 10px; max-width: calc(100% - 20px);
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+  padding: 6px 10px; border-radius: 6px; pointer-events: none;
+  background: color-mix(in srgb, var(--surface) 88%, transparent); border: 1px solid var(--line);
+  font-size: 12px;
+}
+.hud b { font-weight: 600; }
+.hud .m { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.vp-bar {
+  position: absolute; left: 8px; right: 8px; bottom: 8px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 6px;
+  pointer-events: none;
+}
+.vp-bar > div { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; pointer-events: auto; }
+.seg {
+  display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+.seg button { border: 0; background: transparent; padding: 6px 10px; font-size: 12.5px; cursor: pointer; color: var(--ink-2); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button:hover:not(:disabled) { color: var(--ink); background: var(--surface-2); }
+.seg button.on { background: var(--ink); color: var(--surface); }
+.seg button:disabled { opacity: .4; cursor: default; }
+.seg.wide { display: flex; }
+.seg.wide button { flex: 1; }
+.snap {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 4px 3px 10px; font-size: 12.5px; color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 6px; background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+.snap select { border: 0; background: transparent; padding: 3px; font-family: var(--f-mono); font-size: 12px; }
+#btn-preview[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+/* ---------- panel ---------- */
+.panel { grid-area: panel; min-width: 0; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.card h2 {
+  margin: 0; display: flex; justify-content: space-between; align-items: baseline;
+  font: 600 12px/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .09em; color: var(--ink-2);
+}
+.card h2 small { font: 400 12px var(--f-mono); letter-spacing: 0; text-transform: none; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+legend { padding: 0; margin-bottom: 6px; font-size: 12px; font-weight: 600; }
+legend small { font-weight: 400; color: var(--ink-2); margin-left: 4px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.field > span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; }
+.field input, .field select {
+  width: 100%; min-width: 0; padding: 6px 7px; border: 1px solid var(--line); border-radius: 5px;
+  background: var(--bg); font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums;
+}
+.field select { font-family: var(--f-body); }
+.ax-x { color: var(--ax-x) !important; }
+.ax-y { color: var(--ax-y) !important; }
+.ax-z { color: var(--ax-z) !important; }
+.sel-head { display: flex; gap: 8px; align-items: center; }
+.name-in { flex: 1; min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); font-weight: 600; }
+.type-tag { font-size: 11px; color: var(--ink-2); white-space: nowrap; }
+.check { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-2); cursor: pointer; }
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sw {
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  cursor: pointer; padding: 0;
+}
+.sw.on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+.sw-custom { position: relative; width: 24px; height: 24px; border-radius: 50%; overflow: hidden; border: 1px dashed var(--ink-2); cursor: pointer; }
+.sw-custom input { position: absolute; inset: -6px; width: 40px; height: 40px; border: 0; padding: 0; cursor: pointer; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn-row .btn { flex: 1 1 auto; }
+.align { display: grid; grid-template-columns: auto 1fr; gap: 6px 8px; align-items: center; font-size: 12px; }
+.align .seg button { padding: 5px 8px; font-size: 12px; }
+.hint, .note { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+.note { font-size: 11.5px; }
+.tips { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; font-size: 12.5px; color: var(--ink-2); }
+kbd {
+  font: 500 11px var(--f-mono); padding: 1px 5px; border: 1px solid var(--line); border-bottom-width: 2px;
+  border-radius: 4px; background: var(--bg); color: var(--ink); white-space: nowrap;
+}
+.stats { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.stats div { min-width: 0; }
+.stats dt { font-size: 11px; color: var(--ink-2); }
+.stats dd { margin: 2px 0 0; font: 500 15px/1.25 var(--f-mono); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid; }
+.chip.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.chip.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.chip.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
+.chip.busy { color: var(--ink-2); border-color: var(--line); }
+.outliner { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow-y: auto; }
+.ol {
+  width: 100%; display: flex; align-items: center; gap: 8px; padding: 6px 8px; border: 0; border-radius: 5px;
+  background: transparent; cursor: pointer; text-align: left;
+}
+.ol:hover { background: var(--surface-2); }
+.ol.on { background: var(--accent-soft); }
+.ol .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ol .tp { font-size: 11px; color: var(--ink-2); }
+.dot { width: 12px; height: 12px; border-radius: 3px; flex: none; border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+.dot.hole { background: repeating-linear-gradient(135deg, var(--hole) 0 2px, transparent 2px 4px); }
+.empty { font-size: 12.5px; color: var(--ink-2); padding: 4px 2px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  max-width: min(520px, calc(100vw - 32px)); padding: 10px 14px; border-radius: 8px;
+  background: var(--ink); color: var(--surface); font-size: 13px; box-shadow: 0 6px 24px rgb(0 0 0 / .25);
+  opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 10;
+}
+.toast.show { opacity: 1; }
+.boot { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ink-2); font-size: 13px; text-align: center; padding: 16px; }
+
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  .app {
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "top" "rail" "stage" "panel";
+  }
+  .rail { flex-direction: row; overflow-x: auto; overflow-y: hidden; }
+  .rail h2 { display: none; }
+  .shape { flex: 0 0 64px; }
+  .stage { height: 62svh; min-height: 340px; }
+  .panel { overflow: visible; }
+  .actions { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+</style>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 3h14v8l-4 5h-6l-4-5z"/><path d="M13 16l3 5 3-5"/><path d="M5 28h22M8 24.5h16" stroke-linecap="round"/>
+      </svg>
+      <span>Pracownia 3D</span>
+    </div>
+    <div class="proj"><input id="proj-name" aria-label="Nazwa projektu" value="Kubek na długopisy" spellcheck="false"></div>
+    <div class="actions">
+      <button class="btn icon" id="btn-undo" title="Cofnij (Ctrl+Z)" aria-label="Cofnij" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></svg>
+      </button>
+      <button class="btn icon" id="btn-redo" title="Ponów (Ctrl+Shift+Z)" aria-label="Ponów" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 000 10h3"/></svg>
+      </button>
+      <span class="sep"></span>
+      <button class="btn" id="btn-new">Nowy</button>
+      <button class="btn" id="btn-open">Otwórz…</button>
+      <input type="file" id="file-in" accept=".json,.stl,application/json" hidden>
+      <button class="btn" id="btn-save">Zapisz projekt</button>
+      <button class="btn primary" id="btn-export">Eksport STL</button>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Dodaj kształt"><h2>Dodaj</h2></nav>
+
+  <main class="stage">
+    <div class="viewport" id="viewport">
+      <div class="boot" id="boot">Ładuję silnik 3D…</div>
+      <div class="hud" id="hud" hidden></div>
+      <div class="vp-bar">
+        <div>
+          <div class="seg" id="modes" role="group" aria-label="Narzędzie">
+            <button data-mode="translate" class="on" title="Przesuń (W)">Przesuń</button>
+            <button data-mode="rotate" title="Obróć (E)">Obróć</button>
+            <button data-mode="scale" title="Skaluj (R)">Skaluj</button>
+          </div>
+          <label class="snap">Skok
+            <select id="snap-sel">
+              <option value="0">wył.</option>
+              <option value="0.1">0,1 mm</option>
+              <option value="0.5">0,5 mm</option>
+              <option value="1" selected>1 mm</option>
+              <option value="5">5 mm</option>
+              <option value="10">10 mm</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <div class="seg" id="views" role="group" aria-label="Widok">
+            <button data-view="iso" title="Widok 3D">3D</button>
+            <button data-view="top" title="Widok z góry">Góra</button>
+            <button data-view="front" title="Widok z przodu">Przód</button>
+            <button data-view="fit" title="Dopasuj widok (F)">Dopasuj</button>
+          </div>
+          <button class="btn" id="btn-preview" aria-pressed="false" title="Pokaż model po połączeniu brył i wycięciu otworów (P)">Podgląd wydruku</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="panel" id="panel">
+    <section class="card" id="sec-sel" aria-live="polite"></section>
+    <section class="card">
+      <h2>Model do druku <small id="st-busy"></small></h2>
+      <dl class="stats">
+        <div><dt>Wymiary X × Y × Z</dt><dd id="st-size">—</dd></div>
+        <div><dt>Objętość</dt><dd id="st-vol">—</dd></div>
+        <div><dt>Masa PLA*</dt><dd id="st-mass">—</dd></div>
+        <div><dt>Filament Ø1,75*</dt><dd id="st-len">—</dd></div>
+      </dl>
+      <div class="chips" id="st-chips"></div>
+      <label class="field"><span>Drukarka (rozmiar stołu)</span><select id="bed-sel"></select></label>
+      <p class="note">* Przy 100% wypełnienia, gęstość PLA 1,24 g/cm³. Rzeczywiste zużycie zależy od wypełnienia i liczby ścianek ustawionych w slicerze.</p>
+    </section>
+    <section class="card">
+      <h2>Obiekty <small id="ol-count"></small></h2>
+      <ul class="outliner" id="outliner"></ul>
+    </section>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+    "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js",
+    "three-bvh-csg": "https://cdn.jsdelivr.net/npm/three-bvh-csg@0.0.17/build/index.module.js"
+  }
+}
+</script>
+<script>
+  // Komunikat, gdy biblioteki 3D się nie wczytają (np. brak internetu).
+  setTimeout(() => {
+    const b = document.getElementById('boot');
+    if (b && !b.hidden) b.textContent = 'Nie udało się wczytać silnika 3D. Sprawdź połączenie z internetem i odśwież stronę.';
+  }, 15000);
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
+import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
+import { Brush, Evaluator, ADDITION, SUBTRACTION } from 'three-bvh-csg';
+
+const $ = s => document.querySelector(s);
+const deg = THREE.MathUtils.degToRad;
+const toDeg = THREE.MathUtils.radToDeg;
+const r2 = v => Math.round(v * 100) / 100;
+const fmt = (v, d = 1) => Number(v).toLocaleString('pl-PL', { minimumFractionDigits: d, maximumFractionDigits: d });
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const tok = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888888';
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ======================= Dane: drukarki, kolory, kształty ======================= */
+const BEDS = {
+  ender3:   { label: 'Creality Ender 3 · 220×220×250', size: [220, 220, 250] },
+  mk4:      { label: 'Prusa MK4 · 250×210×220', size: [250, 210, 220] },
+  mini:     { label: 'Prusa MINI · 180×180×180', size: [180, 180, 180] },
+  a1:       { label: 'Bambu Lab A1 / P1S / X1C · 256×256×256', size: [256, 256, 256] },
+  a1mini:   { label: 'Bambu Lab A1 mini · 180×180×180', size: [180, 180, 180] },
+  neptune4: { label: 'Elegoo Neptune 4 · 225×225×265', size: [225, 225, 265] },
+  kobra2:   { label: 'Anycubic Kobra 2 · 220×220×250', size: [220, 220, 250] },
+  big:      { label: 'Duża drukarka · 300×300×300', size: [300, 300, 300] },
+};
+const SWATCHES = [
+  ['#ece8df', 'Biały'], ['#2b2f36', 'Czarny'], ['#8c939c', 'Szary'], ['#d9822b', 'Pomarańczowy'],
+  ['#e0b53a', 'Żółty'], ['#c43d3d', 'Czerwony'], ['#3f9b5a', 'Zielony'], ['#3a7bd5', 'Niebieski'],
+];
+const PLA_DENSITY = 1.24;                         // g/cm³
+const FILAMENT_AREA = Math.PI * 0.875 * 0.875;    // mm² dla Ø1,75 mm
+
+const ICON = {
+  box: '<path d="M16 4l11 6v12l-11 6-11-6V10z"/><path d="M5 10l11 6 11-6M16 16v12"/>',
+  cylinder: '<ellipse cx="16" cy="8" rx="10" ry="4"/><path d="M6 8v16c0 2.2 4.5 4 10 4s10-1.8 10-4V8"/>',
+  sphere: '<circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="11" ry="4"/>',
+  halfsphere: '<path d="M5 22a11 11 0 0122 0"/><ellipse cx="16" cy="22" rx="11" ry="4"/>',
+  cone: '<path d="M16 4L6 24M16 4l10 20"/><ellipse cx="16" cy="24" rx="10" ry="4"/>',
+  pyramid: '<path d="M16 4L4 22l10 6 14-7z"/><path d="M16 4l-2 24M16 4l12 17"/>',
+  hex: '<path d="M9 7h14l6 6-6 6H9l-6-6z"/><path d="M3 13v6l6 6h14l6-6v-6M9 19v6M23 19v6"/>',
+  wedge: '<path d="M4 26V8l24 18z"/><path d="M4 8l6-4 22 18-4 4M28 26"/>',
+  tube: '<ellipse cx="16" cy="8" rx="10" ry="4"/><ellipse cx="16" cy="8" rx="5" ry="2"/><path d="M6 8v16c0 2.2 4.5 4 10 4s10-1.8 10-4V8"/>',
+  torus: '<ellipse cx="16" cy="16" rx="13" ry="8"/><ellipse cx="16" cy="15" rx="5" ry="2.4"/>',
+};
+
+const halfSphereGeo = () => {
+  const pts = [new THREE.Vector2(0, 0), new THREE.Vector2(0.5, 0)];
+  for (let i = 0; i <= 18; i++) { const a = (i / 18) * Math.PI / 2; pts.push(new THREE.Vector2(0.5 * Math.cos(a), 0.5 * Math.sin(a))); }
+  return new THREE.LatheGeometry(pts, 64).rotateX(Math.PI / 2);
+};
+const wedgeGeo = () => {
+  const s = new THREE.Shape(); s.moveTo(0, 0); s.lineTo(1, 0); s.lineTo(0, 1); s.closePath();
+  return new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false }).rotateX(Math.PI / 2);
+};
+const tubeGeo = o => {
+  const R = 0.5, ri = Math.max(0.01, Math.min(R - 0.004, R - o.wall / o.w));
+  const s = new THREE.Shape(); s.absarc(0, 0, R, 0, Math.PI * 2, false);
+  const h = new THREE.Path(); h.absarc(0, 0, ri, 0, Math.PI * 2, true); s.holes.push(h);
+  return toCreasedNormals(new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false, curveSegments: 72 }), Math.PI / 6);
+};
+const torusGeo = o => {
+  const r = Math.min(0.24, (o.h / o.w) / 2), R = Math.max(0.5 - r, r * 1.05);
+  return new THREE.TorusGeometry(R, r, 32, 96);
+};
+
+const TYPES = {
+  box:        { label: 'Prostopadłościan', short: 'Kostka', def: [20, 20, 20], build: () => new THREE.BoxGeometry(1, 1, 1) },
+  cylinder:   { label: 'Walec', short: 'Walec', def: [20, 20, 20], build: () => new THREE.CylinderGeometry(0.5, 0.5, 1, 72).rotateX(Math.PI / 2) },
+  sphere:     { label: 'Kula', short: 'Kula', def: [20, 20, 20], build: () => new THREE.SphereGeometry(0.5, 64, 40) },
+  halfsphere: { label: 'Półkula', short: 'Półkula', def: [20, 20, 10], build: halfSphereGeo },
+  cone:       { label: 'Stożek', short: 'Stożek', def: [20, 20, 20], build: () => new THREE.ConeGeometry(0.5, 1, 72).rotateX(Math.PI / 2) },
+  pyramid:    { label: 'Ostrosłup', short: 'Ostrosłup', def: [20, 20, 20], flat: true, build: () => new THREE.ConeGeometry(0.5, 1, 4).rotateY(Math.PI / 4).rotateX(Math.PI / 2) },
+  hex:        { label: 'Graniastosłup sześciokątny', short: 'Sześciokąt', def: [20, 17.32, 8], flat: true, build: () => new THREE.CylinderGeometry(0.5, 0.5, 1, 6).rotateX(Math.PI / 2).rotateZ(Math.PI / 2) },
+  wedge:      { label: 'Klin', short: 'Klin', def: [20, 20, 20], flat: true, build: wedgeGeo },
+  tube:       { label: 'Rura', short: 'Rura', def: [20, 20, 20], param: o => (o.wall / o.w).toFixed(3), build: tubeGeo },
+  torus:      { label: 'Torus', short: 'Torus', def: [30, 30, 8], param: o => (o.h / o.w).toFixed(3), build: torusGeo },
+  mesh:       { label: 'Siatka', short: 'Siatka', def: [20, 20, 20] },
+};
+
+/* Każdy kształt sprowadzamy do bryły 1×1×1 z początkiem w środku podstawy.
+   Wymiary w mm to po prostu skala obiektu, więc liczby w panelu są dokładne. */
+function finish(g, flat) {
+  if (flat) { if (g.index) g = g.toNonIndexed(); g.computeVertexNormals(); }
+  g.deleteAttribute('uv');
+  g.clearGroups();
+  g.computeBoundingBox();
+  const b = g.boundingBox, s = new THREE.Vector3(); b.getSize(s);
+  g.translate(-(b.min.x + b.max.x) / 2, -(b.min.y + b.max.y) / 2, -b.min.z);
+  g.scale(1 / s.x, 1 / s.y, 1 / s.z);
+  if (!g.attributes.normal) g.computeVertexNormals();
+  g.computeBoundingBox(); g.computeBoundingSphere();
+  return g;
+}
+const geoCache = new Map();
+const meshGeoCache = new WeakMap();
+function unitGeo(o) {
+  if (o.type === 'mesh') {
+    let g = meshGeoCache.get(o.geo);
+    if (!g) {
+      const raw = new THREE.BufferGeometry();
+      raw.setAttribute('position', new THREE.BufferAttribute(o.geo, 3));
+      g = toCreasedNormals(raw, Math.PI / 6);
+      g.computeBoundingBox(); g.computeBoundingSphere();
+      meshGeoCache.set(o.geo, g);
+    }
+    return g;
+  }
+  const T = TYPES[o.type];
+  const key = o.type + (T.param ? ':' + T.param(o) : '');
+  let g = geoCache.get(key);
+  if (!g) { g = finish(T.build(o), T.flat); geoCache.set(key, g); }
+  return g;
+}
+const edgeCache = new WeakMap();
+function edgesOf(g) {
+  let e = edgeCache.get(g);
+  if (!e) { e = new THREE.EdgesGeometry(g, 28); edgeCache.set(g, e); }
+  return e;
+}
+
+/* ======================= Stan ======================= */
+let objects = [];
+let selected = [];
+let nextId = 1;
+let mode = 'translate';
+let snap = 1;
+let lockProp = false;
+let bedKey = 'ender3';
+let previewMode = false;
+const undoStack = [], redoStack = [];
+
+function makeObj(type, extra = {}) {
+  const T = TYPES[type];
+  const [w, d, h] = T.def;
+  const n = objects.filter(o => o.type === type).length + 1;
+  const o = {
+    id: nextId++, type, name: `${T.short} ${n}`, hole: false,
+    color: SWATCHES[(objects.length + 3) % SWATCHES.length][0],
+    w, d, h, x: 0, y: 0, z: 0, rx: 0, ry: 0, rz: 0, ...extra,
+  };
+  if (type === 'tube' && o.wall == null) o.wall = 2;
+  return o;
+}
+const byId = id => objects.find(o => o.id === id);
+const sel1 = () => selected.length === 1 ? byId(selected[0]) : null;
+const selObjs = () => selected.map(byId).filter(Boolean);
+
+function cloneState() { return { objects: objects.map(o => ({ ...o })), selected: [...selected] }; }
+function snapshot() {
+  undoStack.push(cloneState());
+  if (undoStack.length > 150) undoStack.shift();
+  redoStack.length = 0;
+  updateUndoButtons();
+}
+function restore(s) {
+  objects = s.objects;
+  selected = s.selected.filter(id => objects.some(o => o.id === id));
+  nextId = Math.max(nextId, ...objects.map(o => o.id + 1));
+  syncAll();
+}
+function undo() { if (!undoStack.length) return; redoStack.push(cloneState()); restore(undoStack.pop()); toast('Cofnięto'); }
+function redo() { if (!redoStack.length) return; undoStack.push(cloneState()); restore(redoStack.pop()); toast('Ponowiono'); }
+function updateUndoButtons() { $('#btn-undo').disabled = !undoStack.length; $('#btn-redo').disabled = !redoStack.length; }
+
+/* ======================= Scena ======================= */
+const vp = $('#viewport');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+vp.prepend(renderer.domElement);
+$('#boot').hidden = true;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(36, 1, 0.5, 20000);
+camera.up.set(0, 0, 1);
+camera.position.set(190, -300, 230);
+const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.target.set(0, 0, 20);
+orbit.enableDamping = !reduceMotion;
+orbit.update();
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0x8c8478, 1.5); hemi.position.set(0, 0, 1); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 1.7); sun.position.set(150, -220, 320); scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffffff, 0.45); fill.position.set(-220, 180, 120); scene.add(fill);
+
+const bedGroup = new THREE.Group(); scene.add(bedGroup);
+function buildBed() {
+  bedGroup.children.slice().forEach(c => { bedGroup.remove(c); c.geometry?.dispose(); c.material?.dispose(); });
+  const [bx, by, bz] = BEDS[bedKey].size;
+  const plate = new THREE.Mesh(
+    new THREE.PlaneGeometry(bx, by),
+    new THREE.MeshStandardMaterial({ color: tok('--bed'), roughness: 0.95, polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 2 })
+  );
+  bedGroup.add(plate);
+  const minor = [], major = [];
+  for (let x = 0; x <= bx / 2; x += 10) for (const s of x ? [1, -1] : [1]) (x % 50 ? minor : major).push(s * x, -by / 2, 0.02, s * x, by / 2, 0.02);
+  for (let y = 0; y <= by / 2; y += 10) for (const s of y ? [1, -1] : [1]) (y % 50 ? minor : major).push(-bx / 2, s * y, 0.02, bx / 2, s * y, 0.02);
+  const lines = (arr, color, opacity) => {
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(arr, 3));
+    return new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
+  };
+  bedGroup.add(lines(minor, tok('--bed-line'), 0.8));
+  bedGroup.add(lines(major, tok('--bed-line-major'), 0.9));
+  const vol = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(bx, by, bz)), new THREE.LineBasicMaterial({ color: tok('--volume-line'), transparent: true, opacity: 0.7 }));
+  vol.position.z = bz / 2; bedGroup.add(vol);
+  const ox = -bx / 2, oy = -by / 2;
+  bedGroup.add(lines([ox, oy, 0.05, ox + 25, oy, 0.05], tok('--ax-x'), 1));
+  bedGroup.add(lines([ox, oy, 0.05, ox, oy + 25, 0.05], tok('--ax-y'), 1));
+  bedGroup.add(lines([ox, oy, 0.05, ox, oy, 25], tok('--ax-z'), 1));
+}
+
+const tc = new TransformControls(camera, renderer.domElement);
+tc.setSize(0.85);
+scene.add(tc.getHelper());
+const pivot = new THREE.Object3D(); scene.add(pivot);
+const lastPivot = new THREE.Vector3();
+
+const meshes = new Map();
+let selHelpers = [];
+let previewMesh = null;
+
+function matFor(o) {
+  if (o.hole) return new THREE.MeshStandardMaterial({ color: tok('--hole'), transparent: true, opacity: 0.3, depthWrite: false, roughness: 0.6, side: THREE.DoubleSide });
+  return new THREE.MeshStandardMaterial({ color: o.color, roughness: 0.55, metalness: 0 });
+}
+function ensureMesh(o) {
+  let m = meshes.get(o.id);
+  const g = unitGeo(o);
+  if (!m) {
+    m = new THREE.Mesh(g, matFor(o));
+    m.userData = { id: o.id, hole: o.hole, color: o.color, edges: null };
+    scene.add(m); meshes.set(o.id, m);
+  }
+  const dropEdges = () => { if (m.userData.edges) { m.remove(m.userData.edges); m.userData.edges.material.dispose(); m.userData.edges = null; } };
+  if (m.geometry !== g) { m.geometry = g; dropEdges(); }
+  if (m.userData.hole !== o.hole || m.userData.color !== o.color) {
+    m.material.dispose(); m.material = matFor(o);
+    m.userData.hole = o.hole; m.userData.color = o.color; dropEdges();
+  }
+  if (o.hole && !m.userData.edges) {
+    const e = new THREE.LineSegments(edgesOf(g), new THREE.LineBasicMaterial({ color: tok('--hole-line'), transparent: true, opacity: 0.85 }));
+    e.raycast = () => {};
+    m.add(e); m.userData.edges = e;
+  }
+  m.position.set(o.x, o.y, o.z);
+  m.rotation.set(deg(o.rx), deg(o.ry), deg(o.rz));
+  m.scale.set(o.w, o.d, o.h);
+  m.renderOrder = o.hole ? 2 : 0;
+  m.visible = !previewMode;
+}
+
+function syncAll() {
+  for (const [id, m] of meshes) {
+    if (!objects.some(o => o.id === id)) { scene.remove(m); m.material.dispose(); meshes.delete(id); }
+  }
+  objects.forEach(ensureMesh);
+  refreshSelection();
+  renderPanel();
+  renderOutliner();
+  updateHud();
+  markDirty();
+  saveLocalSoon();
+  updateUndoButtons();
+}
+
+function refreshSelection() {
+  selected = selected.filter(id => meshes.has(id));
+  const acc = new THREE.Color(tok('--accent'));
+  for (const [id, m] of meshes) {
+    const on = selected.includes(id);
+    m.material.emissive.copy(on ? acc : new THREE.Color(0));
+    m.material.emissiveIntensity = on ? 0.22 : 0;
+  }
+  selHelpers.forEach(h => { scene.remove(h); h.geometry.dispose(); h.material.dispose(); });
+  selHelpers = previewMode ? [] : selected.map(id => { const h = new THREE.BoxHelper(meshes.get(id), acc); scene.add(h); return h; });
+  if (previewMode || !selected.length) tc.detach();
+  else if (selected.length === 1) { tc.attach(meshes.get(selected[0])); tc.setMode(mode); }
+  else {
+    const c = new THREE.Vector3();
+    selected.forEach(id => c.add(meshes.get(id).position));
+    pivot.position.copy(c.divideScalar(selected.length));
+    lastPivot.copy(pivot.position);
+    tc.attach(pivot); tc.setMode('translate');
+  }
+  document.querySelectorAll('#modes button').forEach(b => {
+    b.classList.toggle('on', b.dataset.mode === (selected.length > 1 ? 'translate' : mode));
+    b.disabled = selected.length > 1 && b.dataset.mode !== 'translate';
+  });
+}
+
+/* ======================= Gizmo i wybieranie ======================= */
+function applySnap() {
+  tc.setTranslationSnap(snap || null);
+  tc.setRotationSnap(snap ? deg(15) : null);
+}
+applySnap();
+
+tc.addEventListener('dragging-changed', e => {
+  orbit.enabled = !e.value;
+  if (e.value) snapshot();
+  else finishDrag();
+});
+tc.addEventListener('objectChange', () => {
+  if (tc.object === pivot) {
+    const d = pivot.position.clone().sub(lastPivot);
+    lastPivot.copy(pivot.position);
+    selObjs().forEach(o => { o.x += d.x; o.y += d.y; o.z += d.z; meshes.get(o.id).position.set(o.x, o.y, o.z); });
+  } else {
+    const o = sel1(); if (!o) return;
+    const m = meshes.get(o.id);
+    o.x = m.position.x; o.y = m.position.y; o.z = m.position.z;
+    o.rx = toDeg(m.rotation.x); o.ry = toDeg(m.rotation.y); o.rz = toDeg(m.rotation.z);
+    o.w = Math.max(0.1, Math.abs(m.scale.x)); o.d = Math.max(0.1, Math.abs(m.scale.y)); o.h = Math.max(0.1, Math.abs(m.scale.z));
+  }
+  updatePanelValues(); updateHud();
+});
+function finishDrag() {
+  const step = snap || 0.01;
+  for (const o of selObjs()) {
+    for (const k of ['x', 'y', 'z']) o[k] = r2(o[k]);
+    for (const k of ['rx', 'ry', 'rz']) o[k] = r2(o[k]);
+    for (const k of ['w', 'd', 'h']) o[k] = Math.max(step, r2(Math.round(o[k] / step) * step));
+    if (o.type === 'tube') o.wall = Math.min(o.wall, Math.min(o.w, o.d) / 2 - 0.1);
+  }
+  syncAll();
+}
+
+const raycaster = new THREE.Raycaster();
+let down = null;
+renderer.domElement.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, gizmo: tc.dragging || !!tc.axis }; });
+renderer.domElement.addEventListener('pointerup', e => {
+  if (!down) return;
+  const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), gizmo = down.gizmo;
+  down = null;
+  if (moved > 5 || gizmo || previewMode) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  raycaster.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
+  const hit = raycaster.intersectObjects([...meshes.values()], false)[0];
+  const id = hit?.object.userData.id;
+  if (e.shiftKey || e.ctrlKey || e.metaKey) {
+    if (id != null) selected = selected.includes(id) ? selected.filter(x => x !== id) : [...selected, id];
+  } else selected = id != null ? [id] : [];
+  selectionChanged();
+});
+function selectionChanged() { refreshSelection(); renderPanel(); renderOutliner(); updateHud(); }
+
+/* ======================= Operacje na obiektach ======================= */
+function addShape(type) {
+  exitPreview();
+  snapshot();
+  const o = makeObj(type);
+  const step = snap || 1;
+  // Szukamy wolnego miejsca na stole najbliżej środka widoku.
+  const taken = objects.map(worldBox);
+  const free = (x, y) => !taken.some(b => x + o.w / 2 + 3 > b.min.x && x - o.w / 2 - 3 < b.max.x && y + o.d / 2 + 3 > b.min.y && y - o.d / 2 - 3 < b.max.y);
+  const [bx, by] = BEDS[bedKey].size;
+  let spot = [orbit.target.x, orbit.target.y];
+  search: for (let r = 0; r <= Math.max(bx, by) / 2; r += 10) {
+    for (let a = 0; a < 16; a++) {
+      const x = orbit.target.x + r * Math.cos(a * Math.PI / 8), y = orbit.target.y + r * Math.sin(a * Math.PI / 8);
+      if (Math.abs(x) + o.w / 2 <= bx / 2 && Math.abs(y) + o.d / 2 <= by / 2 && free(x, y)) { spot = [x, y]; break search; }
+      if (!r) break;
+    }
+  }
+  o.x = Math.round(spot[0] / step) * step;
+  o.y = Math.round(spot[1] / step) * step;
+  objects.push(o);
+  selected = [o.id];
+  syncAll();
+}
+function worldBox(o) { const m = meshes.get(o.id); m.updateMatrixWorld(true); return new THREE.Box3().setFromObject(m, true); }
+function unionBox(list) { const b = new THREE.Box3(); list.forEach(o => b.union(worldBox(o))); return b; }
+
+function act(name) {
+  const list = selObjs();
+  if (!list.length && !['all'].includes(name)) return;
+  switch (name) {
+    case 'drop': {
+      snapshot();
+      const b = unionBox(list);
+      list.forEach(o => { o.z = r2(o.z - b.min.z); });
+      toast('Położono na stole'); break;
+    }
+    case 'center': {
+      snapshot();
+      const b = unionBox(list), c = new THREE.Vector3(); b.getCenter(c);
+      list.forEach(o => { o.x = r2(o.x - c.x); o.y = r2(o.y - c.y); });
+      toast('Wyśrodkowano na stole'); break;
+    }
+    case 'dup': {
+      snapshot();
+      const copies = list.map(o => ({ ...o, id: nextId++, name: o.name + ' (kopia)', x: o.x + 10, y: o.y - 10 }));
+      objects.push(...copies); selected = copies.map(o => o.id);
+      toast(copies.length > 1 ? `Zduplikowano ${copies.length} obiekty` : 'Zduplikowano'); break;
+    }
+    case 'del': {
+      snapshot();
+      objects = objects.filter(o => !selected.includes(o.id)); selected = [];
+      toast('Usunięto (Ctrl+Z przywraca)'); break;
+    }
+    case 'hole': case 'solid': {
+      snapshot();
+      list.forEach(o => { o.hole = name === 'hole'; });
+      break;
+    }
+    case 'group': return groupSelected();
+  }
+  syncAll();
+}
+function align(axis, where) {
+  const list = selObjs(); if (list.length < 2) return;
+  snapshot();
+  const u = unionBox(list), uc = new THREE.Vector3(); u.getCenter(uc);
+  list.forEach(o => {
+    const b = worldBox(o), c = new THREE.Vector3(); b.getCenter(c);
+    const delta = where === 'min' ? u.min[axis] - b.min[axis] : where === 'max' ? u.max[axis] - b.max[axis] : uc[axis] - c[axis];
+    o[axis] = r2(o[axis] + delta);
+  });
+  syncAll();
+}
+
+/* ======================= CSG: bryły łączone, otwory wycinane ======================= */
+const evaluator = new Evaluator();
+evaluator.attributes = ['position', 'normal'];
+evaluator.useGroups = false;
+
+function brushFor(o) {
+  const b = new Brush(unitGeo(o));
+  b.position.set(o.x, o.y, o.z);
+  b.rotation.set(deg(o.rx), deg(o.ry), deg(o.rz));
+  b.scale.set(o.w, o.d, o.h);
+  b.updateMatrixWorld(true);
+  return b;
+}
+function csgOf(list) {
+  const solids = list.filter(o => !o.hole), holes = list.filter(o => o.hole);
+  if (!solids.length) return null;
+  let acc = brushFor(solids[0]);
+  let touched = false;
+  for (const s of solids.slice(1)) { acc = evaluator.evaluate(acc, brushFor(s), ADDITION); touched = true; }
+  for (const h of holes) { acc = evaluator.evaluate(acc, brushFor(h), SUBTRACTION); touched = true; }
+  const g = touched ? acc.geometry : acc.geometry.clone().applyMatrix4(acc.matrixWorld);
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', g.attributes.position.clone());
+  if (g.index) out.setIndex(g.index.clone());
+  out.computeBoundingBox();
+  return out;
+}
+function triPositions(geo) {
+  const p = geo.attributes.position.array, idx = geo.index?.array;
+  if (!idx) return p;
+  const out = new Float32Array(idx.length * 3);
+  for (let i = 0; i < idx.length; i++) { out[i * 3] = p[idx[i] * 3]; out[i * 3 + 1] = p[idx[i] * 3 + 1]; out[i * 3 + 2] = p[idx[i] * 3 + 2]; }
+  return out;
+}
+function volumeOf(pos) {
+  let v = 0;
+  for (let i = 0; i < pos.length; i += 9) {
+    const ax = pos[i], ay = pos[i + 1], az = pos[i + 2], bx = pos[i + 3], by = pos[i + 4], bz = pos[i + 5], cx = pos[i + 6], cy = pos[i + 7], cz = pos[i + 8];
+    v += ax * (by * cz - bz * cy) - ay * (bx * cz - bz * cx) + az * (bx * cy - by * cx);
+  }
+  return Math.abs(v / 6);
+}
+
+let result = null, resultValid = false, statsTimer = 0;
+function markDirty() {
+  resultValid = false;
+  clearTimeout(statsTimer);
+  $('#st-busy').textContent = 'liczę…';
+  statsTimer = setTimeout(updateStats, 380);
+}
+function getResult() {
+  if (!resultValid) {
+    try { result = csgOf(objects); }
+    catch (err) { console.error(err); result = null; toast('Nie udało się połączyć brył. Spróbuj lekko przesunąć otwór, by nie pokrywał się idealnie ze ścianą.'); }
+    resultValid = true;
+    if (previewMode) showPreviewMesh();
+  }
+  return result;
+}
+function updateStats() {
+  const g = getResult();
+  $('#st-busy').textContent = '';
+  const chips = [];
+  if (!g) {
+    ['#st-size', '#st-vol', '#st-mass', '#st-len'].forEach(s => { $(s).textContent = '—'; });
+    chips.push(['busy', objects.length ? 'Same otwory, brak brył do druku' : 'Stół jest pusty']);
+  } else {
+    const b = g.boundingBox, s = new THREE.Vector3(); b.getSize(s);
+    const vol = volumeOf(triPositions(g));                    // mm³
+    $('#st-size').textContent = `${fmt(s.x)} × ${fmt(s.y)} × ${fmt(s.z)} mm`;
+    $('#st-vol').textContent = `${fmt(vol / 1000, 2)} cm³`;
+    $('#st-mass').textContent = `${fmt(vol / 1000 * PLA_DENSITY, 1)} g`;
+    $('#st-len').textContent = `${fmt(vol / FILAMENT_AREA / 1000, 2)} m`;
+    const [bx, by, bz] = BEDS[bedKey].size;
+    const fits = b.min.x >= -bx / 2 - 0.01 && b.max.x <= bx / 2 + 0.01 && b.min.y >= -by / 2 - 0.01 && b.max.y <= by / 2 + 0.01 && b.max.z <= bz + 0.01;
+    const fitsRotated = s.x <= bx && s.y <= by && s.z <= bz;
+    chips.push(fits ? ['ok', 'Mieści się na stole'] : fitsRotated ? ['warn', 'Wystaje poza stół – przesuń lub wyśrodkuj'] : ['bad', 'Za duży na tę drukarkę']);
+    if (b.min.z < -0.05) chips.push(['bad', `Część modelu jest pod stołem (${fmt(b.min.z, 1)} mm)`]);
+    else if (b.min.z > 0.05) chips.push(['warn', `Model wisi ${fmt(b.min.z, 1)} mm nad stołem`]);
+    else chips.push(['ok', 'Leży na stole']);
+  }
+  $('#st-chips').innerHTML = chips.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join('');
+}
+
+function groupSelected() {
+  const list = selObjs();
+  if (list.length < 2) { toast('Zaznacz co najmniej dwa obiekty (Shift + klik), aby je zgrupować.'); return; }
+  let g;
+  try { g = csgOf(list); } catch (err) { console.error(err); g = null; }
+  if (!g) { toast('Grupa musi zawierać co najmniej jedną bryłę.'); return; }
+  snapshot();
+  const o = meshFromWorld(triPositions(g), list.find(x => !x.hole).name.replace(/ \d+$/, '') + ' – grupa', list.find(x => !x.hole).color);
+  objects = objects.filter(x => !selected.includes(x.id));
+  objects.push(o); selected = [o.id];
+  syncAll();
+  toast('Zgrupowano: bryły połączone, otwory wycięte');
+}
+function meshFromWorld(pos, name, color) {
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.computeBoundingBox();
+  const b = g.boundingBox, s = new THREE.Vector3(); b.getSize(s);
+  s.x = s.x || 0.01; s.y = s.y || 0.01; s.z = s.z || 0.01;
+  const cx = (b.min.x + b.max.x) / 2, cy = (b.min.y + b.max.y) / 2;
+  const unit = new Float32Array(pos.length);
+  for (let i = 0; i < pos.length; i += 3) {
+    unit[i] = (pos[i] - cx) / s.x; unit[i + 1] = (pos[i + 1] - cy) / s.y; unit[i + 2] = (pos[i + 2] - b.min.z) / s.z;
+  }
+  return makeObj('mesh', { name, color, geo: unit, w: r2(s.x), d: r2(s.y), h: r2(s.z), x: r2(cx), y: r2(cy), z: r2(b.min.z) });
+}
+
+/* ======================= Podgląd wydruku ======================= */
+function showPreviewMesh() {
+  if (previewMesh) { scene.remove(previewMesh); previewMesh.material.dispose(); previewMesh = null; }
+  if (!result) return;
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(triPositions(result), 3));
+  const solid = objects.find(o => !o.hole);
+  previewMesh = new THREE.Mesh(toCreasedNormals(g, Math.PI / 6), new THREE.MeshStandardMaterial({ color: solid?.color || '#d9822b', roughness: 0.5 }));
+  scene.add(previewMesh);
+}
+function setPreview(on) {
+  previewMode = on;
+  $('#btn-preview').setAttribute('aria-pressed', String(on));
+  if (on) { getResult(); showPreviewMesh(); }
+  else if (previewMesh) { scene.remove(previewMesh); previewMesh.material.dispose(); previewMesh = null; }
+  meshes.forEach(m => { m.visible = !on; });
+  refreshSelection(); updateHud();
+}
+function exitPreview() { if (previewMode) setPreview(false); }
+
+/* ======================= Panel ======================= */
+let lastPanelKey = '';
+function num(k, label, v, ax = '') {
+  return `<label class="field"><span class="${ax ? 'ax-' + ax : ''}">${label}</span><input type="number" step="any" inputmode="decimal" id="f-${k}" data-k="${k}" value="${r2(v)}"></label>`;
+}
+function swatches(cur) {
+  return `<div class="swatches" role="group" aria-label="Kolor filamentu">${SWATCHES.map(([c, n]) =>
+    `<button class="sw ${c === cur ? 'on' : ''}" data-color="${c}" style="background:${c}" title="${n}" aria-label="${n}"></button>`).join('')}
+    <label class="sw-custom" title="Własny kolor"><input type="color" id="f-color" value="${cur}" aria-label="Własny kolor"></label></div>`;
+}
+function renderPanel() {
+  const list = selObjs();
+  const one = sel1();
+  const key = previewMode ? 'preview' : selected.join(',') + '|' + (one ? one.type + one.hole + one.color : list.map(o => +o.hole).join(''));
+  if (key === lastPanelKey) { updatePanelValues(); return; }
+  lastPanelKey = key;
+  const box = $('#sec-sel');
+  if (previewMode) {
+    box.innerHTML = `<h2>Podgląd wydruku</h2><p class="hint">Tak wyjdzie model z drukarki: bryły są połączone w jedną, a otwory wycięte. Edycja wróci po wyłączeniu podglądu.</p>
+      <div class="btn-row"><button class="btn" data-act="preview-off">Wróć do edycji</button><button class="btn primary" data-act="export">Eksport STL</button></div>`;
+    return;
+  }
+  if (!list.length) {
+    box.innerHTML = `<h2>Jak zacząć</h2>
+      <p class="hint">Dodaj kształt z paska po lewej. Kliknij obiekt, aby go zaznaczyć, a Shift + klik dodaje kolejne. Kształt oznaczony jako <b>otwór</b> wycina się z brył, które przecina.</p>
+      <ul class="tips">
+        <li><kbd>W</kbd> <kbd>E</kbd> <kbd>R</kbd></li><li>przesuń, obróć, skaluj</li>
+        <li><kbd>H</kbd></li><li>bryła ↔ otwór</li>
+        <li><kbd>Ctrl</kbd>+<kbd>G</kbd></li><li>grupuj zaznaczone</li>
+        <li><kbd>Ctrl</kbd>+<kbd>D</kbd></li><li>duplikuj</li>
+        <li><kbd>D</kbd></li><li>połóż na stole</li>
+        <li><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></li><li>przesuń o skok (Shift ×10), PgUp/PgDn w osi Z</li>
+        <li><kbd>Del</kbd></li><li>usuń</li>
+        <li><kbd>Ctrl</kbd>+<kbd>Z</kbd></li><li>cofnij</li>
+      </ul>`;
+    return;
+  }
+  const actions = `<div class="btn-row">
+      <button class="btn" data-act="drop" title="D">Połóż na stole</button>
+      <button class="btn" data-act="center">Wyśrodkuj</button>
+      <button class="btn" data-act="dup" title="Ctrl+D">Duplikuj</button>
+      <button class="btn danger" data-act="del" title="Delete">Usuń</button></div>`;
+  if (!one) {
+    const holes = list.filter(o => o.hole).length;
+    box.innerHTML = `<h2>Zaznaczono ${list.length} ${list.length < 5 ? 'obiekty' : 'obiektów'} <small>${holes} otw.</small></h2>
+      <div class="seg wide" role="group" aria-label="Rodzaj"><button data-act="solid" class="${holes === 0 ? 'on' : ''}">Wszystkie bryłami</button><button data-act="hole" class="${holes === list.length ? 'on' : ''}">Wszystkie otworami</button></div>
+      <button class="btn primary" data-act="group" title="Ctrl+G">Grupuj – połącz i wytnij otwory</button>
+      <fieldset><legend>Wyrównaj</legend><div class="align">
+        <span class="ax-x">X</span><div class="seg"><button data-align="x:min">lewo</button><button data-align="x:mid">środek</button><button data-align="x:max">prawo</button></div>
+        <span class="ax-y">Y</span><div class="seg"><button data-align="y:min">przód</button><button data-align="y:mid">środek</button><button data-align="y:max">tył</button></div>
+        <span class="ax-z">Z</span><div class="seg"><button data-align="z:min">dół</button><button data-align="z:mid">środek</button><button data-align="z:max">góra</button></div>
+      </div></fieldset>
+      ${actions}
+      <p class="note">Grupowanie scala obiekty na stałe w jedną siatkę. Ctrl+Z przywraca stan sprzed grupowania.</p>`;
+    return;
+  }
+  const T = TYPES[one.type];
+  box.innerHTML = `
+    <div class="sel-head"><input id="f-name" class="name-in" value="${esc(one.name)}" aria-label="Nazwa obiektu"><span class="type-tag">${T.label}</span></div>
+    <div class="seg wide" role="group" aria-label="Rodzaj"><button data-act="solid" class="${one.hole ? '' : 'on'}">Bryła</button><button data-act="hole" class="${one.hole ? 'on' : ''}" title="H">Otwór</button></div>
+    ${one.hole ? '<p class="hint">Otwór wycina materiał z brył, które przecina. Widać go dopiero w podglądzie wydruku i w pliku STL.</p>' : swatches(one.color)}
+    <fieldset><legend>Wymiary <small>mm</small></legend>
+      <div class="grid3">${num('w', 'Szer. X', one.w, 'x')}${num('d', 'Głęb. Y', one.d, 'y')}${num('h', one.type === 'torus' ? 'Grub. Z' : 'Wys. Z', one.h, 'z')}</div>
+      ${one.type === 'tube' ? `<div class="grid3">${num('wall', 'Ścianka', one.wall)}</div>` : ''}
+      <label class="check"><input type="checkbox" id="f-lock" ${lockProp ? 'checked' : ''}> Zachowaj proporcje</label>
+    </fieldset>
+    <fieldset><legend>Położenie <small>mm · Z = podstawa</small></legend>
+      <div class="grid3">${num('x', 'X', one.x, 'x')}${num('y', 'Y', one.y, 'y')}${num('z', 'Z', one.z, 'z')}</div>
+    </fieldset>
+    <fieldset><legend>Obrót <small>stopnie</small></legend>
+      <div class="grid3">${num('rx', 'X', one.rx, 'x')}${num('ry', 'Y', one.ry, 'y')}${num('rz', 'Z', one.rz, 'z')}</div>
+    </fieldset>
+    ${actions}`;
+}
+function updatePanelValues() {
+  const o = sel1(); if (!o) return;
+  document.querySelectorAll('#sec-sel input[data-k]').forEach(inp => {
+    if (inp === document.activeElement) return;
+    const v = r2(o[inp.dataset.k]);
+    if (Number(inp.value) !== v) inp.value = v;
+  });
+}
+const panel = $('#panel');
+panel.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'bed-sel') { bedKey = t.value; buildBed(); markDirty(); saveLocalSoon(); return; }
+  if (t.id === 'f-lock') { lockProp = t.checked; return; }
+  if (t.id === 'f-name') { const o = sel1(); if (!o) return; snapshot(); o.name = t.value.trim() || TYPES[o.type].short; renderOutliner(); updateHud(); saveLocalSoon(); return; }
+  if (t.id === 'f-color') { snapshot(); selObjs().forEach(o => { o.color = t.value; }); syncAll(); return; }
+  const k = t.dataset.k; const o = sel1();
+  if (!k || !o) return;
+  let v = parseFloat(String(t.value).replace(',', '.'));
+  if (!Number.isFinite(v)) { t.value = r2(o[k]); return; }
+  snapshot();
+  if (k === 'w' || k === 'd' || k === 'h') {
+    v = Math.max(0.1, v);
+    if (lockProp) { const f = v / o[k]; o.w = r2(o.w * f); o.d = r2(o.d * f); o.h = r2(o.h * f); }
+    o[k] = v;
+    if (o.type === 'tube') o.wall = Math.min(o.wall, Math.min(o.w, o.d) / 2 - 0.1);
+  } else if (k === 'wall') o.wall = Math.max(0.2, Math.min(v, Math.min(o.w, o.d) / 2 - 0.1));
+  else o[k] = v;
+  syncAll();
+  updatePanelValues();
+});
+panel.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.color) { snapshot(); selObjs().forEach(o => { o.color = b.dataset.color; }); syncAll(); return; }
+  if (b.dataset.align) { const [ax, w] = b.dataset.align.split(':'); align(ax, w); return; }
+  if (b.dataset.id) { pickFromList(+b.dataset.id, e.shiftKey || e.ctrlKey || e.metaKey); return; }
+  const a = b.dataset.act;
+  if (a === 'preview-off') setPreview(false);
+  else if (a === 'export') exportSTL();
+  else if (a) act(a);
+});
+function pickFromList(id, add) {
+  exitPreview();
+  selected = add ? (selected.includes(id) ? selected.filter(x => x !== id) : [...selected, id]) : [id];
+  selectionChanged();
+}
+function renderOutliner() {
+  $('#ol-count').textContent = objects.length ? `${objects.length}` : '';
+  $('#outliner').innerHTML = objects.map(o => `<li><button class="ol ${selected.includes(o.id) ? 'on' : ''}" data-id="${o.id}">
+      <i class="dot ${o.hole ? 'hole' : ''}" ${o.hole ? '' : `style="background:${o.color}"`}></i>
+      <span class="nm">${esc(o.name)}</span><span class="tp">${o.hole ? 'otwór' : TYPES[o.type].short.toLowerCase()}</span></button></li>`).join('')
+    || '<li class="empty">Stół jest pusty. Dodaj kształt z paska po lewej.</li>';
+}
+function updateHud() {
+  const hud = $('#hud');
+  const one = sel1();
+  if (previewMode) { hud.hidden = false; hud.innerHTML = '<b>Podgląd wydruku</b><span class="m">bryły połączone, otwory wycięte</span>'; return; }
+  if (one) {
+    hud.hidden = false;
+    hud.innerHTML = `<b>${esc(one.name)}</b><span class="m">${fmt(one.w)} × ${fmt(one.d)} × ${fmt(one.h)} mm</span>${one.hole ? '<span class="m">otwór</span>' : ''}`;
+  } else if (selected.length > 1) {
+    const b = unionBox(selObjs()), s = new THREE.Vector3(); b.getSize(s);
+    hud.hidden = false;
+    hud.innerHTML = `<b>${selected.length} obiekty</b><span class="m">${fmt(s.x)} × ${fmt(s.y)} × ${fmt(s.z)} mm</span>`;
+  } else hud.hidden = true;
+}
+
+/* ======================= Pliki: STL, ZIP, projekt ======================= */
+function toSTL(pos) {
+  const n = pos.length / 9;
+  const buf = new ArrayBuffer(84 + n * 50), dv = new DataView(buf);
+  const head = new TextEncoder().encode('Pracownia 3D - binary STL, units: mm');
+  new Uint8Array(buf, 0, 80).set(head.subarray(0, 80));
+  dv.setUint32(80, n, true);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), nr = new THREE.Vector3();
+  let off = 84;
+  for (let i = 0; i < pos.length; i += 9) {
+    a.fromArray(pos, i); b.fromArray(pos, i + 3); c.fromArray(pos, i + 6);
+    nr.subVectors(b, a).cross(c.clone().sub(a)).normalize();
+    for (const v of [nr, a, b, c]) { dv.setFloat32(off, v.x, true); dv.setFloat32(off + 4, v.y, true); dv.setFloat32(off + 8, v.z, true); off += 12; }
+    dv.setUint16(off, 0, true); off += 2;
+  }
+  return new Uint8Array(buf);
+}
+function parseSTL(buf) {
+  const dv = new DataView(buf);
+  if (buf.byteLength >= 84) {
+    const n = dv.getUint32(80, true);
+    if (84 + n * 50 === buf.byteLength) {
+      const out = new Float32Array(n * 9);
+      for (let t = 0; t < n; t++) for (let k = 0; k < 9; k++) out[t * 9 + k] = dv.getFloat32(84 + t * 50 + 12 + k * 4, true);
+      return out;
+    }
+  }
+  const txt = new TextDecoder().decode(buf);
+  const re = /vertex\s+([-+\d.eE]+)\s+([-+\d.eE]+)\s+([-+\d.eE]+)/g;
+  const vals = []; let m;
+  while ((m = re.exec(txt))) vals.push(+m[1], +m[2], +m[3]);
+  if (!vals.length || vals.length % 9) throw new Error('To nie jest poprawny plik STL.');
+  return new Float32Array(vals);
+}
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_TABLE[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zipOne(name, data) {
+  const nm = new TextEncoder().encode(name), crc = crc32(data), size = data.length;
+  const out = new Uint8Array(30 + nm.length + size + 46 + nm.length + 22), dv = new DataView(out.buffer);
+  dv.setUint32(0, 0x04034b50, true); dv.setUint16(4, 20, true); dv.setUint16(6, 0x0800, true); dv.setUint16(8, 0, true);
+  dv.setUint16(10, 0, true); dv.setUint16(12, 0x21, true); dv.setUint32(14, crc, true); dv.setUint32(18, size, true); dv.setUint32(22, size, true);
+  dv.setUint16(26, nm.length, true); dv.setUint16(28, 0, true);
+  out.set(nm, 30); out.set(data, 30 + nm.length);
+  const cd = 30 + nm.length + size;
+  dv.setUint32(cd, 0x02014b50, true); dv.setUint16(cd + 4, 20, true); dv.setUint16(cd + 6, 20, true); dv.setUint16(cd + 8, 0x0800, true);
+  dv.setUint16(cd + 10, 0, true); dv.setUint16(cd + 12, 0, true); dv.setUint16(cd + 14, 0x21, true); dv.setUint32(cd + 16, crc, true);
+  dv.setUint32(cd + 20, size, true); dv.setUint32(cd + 24, size, true); dv.setUint16(cd + 28, nm.length, true);
+  out.set(nm, cd + 46);
+  const end = cd + 46 + nm.length;
+  dv.setUint32(end, 0x06054b50, true); dv.setUint16(end + 8, 1, true); dv.setUint16(end + 10, 1, true);
+  dv.setUint32(end + 12, 46 + nm.length, true); dv.setUint32(end + 16, cd, true);
+  return out;
+}
+const slug = () => ($('#proj-name').value || 'model').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L')
+  .replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '').toLowerCase() || 'model';
+
+const inViewer = !!window.claude?.use;
+let dlPromise = null;
+const getDownloads = () => inViewer ? (dlPromise ??= window.claude.use('downloads').catch(() => null)) : Promise.resolve(null);
+async function offerFile(filename, data, mime) {
+  const dl = await getDownloads();
+  if (dl) {
+    try { await dl.save({ filename, data }); toast(`Zapisano: ${filename}`); }
+    catch (err) {
+      const c = err?.code;
+      toast(c === 'declined' ? 'Zapis anulowany.' : c === 'rate_limited' ? 'Okno zapisu jest już otwarte. Spróbuj za chwilę.' : `Nie udało się zapisać pliku (${c || 'błąd'}).`);
+    }
+    return;
+  }
+  if (inViewer) { toast('Ten widok nie pozwala zapisywać plików. Otwórz pracownia-3d.html z repozytorium bezpośrednio w przeglądarce.'); return; }
+  const url = URL.createObjectURL(new Blob([data], { type: mime }));
+  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+  toast(`Pobrano: ${filename}`);
+}
+async function exportSTL() {
+  const g = getResult();
+  if (!g) { toast('Nie ma brył do eksportu. Dodaj co najmniej jedną bryłę.'); return; }
+  const stl = toSTL(triPositions(g));
+  const name = slug();
+  // W przeglądarce plik .stl pobiera się wprost; w podglądzie Claude zapis dopuszcza tylko .zip.
+  if (inViewer) await offerFile(name + '.zip', zipOne(name + '.stl', stl), 'application/zip');
+  else await offerFile(name + '.stl', stl, 'model/stl');
+}
+
+function f32ToB64(f) { const u = new Uint8Array(f.buffer, f.byteOffset, f.byteLength); let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+function b64ToF32(b) { const s = atob(b), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return new Float32Array(u.buffer); }
+function serialize() {
+  return {
+    format: 'pracownia-3d', version: 1, name: $('#proj-name').value, bed: bedKey,
+    objects: objects.map(o => o.geo ? { ...o, geo: f32ToB64(o.geo) } : { ...o }),
+  };
+}
+function loadProject(data) {
+  if (data?.format !== 'pracownia-3d' || !Array.isArray(data.objects)) throw new Error('To nie jest plik projektu Pracowni 3D.');
+  objects = data.objects.filter(o => TYPES[o.type]).map(o => (o.geo ? { ...o, geo: b64ToF32(o.geo) } : { ...o }));
+  nextId = objects.reduce((m, o) => Math.max(m, o.id + 1), 1);
+  selected = [];
+  if (data.name) $('#proj-name').value = data.name;
+  if (BEDS[data.bed]) { bedKey = data.bed; $('#bed-sel').value = bedKey; buildBed(); }
+}
+async function saveProject() {
+  await offerFile(slug() + '.json', JSON.stringify(serialize()), 'application/json');
+}
+$('#file-in').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = '';
+  if (!f) return;
+  try {
+    if (/\.stl$/i.test(f.name)) {
+      const pos = parseSTL(await f.arrayBuffer());
+      exitPreview(); snapshot();
+      const o = meshFromWorld(pos, f.name.replace(/\.stl$/i, ''), SWATCHES[2][0]);
+      o.x = 0; o.y = 0; o.z = 0;
+      objects.push(o); selected = [o.id];
+      syncAll(); fitView();
+      toast(pos.length / 9 > 250000 ? `Wczytano ${f.name}. Duży model – łączenie brył może chwilę trwać.` : `Wczytano ${f.name}`);
+    } else {
+      const data = JSON.parse(await f.text());
+      exitPreview(); snapshot(); loadProject(data); syncAll(); fitView();
+      toast(`Otwarto projekt: ${f.name}`);
+    }
+  } catch (err) { console.error(err); toast(err.message || 'Nie udało się otworzyć pliku.'); }
+});
+
+/* ======================= Pamięć przeglądarki ======================= */
+const LS_KEY = 'pracownia3d.v1';
+let saveTimer = 0;
+function saveLocalSoon() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { try { localStorage.setItem(LS_KEY, JSON.stringify({ ...serialize(), snap })); } catch { /* brak miejsca lub zablokowana pamięć */ } }, 600);
+}
+function restoreLocal() {
+  try {
+    const raw = localStorage.getItem(LS_KEY); if (!raw) return false;
+    const data = JSON.parse(raw); loadProject(data);
+    if (data.snap != null) { snap = data.snap; $('#snap-sel').value = String(snap); applySnap(); }
+    return true;
+  } catch { return false; }
+}
+function loadSample() {
+  objects = []; nextId = 1; selected = [];
+  objects.push(makeObj('cylinder', { name: 'Kubek – korpus', w: 72, d: 72, h: 95, x: -30, color: '#d9822b' }));
+  objects.push(makeObj('cylinder', { name: 'Kubek – wnętrze', hole: true, w: 66, d: 66, h: 95, x: -30, z: 3 }));
+  objects.push(makeObj('hex', { name: 'Podkładka', w: 40, d: 34.64, h: 6, x: 50, color: '#3a7bd5' }));
+  objects.push(makeObj('cylinder', { name: 'Otwór Ø12', hole: true, w: 12, d: 12, h: 10, x: 50, z: -2 }));
+  $('#proj-name').value = 'Kubek na długopisy';
+}
+
+/* ======================= Widok ======================= */
+function fitView(dir) {
+  const box = new THREE.Box3();
+  meshes.forEach(m => { if (!objects.find(o => o.id === m.userData.id)?.hole) box.expandByObject(m); });
+  if (box.isEmpty()) { const [bx, by] = BEDS[bedKey].size; box.set(new THREE.Vector3(-bx / 2, -by / 2, 0), new THREE.Vector3(bx / 2, by / 2, 30)); }
+  const c = new THREE.Vector3(), s = new THREE.Vector3(); box.getCenter(c); box.getSize(s);
+  const r = Math.max(s.length() / 2, 25);
+  const dist = r / Math.sin(deg(camera.fov) / 2) * 1.05;
+  const d = (dir || camera.position.clone().sub(orbit.target)).clone().normalize();
+  orbit.target.copy(c);
+  camera.position.copy(c).addScaledVector(d, dist);
+  orbit.update();
+}
+const VIEWS = { iso: new THREE.Vector3(0.55, -0.85, 0.65), top: new THREE.Vector3(0, -0.0001, 1), front: new THREE.Vector3(0, -1, 0.08) };
+$('#views').addEventListener('click', e => {
+  const v = e.target.closest('button')?.dataset.view; if (!v) return;
+  fitView(v === 'fit' ? null : VIEWS[v]);
+});
+$('#modes').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.disabled) return;
+  setMode(b.dataset.mode);
+});
+function setMode(m) { mode = m; if (selected.length === 1) tc.setMode(m); refreshSelection(); }
+$('#snap-sel').addEventListener('change', e => { snap = parseFloat(e.target.value); applySnap(); saveLocalSoon(); });
+$('#btn-preview').addEventListener('click', () => setPreview(!previewMode));
+
+/* ======================= Pasek górny ======================= */
+$('#btn-undo').addEventListener('click', undo);
+$('#btn-redo').addEventListener('click', redo);
+$('#btn-open').addEventListener('click', () => $('#file-in').click());
+$('#btn-save').addEventListener('click', saveProject);
+$('#btn-export').addEventListener('click', exportSTL);
+$('#proj-name').addEventListener('change', saveLocalSoon);
+let newArmed = 0;
+$('#btn-new').addEventListener('click', e => {
+  const b = e.currentTarget;
+  if (!newArmed) {
+    b.classList.add('armed'); b.textContent = 'Wyczyścić stół?';
+    newArmed = setTimeout(() => { newArmed = 0; b.classList.remove('armed'); b.textContent = 'Nowy'; }, 3000);
+    return;
+  }
+  clearTimeout(newArmed); newArmed = 0; b.classList.remove('armed'); b.textContent = 'Nowy';
+  exitPreview(); snapshot();
+  objects = []; selected = []; $('#proj-name').value = 'Nowy projekt';
+  syncAll(); toast('Nowy projekt. Ctrl+Z przywraca poprzedni.');
+});
+
+/* ======================= Szyna kształtów ======================= */
+const rail = $('#rail');
+for (const t of ['box', 'cylinder', 'sphere', 'halfsphere', 'cone', 'pyramid', 'hex', 'wedge', 'tube', 'torus']) {
+  const b = document.createElement('button');
+  b.className = 'shape'; b.title = 'Dodaj: ' + TYPES[t].label;
+  b.innerHTML = `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${ICON[t]}</svg>${TYPES[t].short}`;
+  b.addEventListener('click', () => addShape(t));
+  rail.append(b);
+}
+{
+  const b = document.createElement('button');
+  b.className = 'shape holeish'; b.title = 'Dodaj otwór w kształcie walca';
+  b.innerHTML = `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.5" aria-hidden="true">${ICON.cylinder}</svg>Otwór`;
+  b.addEventListener('click', () => { addShape('cylinder'); const o = sel1(); o.hole = true; o.name = 'Otwór ' + o.id; o.h = 30; o.w = o.d = 8; syncAll(); });
+  rail.append(b);
+}
+
+/* ======================= Klawiatura ======================= */
+addEventListener('keydown', e => {
+  const t = e.target;
+  if (t.matches?.('input, select, textarea')) { if (e.key === 'Enter') t.blur(); return; }
+  const ctrl = e.ctrlKey || e.metaKey, k = e.key.toLowerCase();
+  if (ctrl && k === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
+  if (ctrl && k === 'y') { e.preventDefault(); redo(); return; }
+  if (ctrl && k === 'd') { e.preventDefault(); act('dup'); return; }
+  if (ctrl && k === 'g') { e.preventDefault(); groupSelected(); return; }
+  if (ctrl && k === 'a') { e.preventDefault(); exitPreview(); selected = objects.map(o => o.id); selectionChanged(); return; }
+  if (ctrl && k === 's') { e.preventDefault(); saveProject(); return; }
+  if (ctrl) return;
+  if (k === 'delete' || k === 'backspace') { e.preventDefault(); act('del'); }
+  else if (k === 'w') setMode('translate');
+  else if (k === 'e') setMode('rotate');
+  else if (k === 'r') setMode('scale');
+  else if (k === 'h') { const l = selObjs(); if (l.length) act(l.every(o => o.hole) ? 'solid' : 'hole'); }
+  else if (k === 'd') act('drop');
+  else if (k === 'f') fitView();
+  else if (k === 'p') setPreview(!previewMode);
+  else if (k === 'escape') { selected = []; selectionChanged(); }
+  else if (['arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'pageup', 'pagedown'].includes(k) && selected.length) {
+    e.preventDefault();
+    const st = (snap || 1) * (e.shiftKey ? 10 : 1);
+    const [ax, sg] = { arrowleft: ['x', -1], arrowright: ['x', 1], arrowup: ['y', 1], arrowdown: ['y', -1], pageup: ['z', 1], pagedown: ['z', -1] }[k];
+    if (!e.repeat) snapshot();
+    selObjs().forEach(o => { o[ax] = r2(o[ax] + sg * st); });
+    syncAll();
+  }
+});
+
+/* ======================= Motyw, rozmiar, pętla ======================= */
+function applyTheme() {
+  scene.background = new THREE.Color(tok('--viewport'));
+  buildBed();
+  meshes.forEach(m => { m.userData.color = null; });
+  objects.forEach(ensureMesh);
+  refreshSelection();
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+function resize() {
+  const w = vp.clientWidth, h = vp.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(vp);
+
+let toastTimer = 0;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+$('#bed-sel').innerHTML = Object.entries(BEDS).map(([k, b]) => `<option value="${k}">${b.label}</option>`).join('');
+const restored = restoreLocal();
+if (!restored) loadSample();
+$('#bed-sel').value = bedKey;
+applyTheme();
+resize();
+syncAll();
+undoStack.length = 0; updateUndoButtons();
+fitView(VIEWS.iso);
+if (!restored) toast('Przykład: kubek na długopisy i podkładka z otworem. Kliknij „Podgląd wydruku”, by zobaczyć wynik.');
+
+renderer.setAnimationLoop(() => {
+  orbit.update();
+  selHelpers.forEach(h => h.update());
+  renderer.render(scene, camera);
+});
+</script>
+
+</body>
+</html>
