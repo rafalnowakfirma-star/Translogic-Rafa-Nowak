@@ -1,6 +1,82 @@
 # Ozdoby choinkowe na drukarkę 3D
 
-![Podgląd modeli](podglad/wszystkie.png)
+Dwie kolekcje:
+
+- **[Kolekcja „szklana”](#kolekcja-szklana-do-malowania)** — bombki w stylu
+  dawnych dmuchanych szklanych ozdób, zaprojektowane do malowania.
+- **[Kolekcja płaska](#kolekcja-płaska)** — proste zawieszki drukowane w 30–45 min.
+
+## Kolekcja „szklana” (do malowania)
+
+![Podgląd kolekcji szklanej](podglad/szklane.png)
+
+Plik źródłowy: [`ozdoby_szklane.scad`](ozdoby_szklane.scad), gotowe STL:
+[`stl/szklane/`](stl/szklane).
+
+| Model | Wygląd | Wymiary ozdoby | Filament | Czas** |
+|---|---|---|---|---|
+| `kula_kropki` | kula Ø60 z wypukłymi pasami i perełkami | 60 × 92 mm | 26 g | 2 h 00 |
+| `kula_karbowana` | vintage „dynia” z 12 żebrami | 58 × 89 mm | 27 g | 1 h 55 |
+| `krysztal` | fasetowany jak szlifowane szkło | 56 × 88 mm | 21 g | 1 h 25 |
+| `kropla_vintage` | kropla z wklęsłymi „reflektorami” i szpicem | 47 × 100 mm | 20 g | 1 h 30 |
+| `sopel` | skręcony sopel | 20 × 104 mm | 7 g | 1 h 05 |
+| `dzwonek` | dzwonek z perełkami i wywiniętym brzegiem | 52 × 61 mm | 19 g | 1 h 15 |
+
+\** Wyliczone w PrusaSlicerze: PLA, warstwa 0,16 mm, umiarkowane prędkości.
+Szybkie drukarki (Bambu Lab, Creality K1 itp.) zrobią to w ok. 50–60 % tego czasu.
+
+### Jak to działa
+
+- **Kule, kryształ i kropla** drukują się jako **dwie połówki** leżące
+  przekrojem na stole. Dzięki temu nie ma podpór, a cała zaokrąglona
+  powierzchnia wychodzi gładka. W połówkach są po dwa otwory na **kołki
+  z filamentu 1,75 mm**: utnij 2 kawałki po ~11 mm, włóż, posmaruj
+  przekrój klejem cyjanoakrylowym (super glue) i ściśnij.
+- **Sopel** drukuje się szpicem do góry, a zawiesza przez poziomy otwór
+  w kapturku (nitka albo haczyk z drutu).
+- **Dzwonek** drukuje się w całości, otworem do stołu.
+- `podglad = true` w Customizerze pokazuje złożoną ozdobę;
+  `skala` (np. 0.8 albo 1.2) zmienia rozmiar całości.
+
+### Ustawienia druku (kolekcja szklana)
+
+- PLA, warstwa **0,16 mm** (mniej szlifowania przed malowaniem; 0,12 mm jeszcze lepiej).
+- **2 obrysy, 5 % wypełnienia gyroid**: ozdoby są lżejsze (kula ~26 g zamiast ~39 g)
+  i nie uginają gałązek.
+- Podpory: wyłączone. Brim 5 mm tylko dla sopla.
+- Dwie połówki jednej ozdoby mieszczą się na stole obok siebie, a na stole
+  22 × 22 cm zmieścisz 2–3 komplety naraz.
+
+### Efekt szkła: malowanie krok po kroku
+
+Prawdziwe bombki to srebrzone szkło pokryte przezroczystym kolorowym lakierem.
+Ten sam układ warstw daje na plastiku najbardziej „szklany” efekt.
+
+1. **Sklej połówki.** Szczelinę na łączeniu wypełnij szpachlówką modelarską.
+2. **Szlifuj:** papier 240 → 400 (na mokro). Wystarczy zgładzić linie warstw.
+3. **Podkład wypełniający** w sprayu (filler primer), 2–3 cienkie warstwy,
+   potem szlif 600–800 na mokro. Im gładszy podkład, tym bardziej lustrzany efekt.
+4. **Baza lustrzana:** spray „chrome / efekt lustra” (albo srebrny metalik).
+5. **Kolor szkła:** transparentny lakier „candy” (czerwony, zielony, niebieski,
+   złoty), kilka cienkich warstw. Srebro prześwituje i świeci jak szkło.
+6. **Detale:** perełki, pasy, żebra i reflektory pomaluj złotym lub białym
+   markerem akrylowym, albo posyp brokatem na klej.
+7. **Lakier bezbarwny na wysoki połysk** (najlepiej 2K, jest najtwardszy i
+   najbardziej szklisty). Alternatywa: cienka warstwa żywicy epoksydowej
+   do powlekania wydruków, która zakrywa resztki linii warstw.
+
+Do malowania zawieś ozdobę za oczko na drucie, na przykład na wieszaku.
+
+Sopel i dzwonek dobrze wyglądają bez malowania, wydrukowane z
+**przezroczystego PETG** (temperatura 240–250 °C, wolno, 100 % wypełnienia):
+wychodzą matowe, jak oszroniony lód. Prawdziwej przejrzystości szkła z
+drukarki FDM nie da się uzyskać.
+
+---
+
+## Kolekcja płaska
+
+![Podgląd kolekcji płaskiej](podglad/wszystkie.png)
 
 Pięć ozdób w jednym parametrycznym pliku [`ozdoby.scad`](ozdoby.scad)
 oraz gotowe pliki STL w katalogu [`stl/`](stl). Wszystkie modele leżą
@@ -16,7 +92,7 @@ płasko na stole, mają oczko do zawieszenia i **drukują się bez podpór**.
 
 \* PLA, dysza 0,4 mm, warstwa 0,2 mm, typowa prędkość — zależy od drukarki.
 
-## Ustawienia druku
+### Ustawienia druku
 
 - **Materiał:** PLA (najprościej) lub PETG (odporniejszy na ciepło lampek).
   Świetnie wyglądają filamenty „silk” złote/srebrne, brokatowe i
@@ -29,7 +105,7 @@ płasko na stole, mają oczko do zawieszenia i **drukują się bez podpór**.
 - **Prasowanie (ironing)** górnej powierzchni płatka i bombki daje gładki,
   błyszczący wierzch.
 
-## Dwa kolory bez drukarki wielokolorowej
+### Dwa kolory bez drukarki wielokolorowej
 
 Choinka i bombka mają wypukłe detale (bombki na choince, napis i obwódka
 na bombce) o wysokości 1,2 mm nad korpusem 2,4 mm. Wstaw w slicerze
@@ -63,7 +139,7 @@ Przydatne parametry:
 | `napis_1/2/3`, `czcionka` | tekst na bombce (krótkie słowa — do ~9 liter w linii) |
 | `uszko_srednica` | średnica oczka na wstążkę/nitkę |
 
-## Pomysły na wykończenie
+### Pomysły na wykończenie
 
 - Przewlecz cienką czerwoną wstążkę, sznurek jutowy albo złotą nitkę.
 - Płatek wydrukowany z białego PETG lub przezroczystego filamentu
