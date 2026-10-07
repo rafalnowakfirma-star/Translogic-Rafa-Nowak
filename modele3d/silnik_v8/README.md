@@ -81,6 +81,23 @@ Razem 199 wydrukowanych części.
 - Blok i głowice mają kilka krótkich mostów (np. sklepienie tunelu wałka rozrządu, gniazda zaworów) –
   drukują się bez podpór, wystarczy dobre chłodzenie.
 
+### Czas i ilość filamentu
+
+Wyliczone w PrusaSlicer 2.7 dla wszystkich 199 części (35 stołów, części powtarzalne drukowane
+po kilka na stole) przy ustawieniach z punktu wyżej:
+
+| Grupa | Klasyczna drukarka (Prusa MK3, Ender-3) | Szybka drukarka CoreXY (Bambu Lab, Prusa Core One) | Filament |
+|---|---:|---:|---:|
+| Blok | 21,2 h | 9,2 h | 245 g |
+| Głowice z rozrządem (zawory, dźwigienki, drążki, popychacze) | 25,7 h | 9,8 h | 177 g |
+| Układ korbowy (wał, korbowody, tłoki, pokrywy łożysk) | 16,1 h | 6,5 h | 139 g |
+| Wałek i koła rozrządu | 4,6 h | 2,0 h | 38 g |
+| Miska olejowa | 6,0 h | 2,1 h | 75 g |
+| Osprzęt i pokrywy | 16,6 h | 6,5 h | 180 g |
+| **Razem** | **ok. 90 h** | **ok. 36 h** | **ok. 855 g** |
+
+Wystarcza jedna szpula 1 kg PLA (z zapasem na nieudane wydruki). Sprężyny z TPU to tylko ok. 4 g.
+
 ## Składanie
 
 1. **Wał korbowy.** Złóż na sucho w kolejności: czop główny 1 → ramię → czop korbowy → ramię →
