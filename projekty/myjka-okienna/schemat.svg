@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 820" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d232b"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b3261e"/>
+    </marker>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f7a4d"/>
+    </marker>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#ece7df"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#b9ae9c" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <rect width="1040" height="820" fill="#ffffff"/>
+
+  <!-- ============ WIDOK Z ZEWNĄTRZ ============ -->
+  <text x="270" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d232b">Widok od zewnątrz</text>
+
+  <!-- ściana -->
+  <rect x="40" y="45" width="460" height="600" fill="url(#hatch)" stroke="#8a7f6e"/>
+  <!-- ościeżnica -->
+  <rect x="80" y="110" width="380" height="470" fill="#f3f4f6" stroke="#5b6573" stroke-width="1.5"/>
+  <!-- skrzydło -->
+  <rect x="104" y="130" width="332" height="430" fill="#e4e7eb" stroke="#5b6573" stroke-width="1.5"/>
+  <!-- szyba -->
+  <rect x="124" y="150" width="292" height="390" fill="#d6ecfa" stroke="#6aa6cf"/>
+  <line x1="150" y1="420" x2="230" y2="200" stroke="#ffffff" stroke-width="6" opacity="0.7"/>
+  <line x1="180" y1="460" x2="250" y2="270" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+
+  <!-- woda spływająca -->
+  <g stroke="#6aa6cf" stroke-width="1.5" opacity="0.8">
+    <line x1="160" y1="160" x2="160" y2="320"/>
+    <line x1="220" y1="160" x2="220" y2="320"/>
+    <line x1="280" y1="160" x2="280" y2="320"/>
+    <line x1="340" y1="160" x2="340" y2="320"/>
+    <line x1="395" y1="160" x2="395" y2="320"/>
+  </g>
+
+  <!-- szyny -->
+  <rect x="84" y="106" width="16" height="478" fill="#aab3bd" stroke="#4a525c"/>
+  <rect x="440" y="106" width="16" height="478" fill="#aab3bd" stroke="#4a525c"/>
+  <!-- paski -->
+  <line x1="92" y1="90" x2="92" y2="574" stroke="#1d232b" stroke-width="2"/>
+  <line x1="448" y1="90" x2="448" y2="574" stroke="#1d232b" stroke-width="2"/>
+  <!-- rolki dolne -->
+  <circle cx="92" cy="574" r="7" fill="#fff" stroke="#1d232b" stroke-width="1.5"/>
+  <circle cx="448" cy="574" r="7" fill="#fff" stroke="#1d232b" stroke-width="1.5"/>
+
+  <!-- belka górna -->
+  <rect x="64" y="70" width="412" height="36" fill="#c3cad2" stroke="#4a525c" stroke-width="1.5"/>
+  <polygon points="56,70 484,70 476,60 64,60" fill="#8f99a4" stroke="#4a525c"/>
+  <!-- wałek -->
+  <line x1="120" y1="88" x2="456" y2="88" stroke="#5b6573" stroke-width="3"/>
+  <circle cx="92" cy="88" r="9" fill="#fff" stroke="#1d232b" stroke-width="1.5"/>
+  <circle cx="448" cy="88" r="9" fill="#fff" stroke="#1d232b" stroke-width="1.5"/>
+  <!-- silnik -->
+  <rect x="104" y="74" width="34" height="28" rx="3" fill="#3b4652" stroke="#1d232b"/>
+  <text x="121" y="93" text-anchor="middle" fill="#fff" font-weight="bold">M</text>
+  <!-- puszka elektroniki -->
+  <rect x="392" y="74" width="40" height="28" rx="3" fill="#2f6f9f" stroke="#1d232b"/>
+  <text x="412" y="92" text-anchor="middle" fill="#fff" font-size="10">ESP32</text>
+  <!-- dysze -->
+  <g fill="#1d232b">
+    <polygon points="156,106 164,106 160,114"/>
+    <polygon points="216,106 224,106 220,114"/>
+    <polygon points="276,106 284,106 280,114"/>
+    <polygon points="336,106 344,106 340,114"/>
+  </g>
+  <g fill="#6aa6cf" opacity="0.5">
+    <polygon points="160,114 140,158 180,158"/>
+    <polygon points="220,114 200,158 240,158"/>
+    <polygon points="280,114 260,158 300,158"/>
+    <polygon points="340,114 320,158 360,158"/>
+  </g>
+
+  <!-- głowica -->
+  <rect x="80" y="324" width="24" height="34" rx="3" fill="#e0a43a" stroke="#1d232b"/>
+  <rect x="436" y="324" width="24" height="34" rx="3" fill="#e0a43a" stroke="#1d232b"/>
+  <rect x="104" y="330" width="332" height="10" fill="#4a5bd0" stroke="#1d232b"/>
+  <rect x="128" y="340" width="284" height="8" fill="#9fb0ff" stroke="#1d232b"/>
+  <rect x="128" y="348" width="284" height="4" fill="#1d232b"/>
+  <!-- strzałka ruchu -->
+  <line x1="476" y1="300" x2="476" y2="250" stroke="#1d232b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="476" y1="380" x2="476" y2="430" stroke="#1d232b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- wąż -->
+  <path d="M 462 590 L 462 112" stroke="#2a8bd6" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+
+  <!-- parapet -->
+  <polygon points="44,580 496,580 506,596 34,596" fill="#9aa3ad" stroke="#4a525c"/>
+  <!-- skrzynka wody -->
+  <rect x="330" y="552" width="120" height="28" rx="3" fill="#e9f3fb" stroke="#2a8bd6" stroke-width="1.5"/>
+  <text x="390" y="570" text-anchor="middle" font-size="11" fill="#1d232b">woda 5 l + pompa</text>
+
+  <!-- numery -->
+  <g font-size="12" font-weight="bold" fill="#fff">
+    <circle cx="30" cy="80" r="11" fill="#b3261e"/><text x="30" y="84" text-anchor="middle">1</text>
+    <line x1="41" y1="80" x2="64" y2="82" stroke="#b3261e"/>
+    <circle cx="121" cy="40" r="11" fill="#b3261e"/><text x="121" y="44" text-anchor="middle">2</text>
+    <line x1="121" y1="51" x2="121" y2="74" stroke="#b3261e"/>
+    <circle cx="250" cy="40" r="11" fill="#b3261e"/><text x="250" y="44" text-anchor="middle">3</text>
+    <line x1="250" y1="51" x2="250" y2="88" stroke="#b3261e"/>
+    <circle cx="412" cy="40" r="11" fill="#b3261e"/><text x="412" y="44" text-anchor="middle">4</text>
+    <line x1="412" y1="51" x2="412" y2="74" stroke="#b3261e"/>
+    <circle cx="310" cy="135" r="11" fill="#b3261e"/><text x="310" y="139" text-anchor="middle">5</text>
+    <line x1="299" y1="135" x2="284" y2="112" stroke="#b3261e"/>
+    <circle cx="30" cy="250" r="11" fill="#b3261e"/><text x="30" y="254" text-anchor="middle">6</text>
+    <line x1="41" y1="250" x2="84" y2="250" stroke="#b3261e"/>
+    <circle cx="30" cy="300" r="11" fill="#b3261e"/><text x="30" y="304" text-anchor="middle">7</text>
+    <line x1="41" y1="300" x2="92" y2="300" stroke="#b3261e"/>
+    <circle cx="30" cy="341" r="11" fill="#b3261e"/><text x="30" y="345" text-anchor="middle">8</text>
+    <line x1="41" y1="341" x2="80" y2="341" stroke="#b3261e"/>
+    <circle cx="270" cy="390" r="11" fill="#b3261e"/><text x="270" y="394" text-anchor="middle">9</text>
+    <line x1="270" y1="379" x2="270" y2="352" stroke="#b3261e"/>
+    <circle cx="30" cy="574" r="11" fill="#b3261e"/><text x="30" y="578" text-anchor="middle">10</text>
+    <line x1="41" y1="574" x2="85" y2="574" stroke="#b3261e"/>
+    <circle cx="390" cy="625" r="11" fill="#b3261e"/><text x="390" y="629" text-anchor="middle">11</text>
+    <line x1="390" y1="614" x2="390" y2="580" stroke="#b3261e"/>
+    <circle cx="510" cy="470" r="11" fill="#b3261e"/><text x="510" y="474" text-anchor="middle">12</text>
+    <line x1="499" y1="470" x2="462" y2="470" stroke="#b3261e"/>
+  </g>
+
+  <!-- ============ PRZEKRÓJ PIONOWY ============ -->
+  <text x="672" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d232b">Przekrój</text>
+  <text x="608" y="660" font-size="11" fill="#5b6573">wnętrze</text>
+  <text x="706" y="660" font-size="11" fill="#5b6573">zewnątrz</text>
+
+  <!-- nadproże i podokiennik -->
+  <rect x="580" y="45" width="90" height="60" fill="url(#hatch)" stroke="#8a7f6e"/>
+  <rect x="580" y="590" width="90" height="55" fill="url(#hatch)" stroke="#8a7f6e"/>
+  <!-- ościeżnica -->
+  <rect x="610" y="105" width="56" height="22" fill="#f3f4f6" stroke="#5b6573"/>
+  <rect x="610" y="566" width="56" height="24" fill="#f3f4f6" stroke="#5b6573"/>
+  <!-- skrzydło -->
+  <rect x="616" y="127" width="44" height="23" fill="#e4e7eb" stroke="#5b6573"/>
+  <rect x="616" y="540" width="44" height="26" fill="#e4e7eb" stroke="#5b6573"/>
+  <!-- szyba zespolona -->
+  <rect x="628" y="150" width="6" height="390" fill="#d6ecfa" stroke="#6aa6cf"/>
+  <rect x="646" y="150" width="6" height="390" fill="#d6ecfa" stroke="#6aa6cf"/>
+  <!-- belka górna -->
+  <rect x="666" y="70" width="60" height="36" fill="#c3cad2" stroke="#4a525c" stroke-width="1.5"/>
+  <polygon points="664,70 736,70 736,60 664,62" fill="#8f99a4" stroke="#4a525c"/>
+  <circle cx="696" cy="88" r="7" fill="#fff" stroke="#1d232b"/>
+  <polygon points="672,106 680,106 674,114" fill="#1d232b"/>
+  <polygon points="674,114 652,152 664,160" fill="#6aa6cf" opacity="0.5"/>
+  <!-- szyna (za płaszczyzną przekroju) -->
+  <rect x="690" y="106" width="16" height="478" fill="none" stroke="#4a525c" stroke-dasharray="5 4"/>
+  <!-- wózek + ramię -->
+  <rect x="688" y="326" width="22" height="32" rx="3" fill="#e0a43a" stroke="#1d232b"/>
+  <rect x="672" y="337" width="16" height="10" fill="#4a5bd0" stroke="#1d232b"/>
+  <!-- sprężyna -->
+  <polyline points="688,342 685,336 682,348 679,336 676,348 673,342" fill="none" stroke="#1d232b" stroke-width="1.2"/>
+  <!-- wahacz -->
+  <circle cx="672" cy="342" r="3.5" fill="#1d232b"/>
+  <polyline points="672,342 664,342 664,322 655,322" fill="none" stroke="#4a5bd0" stroke-width="3"/>
+  <polyline points="664,342 664,362 655,362" fill="none" stroke="#4a5bd0" stroke-width="3"/>
+  <rect x="652" y="316" width="4" height="12" fill="#9fb0ff" stroke="#1d232b"/>
+  <line x1="655" y1="362" x2="652" y2="366" stroke="#1d232b" stroke-width="3"/>
+  <!-- parapet zewnętrzny + skrzynka -->
+  <polygon points="666,590 760,600 760,606 666,598" fill="#9aa3ad" stroke="#4a525c"/>
+  <rect x="690" y="562" width="56" height="30" rx="3" fill="#e9f3fb" stroke="#2a8bd6" stroke-width="1.5"/>
+  <line x1="698" y1="562" x2="698" y2="106" stroke="#2a8bd6" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <g font-size="12" font-weight="bold" fill="#fff">
+    <circle cx="760" cy="342" r="11" fill="#b3261e"/><text x="760" y="346" text-anchor="middle">13</text>
+    <line x1="749" y1="342" x2="710" y2="342" stroke="#b3261e"/>
+    <circle cx="760" cy="300" r="11" fill="#b3261e"/><text x="760" y="304" text-anchor="middle">14</text>
+    <line x1="749" y1="300" x2="666" y2="320" stroke="#b3261e"/>
+  </g>
+
+  <!-- ============ WAHACZ: DWA TRYBY ============ -->
+  <text x="910" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d232b">Głowica wahliwa</text>
+
+  <!-- tryb A -->
+  <rect x="800" y="45" width="220" height="280" rx="8" fill="#f6f9f6" stroke="#1f7a4d"/>
+  <text x="910" y="68" text-anchor="middle" font-weight="bold" fill="#1f7a4d">W GÓRĘ — szorowanie</text>
+  <rect x="820" y="80" width="7" height="230" fill="#d6ecfa" stroke="#6aa6cf"/>
+  <g>
+    <polyline points="900,190 862,190 862,160 836,160" fill="none" stroke="#4a5bd0" stroke-width="5"/>
+    <polyline points="862,190 862,220 836,220" fill="none" stroke="#4a5bd0" stroke-width="5"/>
+    <rect x="827" y="146" width="10" height="28" fill="#9fb0ff" stroke="#1d232b"/>
+    <line x1="836" y1="220" x2="828" y2="230" stroke="#1d232b" stroke-width="4"/>
+    <circle cx="900" cy="190" r="6" fill="#1d232b"/>
+  </g>
+  <line x1="960" y1="190" x2="912" y2="190" stroke="#1d232b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="936" y="180" text-anchor="middle" font-size="11">docisk 20 N</text>
+  <line x1="990" y1="240" x2="990" y2="120" stroke="#1f7a4d" stroke-width="4" marker-end="url(#arrG)"/>
+  <line x1="845" y1="135" x2="845" y2="112" stroke="#b3261e" stroke-width="2" marker-start="url(#arrR)"/>
+  <text x="852" y="122" font-size="11" fill="#b3261e">tarcie</text>
+  <text x="910" y="268" text-anchor="middle" font-size="11" fill="#1d232b">μ mikrofibry ≈ 0,3 &lt; h/d</text>
+  <text x="910" y="284" text-anchor="middle" font-size="11" fill="#1d232b">wahacz neutralny — szoruje</text>
+  <text x="910" y="300" text-anchor="middle" font-size="11" fill="#1d232b">mikrofibra, guma idzie za nią</text>
+
+  <!-- tryb B -->
+  <rect x="800" y="340" width="220" height="300" rx="8" fill="#f9f6f6" stroke="#b3261e"/>
+  <text x="910" y="363" text-anchor="middle" font-weight="bold" fill="#b3261e">W DÓŁ — ściąganie</text>
+  <rect x="820" y="375" width="7" height="230" fill="#d6ecfa" stroke="#6aa6cf"/>
+  <g transform="rotate(10 900 485)">
+    <polyline points="900,485 862,485 862,455 836,455" fill="none" stroke="#4a5bd0" stroke-width="5"/>
+    <polyline points="862,485 862,515 836,515" fill="none" stroke="#4a5bd0" stroke-width="5"/>
+    <rect x="827" y="441" width="10" height="28" fill="#9fb0ff" stroke="#1d232b"/>
+    <line x1="836" y1="515" x2="828" y2="525" stroke="#1d232b" stroke-width="4"/>
+  </g>
+  <circle cx="900" cy="485" r="6" fill="#1d232b"/>
+  <line x1="960" y1="485" x2="912" y2="485" stroke="#1d232b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="936" y="475" text-anchor="middle" font-size="11">docisk 20 N</text>
+  <line x1="990" y1="420" x2="990" y2="540" stroke="#b3261e" stroke-width="4" marker-end="url(#arrR)"/>
+  <!-- wymiary h, d -->
+  <line x1="900" y1="560" x2="827" y2="560" stroke="#5b6573" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="864" y="574" text-anchor="middle" font-size="11" fill="#5b6573">d ≈ 45 mm</text>
+  <line x1="935" y1="485" x2="935" y2="530" stroke="#5b6573" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="944" y="512" font-size="11" fill="#5b6573">h ≈ 18</text>
+  <text x="910" y="596" text-anchor="middle" font-size="11" fill="#1d232b">μ gumy ≈ 0,6–0,9 &gt; h/d = 0,4</text>
+  <text x="910" y="612" text-anchor="middle" font-size="11" fill="#1d232b">tarcie przechyla wahacz:</text>
+  <text x="910" y="628" text-anchor="middle" font-size="11" fill="#1d232b">guma ściąga, mikrofibra odsunięta</text>
+
+  <!-- ============ LEGENDA ============ -->
+  <line x1="40" y1="682" x2="1000" y2="682" stroke="#d8dde3"/>
+  <g font-size="12" fill="#1d232b">
+    <text x="40" y="706"><tspan font-weight="bold">1</tspan>  belka górna z daszkiem (profil 20×40)</text>
+    <text x="40" y="726"><tspan font-weight="bold">2</tspan>  motoreduktor ślimakowy 24 V z enkoderem</text>
+    <text x="40" y="746"><tspan font-weight="bold">3</tspan>  wałek synchronizujący Ø8 + koła GT2 20T</text>
+    <text x="40" y="766"><tspan font-weight="bold">4</tspan>  puszka IP65: ESP32, DRV8871, INA219</text>
+    <text x="40" y="786"><tspan font-weight="bold">5</tspan>  dysze płaskostrumieniowe (natrysk na szybę)</text>
+    <text x="370" y="706"><tspan font-weight="bold">6</tspan>  szyna pionowa V-slot 20×20</text>
+    <text x="370" y="726"><tspan font-weight="bold">7</tspan>  pasek GT2 PU z kordem stalowym</text>
+    <text x="370" y="746"><tspan font-weight="bold">8</tspan>  wózek na rolkach POM</text>
+    <text x="370" y="766"><tspan font-weight="bold">9</tspan>  głowica: mikrofibra (góra) + guma (dół)</text>
+    <text x="370" y="786"><tspan font-weight="bold">10</tspan>  rolka napinająca, krańcówka dolna (Hall)</text>
+    <text x="690" y="706"><tspan font-weight="bold">11</tspan>  kanister 5 l, pompa 24 V, pływak</text>
+    <text x="690" y="726"><tspan font-weight="bold">12</tspan>  wąż PE 6 mm w rowku szyny</text>
+    <text x="690" y="746"><tspan font-weight="bold">13</tspan>  sprężyna dociskowa w wózku</text>
+    <text x="690" y="766"><tspan font-weight="bold">14</tspan>  wahacz z ogranicznikami ±10°</text>
+    <text x="690" y="786" fill="#5b6573">Rysunek poglądowy, bez skali.</text>
+  </g>
+</svg>
