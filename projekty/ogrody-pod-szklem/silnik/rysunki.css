@@ -1,0 +1,123 @@
+/* Style rysunków (rzuty, przekroje). Kolory z tokenów – działa w jasnym i ciemnym motywie. */
+:root{
+  --r-ink:#1B1E21; --r-ink2:#4C5359; --r-ink3:#8D949A; --r-sheet:#FFFFFF; --r-acc:#2B6B5A;
+  --r-wood:#EADBC4; --r-wood2:#C9B08F; --r-wood-l:#D8C4A6; --r-deck:#C9A57A; --r-stone:#E6E4DE; --r-slab:#DEDAD2; --r-terra:#E2B79A;
+  --r-brick:#C88F72; --r-tatami:#E4E1B8; --r-tatami-l:#B4AE82; --r-conc:#DCDBD7;
+  --r-grass:#DCE7CF; --r-grass-l:#B8CBA2; --r-gravel:#EFECE4; --r-rake:#C8C2B5; --r-moss:#93AE73; --r-water:#9CC3D9;
+  --r-stone-g:#B3ADA3; --r-maple:#C4553A; --r-birch:#A8C77F; --r-olive:#9BA57F; --r-pine:#4F7A57; --r-palm:#5E9150; --r-citrus:#6E9B4F;
+  --r-fruit:#E8902A; --r-glass:#BCD9EA; --r-glass-d:#7FA9C2; --r-sedum:#B5C59A; --r-sedum2:#C99A84; --r-sedum3:#8FA772; --r-roofg:#D8D6D0;
+  --r-shadow:rgba(30,34,30,.14); --r-void:#EEF0F1; --r-fu:#FFFFFF; --r-fu-d:#9AA1A6; --r-fu-t:#F1EEE8; --r-fu-w:#E2CFB2; --r-rug:#D9CFC2;
+  --r-blanket:#E7E2D8; --r-c:#F4F3F0; --r-bath:#FFFFFF; --r-water2:#D7EAF3; --r-pot:#C98C66; --r-plant:#7EA866; --r-lav:#9C8CC4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --r-ink:#E3E6E4; --r-ink2:#A9B0B6; --r-ink3:#6D767D; --r-sheet:#191C1F; --r-acc:#7CC4AE;
+    --r-wood:#3A3127; --r-wood2:#4A3C2C; --r-wood-l:#2E271F; --r-deck:#5B4935; --r-stone:#2B2D30; --r-slab:#2F3134; --r-terra:#4D3529;
+    --r-brick:#5A3B2E; --r-tatami:#38382A; --r-tatami-l:#55543C; --r-conc:#2E3032;
+    --r-grass:#1C251B; --r-grass-l:#2D3B28; --r-gravel:#2C2C29; --r-rake:#45443F; --r-moss:#4E6640; --r-water:#33627E;
+    --r-stone-g:#66625B; --r-maple:#A9452E; --r-birch:#6E8E50; --r-olive:#5F6849; --r-pine:#3A5E42; --r-palm:#467040; --r-citrus:#4E7339;
+    --r-fruit:#C9781F; --r-glass:#2C4A5D; --r-glass-d:#5E8DA8; --r-sedum:#3F4C33; --r-sedum2:#5E463C; --r-sedum3:#4A5C3A; --r-roofg:#2F3032;
+    --r-shadow:rgba(0,0,0,.35); --r-void:#22262A; --r-fu:#22262A; --r-fu-d:#5D656B; --r-fu-t:#2B2F33; --r-fu-w:#4A3E30; --r-rug:#3B352E;
+    --r-blanket:#33302B; --r-c:#26292C; --r-bath:#2A2E31; --r-water2:#2C4655; --r-pot:#7A5741; --r-plant:#4D7040; --r-lav:#5E5480;
+  }
+}
+:root[data-theme="dark"]{
+    --r-ink:#E3E6E4; --r-ink2:#A9B0B6; --r-ink3:#6D767D; --r-sheet:#191C1F; --r-acc:#7CC4AE;
+    --r-wood:#3A3127; --r-wood2:#4A3C2C; --r-wood-l:#2E271F; --r-deck:#5B4935; --r-stone:#2B2D30; --r-slab:#2F3134; --r-terra:#4D3529;
+    --r-brick:#5A3B2E; --r-tatami:#38382A; --r-tatami-l:#55543C; --r-conc:#2E3032;
+    --r-grass:#1C251B; --r-grass-l:#2D3B28; --r-gravel:#2C2C29; --r-rake:#45443F; --r-moss:#4E6640; --r-water:#33627E;
+    --r-stone-g:#66625B; --r-maple:#A9452E; --r-birch:#6E8E50; --r-olive:#5F6849; --r-pine:#3A5E42; --r-palm:#467040; --r-citrus:#4E7339;
+    --r-fruit:#C9781F; --r-glass:#2C4A5D; --r-glass-d:#5E8DA8; --r-sedum:#3F4C33; --r-sedum2:#5E463C; --r-sedum3:#4A5C3A; --r-roofg:#2F3032;
+    --r-shadow:rgba(0,0,0,.35); --r-void:#22262A; --r-fu:#22262A; --r-fu-d:#5D656B; --r-fu-t:#2B2F33; --r-fu-w:#4A3E30; --r-rug:#3B352E;
+    --r-blanket:#33302B; --r-c:#26292C; --r-bath:#2A2E31; --r-water2:#2C4655; --r-pot:#7A5741; --r-plant:#4D7040; --r-lav:#5E5480;
+}
+svg.drw{display:block;width:100%;height:auto;background:var(--r-sheet)}
+svg.drw text{font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif}
+.nofurn .furn{display:none}
+/* wzory */
+.pt-wood{fill:var(--r-wood)} .pt-wood2{fill:var(--r-wood2)} .pt-deck{fill:var(--r-deck)} .pt-stone{fill:var(--r-stone)} .pt-slab{fill:var(--r-slab)}
+.pt-terra{fill:var(--r-terra)} .pt-brick{fill:var(--r-brick)} .pt-tatami{fill:var(--r-tatami);stroke:var(--r-tatami-l);stroke-width:1}
+.pt-conc{fill:var(--r-conc)} .pt-dot{fill:var(--r-ink3);opacity:.5}
+.pt-line{stroke:var(--r-ink3);stroke-width:.45;opacity:.55;fill:none}
+.pt-gravel{fill:var(--r-gravel)} .pt-rake{stroke:var(--r-rake);stroke-width:.7}
+.pt-sedum{fill:var(--r-sedum)} .pt-sedum2{fill:var(--r-sedum2)} .pt-sedum3{fill:var(--r-sedum3)} .pt-roofgravel{fill:var(--r-roofg)}
+.pt-grass{fill:var(--r-grass)} .pt-grassl{stroke:var(--r-grass-l);stroke-width:.8;fill:none}
+/* rzut */
+.pl-path{fill:var(--r-stone);stroke:var(--r-ink3);stroke-width:.5}
+.pl-roofbelow{opacity:.9} .pl-roofedge{fill:none;stroke:var(--r-ink2);stroke-width:1.1}
+.pl-void{fill:var(--r-void)} .pl-voidx{stroke:var(--r-ink3);stroke-width:.6;stroke-dasharray:5 4}
+.pl-gvoid{fill:var(--r-gravel);opacity:.55} .pl-below{opacity:.55}
+.pl-stairvoid{fill:var(--r-void)}
+.pl-shadow{fill:var(--r-shadow)}
+.pl-glassroof{fill:none;stroke:var(--r-acc);stroke-width:1.2;stroke-dasharray:8 4}
+.pl-roofshadow{fill:var(--r-shadow)} .pl-parapet{fill:none;stroke:var(--r-ink);stroke-width:1.4} .pl-parapet-in{fill:none;stroke:var(--r-ink2);stroke-width:.6}
+.pl-roofpatio{fill:var(--r-roofg);stroke:var(--r-ink);stroke-width:1.2}
+.w-ext{fill:var(--r-ink)} .w-int{fill:var(--r-ink)} .w-gwall{fill:var(--r-ink2)} .w-low{fill:var(--r-ink2)}
+.w-glass{fill:var(--r-glass)} .w-glassface{fill:none;stroke:var(--r-ink);stroke-width:.7} .w-glassmid{fill:none;stroke:var(--r-glass-d);stroke-width:.6}
+.w-mullion{stroke:var(--r-ink);stroke-width:.9} .w-fold{fill:none;stroke:var(--r-ink);stroke-width:.9} .w-rail{fill:none;stroke:var(--r-ink);stroke-width:1}
+.o-jamb{stroke:var(--r-ink);stroke-width:1} .o-glass{fill:var(--r-glass);stroke:var(--r-ink);stroke-width:.6}
+.o-thin{stroke:var(--r-ink2);stroke-width:.6} .o-pane{stroke:var(--r-ink);stroke-width:1.6}
+.o-leaf{stroke:var(--r-ink);stroke-width:1.6} .o-leafthick{stroke:var(--r-ink);stroke-width:3.2}
+.o-swing{fill:none;stroke:var(--r-ink2);stroke-width:.6;stroke-dasharray:2 2} .o-pivot{fill:var(--r-sheet);stroke:var(--r-ink);stroke-width:1}
+.o-head{stroke:var(--r-ink2);stroke-width:.8;stroke-dasharray:6 3}
+.st,.st-up{fill:var(--r-fu);stroke:var(--r-ink);stroke-width:.8} .st-up{fill:none;stroke-dasharray:4 2}
+.st-tread{stroke:var(--r-ink2);stroke-width:.6} .st-post{fill:var(--r-ink)} .st-walk{fill:none;stroke:var(--r-ink);stroke-width:.9}
+.st-arrow,.st-dot{fill:var(--r-ink)}
+/* meble */
+.fu{fill:var(--r-fu);stroke:var(--r-ink3);stroke-width:.7} .fu-l{stroke:var(--r-ink3);stroke-width:.7}
+.fu-w{fill:var(--r-fu-w);stroke:var(--r-ink3);stroke-width:.7} .fu-w-l{stroke:var(--r-ink3);stroke-width:.6}
+.fu-d{fill:var(--r-fu-d);stroke:var(--r-ink3);stroke-width:.6} .fu-d-l{stroke:var(--r-ink2);stroke-width:.7}
+.fu-t{fill:var(--r-fu-t);stroke:var(--r-ink3);stroke-width:.5} .fu-p{fill:var(--r-plant)}
+.fu-rug{fill:var(--r-rug);opacity:.7} .fu-blanket{fill:var(--r-blanket);stroke:var(--r-ink3);stroke-width:.5}
+.fu-c{fill:var(--r-c);stroke:var(--r-ink2);stroke-width:.7} .fu-bath{fill:var(--r-bath);stroke:var(--r-ink2);stroke-width:.7}
+.fu-water{fill:var(--r-water2)} .fu-lamp{fill:var(--r-fruit);opacity:.6} .fu-screen{fill:var(--r-ink2)}
+.fu-b1{fill:#B85C4A} .fu-b2{fill:#3E6B8A} .fu-b3{fill:#D8B25A}
+.fu-pot{fill:var(--r-pot)} .fu-fruit{fill:var(--r-fruit)} .fu-stone{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.6}
+.fu-mat{fill:var(--r-lav);opacity:.55} .fu-wine{fill:#7B2C3B} .fu-car{fill:var(--r-c);stroke:var(--r-ink2);stroke-width:.8}
+/* ogród */
+.g-woda{fill:var(--r-water)} .g-trawa_niska{fill:var(--r-grass)} .g-mech_runo{fill:var(--r-moss);opacity:.75} .g-zwir_jasny{fill:var(--r-gravel)}
+.g-mech{fill:var(--r-moss)} .g-krag{fill:var(--r-gravel);stroke:var(--r-rake);stroke-width:.8} .g-kamien{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.7}
+.g-krok{fill:var(--r-stone-g);stroke:var(--r-ink3);stroke-width:.5} .g-plyta{fill:var(--r-slab);stroke:var(--r-ink3);stroke-width:.5}
+.g-cien{fill:var(--r-shadow)} .g-klon{fill:var(--r-maple);opacity:.88} .g-brzoza{fill:var(--r-birch);opacity:.9} .g-oliwka{fill:var(--r-olive);opacity:.92}
+.g-sosna{fill:var(--r-pine);opacity:.92} .g-cytrus{fill:var(--r-citrus);opacity:.92} .g-palma-l{fill:none;stroke:var(--r-palm);stroke-width:3.2;stroke-linecap:round}
+.g-owoc{fill:var(--r-fruit)} .g-pien{fill:var(--r-ink2)}
+.g-latarnia{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.8} .g-linia{stroke:var(--r-ink2);stroke-width:.6;fill:none}
+.g-obrzeze{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.7} .g-lawka{fill:var(--r-fu-w);stroke:var(--r-ink3);stroke-width:.7}
+.g-lilia{fill:#7FA96B;stroke:#5D7F4E;stroke-width:.5} .g-paproc{fill:var(--r-pine);opacity:.85} .g-lawenda{fill:var(--r-lav)}
+.g-monstera{fill:var(--r-palm)} .g-donica{fill:var(--r-pot)}
+/* dach szklany */
+.gr-glass{fill:var(--r-glass);stroke:var(--r-ink);stroke-width:1.3;opacity:.92} .gr-mullion{fill:none;stroke:var(--r-ink2);stroke-width:.8}
+.gr-open{fill:var(--r-sheet);opacity:.55;stroke:var(--r-acc);stroke-width:1;stroke-dasharray:4 3} .gr-arrow{stroke:var(--r-acc);stroke-width:1.6}
+.gr-ridge{fill:none;stroke:var(--r-ink);stroke-width:1.2} .gr-lamella{fill:none;stroke:var(--r-glass-d);stroke-width:.8}
+/* opisy */
+.t-room{fill:var(--r-ink);font-size:11.5px;font-weight:700}
+.t-room-s{fill:var(--r-ink);font-size:9.5px;font-weight:700}
+.t-area{fill:var(--r-ink2);font:400 9px "IBM Plex Mono",ui-monospace,monospace}
+.t-void{fill:var(--r-ink2);font-size:8.5px;font-style:italic}
+.t-garden{fill:var(--r-acc);font-size:12px;font-weight:700;font-style:italic;letter-spacing:.04em}
+.t-entry{fill:var(--r-ink2);font-size:9px;font-style:italic}
+.t-label{fill:var(--r-ink);font-size:12px;font-weight:700}
+.t-lvl{fill:var(--r-ink2);font:500 9px "IBM Plex Mono",ui-monospace,monospace}
+.t-sheet{fill:var(--r-ink2);font:500 10px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.12em}
+.d-dim{stroke:var(--r-acc);stroke-width:.8} .d-ext{stroke:var(--r-acc);stroke-width:.4;opacity:.7} .d-tick{stroke:var(--r-acc);stroke-width:1.3}
+.d-t{fill:var(--r-acc);font:500 10px "IBM Plex Mono",ui-monospace,monospace}
+.na-c{fill:none;stroke:var(--r-ink);stroke-width:.8} .na-p{fill:var(--r-ink)}
+.sb-a{fill:var(--r-ink)} .sb-b{fill:var(--r-sheet);stroke:var(--r-ink);stroke-width:.6}
+/* przekrój */
+.s-ground{fill:url(#s-hatch)} .s-line{stroke:var(--r-ink);stroke-width:1.2}
+.s-cut{fill:var(--r-ink)} .s-slab{fill:var(--r-ink)} .s-glass{fill:var(--r-glass);stroke:var(--r-ink);stroke-width:.6}
+.s-roof{fill:var(--r-ink)} .s-green{fill:var(--r-sedum3)} .s-gravel{fill:var(--r-gravel);stroke:var(--r-ink3);stroke-width:.5}
+.s-water{fill:var(--r-water)} .s-deck{fill:var(--r-deck)} .s-room{fill:var(--r-sheet)} .s-gardenbg{fill:var(--r-grass)}
+.s-beyond{fill:none;stroke:var(--r-ink3);stroke-width:.7} .s-beyondf{fill:var(--r-void)}
+.s-thin{stroke:var(--r-ink);stroke-width:.6} .s-lvl{fill:var(--r-sheet);stroke:var(--r-ink);stroke-width:.8}
+.s-person{fill:var(--r-ink2)} .s-trunk{stroke:var(--r-ink2);stroke-width:2} .s-tree{fill:var(--r-pine);opacity:.85}
+.s-maple{fill:var(--r-maple);opacity:.9} .s-birch{fill:var(--r-birch);opacity:.9} .s-olive{fill:var(--r-olive);opacity:.9}
+.s-sky{fill:var(--r-glass);opacity:.25} .s-gframe{fill:var(--r-ink2)} .s-arrow{stroke:var(--r-acc);stroke-width:1.6;fill:none}
+.s-sun{stroke:#D9A23A;stroke-width:1.2;stroke-dasharray:6 4;fill:none}
+.t-sroom{fill:var(--r-ink);font-size:10.5px;font-weight:700} .t-snote{fill:var(--r-ink2);font-size:9px;font-style:italic}
+.pl-patioroof{fill:none;stroke:var(--r-ink2);stroke-width:1;stroke-dasharray:7 3 2 3}
+.g-drzewo{fill:#7FA35F;opacity:.85}
+.s-room{fill:var(--r-sheet)}
+.s-stair{fill:var(--r-ink2);stroke:var(--r-ink);stroke-width:.5}
+.s-stairv{fill:var(--r-slab);stroke:var(--r-ink2);stroke-width:.7}
+.s-stairl{stroke:var(--r-ink3);stroke-width:.6}
