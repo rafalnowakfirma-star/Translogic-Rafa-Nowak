@@ -57,9 +57,10 @@ H.room("pat", "Patio", "patio", rect(GX2, YN, 19.5, 9.6), roof=rect(GX2, YN, 19.
 
 # ---------------------------------------------------------------- piętro (+3,4)
 H.room("hol1", "Hol", "hol", rect(XW, YN, GX1, GY1), level=1, ext={"N": "slits", "W": "slits"}, furn=False)
-H.room("bib", "Biblioteka", "biblioteka", rect(XW, GY1, GX1, 10.4), level=1, ext={"W": "windows", "E": "glass"})
-H.room("laz1", "Łazienka", "lazienka", rect(XW, 10.4, 4.2, 13.6), level=1, ext={"W": "band_high"})
-H.room("prz", "Przejście", "korytarz", rect(4.2, 10.4, GX1, 13.6), level=1, ext={"E": "glass"}, furn=False)
+# biblioteka w kształcie L obiega łazienkę od strony ogrodu i prowadzi do sypialni (zamiast korytarza)
+H.room("bib", "Biblioteka", "biblioteka", rect(XW, GY1, GX1, 10.4).union(rect(4.1, 10.4, GX1, 13.6)), level=1,
+       ext={"W": "windows", "E": "glass"})
+H.room("laz1", "Łazienka", "lazienka", rect(XW, 10.4, 4.1, 13.6), level=1, ext={"W": "band_high"})
 H.room("syp1", "Sypialnia", "sypialnia", rect(XW, 13.6, GX1, YS), level=1,
        ext={"W": "windows", "S": "glass", "E": "glass"})
 T1B = rect(15.25, GY2, 16.35, 16.0)
@@ -102,9 +103,8 @@ H.connect("pra", "biu", "double")
 H.connect("pral", "og", "door")
 # piętro
 H.connect("hol1", "bib", "open")
-H.connect("bib", "prz", "door")
-H.connect("prz", "laz1", "door")
-H.connect("prz", "syp1", "door")
+H.connect("bib", "laz1", "door")
+H.connect("bib", "syp1", "door")
 H.connect("syp1", "t1", "slide", at=0.7)
 # II piętro
 H.connect("hol2", "gar2", "door", at=0.7)

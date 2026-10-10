@@ -19,7 +19,7 @@ H = House(
         "Każda łopata kończy się otwartym końcem pod dachem: wiata na samochód i rowery przy wejściu, loggia nad porannym ogrodem, "
         "zadaszona część patio i drewutnia przy podwórzu gospodarczym. Dzięki temu dom ma 250 m² w środku, a wygląda na większy.",
         "Skrzydło północne to amfilada: wiatrołap ze szklaną ścianą do ogrodu, biblioteka z krętymi schodami i pokój muzyczny, "
-        "z którego wychodzi się na loggię. Nad biblioteką i pokojem muzycznym jest piętro z dwoma pokojami, łazienką i tarasem nad loggią.",
+        "z którego wychodzi się na loggię. Nad skrzydłem północnym jest piętro z dwoma pokojami, łazienką i tarasem nad loggią.",
         "Biuro w skrzydle zachodnim ma szkło od ogrodu i od zachodu, więc po południu widać z biurka zachód słońca nad oliwkami "
         "zachodniego dziedzińca. Wchodzi się do niego z ogrodu, który jest holem domu.",
         "Salon z kuchnią w skrzydle południowym ma 6,5 m wysokości i szkło na całą południową ścianę. Kuchnia stoi przy ścianie "

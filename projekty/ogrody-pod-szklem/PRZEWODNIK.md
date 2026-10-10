@@ -110,7 +110,7 @@ H.cut("A–A", (x1, y1), (x2, y2))    # linia przekroju (patrzymy w lewo od kier
 **Połączenia `connect(a, b, rodzaj, at=0.5, width=None)`:** drzwi `door` (0,9), `double` (1,6),
 `slide` (1,4), `wide` (2,0 – szerokie przejście), `arch` (1,2), `portal` (3,0), `pivot`;
 albo zamiast ściany: `open` (bez ściany), `glass`, `glass_slide`, `fold`, `railing`, `columns`.
-`at` = położenie na wspólnej ścianie (0–1). Drzwi powstają tylko między podłogami (nie w pustkach).
+`at` = położenie na wspólnej ścianie (0–1); kierunek liczenia zależy od obrysu pokoi, więc sprawdź na rzucie – jeśli drzwi są po złej stronie, użyj `1 − at`. Drzwi powstają tylko między podłogami (nie w pustkach).
 
 ### Ogród `H.ogrod(klucz, nazwa, kształt, ...)`
 

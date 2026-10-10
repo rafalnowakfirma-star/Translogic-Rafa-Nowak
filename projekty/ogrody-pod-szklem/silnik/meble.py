@@ -860,7 +860,8 @@ def wall_segments(room, level, min_len=0.6):
     net = room.net
     if net is None:
         return []
-    solid = level["wall_solid"]
+    # ściany bez wycięć – wysokie okna i pasma pod sufitem nie przeszkadzają meblom, zwykłe otwory odejmujemy niżej
+    solid = level.get("wall_geoms") or level["wall_solid"]
     full = unary_union([g for c, g in solid.items() if c in ("ext", "int", "gwall")]) if solid else None
     if full is None or full.is_empty:
         return []

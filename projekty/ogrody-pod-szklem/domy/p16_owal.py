@@ -10,7 +10,9 @@ E = ellipse(CX, CY, RX, RY)
 
 # linie podziału pierścienia – każda przecina elipsę
 XW, XE = 6.5, 14.5      # granice pasm północnego i południowego
-YN, YS = 6.2, 10.8      # granice pasm zachodniego i wschodniego
+YN, YS = 6.3, 10.7      # granice pasm zachodniego i wschodniego
+# (łuk pokoju przy wierzchołku elipsy musi obracać się o < 80°, tj. YN > 6,25 i YS < 10,75 –
+#  inaczej silnik dzieli ten sam łuk różnie od strony pokoju i ogrodu i dubluje szkło oraz drzwi)
 
 
 def cut(x1, y1, x2, y2):

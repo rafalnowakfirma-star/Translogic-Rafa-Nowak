@@ -719,7 +719,11 @@ def plan_roof(house, uid):
             p = r.poly.representative_point()
             C.text(p.x, p.y, r.name, "t-room-s")
         if r.outdoor and r.roof == "full":
-            C.path(r.poly, "pl-roofpatio")
+            rp = r.poly.representative_point()
+            above = any(o.level > r.level and o.kind not in ("void", "ogrod_void") and o.poly.contains(rp)
+                        for o in house.all_rooms)
+            if not above:
+                C.path(r.poly, "pl-roofpatio")
     # dach szklany
     for g in [r for r in house.all_rooms if r.kind == "ogrod"]:
         _glass_roof_svg(C, g)

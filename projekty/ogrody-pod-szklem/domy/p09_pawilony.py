@@ -36,7 +36,7 @@ H.room("her", "Herbaciarnia", "herbaciarnia", rect(9.0, 4.3, 13.5, Y0),
 
 # pawilon dzienny (2 kondygnacje)
 H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(15.5, 1.0, 26.5, Y0), levels=2,
-       ext={"S": "glass_slide", "N": "slits", "E": "solid", "W": "windows"}, kitchen_at="E")
+       ext={"S": "glass_slide", "N": "slits", "E": "glass", "W": "solid"}, kitchen_at="W")
 H.room("pat", "Patio", "patio", rect(X1, Y0, 28.0, 12.0), roof=rect(X1, Y0, 26.5, 10.0))
 
 # pawilon nocny

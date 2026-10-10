@@ -84,7 +84,7 @@ PORCH, _ = cell(5, A_G, G0, G1)
 V_SPLIT = 5.8
 X4, X5 = R(4, V_SPLIT), R(5, V_SPLIT)
 W1, W2 = S(5, -1.5, A_OUT), S(5, -1.5, V_SPLIT)
-W3, W4 = S(5, 1.5, A_OUT), S(5, 1.5, V_SPLIT)
+W3, W4 = S(5, 1.25, A_OUT), S(5, 1.25, V_SPLIT)
 
 # ------------------------------------------------------------------- dom
 H = House(
@@ -112,7 +112,7 @@ H.ogrod("og", "Ogród-las", poly(VI), levels=2, roof_type="pyramid", style="las"
 # --- front (NE): wiatrołap, WC, techniczne, hol; przed wiatrołapem ganek
 H.room("wc", "WC", "wc", poly(VO[4], W1, W2, X4))
 H.room("wia", "Wiatrołap", "wiatrolap", poly(W1, G0, G1, W3, W4, W2), ext="slits")
-H.room("tech", "Techniczne", "techniczne", poly(W3, VO[5], X5, W4), label_at=(CX + 5.35, CY - 4.75))
+H.room("tech", "Techniczne", "techniczne", poly(W3, VO[5], X5, W4))
 H.room("hol", "Hol", "hol", poly(X4, W2, W4, X5, VI[5], VI[4]))
 H.room("gan", "Ganek", "loggia", poly(PORCH), furn=False)
 # --- NW: biblioteka, ściana zewnętrzna w regałach
@@ -124,7 +124,7 @@ H.room("her", "Herbaciarnia", "herbaciarnia", poly(VO[2], ES, QT, VO[3], VI[3], 
 H.room("biu", "Biuro", "biuro", poly(VO[5], VO[0], VI[0], VI[5], X5), ext="glass_slide", garden="glass_slide")
 # --- SE + SW: kuchnia z jadalnią i salon, razem, na dwie kondygnacje
 H.room("kuch", "Kuchnia z jadalnią", "kuchnia", poly(VO[0], VO[1], VI[1], VI[0]), levels=2,
-       ext="glass_slide", garden="glass", kitchen_at="E")
+       ext="glass_slide", kitchen_at="E")
 H.room("sal", "Salon", "salon", poly(VO[1], QP, VO[2], VI[2], VI[1]), levels=2, ext="glass_slide")
 # --- komórki: patio sezonowe z tarasem na dachu; wieża: garderoba i pralnia / sypialnia i łazienka
 H.room("ps", "Patio sezonowe", "patio_sezonowe", poly(PATIO))
@@ -149,8 +149,6 @@ H.connect("her", "gar", "door", at=0.75)
 H.connect("gar", "pral", "door", at=0.8)
 H.connect("syp", "laz", "door", at=0.8)
 H.connect("sal", "tar", "glass")
-H.connect("sal", "og", "glass", width=1.0)      # zwykłe drzwi szklane: bez fałszywych drzwi w pustce na piętrze
-H.connect("kuch", "og", "glass", width=1.0)
 
 H.entrance("wia", 300)
 
