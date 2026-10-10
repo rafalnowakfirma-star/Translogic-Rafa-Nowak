@@ -1,20 +1,20 @@
-"""P06 · Dwa pasma – dwa równoległe drewniane pasma, między nimi długi ogród z kanałem pod przesuwnym szklanym dachem."""
+"""P06 · Dwa pasma – dwa równoległe drewniane pasma, między nimi ogród wodny pod przesuwnym szklanym dachem."""
 from silnik import House, rect, poly
 
 H = House(
     "p06", "Dwa pasma",
-    "Dwa równoległe drewniane pasma – dzienne od południa i nocne od północy – a między nimi długi ogród z kanałem wodnym pod przesuwnym szklanym dachem. Pasma spinają dwa niskie szklane mosty: biuro i biblioteka z wejściem.",
+    "Dwa równoległe drewniane pasma – dzienne od południa i nocne od północy – a między nimi ogród z podłużnym basenem pod przesuwnym szklanym dachem. Pasma spinają dwa niskie szklane mosty: biuro i biblioteka z wejściem.",
     style=dict(fasada="drewno", dach="sedum", akcent="modrzew"),
     concept=[
-        "Ogród ma 10 × 7 m i kanał wodny wzdłuż osi. Przykrywa go płaski szklany dach jak hala dworca: zachodnia połowa latem zsuwa się nad wschodnią.",
-        "Biuro jest zachodnim mostem między pasmami: od wschodu szkło na kanał, od zachodu szkło na pole. Oś widoku biegnie przez cały dom – od drzwi wejściowych przez bibliotekę, nad wodą i przez biuro aż na łąkę.",
+        "Ogród ma 10 × 7 m, a pośrodku podłużny basen 7 × 4 m z brzozami wokół; od drzwi biura prowadzi w głąb wody kładka z kamieni. Przykrywa go płaski szklany dach jak hala dworca: zachodnia połowa latem zsuwa się nad wschodnią.",
+        "Biuro jest zachodnim mostem między pasmami: od wschodu szkło na wodę, od zachodu szkło na pole. Oś widoku biegnie przez cały dom – od drzwi wejściowych przez bibliotekę, nad wodą i przez biuro aż na łąkę.",
         "Wschodni most to wejście: wiatrołap z WC i biblioteka przeszklona od ogrodu i od strony podjazdu. Z biblioteki idzie się przez kredens do kuchni albo wprost do ogrodu.",
         "Pasmo nocne ma dwie kondygnacje, ale parter jest zabudowany tylko na zachodnim odcinku: pracownia wysoka na dwie kondygnacje z północnym światłem i galeria ze schodami. Dalej piętro stoi na słupach nad otwartym podcieniem, na który latem składa się szklana harmonijka ogrodu.",
         "Na piętrze pokoje dzieci i łazienki leżą od północy, a wzdłuż ogrodu biegnie przeszklona galeria. Sypialnia na końcu pasma ma szklaną ścianę od wschodu z balkonem.",
         "Pasmo dzienne to wysoki na dwie kondygnacje salon z kuchnią, otwarty szkłem na ogród i na południe. Na zachodnim końcu jest patio w połowie pod daszkiem, na wschodnim kredens i pralnia.",
     ],
     notes=dict(
-        lato="Zachodnia połowa szklanego dachu zjeżdża nad wschodnią, harmonijka od podcienia się składa i ogród z kanałem staje się przewiewnym dziedzińcem między pasmami; chłód znad wody ciągnie pod piętro na słupach.",
+        lato="Zachodnia połowa szklanego dachu zjeżdża nad wschodnią, harmonijka od podcienia się składa i ogród z basenem staje się przewiewnym dziedzińcem między pasmami; chłód znad wody ciągnie pod piętro na słupach.",
         zima="Dach i harmonijka są zamknięte; ogród z wodą zbiera ciepło słońca i oddaje je wieczorem, a oba pasma mają od środka ścianę do ciepłego ogrodu zamiast do mrozu.",
         technologia="Panele CLT (drewno klejone krzyżowo) na ściany i stropy obu pasm – długie, proste elementy do 16 m. Piętro nad podcieniem to sztywne pudło z CLT na słupach z drewna klejonego, ze stropem ocieplonym od spodu; mosty i dach ogrodu na stalowych ramach, elewacja z deski modrzewiowej.",
     ),
@@ -62,8 +62,8 @@ H.room("kre", "Kredens", "spizarnia", rect(14.5, 13.0, 16.5, 18.4), ext={"S": "s
 H.room("pral", "Pralnia", "pralnia", rect(16.5, 13.0, 18.5, 18.4))
 
 # ---- połączenia
-H.connect("pra", "biu", "double")
-H.connect("pra", "gal", "double")
+H.connect("pra", "biu", "door", at=0.2)
+H.connect("pra", "gal", "double", at=0.82)
 H.connect("wia", "bib", "double")
 H.connect("wia", "wc", "door")
 H.connect("bib", "kre", "door")

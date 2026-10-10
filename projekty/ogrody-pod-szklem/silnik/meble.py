@@ -569,7 +569,8 @@ def _lounge_try(P, s, lx, ly, ang):
             if P.fits(s, sx, sy, rot):
                 rg = rug(min(3.0, s.w + 0.4), 2.2)
                 rg.cx, rg.cy, rg.rot = lx + 0.1 * (-math.sin(a)), ly + 0.1 * math.cos(a), rot
-                P.items.insert(0, rg)
+                if P.free.contains(rg.footprint()):
+                    P.items.insert(0, rg)
                 P.put(s, sx, sy, rot)
                 ct = coffee_table(1.1, 0.6)
                 P.try_at(ct, lx + 0.35 * (-math.sin(a)), ly + 0.35 * math.cos(a), rot)

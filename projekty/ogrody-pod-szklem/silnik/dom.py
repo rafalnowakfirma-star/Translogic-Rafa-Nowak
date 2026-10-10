@@ -381,7 +381,7 @@ class House:
             run.cls, run.spec, run.owner = cls, spec, owner
             run.twin = twin
             floors = [A.z0] + ([B.z0] if B is not None else [])
-            tops = [A.top if not A.outdoor else A.z0 + 2.6] + ([B.top if not B.outdoor else B.z0 + 2.6] if B is not None else [])
+            tops = [_wtop(A)] + ([_wtop(B)] if B is not None else [])
             run.z0 = min(floors)
             cap = lev.z + lev.h
             for rr in (A, B):
@@ -464,7 +464,11 @@ class House:
         # pomieszczenia otwarte
         if A.outdoor and (B is None or B.outdoor):
             if B is not None:
-                return None, "open", EA
+                # dwa otwarte pomieszczenia: ściana tylko gdy jedno z nich jest zamykane (patio sezonowe), a drugie nie
+                if A.kind == B.kind or (A.enclose is None and B.enclose is None):
+                    return None, "open", EA
+                sp = A.enclose if A.enclose is not None else B.enclose
+                return _cls_of(sp), sp, (EA if A.enclose is not None else EB)
             sp = A.enclose
             if sp is None and A.level > 0:
                 sp = "railing"
@@ -698,6 +702,15 @@ def _u(polys, eps=0.003):
         return Polygon()
     g = unary_union([p.buffer(eps, join_style="mitre") for p in polys])
     return g.buffer(-eps, join_style="mitre")
+
+
+def _wtop(r):
+    """Góra ścian pomieszczenia: otwarte bez dachu – 2,6 m (balustrady, murki); zadaszone – pod strop."""
+    if not r.outdoor:
+        return r.top
+    if r.roof == "full" or isinstance(r.roof, Polygon):
+        return r.top
+    return r.z0 + 2.6
 
 
 def _clean(poly, tol=1e-4):
