@@ -396,6 +396,24 @@ class Placer:
                     return True
         return False
 
+    def near(self, it, x, y, rots, radius=3.0, step=0.2):
+        """Najbliższe (x, y) miejsce, w którym mebel się mieści (siatka w promieniu radius)."""
+        cand = []
+        n = int(radius / step)
+        for i in range(-n, n + 1):
+            for j in range(-n, n + 1):
+                d = math.hypot(i * step, j * step)
+                if d <= radius:
+                    cand.append((d, x + i * step, y + j * step))
+        cand.sort()
+        for d, px, py in cand:
+            if not self.free.contains(Point(px, py)):
+                continue
+            for rr in rots:
+                if self.try_at(it, px, py, rr):
+                    return True
+        return False
+
     def axis(self):
         mrr = self.free.minimum_rotated_rectangle
         cs = list(mrr.exterior.coords)
@@ -494,6 +512,8 @@ def _kitchen_living(room, P, with_k=True, with_d=True, with_l=True):
             else:
                 continue
             break
+        else:
+            P.near(isl, ix, iy, (ang, ang + 90), radius=2.6)
     if with_d:
         n = 8 if Wd > 4.4 and L > 9 else 6
         dt = dining(n)
@@ -508,9 +528,10 @@ def _kitchen_living(room, P, with_k=True, with_d=True, with_l=True):
             if done:
                 break
         else:
-            rd = round_dining(0.6, 5)
             jx, jy = local(cx, cy, ang, u, 0)
-            P.try_at(rd, jx, jy, 0)
+            if not P.near(dt, jx, jy, (ang, ang + 90), radius=2.4):
+                rd = round_dining(0.6, 5)
+                P.try_at(rd, jx, jy, 0) or P.near(rd, jx, jy, (0,), radius=2.4)
     if with_l:
         lu = -sign * (L / 2 - max(2.4, (L - kl - dl) / 2)) if (with_k or with_d) else 0
         lx, ly = local(cx, cy, ang, lu, 0)
@@ -519,6 +540,26 @@ def _kitchen_living(room, P, with_k=True, with_d=True, with_l=True):
 
 def _lounge_set(P, lx, ly, ang, span):
     s = sofa(min(2.8, max(2.0, span - 1.2)))
+    ok = False
+    # kotwica zestawu: podany punkt, a gdy wypada przy ścianie lub poza pokojem – najbliższe dobre miejsce
+    anchors = [(lx, ly)]
+    for d in (0.4, 0.8, 1.2, 1.6, 2.0, 2.5, 3.0):
+        for k in range(8):
+            a = math.radians(45 * k)
+            anchors.append((lx + d * math.cos(a), ly + d * math.sin(a)))
+    for lx, ly in anchors:
+        if _lounge_try(P, s, lx, ly, ang):
+            ok = True
+            break
+    if not ok:
+        P.center(sofa(2.0))
+    # kominek lub rtv na najbliższej pełnej ścianie
+    near = sorted(P.segs, key=lambda sg: sg[0].distance(Point(lx, ly)))
+    if near:
+        P.against(fireplace(), segs=near[:2]) or P.against(tv_unit(), segs=near[:3])
+
+
+def _lounge_try(P, s, lx, ly, ang):
     ok = False
     for rot in (ang + 90, ang - 90, ang, ang + 180):
         # sofa przodem w stronę stolika
@@ -540,12 +581,7 @@ def _lounge_set(P, lx, ly, ang, span):
                 break
         if ok:
             break
-    if not ok:
-        P.center(sofa(2.0))
-    # kominek lub rtv na najbliższej pełnej ścianie
-    near = sorted(P.segs, key=lambda sg: sg[0].distance(Point(lx, ly)))
-    if near:
-        P.against(fireplace(), segs=near[:2]) or P.against(tv_unit(), segs=near[:3])
+    return ok
 
 
 def r_salon_kuchnia(room, P):

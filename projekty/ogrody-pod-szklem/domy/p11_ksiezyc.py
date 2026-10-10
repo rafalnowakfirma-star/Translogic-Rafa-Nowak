@@ -32,7 +32,7 @@ H = House(
     concept=[
         "Pokoje leżą w pierścieniu o promieniach 5,5–12 m na łuku 210°, a ogród wypełnia półkole w środku. Wypukła, północna strona domu jest z cegły z nielicznymi oknami, wklęsła strona od ogrodu jest cała ze szkła.",
         "Biuro zajmuje wschodni róg półksiężyca i ma szkło z trzech stron: od ogrodu, od wschodnich pól i od południa, gdzie przesuwne drzwi wychodzą na kamienny taras przed domem.",
-        "Po łuku idzie się z pokoju do pokoju, bez korytarzy: z patio przez salon, hol ze schodami, bibliotekę i herbaciarnię do biura. WC i pralnia to dwie nisze holu od strony ogrodu, więc wejście i schody mają wolną przestrzeń.",
+        "Po łuku idzie się z pokoju do pokoju, bez korytarzy: z patio przez salon, hol ze schodami, bibliotekę i herbaciarnię do biura. Wiatrołap, WC i pralnia to nisze wycięte z holu, więc schody i przejście wzdłuż szkła mają wolną przestrzeń.",
         "Salon z kuchnią przy zachodnim rogu ma dwie kondygnacje i szklaną ścianę do ogrodu na całą wysokość. Za szklaną harmonijką jest zadaszone patio sezonowe na samym końcu rogu: zimą zamknięte szkłem, latem otwarte z trzech stron.",
         "Piętro zajmuje północno-wschodnią część łuku: pracownia nad holem, przelotowa garderoba, łazienka i sypialnia ze szklanymi ścianami od wschodu i w stronę ogrodu, z której wychodzi się na taras na dachu biura.",
         "Dach ogrodu to szklana harmonijka na wysokości 3,75 m, czyli tuż nad podłogą piętra. Z sypialni i pracowni patrzy się ponad nim na południową łąkę, a latem, gdy jest złożony, w dół na drzewa w ogrodzie.",
@@ -53,12 +53,21 @@ H.ogrod("og", "Ogród", sec(A0, A1, 0.0, R_IN), levels=1, roof_type="fold", styl
 H.room("pat", "Patio sezonowe", "patio_sezonowe", sec(A0, 195))
 H.room("sal", "Salon z kuchnią", "salon_kuchnia", sec2(195, 255), levels=2,
        ext={"SE": "glass", "S": "glass", "*": "windows"}, kitchen_at="N")
-# hol: pełna głębokość przy salonie, dalej pas zewnętrzny nad dwiema niszami od strony ogrodu
+# hol: pełna głębokość przy salonie, dalej pas między niszami od ogrodu (pralnia, WC) a wiatrołapem przy wejściu
 # (kawałki dobrane tak, by wspólne krawędzie miały identyczne wierzchołki – inaczej union daje MultiPolygon)
-HOL = union(sec(255, 270, R_IN, 7.75), sec(255, 270, 7.75, R_OUT), sec(270, 285, 7.75, R_OUT),
-            sec(285, 300, 7.25, 7.75), sec(285, 300, 7.75, R_OUT))
+R_GRID = (R_IN, 7.25, 7.75, 9.6, R_OUT)
+
+
+def cells(a1, a2, r1, r2):
+    """Wycinek a1–a2 między promieniami r1–r2 złożony z komórek wspólnej siatki promieni."""
+    rs = [r for r in R_GRID if r1 - 1e-9 <= r <= r2 + 1e-9]
+    return union(*[sec(a1, a2, ra, rb) for ra, rb in zip(rs, rs[1:])])
+
+
+HOL = union(cells(255, 270, R_IN, R_OUT), cells(270, 285, 7.75, R_OUT), cells(285, 300, 7.25, 9.6))
 assert HOL.geom_type == "Polygon", HOL.geom_type
 H.room("hol", "Hol", "hol", HOL, ext="slits")
+H.room("wia", "Wiatrołap", "wiatrolap", sec(285, 300, 9.6, R_OUT), ext="slits")
 H.room("pral", "Pralnia", "pralnia", sec(270, 285, R_IN, 7.75), garden="band_high")
 H.room("wc", "WC", "wc", sec(285, 300, R_IN, 7.25))
 H.room("bib", "Biblioteka", "biblioteka", sec(300, 322.5), ext="band_high")
@@ -73,13 +82,14 @@ H.room("syp", "Sypialnia", "sypialnia_glowna", sec2(315, 345), level=1, ext="gla
 H.room("tar", "Taras", "taras", sec2(345, A1), level=1)
 
 # schody dwubiegowe wzdłuż północnej ściany holu; wejście na piętro do pracowni
-H.stair("U", level=0, rect=(C[0] - 1.5, C[1] - 11.3, C[0] + 2.3, C[1] - 9.0), up="W")
+H.stair("U", level=0, rect=(C[0] - 1.9, C[1] - 11.3, C[0] + 1.9, C[1] - 9.0), up="W")
 
 # ---- połączenia: amfilada parteru
 H.connect("sal", "pat", "fold")
 H.connect("pat", "og", "slide")
 H.connect("sal", "hol", "wide", at=0.78)        # przejście przy szkle ogrodu, kuchnia pod ścianą dalej od ogrodu
 H.connect("hol", "og", "slide", width=1.2)
+H.connect("wia", "hol", "double")
 H.connect("hol", "pral", "door")
 H.connect("hol", "wc", "door")
 H.connect("hol", "bib", "wide")
@@ -92,7 +102,7 @@ H.connect("gar", "syp", "door")
 H.connect("syp", "laz", "slide")
 H.connect("syp", "tar", "slide")
 
-H.entrance("hol", "N", at=0.78)
+H.entrance("wia", "N")
 H.exit("biu", "S", at=0.7, width=2.4, kind="slide")
 
 # teren: ścieżka do wejścia od północy; od południa kamienny taras 2,6 m wzdłuż całej szklanej linii
@@ -101,7 +111,7 @@ D = 2.6
 T15, T165 = P(R_OUT, A1), P(R_OUT, A0)
 n15 = (-math.sin(math.radians(15)), math.cos(math.radians(15)))   # normalna na południe do linii pod kątem 15°
 n165 = (math.sin(math.radians(15)), math.cos(math.radians(15)))
-H.path(rect(15.5, -5.5, 16.9, 0.7))
+H.path(rect(15.95, -5.5, 17.35, 0.9))
 H.path(poly(T15, C, T165, (T165[0] + D * n165[0], T165[1] + D * n165[1]),
             (C[0], C[1] + D / math.cos(math.radians(15))), (T15[0] + D * n15[0], T15[1] + D * n15[1])))
 H.tree(-2.5, 3.5, "brzoza")

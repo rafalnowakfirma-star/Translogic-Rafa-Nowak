@@ -26,24 +26,25 @@ H = House(
         "Pierścień ośmiu segmentów (19 m szerokości, 5 m głębokości) otacza ośmioboczną oranżerię 65 m² "
         "z cytrusami w donicach i fontanną. Z każdego segmentu parteru widać ogród przez szkło, "
         "więc ogród jest głównym holem domu.",
-        "Wejście leży na osi północnej: w zamkniętej miedzianej ścianie ze szczelinami są tylko drzwi, "
+        "Wejście leży na osi północnej: w miedzianej ścianie z wąskimi szczelinami są drzwi, "
         "a z sieni na wprost widać przez szkło fontannę. W sieni stoją kręcone schody na piętro.",
-        "Parter obchodzi się dookoła bez korytarzy: sień, sala muzyczna, biblioteka, patio zimowe, "
+        "Parter obchodzi się dookoła bez korytarzy: sień, biblioteka, sala muzyczna, patio zimowe, "
         "salon z kuchnią, spiżarnia, biuro i z powrotem sień.",
         "Biuro od północnego wschodu ma szkło od ogrodu i od pola oraz własne przesuwne drzwi na zewnątrz, "
         "więc klient nie przechodzi przez dom.",
         "Salon z kuchnią na dwie kondygnacje zajmuje dwa segmenty od południa. Obok jest patio zimowe pod dachem: "
-        "zimą zamyka je szklana harmonijka, latem harmonijka się składa i patio łączy się z otwartym tarasem z desek.",
-        "Piętro stoi tylko nad sienią i salą muzyczną, a salon ma podwójną wysokość, więc nad pierścieniem "
+        "zimą zamyka je szklana harmonijka, latem harmonijka się składa i patio zimowe łączy się z odkrytym "
+        "patio z desek przed domem.",
+        "Piętro stoi tylko nad sienią i biblioteką, a salon ma podwójną wysokość, więc nad pierścieniem "
         "wznoszą się dwie wysokie pary segmentów naprzeciw siebie, a ponad nimi szklana piramida. "
-        "Sypialnia ma szklaną ścianę na północny zachód i wyjście na taras na dachu biblioteki; "
+        "Sypialnia ma szklaną ścianę na północny zachód i wyjście na taras na dachu sali muzycznej; "
         "garderoba i łazienka są nad sienią.",
     ],
     notes=dict(
         lato="Latarnia na szczycie piramidy unosi się i wyciąga ciepłe powietrze z oranżerii, harmonijka patio "
              "zimowego składa się, a szklane drzwi salonu, biura i sypialni stoją otworem.",
         zima="Latarnia jest opuszczona, oranżeria zbiera ciepło słońca i osłania pokoje od środka, a patio zimowe "
-             "działa jak zamknięta weranda między salonem a biblioteką.",
+             "działa jak zamknięta weranda między salonem a salą muzyczną.",
         technologia="Stalowy szkielet ze słupami w narożnikach ośmioboku i prefabrykowane panele ścienne "
                     "(rama stalowa z wełną mineralną) obłożone patynowaną blachą miedzianą; stropy z płyt "
                     "prefabrykowanych, piramida ze stalowych żeber i szkła zespolonego.",
@@ -70,16 +71,16 @@ H.room("sal", "Salon z kuchnią", "salon_kuchnia", seg(1, span=2), levels=2,
        garden={225: "glass_slide", 270: "glass"}, kitchen_at="E")
 # --- SW: patio zimowe (zadaszone, harmonijka szklana) i taras drewniany przed nim
 A_DECK = 12.0
-H.room("pz", "Patio zimowe", "patio_sezonowe", seg(3))
+H.room("pz", "Patio zimowe", "patio_sezonowe", seg(3), furn=False)
 H.room("pat", "Patio", "patio", seg(3, A_OUT, A_DECK))
-# --- W: biblioteka (na dachu taras)
-H.room("bib", "Biblioteka", "biblioteka", seg(4), ext={67.5: "glass_slide", "*": "solid"})
-# --- NW: sala muzyczna (nad nią sypialnia)
-H.room("muz", "Sala muzyczna", "muzyczny", seg(5), ext={225: "windows", "*": "solid"})
+# --- W: sala muzyczna (na dachu taras), otwiera się na patio zimowe
+H.room("muz", "Sala muzyczna", "muzyczny", seg(4), ext={67.5: "glass_slide", "*": "solid"})
+# --- NW: biblioteka (nad nią sypialnia)
+H.room("bib", "Biblioteka", "biblioteka", seg(5), ext={225: "windows", "*": "solid"})
 
 # --- piętro
 A_GL = 6.6   # granica garderoba / łazienka nad bramą
-H.room("gar", "Garderoba", "garderoba", seg(6, A_GL, A_OUT), level=1, ext="solid")
+H.room("gar", "Garderoba", "garderoba", seg(6, A_GL, A_OUT), level=1, ext="slits")
 H.room("laz", "Łazienka", "lazienka", seg(6, A_IN, A_GL), level=1, ext="solid", garden="band")
 H.room("syp", "Sypialnia", "sypialnia_glowna", seg(5), level=1,
        ext={225: "glass", 112.5: "glass_slide", "*": "solid"}, garden="solid")
@@ -92,7 +93,7 @@ H.ogrod("og", "Oranżeria", ngon(CX, CY, 8, A_IN), levels=2, roof_type="pyramid"
 # --- połączenia
 H.connect("hol", "wc", "door", at=0.2)
 H.connect("hol", "biu", "door", at=0.8)
-H.connect("hol", "muz", "door", at=0.3)
+H.connect("hol", "bib", "door", at=0.3)
 H.connect("biu", "spi", "door")
 H.connect("spi", "sal", "door")
 H.connect("spi", "pral", "door")
@@ -103,14 +104,15 @@ H.connect("syp", "laz", "door", at=0.75)
 
 H.entrance("hol", "N", at=(CX - X_WC) / (V(A_OUT, 6)[0] - X_WC))
 H.exit("spi", "E", kind="door", width=1.0)
-H.window("bib", "W", at=0.85, width=1.2, sill=0.4, head=2.7)
+H.window("muz", "W", at=0.85, width=1.2, sill=0.4, head=2.7)
 
 H.path(rect(CX - 0.7, -6.0, CX + 0.7, CY - A_OUT - 0.2))
 DOOR_BIU = pt(CX, CY, A_OUT + 0.2, 315)   # przesuwne drzwi biura (NE)
 H.path(LineString([DOOR_BIU, pt(CX, CY, A_OUT + 2.4, 315), (18.3, -1.4), (CX + 0.7, -1.4)])
        .buffer(0.6, cap_style=2, join_style=2))
-H.tree(-1.5, 3.0, "brzoza")
+H.tree(13.0, -5.5, "brzoza")
+H.tree(24.5, 2.5, "lipa")
 H.tree(23.0, 22.0, "klon")
-H.tree(22.5, -1.5, "lipa")
+H.tree(-6.0, 7.5, "sosna")
 H.cut("A–A", (CX + 1.6, -2.0), (CX + 1.6, 22.0))
-H.cut("B–B", (CX - 8.5, CY - 8.5), (CX + 8.5, CY + 8.5))
+H.cut("B–B", pt(CX, CY, A_DECK + 0.5, 135), pt(CX, CY, A_OUT + 1.0, 315))

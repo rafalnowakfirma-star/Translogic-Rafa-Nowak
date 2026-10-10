@@ -65,7 +65,17 @@ class Room:
                  height=None, note=None, parent=None, kitchen_at=None, focus=None, seed=0):
         self.house = house
         self.key, self.name, self.kind = key, name, kind
-        self.poly = orient(shape.buffer(0) if not shape.is_valid else shape, 1.0)
+        shape = shape.buffer(0) if not shape.is_valid else shape
+        if shape.geom_type != "Polygon":
+            # kształt rozpadł się (np. suma wycinków ze szczeliną) – domykamy szczeliny, w ostateczności największa część
+            healed = shape.buffer(2e-4, join_style="mitre").buffer(-2e-4, join_style="mitre")
+            if healed.geom_type != "Polygon":
+                healed = largest(healed)
+                house.notes_build = getattr(house, "notes_build", []) + [f"{key}: kształt z kilku części – użyto największej"]
+            shape = healed
+        if shape.interiors:
+            shape = Polygon(shape.exterior)
+        self.poly = orient(shape, 1.0)
         self.level, self.levels, self.dz = level, levels, dz
         self.outdoor = kind in OUTDOOR
         self.ext = ext if ext is not None else EXT_DEFAULT.get(kind, "open" if self.outdoor else "windows")
@@ -299,7 +309,7 @@ class House:
     # ----------------------------------------------------------------- budowa
     def build(self):
         self.all_rooms = list(self.rooms)
-        self.warnings = []
+        self.warnings = list(getattr(self, "notes_build", []))
         # pustki nad pomieszczeniami wielokondygnacyjnymi
         for r in list(self.rooms):
             for i in range(1, r.levels):

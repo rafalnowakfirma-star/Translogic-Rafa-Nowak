@@ -30,9 +30,8 @@ H.level(1, z=3.2, h=3.2)
 H.ogrod("og", "Atrium", rect(XW, YN, XE, YS), levels=2, roof_type="louvre", style="japonski", seed=13)
 
 # ---------------------------------------------------------------- parter
-H.room("pod", "Podcień", "loggia", rect(0, 0, 2.4, 1.3), furn=False, label_at=(1.2, 1.0))
-H.room("wc", "WC", "wc", rect(2.4, 0, XW, 1.9))
-H.room("wia", "Wiatrołap", "wiatrolap", poly((0, 1.3), (2.4, 1.3), (2.4, 1.9), (XW, 1.9), (XW, YN), (0, YN)),
+H.room("wc", "WC", "wc", rect(2.4, 0, XW, 2.0), ext={"N": "solid", "W": "band_high"})
+H.room("wia", "Wiatrołap", "wiatrolap", poly((0, 1.3), (2.4, 1.3), (2.4, 2.0), (XW, 2.0), (XW, YN), (0, YN)),
        ext={"W": "slits", "N": "solid"})
 H.room("hol", "Hol", "hol", rect(XW, 0, XE, YN), ext={"N": "slits"})
 H.stair("straight", level=0, rect=(3.7, 0.25, 8.7, 1.35), up="W")
@@ -46,30 +45,31 @@ H.room("bib", "Biblioteka", "biblioteka", rect(0, YN, XW, YS), ext={"W": "solid"
 
 H.connect("wia", "hol", "door")
 H.connect("wia", "wc", "door")
-H.connect("wia", "bib", "door", at=0.85)
+H.connect("wia", "bib", "door", at=0.15)
 H.connect("hol", "gos", "door", at=0.7)
-H.connect("sal", "og", "slide", at=0.85)
-H.connect("sal", "spi", "door", at=0.2)
+H.connect("sal", "og", "slide", at=0.15)
+H.connect("sal", "spi", "door", at=0.8)
 H.connect("spi", "pral", "door")
-H.entrance("wia", "N")
+H.entrance("wia", "N", at=0.7)
 H.exit("sal", "S", kind="slide", at=0.6)
 H.window("bib", "W", at=0.85, width=1.2, sill=0.6, head=2.5)
 
 # ---------------------------------------------------------------- piętro
 H.room("gal", "Galeria", "galeria", rect(0, 0, XE, YN), level=1, ext={"N": "slits", "W": "solid"}, garden="glass")
 H.room("gar", "Garderoba", "garderoba", rect(XE, 0, 11.0, YN), level=1)
-H.room("laz", "Łazienka", "lazienka", rect(11.0, 0, XX, YN), level=1, ext={"N": "band_high", "E": "solid"})
+H.room("laz", "Łazienka", "lazienka", rect(11.0, 0, XX, YN), level=1, ext={"N": "solid", "E": "band_high"})
 H.room("biu", "Biuro", "biuro", rect(0, YN, XW, YS), level=1, ext={"W": "glass", "S": "glass_slide"}, garden="glass")
 H.room("syp", "Sypialnia", "sypialnia_glowna", rect(XE, YN, XX, YS), level=1,
        ext={"E": "glass"}, garden="band_high")
 H.room("tar", "Taras", "taras", rect(0, YS, XW, YY), level=1)
 
 H.connect("gal", "biu", "door", at=0.3)
-H.connect("gal", "gar", "door", at=0.7)
-H.connect("gar", "syp", "door")
-H.connect("syp", "laz", "door")
+H.connect("gal", "gar", "door", at=0.75)
+H.connect("gar", "syp", "door", at=0.9)
+H.connect("syp", "laz", "door", at=0.2)
 
 # ---------------------------------------------------------------- teren
+H.path(rect(0, 0, 2.4, 1.3))        # posadzka podcienia wejściowego (wnęka pod stropem galerii)
 H.path(rect(0.6, -6.0, 1.8, 0.0))
 H.path(rect(-3.6, 9.4, -0.2, YY))
 H.tree(-4.5, 15.0, "klon")

@@ -44,20 +44,44 @@ def arc_angles(a1, a2, step=STEP):
     return out
 
 
+def arc_pt(cx, cy, r, a, step=STEP):
+    """Punkt pod kątem a na wielokącie okręgu (wierzchołki co `step`).
+    Dla kątów spoza siatki leży na cięciwie, więc pokrywa się z bokiem koła/wycinka sąsiada."""
+    k = a / step
+    if abs(k - round(k)) < 1e-9:
+        return pt(cx, cy, r, a)
+    a0 = math.floor(k) * step
+    mid = a0 + step / 2
+    return pt(cx, cy, r * math.cos(math.radians(step / 2)) / math.cos(math.radians(a - mid)), a)
+
+
+def ell_pt(cx, cy, rx, ry, a, step=STEP):
+    """Punkt elipsy dla parametru a; poza siatką – na cięciwie między sąsiednimi wierzchołkami."""
+    k = a / step
+    if abs(k - round(k)) < 1e-9:
+        return (cx + rx * math.cos(math.radians(a)), cy + ry * math.sin(math.radians(a)))
+    a0 = math.floor(k) * step
+    t = (a - a0) / step
+    p0 = (cx + rx * math.cos(math.radians(a0)), cy + ry * math.sin(math.radians(a0)))
+    p1 = (cx + rx * math.cos(math.radians(a0 + step)), cy + ry * math.sin(math.radians(a0 + step)))
+    return (p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t)
+
+
 def sector(cx, cy, r1, r2, a1, a2, step=STEP):
-    """Wycinek pierścienia: promienie r1–r2, kąty a1–a2 (a1 < a2)."""
+    """Wycinek pierścienia: promienie r1–r2, kąty a1–a2 (a1 < a2).
+    Kąty mogą być dowolne – punkty spoza siatki 7,5° leżą na cięciwach, więc łuki sąsiadów się pokrywają."""
     angs = arc_angles(a1, a2, step)
-    outer = [pt(cx, cy, r2, a) for a in angs]
-    inner = [pt(cx, cy, r1, a) for a in reversed(angs)] if r1 > 1e-6 else [(cx, cy)]
+    outer = [arc_pt(cx, cy, r2, a, step) for a in angs]
+    inner = [arc_pt(cx, cy, r1, a, step) for a in reversed(angs)] if r1 > 1e-6 else [(cx, cy)]
     return Polygon(outer + inner)
 
 
 def ell_sector(cx, cy, rx1, ry1, rx2, ry2, a1, a2, step=STEP):
     """Wycinek pierścienia eliptycznego (parametr kąta jak w sector)."""
     angs = arc_angles(a1, a2, step)
-    outer = [(cx + rx2 * math.cos(math.radians(a)), cy + ry2 * math.sin(math.radians(a))) for a in angs]
+    outer = [ell_pt(cx, cy, rx2, ry2, a, step) for a in angs]
     if rx1 > 1e-6:
-        inner = [(cx + rx1 * math.cos(math.radians(a)), cy + ry1 * math.sin(math.radians(a))) for a in reversed(angs)]
+        inner = [ell_pt(cx, cy, rx1, ry1, a, step) for a in reversed(angs)]
     else:
         inner = [(cx, cy)]
     return Polygon(outer + inner)
@@ -108,7 +132,14 @@ def move(g, dx, dy):
 
 
 def union(*gs):
-    return unary_union(list(gs))
+    """Suma kształtów; drobne szczeliny z zaokrągleń są domykane, żeby wyszedł jeden wielokąt."""
+    import shapely
+    g = unary_union([shapely.set_precision(x, 1e-6) for x in gs])
+    if isinstance(g, MultiPolygon):
+        h = g.buffer(2e-4, join_style="mitre").buffer(-2e-4, join_style="mitre")
+        if isinstance(h, Polygon):
+            g = h
+    return g
 
 
 def largest(g):

@@ -9,7 +9,7 @@ H = House(
     concept=[
         "Z zewnątrz dom jest jednym wyciosanym blokiem z kamienia: okna to wąskie szczeliny, a duże szkło pojawia się tylko w głębokich wcięciach – w loggii biura od zachodu, w dwukondygnacyjnej loggii od wschodu i w patio wciętym w południową ścianę. Tam szkło ma cień i prywatność.",
         "Północna ściana to gruba ciepła skorupa z pomieszczeń pomocniczych: techniczne, pralnia, wiatrołap, WC, szatnia i schody. To poprawiona wersja pomysłu z korytarzem po obwodzie: bufor jest tylko tam, gdzie jest zimno, i nie zabiera okien pokojom, bo pokoje za nim patrzą na ogród.",
-        "Ogród 7,4 × 6,9 m to płytki staw-lustro z kamieniami i brzozami pod przesuwnym szklanym dachem. Od wschodu ogród przechodzi w werandę pod sypialnią, którą zimą zamyka szklana harmonijka, a latem otwiera się przez loggię na krajobraz.",
+        "Ogród 7,4 × 6,9 m to płytki staw-lustro z kładką z kamiennych płyt, liliami i jedną brzozą pod przesuwnym szklanym dachem. Od wschodu ogród przechodzi w werandę pod sypialnią, którą zimą zamyka szklana harmonijka, a latem otwiera się przez loggię na krajobraz.",
         "Biuro od zachodu ma szkło od ogrodu i od loggii głębokiej na 2,6 m; biurko stoi między stawem a cieniem kamiennej niszy.",
         "Od wejścia idzie się amfiladą: wiatrołap, galeria wzdłuż stawu, potem biblioteka i biuro na zachód albo pracownia i weranda na wschód. Salon z kuchnią ma 6,9 m wysokości, od południa tylko szczeliny, a światło bierze z ogrodu i z patio, które w połowie jest pod dachem; przy patio są sauna i łazienka.",
         "Piętro to wyłącznie sypialnia nad werandą: przeszklona do wschodniej loggii z kamiennym murkiem i nad szklany dach ogrodu, z przelotową garderobą i łazienką nad pracownią. Schody do niej biegną w północnej skorupie.",
@@ -35,7 +35,7 @@ H.room("wia", "Wiatrołap", "wiatrolap", rect(7.0, 0, 9.8, 2.6), ext="solid")
 H.room("wc", "WC", "wc", rect(9.8, 0, 11.4, 2.6), ext="slits")
 H.room("szat", "Szatnia", "garderoba", rect(11.4, 0, 13.0, 2.6), ext="solid")
 H.room("sch", "Schody", "hol", rect(13.0, 0, 20.4, 2.6), ext="slits", furn=False)
-H.stair("straight", level=0, rect=(13.3, 0.3, 19.6, 1.4), up="E")
+H.stair("straight", level=0, rect=(14.1, 0.3, 19.9, 1.4), up="E")
 
 # amfilada od frontu – za skorupą, oknami na staw
 H.room("bib", "Biblioteka", "biblioteka", rect(0, 2.6, 7.0, 5.6), ext="slits")
@@ -60,7 +60,7 @@ H.room("win", "Winiarnia", "winiarnia", rect(17.4, 12.5, 20.4, 14.9), ext="solid
 H.room("spi", "Spiżarnia", "spizarnia", rect(17.4, 14.9, 20.4, 17.4), ext="solid")
 
 # piętro – tylko sypialnia nad werandą
-H.room("holg", "Hol górny", "hol", rect(13.0, 0, 20.4, 2.6), level=1, ext={"N": "slits", "E": "slits", "*": "solid"}, furn=False)
+H.room("holg", "Hol górny", "hol", rect(14.4, 0, 20.4, 2.6), level=1, ext={"N": "slits", "E": "slits", "*": "solid"}, furn=False)
 H.room("lazm", "Łazienka", "lazienka", rect(14.4, 2.6, 16.6, 5.6), level=1, ext={"W": "band_high", "*": "solid"})
 H.room("garm", "Garderoba", "garderoba", rect(16.6, 2.6, 20.4, 5.6), level=1, ext={"E": "slits", "*": "solid"})
 H.room("sypm", "Sypialnia", "sypialnia_glowna", rect(14.4, 5.6, 18.4, 12.5), level=1,
@@ -77,7 +77,7 @@ H.connect("gal", "sch", "door")
 H.connect("gal", "bib", "wide")
 H.connect("gal", "pra", "wide")
 H.connect("bib", "biu", "double")
-H.connect("biu", "pat", "door")
+H.connect("biu", "pat", "door", at=0.2)
 H.connect("pat", "laz2", "door")
 H.connect("laz2", "sau", "door")
 H.connect("pra", "ver", "slide")

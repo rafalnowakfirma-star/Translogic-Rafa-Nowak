@@ -40,13 +40,14 @@ wschodu zgodnie z ruchem wskazówek zegara na rysunku: 0 = E, 90 = S, 180 = W, 2
 | `ngon_band(cx, cy, n, a_in, a_out, k, span=1, rot=0)` | pas wielokąta foremnego między apotemami (boki k…k+span−1) |
 | `ngon_vertex(cx, cy, n, apothem, k, rot)` | wierzchołek wielokąta foremnego |
 | `rotate(g, deg, origin)`, `move(g, dx, dy)`, `union(a, b, ...)` | przekształcenia |
-| `pt(cx, cy, r, a)` | punkt na okręgu |
+| `pt(cx, cy, r, a)` | punkt na prawdziwym okręgu |
+| `arc_pt(cx, cy, r, a)` / `ell_pt(cx, cy, rx, ry, a)` | punkt na wielokącie koła/elipsy (taki jak wierzchołki `sector`/`circle`) – używaj do własnych wielokątów stykających się z łukami |
 
 **Pokoje to wielokąty po osiach ścian.** Sąsiednie pokoje muszą się stykać krawędziami
 (wspólne odcinki) i **nie mogą na siebie zachodzić** ani zostawiać szczelin – inaczej silnik
 postawi tam ścianę zewnętrzną. Styki typu T (wierzchołek jednego pokoju na krawędzi drugiego)
 są obsługiwane. Łuki rób zawsze z `sector`/`circle`/`ell_sector` o **tym samym środku** –
-wierzchołki są wtedy wspólne (krok 7,5°). Pokój może być wielokątem z łuków i prostych
+wierzchołki są wtedy wspólne (krok 7,5°; kąty spoza siatki też są dozwolone, bo ich punkty leżą na cięciwach). Pokój może być wielokątem z łuków i prostych
 (`union(sector(...), rect(...))`), ale bez dziur.
 
 ## API domu
