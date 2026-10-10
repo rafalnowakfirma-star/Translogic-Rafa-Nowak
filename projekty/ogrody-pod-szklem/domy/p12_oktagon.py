@@ -62,29 +62,29 @@ H.room("hol", "Sień", "hol",
        ext="slits")
 H.stair("spiral", level=0, center=(12.0, 2.0), r=1.0, start=120, sweep=330, n=18)
 # --- NE: biuro przeszklone od ogrodu i od pola
-H.room("biu", "Biuro", "biuro", seg(7), ext={315: "glass_slide", "*": "solid"}, garden="glass_slide")
+H.room("biu", "Biuro", "biuro", seg(7), ext={"NE": "glass_slide", "*": "solid"}, garden="glass_slide")
 # --- E: spiżarnia przelotowa i pralnia
 H.room("spi", "Spiżarnia", "spizarnia", seg(0, A_MID, A_OUT), ext="solid")
 H.room("pral", "Pralnia", "pralnia", seg(0, A_IN, A_MID), garden="windows")
 # --- SE + S: salon z kuchnią na dwie kondygnacje
 H.room("sal", "Salon z kuchnią", "salon_kuchnia", seg(1, span=2), levels=2,
-       ext={45: "windows", 90: "glass", 202.5: "glass_slide", "*": "solid"},
-       garden={225: "glass_slide", 270: "glass"}, kitchen_at="E")
+       ext={"SE": "windows", "S": "glass", "W": "glass_slide", "*": "solid"},
+       garden={"NW": "glass_slide", "N": "glass"}, kitchen_at="E")
 # --- SW: patio zimowe (zadaszone, harmonijka szklana) i taras drewniany przed nim
 A_DECK = 12.0
 H.room("pz", "Patio zimowe", "patio_sezonowe", seg(3), furn=False)
 H.room("pat", "Patio", "patio", seg(3, A_OUT, A_DECK))
 # --- W: sala muzyczna (na dachu taras), otwiera się na patio zimowe
-H.room("muz", "Sala muzyczna", "muzyczny", seg(4), ext={67.5: "glass_slide", "*": "solid"})
+H.room("muz", "Sala muzyczna", "muzyczny", seg(4), ext={"pz": "glass_slide", "*": "solid"})
 # --- NW: biblioteka (nad nią sypialnia)
-H.room("bib", "Biblioteka", "biblioteka", seg(5), ext={225: "windows", "*": "solid"})
+H.room("bib", "Biblioteka", "biblioteka", seg(5), ext={"NW": "windows", "*": "solid"})
 
 # --- piętro
 A_GL = 6.6   # granica garderoba / łazienka nad bramą
 H.room("gar", "Garderoba", "garderoba", seg(6, A_GL, A_OUT), level=1, ext="slits")
 H.room("laz", "Łazienka", "lazienka", seg(6, A_IN, A_GL), level=1, ext="solid", garden="band")
 H.room("syp", "Sypialnia", "sypialnia_glowna", seg(5), level=1,
-       ext={225: "glass", 112.5: "glass_slide", "*": "solid"}, garden="solid")
+       ext={"NW": "glass", "tar": "glass_slide", "*": "solid"}, garden="solid")
 H.room("tar", "Taras", "taras", seg(4), level=1, dz=0.05)  # deska 5 cm nad stropem (patrz raport)
 
 # --- ogród
