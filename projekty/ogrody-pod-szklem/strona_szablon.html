@@ -90,7 +90,7 @@ p{margin:0}
 :root[data-season="zima"] .cap-lato{display:none}
 
 /* sekcje */
-.sec{max-width:var(--wide);margin-inline:auto;padding-block:56px 8px}
+.sec{max-width:var(--wide);margin-inline:auto;padding-block:56px 8px;scroll-margin-top:64px}
 .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:14px 40px;align-items:end;margin-bottom:26px;
   border-top:2px solid var(--ink);padding-top:16px}
 .sec-head h2{font-weight:750;font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1}
@@ -247,6 +247,10 @@ dialog::backdrop{background:rgba(8,12,10,.72)}
   .vw-hint{display:none}
 }
 @media (max-width:520px){
+  .top-in{flex-wrap:nowrap;justify-content:space-between;gap:10px}
+  .brand{font-size:.8rem}
+  .seg button{padding:7px 10px}
+  .house,.sec{scroll-margin-top:64px}
   .cards{grid-template-columns:minmax(0,1fr)}
   .refs{grid-template-columns:minmax(0,1fr)}
   .nav{display:none}
@@ -537,6 +541,7 @@ dialog::backdrop{background:rgba(8,12,10,.72)}
     renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.localClippingEnabled = true;
     stage.insertBefore(renderer.domElement, status);
     var scene = new THREE.Scene();
     var cam = new THREE.PerspectiveCamera(38, 1.6, 0.3, 800);
@@ -545,11 +550,11 @@ dialog::backdrop{background:rgba(8,12,10,.72)}
     sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
     scene.add(sun); scene.add(sun.target);
     var ground = new THREE.Mesh(new THREE.CircleGeometry(220, 64),
-      new THREE.MeshStandardMaterial({ color: new THREE.Color("#66784e").convertSRGBToLinear(), roughness: 1 }));
+      new THREE.MeshStandardMaterial({ color: new THREE.Color("#55693f").convertSRGBToLinear(), roughness: 1 }));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -0.32; ground.receiveShadow = true; scene.add(ground);
     var controls = new THREE.OrbitControls(cam, renderer.domElement);
     controls.maxPolarAngle = Math.PI * 0.49; controls.minDistance = 2; controls.maxDistance = 160; controls.screenSpacePanning = true;
-    var clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), 100);
+    var clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1000);
     V = { renderer: renderer, scene: scene, cam: cam, sun: sun, controls: controls, clip: clip, root: null, lato: [], zima: [], mats: {}, top: 10 };
     controls.addEventListener("change", draw);
     window.addEventListener("resize", function () { if (dlg.open) fit(); });
@@ -568,6 +573,8 @@ dialog::backdrop{background:rgba(8,12,10,.72)}
     var m = new THREE.MeshStandardMaterial({ color: new THREE.Color(d[0]).convertSRGBToLinear(), roughness: d[1], metalness: d[2],
       flatShading: true, side: THREE.DoubleSide });
     if (d.length > 3) { m.transparent = true; m.opacity = d[3]; m.depthWrite = name === "woda"; }
+    // przekrój tnie budynek, ale nie drzewa i rośliny
+    if (!/^(lisc|pien|lawenda|mech|trawa)/.test(name)) m.clippingPlanes = [V.clip];
     if (name === "lampa") { m.emissive = new THREE.Color("#ffe2b0"); m.emissiveIntensity = 0.35; }
     V.mats[name] = m;
     return m;
@@ -586,8 +593,8 @@ dialog::backdrop{background:rgba(8,12,10,.72)}
   function setClip() {
     if (!V) return;
     var v = parseFloat(clipIn.value), max = parseFloat(clipIn.max);
-    if (v >= max - 0.05) { V.renderer.clippingPlanes = []; clipV.textContent = "cały dom"; }
-    else { V.clip.constant = v; V.renderer.clippingPlanes = [V.clip]; clipV.textContent = "cięcie na " + v.toFixed(1).replace(".", ",") + " m"; }
+    if (v >= max - 0.05) { V.clip.constant = 1000; clipV.textContent = "cały dom"; }
+    else { V.clip.constant = v; clipV.textContent = "cięcie na " + v.toFixed(1).replace(".", ",") + " m"; }
     draw();
   }
   clipIn.addEventListener("input", setClip);
