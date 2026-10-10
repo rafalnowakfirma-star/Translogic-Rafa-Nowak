@@ -58,6 +58,7 @@ M = {
     "trawa_ogrod": dict(grass=True),
     "sciezka": dict(c=(0.70, 0.68, 0.64), r=0.85, var=0.05, ns=3),
     "zwir_ogrod": dict(c=(0.87, 0.86, 0.82), r=0.95, var=0.06, ns=60),
+    "zwir_grabiony": dict(c=(0.74, 0.73, 0.69), r=0.95, var=0.08, rake=True),
     "plyty_ogrod": dict(c=(0.77, 0.74, 0.68), r=0.7, var=0.06, ns=2),
     "mech": dict(c=(0.24, 0.37, 0.12), r=0.95, var=0.15, ns=8),
     "kamien_ogrod": dict(c=(0.42, 0.41, 0.39), r=0.8, var=0.12, ns=4),
@@ -139,6 +140,35 @@ def make_mat(name, dusk=False):
         br.inputs["Row Height"].default_value = 0.16
         links.new(tc.outputs["Object"], br.inputs["Vector"])
         links.new(br.outputs["Color"], bsdf.inputs["Base Color"])
+    elif d.get("rake"):
+        # grabiony żwir: równoległe bruzdy + drobne ziarno
+        wv = nodes.new("ShaderNodeTexWave")
+        wv.wave_type = "BANDS"
+        wv.bands_direction = "X"
+        wv.inputs["Scale"].default_value = 6.0
+        wv.inputs["Distortion"].default_value = 0.6
+        wv.inputs["Detail"].default_value = 1.0
+        ns = nodes.new("ShaderNodeTexNoise")
+        ns.inputs["Scale"].default_value = 140.0
+        mx = nodes.new("ShaderNodeMix")
+        mx.data_type = "FLOAT"
+        mx.inputs["Factor"].default_value = 0.35
+        cr = nodes.new("ShaderNodeValToRGB")
+        base, var = d["c"], d.get("var", 0.06)
+        cr.color_ramp.elements[0].color = lin(tuple(max(0, c - var * 2.4) for c in base))
+        cr.color_ramp.elements[1].color = lin(tuple(min(1, c + var) for c in base))
+        links.new(tc.outputs["Object"], wv.inputs["Vector"])
+        links.new(tc.outputs["Object"], ns.inputs["Vector"])
+        links.new(wv.outputs["Fac"], mx.inputs["A"])
+        links.new(ns.outputs["Fac"], mx.inputs["B"])
+        links.new(mx.outputs["Result"], cr.inputs["Fac"])
+        links.new(cr.outputs["Color"], bsdf.inputs["Base Color"])
+        bump = nodes.new("ShaderNodeBump")
+        bump.inputs["Strength"].default_value = 0.8
+        links.new(mx.outputs["Result"], bump.inputs["Height"])
+        links.new(bump.outputs["Normal"], bsdf.inputs["Normal"])
+        bsdf.inputs["Roughness"].default_value = d.get("r", 0.95)
+        return m
     elif d.get("sedum") or d.get("grass"):
         # dwie skale szumu: drobna faktura + duże plamy (z daleka trawa nie jest jednolita)
         ns = nodes.new("ShaderNodeTexNoise")

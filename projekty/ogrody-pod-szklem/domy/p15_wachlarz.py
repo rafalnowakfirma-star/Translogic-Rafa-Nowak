@@ -9,7 +9,7 @@ def sec(a1, a2, r1=R_G, r2=R_OUT):
     return sector(C[0], C[1], r1, r2, a1, a2)
 
 
-def bar(x1, x2, d=3.2):
+def bar(x1, x2, d=3.6):
     """Pokój w bloku wejściowym: pas o głębokości d na północ od średnicy ogrodu."""
     return rect(C[0] + x1, C[1] - d, C[0] + x2, C[1])
 
@@ -26,8 +26,8 @@ H = House(
     concept=[
         "Pokoje są wycinkami koła między promienistymi ścianami: przy ogrodzie mają 2–6 m szerokości, przy krajobrazie dwa razy tyle, "
         "więc każde pióro zwęża się ku ogrodowi i rozszerza ku widokowi jak kadr.",
-        "Ogród to półkole o promieniu 6 m na wysokość dwóch kondygnacji. Jego szklany dach składa się z dwóch ćwiartek: latem zachodnia "
-        "wsuwa się nad wschodnią, jak składany wachlarz.",
+        "Ogród to półkole o promieniu 6 m na wysokość dwóch kondygnacji. Jego szklany dach składa się z dwóch ćwiartek: latem wschodnia "
+        "wsuwa się nad zachodnią, jak składany wachlarz.",
         "Biuro w piórze południowo-wschodnim ma szkło od ogrodu i od łąki, a przez drzwi w promienistych ścianach łączy się z biblioteką i salonem.",
         "Pióra tworzą jedną amfiladę wokół ogrodu: galeria ze schodami, biblioteka, biuro, salon, patio i herbaciarnia. Każde pióro ma też "
         "własne drzwi do ogrodu, który jest holem domu.",
@@ -38,7 +38,7 @@ H = House(
         "pomieszczenie techniczne w jednym rzędzie.",
     ],
     notes=dict(
-        lato="Zachodnia ćwiartka szklanego dachu wsuwa się nad wschodnią, harmonijka między ogrodem a patio się składa i ogród staje się "
+        lato="Wschodnia ćwiartka szklanego dachu wsuwa się nad zachodnią, harmonijka między ogrodem a patio się składa i ogród staje się "
              "przewiewnym dziedzińcem; szklane ściany biura i salonu rozsuwają się na łąkę.",
         zima="Dach jest zasunięty, harmonijka zamknięta i ogród pracuje jak szklarnia: słońce z południa nagrzewa żwir i oliwkę, "
              "a wszystkie pióra wychodzą drzwiami na ciepły hol zamiast na mróz.",
@@ -55,10 +55,10 @@ H.ogrod("og", "Ogród", sector(C[0], C[1], 0, R_G, 0, 180), levels=2, roof_type=
         style="srodziemnomorski", seed=4, edge="glass")
 
 # blok wejściowy (północ) – domyka ogród wzdłuż średnicy
-H.room("tech", "Techniczne", "techniczne", bar(-6.0, -4.1))
-H.room("pral", "Pralnia", "pralnia", bar(-4.1, -2.2))
-H.room("spi", "Spiżarnia", "spizarnia", bar(-2.2, -0.4))
-H.room("wia", "Wiatrołap", "wiatrolap", bar(-0.4, 4.3))
+H.room("tech", "Kotłownia", "techniczne", bar(-6.0, -3.7))
+H.room("pral", "Pralnia", "pralnia", bar(-3.7, -1.6))
+H.room("spi", "Spiżarnia", "spizarnia", bar(-1.6, 0.3))
+H.room("wia", "Wiatrołap", "wiatrolap", bar(0.3, 4.3))
 H.room("wc", "WC", "wc", bar(4.3, 6.0))
 
 # pióra wachlarza (od wschodu ku zachodowi)
@@ -85,9 +85,10 @@ H.connect("wia", "spi", "door")
 H.connect("spi", "pral", "door")
 H.connect("pral", "tech", "door")
 H.connect("wia", "wc", "door")
-H.connect("gal", "bib", "double")
-H.connect("bib", "biu", "double")
-H.connect("biu", "sal", "wide")
+# amfilada: drzwi przy zewnętrznym końcu ścian promienistych (oś widokowa wzdłuż szklanej elewacji)
+H.connect("gal", "bib", "double", at=0.1)
+H.connect("bib", "biu", "double", at=0.1)
+H.connect("biu", "sal", "double", at=0.1)
 H.connect("sal", "pat", "slide")
 H.connect("pat", "her", "slide")
 H.connect("og", "pat", "fold")
@@ -97,12 +98,13 @@ H.entrance("wia", "N")
 H.exit("tech", "N", kind="door", width=1.0)
 
 # teren
-H.path(rect(C[0] + 1.25, C[1] - 10.0, C[0] + 2.65, C[1] - 3.4))
+H.path(rect(C[0] + 1.6, C[1] - 10.0, C[0] + 3.0, C[1] - 3.8))
 H.path(sector(C[0], C[1], 12.7, 15.5, 138, 158))
 H.tree(C[0] + 16.5, C[1] + 8.5, "oliwka")
 H.tree(C[0] - 16.0, C[1] + 7.0, "oliwka")
 H.tree(C[0] - 10.5, C[1] - 4.5, "sosna")
 H.tree(C[0] + 11.5, C[1] - 6.5, "lipa")
 
-H.cut("A–A", (C[0] + 1.9, C[1] - 6.0), (C[0] + 1.9, C[1] + 15.0))
+# A–A: cięcie promieniste przez wiatrołap, środek ogrodu i oś salonu (kierunek 109°)
+H.cut("A–A", P(-8.5, 109), P(15.5, 109))
 H.cut("B–B", (C[0] + 17.0, C[1] + 1.0), (C[0] - 17.0, C[1] + 1.0))

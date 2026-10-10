@@ -428,7 +428,7 @@ def _garden3d(M, house, g):
         if kind == "woda":
             continue
         gg = geom.difference(wu) if wu is not None else geom
-        mat = {"zwir_grabiony": "zwir_ogrod", "plyty": "plyty_ogrod", "trawa_niska": "trawa_ogrod", "mech_runo": "mech",
+        mat = {"zwir_grabiony": "zwir_grabiony", "plyty": "plyty_ogrod", "trawa_niska": "trawa_ogrod", "mech_runo": "mech",
                "zwir_jasny": "zwir_ogrod"}.get(kind, "zwir_ogrod")
         M.extrude(gg, z - 0.1, z, mat, bottom=False)
     if wu is not None:
