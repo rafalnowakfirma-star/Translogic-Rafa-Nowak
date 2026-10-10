@@ -1,0 +1,644 @@
+<meta charset="utf-8">
+<title>Ogrody pod szkłem</title>
+<meta name="description" content="Szesnaście koncepcji domów zbudowanych wokół ogrodu pod otwieranym szklanym dachem: rendery, rzuty, przekroje i modele 3D.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Układ: katalog-monografia. Szeroki tytuł z przełącznikiem pór roku, siatka kart, potem plansze domów
+   (zdjęcia, rysunki w zakładkach, koncepcja, model 3D), porównanie, pytania i inspiracje. */
+:root{
+  --paper:#ECF0ED;      /* tło: chłodny welin */
+  --sheet:#FAFBF9;      /* plansza */
+  --ink:#131B17;
+  --ink-2:#47534D;
+  --ink-3:#77847E;
+  --rule:#CDD6D0;
+  --acc:#2B6B5A;        /* patyna – kolor ogrodu, jak na rysunkach */
+  --glass:#5F92B0;      /* szkło */
+  --sun:#A85E17;        /* lato */
+  --frost:#3F7394;      /* zima */
+  --season:var(--sun);
+  --sky-1:#cfdfe8; --sky-2:#eef2ee;
+  --shade:rgba(19,27,23,.08);
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wide:1240px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1412; --sheet:#141B18; --ink:#E3EAE6; --ink-2:#A6B2AC; --ink-3:#74827B; --rule:#28332E;
+    --acc:#7CC4AE; --glass:#86B6D0; --sun:#E0A15A; --frost:#8DBAD8; --sky-1:#1b2730; --sky-2:#121a17;
+    --shade:rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1412; --sheet:#141B18; --ink:#E3EAE6; --ink-2:#A6B2AC; --ink-3:#74827B; --rule:#28332E;
+  --acc:#7CC4AE; --glass:#86B6D0; --sun:#E0A15A; --frost:#8DBAD8; --sky-1:#1b2730; --sky-2:#121a17;
+  --shade:rgba(0,0,0,.35); color-scheme:dark;
+}
+:root[data-season="zima"]{--season:var(--frost)}
+
+{{DRAWING_CSS}}
+svg.drw text{font-family:var(--f-body)}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font:400 1rem/1.6 var(--f-body);margin:0;padding-inline:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--season);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--f-display);font-stretch:125%;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:var(--wide);margin-inline:auto}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font:500 .74rem/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+
+/* pasek górny */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin-inline:-16px;padding:10px 16px;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule)}
+.top-in{max-width:var(--wide);margin-inline:auto;display:flex;align-items:center;gap:12px 22px;flex-wrap:wrap}
+.brand{font:800 1rem/1 var(--f-display);font-stretch:125%;letter-spacing:.02em;text-decoration:none;text-transform:uppercase}
+.nav{display:flex;gap:4px 18px;flex-wrap:wrap;margin-right:auto}
+.nav a{font-size:.92rem;color:var(--ink-2);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--sheet)}
+.seg button{font:500 .78rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border:0;background:none;color:var(--ink-2);
+  padding:7px 12px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--season);color:var(--sheet)}
+
+/* otwarcie */
+.hero{max-width:var(--wide);margin-inline:auto;padding-block:clamp(28px,5vw,64px) 36px;display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,56px);align-items:end}
+.hero h1{font-weight:800;font-size:clamp(2.6rem,7.2vw,6.2rem);line-height:.9;letter-spacing:-.015em;text-transform:uppercase;margin-block:14px 22px}
+.hero h1 span{display:block;color:var(--season);transition:color .6s}
+.lede{font-size:1.08rem;line-height:1.62;color:var(--ink-2);max-width:36em}
+.facts{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;max-width:30em}
+.facts li{border-top:1px solid var(--rule);padding-top:8px;font-size:.88rem;color:var(--ink-2)}
+.facts b{display:block;font:700 1.45rem/1.15 var(--f-display);font-stretch:112%;color:var(--ink)}
+.hero-fig{margin:0}
+.hero-img{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;background:var(--sky-1);border-radius:4px}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s ease}
+.hero-img .h-zima{opacity:0}
+:root[data-season="zima"] .hero-img .h-zima{opacity:1}
+.hero-fig figcaption{margin-top:10px;font:400 .8rem/1.4 var(--f-mono);color:var(--ink-2);display:flex;gap:8px;flex-wrap:wrap}
+.cap-zima{display:none}
+:root[data-season="zima"] .cap-zima{display:inline}
+:root[data-season="zima"] .cap-lato{display:none}
+
+/* sekcje */
+.sec{max-width:var(--wide);margin-inline:auto;padding-block:56px 8px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:14px 40px;align-items:end;margin-bottom:26px;
+  border-top:2px solid var(--ink);padding-top:16px}
+.sec-head h2{font-weight:750;font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1}
+.sec-head p{color:var(--ink-2);max-width:42em}
+
+/* karty */
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 18px}
+.card a{display:grid;gap:5px;text-decoration:none}
+.card img,.card-key{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:3px;background:var(--sky-1);display:block}
+.card-key{display:grid;place-items:center;background:var(--sheet)}
+.card-key svg{width:60%;height:auto}
+.card-num{font:500 .72rem/1 var(--f-mono);letter-spacing:.14em;color:var(--ink-3);margin-top:6px}
+.card-name{font:750 1.15rem/1.1 var(--f-display);font-stretch:118%}
+.card-meta{font:400 .78rem/1.35 var(--f-mono);color:var(--ink-2)}
+.card a:hover .card-name{color:var(--season)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;font-size:.84rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:22px;height:9px;border-radius:1px}
+.lg-wall{background:var(--r-ink)} .lg-glass{background:var(--r-glass-d)} .lg-garden{background:var(--r-acc)}
+.lg-fold{background:repeating-linear-gradient(115deg,var(--r-glass-d) 0 3px,transparent 3px 6px);border:1px solid var(--r-glass-d)}
+.lg-void{background:var(--r-void);border:1px dashed var(--r-ink3)}
+
+/* plansza domu */
+.house{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:clamp(16px,3vw,40px);margin-top:28px;
+  scroll-margin-top:72px}
+.house-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:start;padding-bottom:22px;
+  border-bottom:1px solid var(--rule)}
+.house-num{font:500 .78rem/1 var(--f-mono);letter-spacing:.16em;color:var(--season)}
+.house h2{font-weight:800;font-size:clamp(2rem,4.6vw,3.6rem);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;margin-block:10px 12px}
+.house-tag{font-size:1.06rem;color:var(--ink-2);max-width:44em}
+.keyplan{width:118px;height:118px;display:block}
+.kp-base{fill:var(--ink)} .kp-up{fill:var(--ink-3)} .kp-gar{fill:var(--acc)} .kp-out{fill:none;stroke:var(--ink-3);stroke-dasharray:3 2}
+
+.gallery{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px;margin-top:22px}
+.shot{margin:0;position:relative;min-width:0}
+.shot-main{grid-row:span 2}
+.shot-btn{display:block;width:100%;padding:0;border:0;background:var(--sky-1);cursor:zoom-in;border-radius:3px;overflow:hidden}
+.shot img{display:block;width:100%;height:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .5s}
+.shot-btn:hover img{transform:scale(1.015)}
+.shot figcaption{position:absolute;left:8px;bottom:8px;font:400 .72rem/1.3 var(--f-mono);background:color-mix(in srgb,var(--sheet) 86%,transparent);
+  color:var(--ink);padding:4px 7px;border-radius:2px;max-width:calc(100% - 16px)}
+:root[data-season="zima"] .gallery .shot-zmierzch{order:-1;grid-row:span 2}
+:root[data-season="zima"] .gallery .shot-lotu{grid-row:auto}
+
+.house-body{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px 44px;margin-top:28px}
+.concept{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:c}
+.concept li{position:relative;padding-left:30px;max-width:40em}
+.concept li::before{counter-increment:c;content:counter(c);position:absolute;left:0;top:.18em;font:500 .74rem/1 var(--f-mono);
+  color:var(--season);border:1px solid currentColor;border-radius:50%;width:19px;height:19px;display:grid;place-items:center}
+.seasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.season{padding:12px 14px;border-radius:4px;border:1px solid var(--rule)}
+.season h4{font:500 .72rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px}
+.season p{font-size:.93rem;color:var(--ink-2)}
+.season-lato h4{color:var(--sun)} .season-zima h4{color:var(--frost)}
+:root:not([data-season="zima"]) .season-lato,:root[data-season="zima"] .season-zima{border-color:var(--season);background:color-mix(in srgb,var(--season) 7%,transparent)}
+.tech{margin-top:16px;font-size:.93rem;color:var(--ink-2)}
+.tech span{display:block;font:500 .72rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+.actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:600 .9rem/1 var(--f-body);border:1px solid var(--ink);background:var(--ink);color:var(--sheet);padding:11px 16px;border-radius:999px;cursor:pointer}
+.btn:hover{background:var(--season);border-color:var(--season)}
+.btn-ghost{background:none;color:var(--ink)}
+.stats{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;align-content:start}
+.stats div{border-top:1px solid var(--rule);padding-block:8px}
+.stats dt{font:500 .68rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.stats dd{margin:3px 0 0;font-weight:600;font-variant-numeric:tabular-nums}
+
+.drawings{margin-top:32px}
+.drw-bar{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-right:auto}
+.tabs button{font:500 .8rem/1 var(--f-mono);letter-spacing:.04em;border:1px solid transparent;background:none;color:var(--ink-2);
+  padding:8px 11px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{border-color:var(--ink);color:var(--ink)}
+.tabs button:hover{color:var(--ink)}
+.furn-toggle{font:400 .82rem/1 var(--f-mono);color:var(--ink-2);display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.furn-toggle input{accent-color:var(--acc);width:16px;height:16px}
+.drw-pane{margin-top:12px;overflow-x:auto;border-radius:4px;background:var(--r-sheet);min-height:120px}
+.drw-pane svg.drw{max-height:min(88vh,1100px)}
+.drw-pane .loading{padding:40px;color:var(--ink-3);font-family:var(--f-mono);font-size:.85rem}
+
+.rooms{margin-top:18px}
+.rooms summary{cursor:pointer;font:500 .82rem/1.4 var(--f-mono);color:var(--ink-2)}
+.table-wrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 .7rem/1.3 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.compare th[data-sort]{cursor:pointer;white-space:nowrap}
+.compare th[data-sort]:hover{color:var(--ink)}
+.compare th[aria-sort] {color:var(--season)}
+.compare td a{font-weight:600;text-decoration:none;white-space:nowrap}
+.compare td a:hover{color:var(--season)}
+
+/* pytania */
+.qa{display:grid;gap:18px}
+.q{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:clamp(16px,3vw,32px)}
+.q h3{font-weight:750;font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.1;margin-bottom:14px;max-width:30em}
+.q .short{font-size:1.08rem;font-weight:600;margin-bottom:12px;max-width:42em}
+.q p,.q li{color:var(--ink-2);max-width:46em}
+.q p + p{margin-top:10px}
+.q ul,.q ol{margin:10px 0 0;padding-left:1.2em;display:grid;gap:7px}
+.q strong{color:var(--ink)}
+.q a{color:var(--acc)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 36px}
+.calc{font-family:var(--f-mono);font-size:.86rem;background:var(--paper);border-radius:4px;padding:12px 14px;margin-top:12px;color:var(--ink)}
+.rooms-ideas{columns:2;column-gap:36px}
+.rooms-ideas li{break-inside:avoid}
+
+/* inspiracje */
+.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 30px}
+.ref-group h3{font:500 .74rem/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--season);font-stretch:100%;
+  border-top:1px solid var(--rule);padding-top:10px;margin-bottom:10px}
+.ref-group ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ref-group a{font-weight:700;text-decoration-color:var(--rule);text-underline-offset:3px}
+.ref-group a:hover{text-decoration-color:var(--season)}
+.ref-meta{display:block;font:400 .74rem/1.4 var(--f-mono);color:var(--ink-3);margin-top:2px}
+.ref-group p{font-size:.9rem;color:var(--ink-2);margin-top:4px}
+
+.foot{max-width:var(--wide);margin:64px auto 0;padding-block:22px 40px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:.86rem;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 40px}
+
+/* okna dialogowe */
+dialog{border:0;padding:0;background:var(--sheet);color:var(--ink);max-width:none;max-height:none}
+dialog::backdrop{background:rgba(8,12,10,.72)}
+.lb{width:min(1500px,96vw);border-radius:6px;overflow:hidden}
+.lb img{display:block;width:100%;height:auto;max-height:84vh;object-fit:contain;background:#000}
+.lb-bar,.vw-bar{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;padding:10px 14px}
+.lb-bar p{margin-right:auto;font:400 .82rem/1.4 var(--f-mono);color:var(--ink-2)}
+.vw{width:min(1300px,96vw);height:min(860px,90vh);border-radius:6px;overflow:hidden;grid-template-rows:auto minmax(0,1fr) auto}
+.vw[open]{display:grid}
+.vw-head{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--rule)}
+.vw-head h3{font-size:1.1rem;margin-right:auto}
+.vw-stage{position:relative;background:linear-gradient(var(--sky-1),var(--sky-2));min-height:0}
+.vw-stage canvas{display:block;width:100%;height:100%;touch-action:none}
+.vw-status{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;font:400 .9rem/1.5 var(--f-mono);color:var(--ink-2);pointer-events:none}
+.vw-bar{border-top:1px solid var(--rule);font-size:.86rem;color:var(--ink-2)}
+.vw-bar label{display:inline-flex;align-items:center;gap:10px}
+.vw-bar input[type=range]{width:min(240px,48vw);accent-color:var(--season)}
+.vw-hint{margin-left:auto;font:400 .74rem/1.4 var(--f-mono);color:var(--ink-3)}
+.x{border:1px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer;font:500 .8rem/1 var(--f-mono)}
+
+@media (max-width:1000px){
+  .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .refs{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:820px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .sec-head,.house-body,.two,.foot{grid-template-columns:minmax(0,1fr)}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gallery{grid-template-columns:minmax(0,1fr)}
+  .shot-main,:root[data-season="zima"] .gallery .shot-zmierzch{grid-row:auto}
+  .house-head{grid-template-columns:minmax(0,1fr)}
+  .keyplan{width:84px;height:84px}
+  .rooms-ideas{columns:1}
+  .vw-hint{display:none}
+}
+@media (max-width:520px){
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .refs{grid-template-columns:minmax(0,1fr)}
+  .nav{display:none}
+  .seasons,.stats{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#start">Ogrody pod szkłem</a>
+    <nav class="nav" aria-label="Sekcje">
+      <a href="#domy">Domy</a><a href="#porownanie">Porównanie</a><a href="#pytania">Pytania</a><a href="#inspiracje">Inspiracje</a>
+    </nav>
+    <div class="seg" role="group" aria-label="Pora roku">
+      <button type="button" data-season="lato" aria-pressed="true">Lato</button>
+      <button type="button" data-season="zima" aria-pressed="false">Zima</button>
+    </div>
+  </div>
+</header>
+
+<main id="start">
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Katalog koncepcji · {{COUNT}} domów</p>
+    <h1>Ogrody <span>pod szkłem</span></h1>
+    <p class="lede">Każdy dom jest zbudowany wokół ogrodu, nad którym szklany dach latem się otwiera, a zimą zamyka. W każdym jest biuro przeszklone z dwóch stron, pokoje przelotowe zamiast korytarzy, wysoki salon z kuchnią połączony z patio i sypialnia ze szklaną ścianą. Wszystkie dachy są płaskie – żadnych skosów.</p>
+    <ul class="facts">
+      <li><b>{{COUNT}}</b> domów o różnych kształtach</li>
+      <li><b>{{AREA_MIN}}–{{AREA_MAX}} m²</b> powierzchni użytkowej</li>
+      <li><b>5</b> sposobów otwierania dachu ogrodu</li>
+      <li><b>6</b> stylów ogrodu</li>
+    </ul>
+  </div>
+  <figure class="hero-fig">
+    <div class="hero-img">
+      <img class="h-lato" src="{{HERO_LATO}}" alt="{{HERO_NAME}} latem: dach ogrodu otwarty">
+      <img class="h-zima" src="{{HERO_ZIMA}}" alt="{{HERO_NAME}} zimą o zmierzchu: dach zamknięty, światła w domu">
+    </div>
+    <figcaption><span>{{HERO_NUM}} · {{HERO_NAME}}</span><span class="cap-lato">lato – dach ogrodu otwarty</span><span class="cap-zima">zima – dach zamknięty, światła w domu</span><span>· przełącznik pory roku jest u góry</span></figcaption>
+  </figure>
+</section>
+
+<section class="sec" id="domy" aria-labelledby="domy-h">
+  <div class="sec-head">
+    <h2 id="domy-h">Domy</h2>
+    <p>Kliknij kartę, aby przejść do planszy domu. Przy każdym są rendery, rzuty wszystkich kondygnacji z meblami i bez, rzut dachu, przekrój przez ogród oraz model 3D, w którym można otworzyć i zamknąć dach.</p>
+  </div>
+  <ol class="cards">{{CARDS}}</ol>
+  <div class="legend" aria-label="Legenda rysunków">
+    <span><i class="lg-wall"></i>ściana pełna</span><span><i class="lg-glass"></i>ściana szklana</span>
+    <span><i class="lg-fold"></i>szklana harmonijka – zimą zamknięta, latem złożona</span>
+    <span><i class="lg-garden"></i>ogród pod szkłem</span><span><i class="lg-void"></i>pustka nad wysokim salonem</span>
+  </div>
+  {{HOUSES}}
+</section>
+
+<section class="sec" id="porownanie" aria-labelledby="por-h">
+  <div class="sec-head">
+    <h2 id="por-h">Porównanie</h2>
+    <p>Powierzchnia użytkowa nie obejmuje ogrodu, patio ani tarasów. Wysokość to rzędna najwyższego dachu nad poziomem parteru. Kliknij nagłówek kolumny, żeby posortować.</p>
+  </div>
+  {{COMPARE}}
+</section>
+
+<section class="sec" id="pytania" aria-labelledby="pyt-h">
+  <div class="sec-head">
+    <h2 id="pyt-h">Pytania</h2>
+    <p>Odpowiedzi na pytania z rozmowy i to, co trzeba wiedzieć, zanim zamówi się projekt domu z otwieranym szklanym dachem.</p>
+  </div>
+  <div class="qa">
+    <article class="q" id="korytarze">
+      <h3>Czy korytarze po zewnętrznej stronie domu to dobry pomysł?</h3>
+      <p class="short">Jako ogrzewany korytarz – nie. Jako nieogrzewany bufor albo pas schowków od północy – tak.</p>
+      <div class="two">
+        <div>
+          <p><strong>Ogrzewany korytarz nie izoluje pokoi.</strong> Ma tę samą temperaturę co reszta domu, więc ciepło i tak ucieka przez jego ścianę zewnętrzną. Dom ma za to większy obwód, a więc więcej ściany do ocieplenia i ogrzania.</p>
+          <p><strong>Zabiera dużo miejsca.</strong> Korytarz biegnący dookoła domu to kilkadziesiąt metrów kwadratowych, które trzeba zbudować i ogrzewać, choć służą tylko do przejścia.</p>
+          <div class="calc">Dom 18 × 18 m, korytarz 1,3 m po obwodzie:<br>2 × (18 + 18) × 1,3 − 4 × 1,3² ≈ 87 m² – tyle co trzy sypialnie.</div>
+          <p style="margin-top:12px"><strong>Pokoje tracą okna.</strong> Sypialnia i biuro dostają światło tylko od ogrodu, a przecież mają mieć widok w dwie strony.</p>
+        </div>
+        <div>
+          <p><strong>Co działa lepiej</strong> (pokazane w projektach):</p>
+          <ul>
+            <li><strong>Sam ogród jest buforem.</strong> Pod zamkniętym szklanym dachem jest zimą cieplej niż na dworze, zwłaszcza w słoneczne dni, więc ściany pokoi od ogrodu tracą mniej ciepła.</li>
+            <li><strong>Krużganek sezonowy</strong> – nieogrzewana, szklana galeria od strony ogrodu, zimą zamknięta, latem otwarta (P09 Pawilony).</li>
+            <li><strong>„Ciepła skorupa” od północy</strong> – garderoby, spiżarnia, pralnia, schody i łazienki po zimnej stronie, a pokoje dzienne od słońca (P10 Monolit).</li>
+            <li><strong>Amfilada zamiast korytarza</strong> – przechodzi się przez bibliotekę, galerię czy pracownię. Te pokoje i tak są potrzebne, a przejście nie zabiera osobnej powierzchni. Prywatność dają przesuwne drzwi i to, że sypialnia jest na końcu ciągu albo na piętrze.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="q" id="dach">
+      <h3>Jak działa otwierany szklany dach i na co uważać?</h3>
+      <p class="short">To sprawdzona technika, ale ogród pod takim dachem traktujemy jako strefę buforową, a nie pokój ogrzewany jak salon.</p>
+      <ul>{{FACTS}}</ul>
+      <p style="margin-top:14px">W projektach jest pięć rodzajów dachu: <strong>przesuwny</strong> (połowa dachu zjeżdża nad drugą), <strong>lamelowy</strong> (obrotowe szklane żaluzje), <strong>harmonijkowy</strong> (panele składają się do krawędzi), <strong>kopuła z migawką</strong> (środek rozsuwa się promieniście) i <strong>piramida z unoszoną latarnią</strong>. Dwa ostatnie dają mniejszy otwór, ale najlepiej wyciągają ciepłe powietrze latem.</p>
+    </article>
+
+    <article class="q" id="patio">
+      <h3>Patio, które zimą się zamyka, a latem rozsuwa</h3>
+      <p class="short">Patio sezonowe ma pełny dach i ściany ze szklanej harmonijki albo przesuwnych tafli bez ram.</p>
+      <p>Zimą szyby są zamknięte i patio działa jak nieogrzewany ogród zimowy: zatrzymuje wiatr i śnieg, a w słońcu szybko się nagrzewa. Latem tafle składa się w pakiet przy ścianie i zostaje otwarty, zadaszony taras. Potrzebne są: posadzka mrozoodporna z odwodnieniem, dach o spadku do rynny i – jeśli patio ma służyć także w mroźne wieczory – promiennik lub ogrzewanie podłogowe w niskiej temperaturze. Na rysunkach harmonijka jest narysowana zygzakiem.</p>
+    </article>
+
+    <article class="q" id="przelotowe">
+      <h3>Do czego mogą służyć pokoje przelotowe?</h3>
+      <p class="short">Przelotowy pokój ma meble przy ścianach, a przejście szerokości 1,0–1,2 m biegnie środkiem albo wzdłuż szklanej ściany ogrodu.</p>
+      <ul class="rooms-ideas">
+        <li><strong>Biblioteka</strong> – regały na pełnych ścianach, fotel przy oknie, przejście środkiem.</li>
+        <li><strong>Galeria</strong> – obrazy na ścianie bez okien, światło z ogrodu.</li>
+        <li><strong>Herbaciarnia</strong> – niski stół i tatami przy szkle ogrodu.</li>
+        <li><strong>Pracownia</strong> – duży stół w środku, szafy przy ścianach.</li>
+        <li><strong>Pokój muzyczny</strong> – pianino przy ścianie pełnej, dobra akustyka dzięki regałom.</li>
+        <li><strong>Garderoba przelotowa</strong> – między sypialnią a łazienką.</li>
+        <li><strong>Spiżarnia-kredens</strong> – między wejściem gospodarczym a kuchnią, zakupy trafiają od razu na półki.</li>
+        <li><strong>Pralnia-suszarnia</strong> – przy ogrodzie, w którym pranie schnie także zimą.</li>
+        <li><strong>Szatnia przy wejściu</strong> – kurtki i buty zostają przed domem właściwym.</li>
+        <li><strong>Sauna</strong> – z wyjściem do ogrodu na schłodzenie.</li>
+        <li><strong>Joga, siłownia, pokój zabaw</strong> – pusta podłoga i widok na zieleń.</li>
+        <li><strong>Winiarnia, warsztat</strong> – w części bez okien, od północy.</li>
+      </ul>
+    </article>
+
+    <article class="q" id="dachy">
+      <h3>Dlaczego wszędzie płaskie dachy?</h3>
+      <p class="short">Bo żaden pokój nie ma skosów: każdy ma pełną wysokość, a dach może być zielony.</p>
+      <p>Płaski dach ma spadek 2–3% ukryty w warstwach ocieplenia. Woda spływa do wpustów i rur prowadzonych w ścianach, a stamtąd do zbiornika na deszczówkę, z której podlewa się ogród. Wody z dachów nie kierujemy na szklany dach ogrodu. Na dachach jest rozchodnik (sedum) albo żwir: rozchodnik zatrzymuje część deszczu i chłodzi dach latem. Wyżej położone dachy niektórych domów są tarasami z balustradą.</p>
+    </article>
+
+    <article class="q" id="dalej">
+      <h3>Co dalej, jeśli któryś dom się spodoba?</h3>
+      <ol>
+        <li>Wybierz dwie–trzy koncepcje i sprawdź je z warunkami działki: miejscowym planem albo decyzją o warunkach zabudowy (wysokość, dach płaski, powierzchnia zabudowy, odległości od granic).</li>
+        <li>Zamów u architekta z uprawnieniami projekt budowlany na podstawie wybranej koncepcji. Wymiary na tych rysunkach są orientacyjne.</li>
+        <li>Dach szklany dobierz z producentem do strefy obciążenia śniegiem i wiatrem; konstruktor sprawdzi rozpiętości i podparcie.</li>
+        <li>Zaplanuj wentylację i zacienienie ogrodu (lato) oraz ochronę przed skraplaniem pary (zima) – to warunek, żeby ogród działał przez cały rok.</li>
+      </ol>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="inspiracje" aria-labelledby="ins-h">
+  <div class="sec-head">
+    <h2 id="ins-h">Inspiracje</h2>
+    <p>Domy i budynki, z których wzięliśmy pomysły: dziedzińce, ogrody zimowe, otwierane dachy, amfilady i polskie realizacje.</p>
+  </div>
+  <div class="refs">{{REFS}}</div>
+</section>
+</main>
+
+<footer class="foot">
+  <p>Koncepcje poglądowe, nie projekt budowlany. Rzuty, przekroje, rzuty dachów i modele 3D zostały wygenerowane programem na podstawie opisu każdego domu; rendery wykonano w Blenderze (Cycles). Wymiary i powierzchnie są orientacyjne.</p>
+  <p>Kolory rysunków i strony dostosowują się do jasnego i ciemnego motywu. Przełącznik „Lato / Zima” zmienia zdjęcia, opisy i stan dachu w modelach 3D.</p>
+</footer>
+
+<dialog class="lb" id="lightbox" aria-label="Powiększenie zdjęcia">
+  <img id="lb-img" alt="">
+  <div class="lb-bar"><p id="lb-cap"></p><button type="button" class="x" data-close>Zamknij</button></div>
+</dialog>
+
+<dialog class="vw" id="viewer" aria-labelledby="vw-title">
+  <div class="vw-head"><h3 id="vw-title">Model 3D</h3>
+    <div class="seg" role="group" aria-label="Stan dachu w modelu">
+      <button type="button" data-vseason="lato" aria-pressed="true">Lato – otwarty</button>
+      <button type="button" data-vseason="zima" aria-pressed="false">Zima – zamknięty</button>
+    </div>
+    <button type="button" class="x" data-close>Zamknij</button>
+  </div>
+  <div class="vw-stage" id="vw-stage"><div class="vw-status" id="vw-status">Ładowanie…</div></div>
+  <div class="vw-bar">
+    <label for="vw-clip">Zdejmij dachy i stropy <input type="range" id="vw-clip" min="1.2" max="12" step="0.1" value="12"></label>
+    <span id="vw-clip-v" class="mono">cały dom</span>
+    <span class="vw-hint">przeciągnij – obrót · kółko lub dwa palce – przybliżenie · prawy przycisk – przesunięcie</span>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+
+  /* ---------- pora roku ---------- */
+  function setSeason(s, save) {
+    root.setAttribute("data-season", s);
+    document.querySelectorAll(".seg [data-season]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.season === s)); });
+    document.querySelectorAll("img[data-lato]").forEach(function (im) { var u = im.dataset[s]; if (u && im.getAttribute("src") !== u) im.src = u; });
+    if (save) { try { localStorage.setItem("ogrody-pora", s); } catch (e) {} }
+    if (window.__vwSeason) window.__vwSeason(s);
+  }
+  document.querySelectorAll(".seg [data-season]").forEach(function (b) {
+    b.addEventListener("click", function () { setSeason(b.dataset.season, true); });
+  });
+  try { var saved = localStorage.getItem("ogrody-pora"); if (saved === "zima") setSeason("zima", false); } catch (e) {}
+
+  /* ---------- rysunki: zakładki i meble ---------- */
+  var cache = {};
+  document.querySelectorAll(".drawings").forEach(function (box) {
+    var pane = box.querySelector(".drw-pane");
+    var tabs = box.querySelectorAll("[role=tab]");
+    if (tabs.length) cache[tabs[0].dataset.src] = pane.innerHTML;
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        tabs.forEach(function (o) { o.setAttribute("aria-selected", String(o === t)); });
+        pane.setAttribute("aria-labelledby", t.id);
+        var url = t.dataset.src;
+        if (cache[url]) { pane.innerHTML = cache[url]; return; }
+        pane.innerHTML = '<p class="loading">Wczytywanie rysunku…</p>';
+        fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+          .then(function (txt) { cache[url] = txt; if (t.getAttribute("aria-selected") === "true") pane.innerHTML = txt; })
+          .catch(function () { pane.innerHTML = '<p class="loading">Nie udało się wczytać rysunku. Odśwież stronę i spróbuj ponownie.</p>'; });
+      });
+    });
+    var cb = box.querySelector(".furn-toggle input");
+    if (cb) cb.addEventListener("change", function () { pane.classList.toggle("nofurn", !cb.checked); });
+  });
+
+  /* ---------- powiększenie zdjęć ---------- */
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
+  document.querySelectorAll(".shot-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      lbImg.src = b.dataset.full; lbImg.alt = b.dataset.cap; lbCap.textContent = b.dataset.cap;
+      if (lb.showModal) lb.showModal(); else window.open(b.dataset.full, "_blank");
+    });
+  });
+  document.querySelectorAll("dialog").forEach(function (d) {
+    d.addEventListener("click", function (e) { if (e.target === d || e.target.hasAttribute("data-close")) d.close(); });
+  });
+
+  /* ---------- sortowanie porównania ---------- */
+  document.querySelectorAll("table.compare th[data-sort]").forEach(function (th, ci) {
+    th.tabIndex = 0;
+    function go() {
+      var tb = th.closest("table").tBodies[0];
+      var rows = Array.prototype.slice.call(tb.rows);
+      var asc = th.getAttribute("aria-sort") !== "ascending";
+      th.closest("tr").querySelectorAll("th").forEach(function (o) { o.removeAttribute("aria-sort"); });
+      th.setAttribute("aria-sort", asc ? "ascending" : "descending");
+      rows.sort(function (a, b) {
+        var x = a.cells[ci], y = b.cells[ci], r;
+        if (th.dataset.sort === "n") r = parseFloat(x.dataset.v || 0) - parseFloat(y.dataset.v || 0);
+        else r = x.textContent.localeCompare(y.textContent, "pl");
+        return asc ? r : -r;
+      });
+      rows.forEach(function (r) { tb.appendChild(r); });
+    }
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+
+  /* ---------- model 3D ---------- */
+  var MATS = {{MATS}};
+  var LOCAL = location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  var LIBS = LOCAL ? ["vendor/three.min.js", "vendor/OrbitControls.js"]
+    : ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+       "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"];
+  var loading = null;
+  function script(src) {
+    return new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = function () { rej(new Error(src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function libs() {
+    if (window.THREE && THREE.OrbitControls) return Promise.resolve();
+    if (!loading) loading = script(LIBS[0]).then(function () { return script(LIBS[1]); });
+    return loading;
+  }
+  function webgl() {
+    try { var c = document.createElement("canvas"); return !!(c.getContext("webgl") || c.getContext("experimental-webgl")); } catch (e) { return false; }
+  }
+  function b64(s, T) {
+    var bin = atob(s), n = bin.length, u8 = new Uint8Array(n);
+    for (var i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
+    return new T(u8.buffer);
+  }
+
+  var dlg = document.getElementById("viewer"), stage = document.getElementById("vw-stage"), status = document.getElementById("vw-status");
+  var clipIn = document.getElementById("vw-clip"), clipV = document.getElementById("vw-clip-v");
+  var V = null, vSeason = "lato";
+
+  function initViewer() {
+    if (V) return V;
+    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    stage.insertBefore(renderer.domElement, status);
+    var scene = new THREE.Scene();
+    var cam = new THREE.PerspectiveCamera(38, 1.6, 0.3, 800);
+    scene.add(new THREE.HemisphereLight(0xe6eff4, 0x5d6b4f, 0.75));
+    var sun = new THREE.DirectionalLight(0xfff0d8, 1.15);
+    sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+    scene.add(sun); scene.add(sun.target);
+    var ground = new THREE.Mesh(new THREE.CircleGeometry(220, 64),
+      new THREE.MeshStandardMaterial({ color: new THREE.Color("#66784e").convertSRGBToLinear(), roughness: 1 }));
+    ground.rotation.x = -Math.PI / 2; ground.position.y = -0.32; ground.receiveShadow = true; scene.add(ground);
+    var controls = new THREE.OrbitControls(cam, renderer.domElement);
+    controls.maxPolarAngle = Math.PI * 0.49; controls.minDistance = 2; controls.maxDistance = 160; controls.screenSpacePanning = true;
+    var clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), 100);
+    V = { renderer: renderer, scene: scene, cam: cam, sun: sun, controls: controls, clip: clip, root: null, lato: [], zima: [], mats: {}, top: 10 };
+    controls.addEventListener("change", draw);
+    window.addEventListener("resize", function () { if (dlg.open) fit(); });
+    return V;
+  }
+  function draw() { if (V) V.renderer.render(V.scene, V.cam); }
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    V.renderer.setSize(w, h, false); V.renderer.domElement.style.width = "100%"; V.renderer.domElement.style.height = "100%";
+    V.cam.aspect = w / h; V.cam.updateProjectionMatrix(); draw();
+  }
+  function material(name) {
+    if (V.mats[name]) return V.mats[name];
+    var d = MATS[name] || ["#c9c7c1", 0.85, 0];
+    var m = new THREE.MeshStandardMaterial({ color: new THREE.Color(d[0]).convertSRGBToLinear(), roughness: d[1], metalness: d[2],
+      flatShading: true, side: THREE.DoubleSide });
+    if (d.length > 3) { m.transparent = true; m.opacity = d[3]; m.depthWrite = name === "woda"; }
+    if (name === "lampa") { m.emissive = new THREE.Color("#ffe2b0"); m.emissiveIntensity = 0.35; }
+    V.mats[name] = m;
+    return m;
+  }
+  function applySeason() {
+    if (!V) return;
+    V.lato.forEach(function (m) { m.visible = vSeason === "lato"; });
+    V.zima.forEach(function (m) { m.visible = vSeason === "zima"; });
+    document.querySelectorAll("[data-vseason]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.vseason === vSeason)); });
+    draw();
+  }
+  window.__vwSeason = function (s) { vSeason = s; applySeason(); };
+  document.querySelectorAll("[data-vseason]").forEach(function (b) {
+    b.addEventListener("click", function () { vSeason = b.dataset.vseason; applySeason(); });
+  });
+  function setClip() {
+    if (!V) return;
+    var v = parseFloat(clipIn.value), max = parseFloat(clipIn.max);
+    if (v >= max - 0.05) { V.renderer.clippingPlanes = []; clipV.textContent = "cały dom"; }
+    else { V.clip.constant = v; V.renderer.clippingPlanes = [V.clip]; clipV.textContent = "cięcie na " + v.toFixed(1).replace(".", ",") + " m"; }
+    draw();
+  }
+  clipIn.addEventListener("input", setClip);
+
+  function build(data, top) {
+    if (V.root) {
+      V.scene.remove(V.root);
+      V.root.traverse(function (o) { if (o.geometry) o.geometry.dispose(); });
+    }
+    var g = new THREE.Group(); V.lato = []; V.zima = [];
+    data.groups.forEach(function (gr) {
+      var pv = b64(gr.v, Int16Array), f = new Float32Array(pv.length);
+      for (var i = 0; i < pv.length; i++) f[i] = pv[i] / 100;
+      var geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(f, 3));
+      geo.setIndex(new THREE.BufferAttribute(gr.i32 ? b64(gr.i, Uint32Array) : b64(gr.i, Uint16Array), 1));
+      var mesh = new THREE.Mesh(geo, material(gr.mat));
+      var glassy = gr.mat === "szklo" || gr.mat === "szklo_mebel" || gr.mat === "woda";
+      mesh.castShadow = !glassy; mesh.receiveShadow = !glassy;
+      if (gr.var === "lato") V.lato.push(mesh); else if (gr.var === "zima") V.zima.push(mesh);
+      g.add(mesh);
+    });
+    V.root = g; V.scene.add(g);
+    var R = Math.max(data.size[0], data.size[1]) / 2 + 4;
+    V.top = top;
+    var s = V.sun.shadow.camera;
+    s.left = -R * 1.3; s.right = R * 1.3; s.top = R * 1.3; s.bottom = -R * 1.3; s.near = 1; s.far = R * 8; s.updateProjectionMatrix();
+    V.sun.position.set(-R * 1.2, R * 2.4, R * 1.6); V.sun.target.position.set(0, 0, 0);
+    V.cam.position.set(-R * 1.55, R * 1.35, R * 1.9);
+    V.controls.target.set(0, Math.min(3, top * 0.3), 0); V.controls.update();
+    clipIn.max = String(Math.ceil(top + 2)); clipIn.value = clipIn.max; setClip();
+    applySeason(); fit();
+  }
+
+  document.querySelectorAll(".btn-3d").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.getElementById("vw-title").textContent = btn.dataset.name + " – model 3D";
+      status.textContent = "Ładowanie modelu…"; status.hidden = false;
+      vSeason = root.getAttribute("data-season") || "lato";
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+      if (!webgl()) { status.textContent = "Ta przeglądarka nie obsługuje WebGL, więc model 3D jest niedostępny. Zdjęcia i rysunki działają normalnie."; return; }
+      libs().then(function () {
+        initViewer();
+        return fetch(btn.dataset.model).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+      }).then(function (data) {
+        build(data, parseFloat(btn.dataset.top) || 8);
+        status.hidden = true;
+      }).catch(function () {
+        status.textContent = "Nie udało się wczytać modelu 3D. Sprawdź połączenie z internetem i spróbuj ponownie.";
+      });
+    });
+  });
+})();
+</script>
