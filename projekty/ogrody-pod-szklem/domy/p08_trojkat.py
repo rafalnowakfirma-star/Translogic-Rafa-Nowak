@@ -121,7 +121,7 @@ H = House(
         "Nad skrzydłem południowym jest piętro: kręcone schody z biblioteki prowadzą na galerię z balustradą nad salonem, dalej szklana galeria nad ogrodem, łazienka, pokój dziecięcy i pokój gościnny na dachu sypialni z tarasem na cyplu. Piętro nadwiesza się 1,8 m nad elewacją południową i zacienia szkło parteru.",
     ],
     notes=dict(
-        lato="Harmonijka dachu składa się nad bokiem północnym, szkło salonu i biura rozsuwa się, a nadwieszone piętro zacienia południowe okna parteru.",
+        lato="Harmonijka dachu składa się w pakiet nad jednym bokiem sześciokąta, szkło salonu i biura rozsuwa się, a nadwieszone piętro zacienia południowe okna parteru.",
         zima="Dach jest zamknięty, ogród działa jak szklarnia buforowa między skrzydłami, a niskie zimowe słońce wchodzi pod nadwieszenie do biblioteki i łazienki.",
         technologia="Szkielet drewniany z prefabrykowanych paneli ściennych: trójkątny plan składa się z prostych paneli ciętych pod kątem 60° tylko w narożnikach. Nadwieszenie piętra na belkach z drewna klejonego, dach szklany na stalowej ramie.",
     ),
@@ -156,7 +156,7 @@ H.room("biu", "Biuro", "biuro", biu, ext={"NE": "glass_slide"}, garden="glass_sl
 H.room("hol1", "Galeria", "hol", hol1, level=1, ext="glass", garden="glass", floor="drewno")
 H.room("kor", "Galeria nad ogrodem", "korytarz", kor, level=1, ext="glass", garden="glass", floor="drewno")
 H.room("laz1", "Łazienka", "lazienka", laz1, level=1)
-H.room("pok1", "Pokój", "pokoj", pok1, level=1, ext="windows")
+H.room("pok1", "Pokój", "pokoj", pok1, level=1, ext={"S": "band", "*": "solid"})
 H.room("gos", "Pokój gościnny", "gosc", gosc, level=1, ext={"SE": "glass_slide", "*": "solid"})
 H.room("tar", "Taras", "taras", taras, level=1)
 H.stair("spiral", level=0, center=(12.0, 21.5), r=1.0, start=200, sweep=330, n=16)

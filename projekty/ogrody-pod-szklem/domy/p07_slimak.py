@@ -74,7 +74,7 @@ H.room("gar2", "Garderoba", "garderoba", rect(GX1, YN, 9.0, 3.4), level=2, ext={
 H.room("laz2", "Łazienka", "lazienka", rect(GX1, 3.4, 9.0, GY1), level=2, ext={"S": "band_high"})
 H.room("syp", "Sypialnia", "sypialnia_glowna", rect(9.0, YN, GX2, GY1), level=2,
        ext={"S": "glass", "E": "glass_slide", "N": "band"})
-T2B = rect(5.0, 15.2, GX1, 16.3)
+T2B = rect(5.0, 17.0, GX1, 18.1)
 H.room("t2", "Taras", "taras", rect(XW + ZB, GY1, GX1, YS - ZB).difference(T2B), level=2, dz=DZ)
 H.room("t2b", "Podest", "taras", T2B, level=2, dz=DZ, enclose="open", furn=False)
 
@@ -89,7 +89,7 @@ H.stair("U", level=0, rect=(2.25, 1.3, 4.3, 5.6), up="N")
 H.stair("U", level=1, rect=(2.25, 1.3, 4.3, 5.6), up="N")
 # zewnętrzne: spirala tarasów (wschód → południe → zachód)
 H.stair("straight", level=0, rect=(15.25, 9.6, 16.35, 14.8), up="S")
-H.stair("straight", level=1, rect=(6.25, 15.2, 11.45, 16.3), up="W")
+H.stair("straight", level=1, rect=(6.25, 17.0, 11.45, 18.1), up="W")
 H.stair("straight", level=2, rect=(2.95, 6.25, 4.05, 11.45), up="N")
 
 # ---------------------------------------------------------------- połączenia
@@ -106,7 +106,7 @@ H.connect("pral", "og", "door")
 H.connect("hol1", "bib", "open")
 H.connect("bib", "laz1", "door")
 H.connect("bib", "syp1", "door")
-H.connect("syp1", "t1", "slide", at=0.7)
+H.connect("syp1", "t1", "slide", at=0.3)
 # II piętro
 H.connect("hol2", "gar2", "door", at=0.7)
 H.connect("gar2", "syp", "door", at=0.7)
