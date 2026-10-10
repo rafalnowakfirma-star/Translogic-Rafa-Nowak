@@ -194,10 +194,11 @@ def h_project(p):
         cells = []
         for k, v in enumerate(order):
             big, small, cap, final = imgs[v]
+            sizes = "(min-width: 821px) 30vw, 100vw" if v == "ogrod" else "(min-width: 821px) 62vw, 100vw"
             cells.append(f'<figure class="shot shot-{v}{" shot-main" if k == 0 else ""}">'
                          f'<button type="button" class="shot-btn" data-full="{big}" data-cap="{E(p["name"])} · {E(cap)}" '
-                         f'aria-label="Powiększ: {E(cap)}"><img src="{big if k == 0 else small}" alt="{E(p["name"])}: {E(cap)}" '
-                         f'loading="lazy" decoding="async"></button><figcaption>{E(cap)}</figcaption></figure>')
+                         f'aria-label="Powiększ: {E(cap)}"><img src="{small}" srcset="{small} 720w, {big} 1600w" sizes="{sizes}" '
+                         f'alt="{E(p["name"])}: {E(cap)}" loading="lazy" decoding="async"></button><figcaption>{E(cap)}</figcaption></figure>')
         gal = f'<div class="gallery">{"".join(cells)}</div>'
     tabs, panes = [], []
     for k, (url, label, svg) in enumerate(p["sheets"]):
