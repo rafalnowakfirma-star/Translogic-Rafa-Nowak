@@ -18,9 +18,10 @@ YN, YS = 6.3, 10.7      # granice pasm zachodniego i wschodniego
 def cut(x1, y1, x2, y2):
     """Fragment prostokąta minus elipsa ogrodu – pokój ze ścianą prostą i krzywą.
 
-    set_precision usuwa zdublowane wierzchołki, gdy linia podziału trafia dokładnie
-    w wierzchołek wielokąta elipsy (np. x = 7,5 przy kącie 120°) – inaczej silnik
-    rysuje w tym miejscu ścianę zewnętrzną o zerowej długości (czarny słupek)."""
+    set_precision (tu i dla elipsy) daje wszystkim wierzchołkom wspólną siatkę 1e-6 m.
+    Bez tego, gdy linia podziału trafia w wierzchołek elipsy (np. x = 7,5 przy kącie 120°)
+    albo punkty pokoju i ogrodu różnią się o ułamek mikrometra, silnik tworzy krawędź
+    o zerowej długości: czarny „słupek” ściany zewnętrznej i rozcięte przebiegi ścian."""
     return set_precision(rect(x1, y1, x2, y2).difference(E), 1e-6)
 
 
@@ -29,12 +30,12 @@ H = House(
     "Prostokątny dom z trawertynu, w którego środek wycięto eliptyczny ogród pod szklaną kopułą. Pokoje leżą między prostą elewacją a krzywą szklaną ścianą ogrodu.",
     style=dict(fasada="trawertyn", dach="sedum"),
     concept=[
-        "Obrys to prostokąt 21 × 17 m, a w nim elipsa ogrodu 12 × 9 m. Pokoje wypełniają pas między prostą elewacją a krzywą szklaną ścianą, więc każdy ma inny kształt i własny widok na ogród.",
+        "Obrys to prostokąt 21 × 17 m, a w nim elipsa ogrodu 12 × 9 m. Pokoje wypełniają pas między prostą elewacją a krzywą szklaną ścianą, więc każdy ma inny kształt, a główne pokoje otwierają się wprost do ogrodu.",
         "Dom składa się z dwóch zazębionych liter L: parterowej od północy i zachodu oraz piętrowej od wschodu i południa. Nad niską częścią szklany bęben ogrodu wychodzi ponad dach.",
         "Kopuła nad ogrodem ma środek otwierany jak migawka aparatu: latem otwór wypuszcza ciepłe powietrze, zimą przesłona jest zamknięta.",
         "Od wejścia prowadzą dwie amfilady: przez galerię do biblioteki ze schodami kręconymi i dalej do biura oraz przez pracownię i salę muzyczną do patio i salonu. Biuro zamyka amfiladę, więc nikt przez nie nie przechodzi.",
         "Biuro ma od wschodu prostą szklaną ścianę na pole, a od ogrodu krzywą szklaną ścianę. Piętro wyżej sypialnia ma takie samo podwójne przeszklenie, a łazienka wychodzi na loggię w narożniku.",
-        "Salon i kuchnia z jadalnią mają dwie kondygnacje wysokości. Patio w narożniku zamykają zimą szklane harmonijki od zewnątrz i od ogrodu, a latem są złożone.",
+        "Salon i kuchnia z jadalnią mają dwie kondygnacje wysokości i łączą się z patio w narożniku. Patio zimą zamykają szklane harmonijki od zewnątrz i od ogrodu, a latem są złożone.",
     ],
     notes=dict(
         lato="Przesłona kopuły i harmonijki patio są otwarte: ciepłe powietrze uchodzi górą, a chłodniejsze wpływa do ogrodu przez patio.",

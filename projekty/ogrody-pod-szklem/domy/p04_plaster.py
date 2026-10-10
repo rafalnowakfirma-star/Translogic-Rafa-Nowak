@@ -66,7 +66,7 @@ def cell(k, a, q0, q1):
 QT = lerp(VO[2], VO[3], A_T / A_OUT)
 QP = lerp(VO[2], VO[1], A_T / A_OUT)
 TOWER, TC = cell(3, A_T, VO[2], QT)
-PATIO, PC = cell(2, A_T, VO[2], QP)
+PATIO, _ = cell(2, A_T, VO[2], QP)
 PATIO = snap(PATIO, TOWER)
 t0, t1, t2, t3, t4, t5 = TOWER          # t0 = VO[2], t5 = QT; ściany: t5–t0 E, t0–t1 SE, t1–t2 SW, t2–t3 W, t3–t4 NW, t4–t5 NE
 
@@ -89,19 +89,20 @@ W3, W4 = S(5, 1.25, A_OUT), S(5, 1.25, V_SPLIT)
 # ------------------------------------------------------------------- dom
 H = House(
     "p04", "Plaster miodu",
-    "Dom z sześciokątów: wokół sześciokątnego ogrodu-lasu stoi niski pierścień sześciu pomieszczeń, a do niego przyklejone są komórki – wieża z sypialnią, szklane patio i ganek. Nad ogrodem jest szklana piramida z unoszoną latarnią.",
+    "Dom z sześciokątów: wokół sześciokątnego ogrodu-lasu stoi pierścień sześciu pomieszczeń, a do niego przyklejone są komórki – wieża z sypialnią, szklane patio i ganek. Nad ogrodem jest szklana piramida z unoszoną latarnią.",
     style=dict(fasada="drewno_opal", dach="sedum"),
     concept=[
-        "Ogród ma wysokość dwóch kondygnacji i rośnie w nim las: brzozy, paprocie i mech. Szklana piramida ma w szczycie latarnię, którą latem podnosi się o 70 cm, i ciepłe powietrze uchodzi górą.",
+        "Ogród w środku ma dwie kondygnacje wysokości i rośnie w nim las: brzozy, paprocie i mech. Szklana piramida ma w szczycie latarnię, którą latem podnosi się o 70 cm, żeby ciepłe powietrze uchodziło górą.",
+        "Do pierścienia sześciu trapezów przyklejone są sześciokątne komórki o różnej wysokości: dwukondygnacyjna wieża, niskie szklane patio i ganek przy wejściu. Wieża i patio stykają się z pierścieniem w jednym wierzchołku, tak jak komórki plastra miodu.",
         "Biuro zajmuje wschodni segment: od ogrodu ma przesuwną szklaną ścianę, a od wschodu szkło na brzozowy zagajnik. Wchodzi się do niego tylko z holu, więc nikt przez nie nie przechodzi.",
-        "Od wejścia nie ma korytarza: hol, biblioteka i herbaciarnia prowadzą jedna przez drugą do salonu i kuchni, a z każdej widać ogród.",
-        "Salon i kuchnia zajmują dwa boki sześciokąta i mają 6,5 m wysokości. Szkło od południowego wschodu i południowego zachodu wpuszcza słońce przez salon aż do ogrodu.",
-        "Sypialnia z łazienką jest na piętrze sześciokątnej wieży i ma szklane ściany na zachód. Na dole wieży są garderoba i pralnia, a z sypialni wychodzi się na taras na dachu patio.",
+        "Od wejścia nie ma korytarza: z ganku i wiatrołapu idzie się przez hol, bibliotekę i herbaciarnię do salonu i kuchni. Biblioteka ma od zewnątrz pełną ścianę z regałami, a światło dostaje od ogrodu.",
+        "Salon i kuchnia zajmują dwa boki sześciokąta i mają 6,5 m wysokości. Są przeszklone od zewnątrz i od ogrodu, więc słońce z południa przechodzi przez nie aż do ogrodu; przy salonie stoi patio sezonowe.",
+        "Sypialnia z łazienką jest na piętrze wieży, ma szklane ściany na zachód i wyjście na taras na dachu patio. Prowadzą do niej kręcone schody z garderoby, obok której jest pralnia.",
     ],
     notes=dict(
-        lato="Latarnia piramidy jest uniesiona, harmonijki patio złożone, a ogród przewietrza się przez otwarte drzwi pokoi jak leśna polana.",
-        zima="Piramida jest zamknięta, a ogród grzeje słońce wpadające przez szklany salon; patio zamknięte szkłem służy jako jadalnia z widokiem na śnieg.",
-        technologia="Prefabrykowane ściany szkieletowe z drewna w kilku powtarzalnych typach (trapez pierścienia, bok komórki, ściana szklana), stropy z płyt CLT, elewacja z opalanych desek, piramida ze stalowych żeber i szkła zespolonego.",
+        lato="Latarnia piramidy jest uniesiona, a harmonijki patio złożone; ogród przewietrza się przez otwarte drzwi pięciu pokoi i przez szczyt piramidy.",
+        zima="Piramida jest zamknięta, a ogród grzeje słońce wpadające przez szklany salon; patio zamknięte harmonijką służy jako jadalnia z kominkiem.",
+        technologia="Prefabrykowane ściany szkieletowe z drewna: zewnętrzne narożniki mają zawsze 120°, więc pierścień i komórki składa się z kilku powtarzalnych typów płyt. Stropy z płyt CLT, elewacja z opalanych desek, piramida na stalowych żebrach.",
     ),
 )
 H.level(0, z=0.0, h=3.4)
@@ -164,5 +165,6 @@ H.tree(CX + 12.0, CY - 1.5, "brzoza")      # zagajnik przed biurem
 H.tree(CX + 13.5, CY + 2.5, "brzoza")
 H.tree(CX + 11.2, CY + 5.0, "sosna")
 H.tree(CX - 15.0, CY + 11.5, "klon")
-H.cut("A–A", (CX + 3.0, CY - 13.5), (CX + 3.0, CY + 12.0))
-H.cut("B–B", (CX - 17.0, CY + 17.0 * 0.4257), (CX + 12.0, CY - 12.0 * 0.4257))
+H.cut("A–A", (CX + 3.0, CY - 13.5), (CX + 3.0, CY + 12.0))         # wejście, ogród, kuchnia
+_k = (SPIRAL[1] - CY) / (SPIRAL[0] - CX)                           # wieża ze schodami, ogród, biuro
+H.cut("B–B", (CX - 17.0, CY - 17.0 * _k), (CX + 12.0, CY + 12.0 * _k))

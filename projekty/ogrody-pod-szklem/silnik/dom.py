@@ -77,7 +77,7 @@ class Room:
             shape = healed
         if shape.interiors:
             shape = Polygon(shape.exterior)
-        self.poly = orient(shape, 1.0)
+        self.poly = orient(_clean(shape), 1.0)
         self.level, self.levels, self.dz = level, levels, dz
         self.outdoor = kind in OUTDOOR
         self.ext = ext if ext is not None else EXT_DEFAULT.get(kind, "open" if self.outdoor else "windows")
@@ -132,7 +132,7 @@ def _spec_for(spec, angle, other=None):
         return spec[other]
     best, bd = spec.get("*", "windows"), 999
     for k, v in spec.items():
-        if k == "*" or k.upper() not in DIR_KEYS:
+        if k == "*" or (isinstance(k, str) and k.upper() not in DIR_KEYS):
             continue
         d = ang_diff(angle, dir_angle(k))
         if d < bd and d <= 50:
@@ -509,8 +509,10 @@ class House:
                             continue
                         if run.other is not None and run.other.kind in ("ogrod", "ogrod_void") and not run.owner.garden_door:
                             continue
-                        # piętro: drzwi tylko na taras/patio albo do ogrodu, nie w powietrze
+                        # piętro: drzwi tylko na taras/patio albo do ogrodu, nie w powietrze ani z pustki
                         if run.other is None and idx > min(self.levels):
+                            continue
+                        if run.room.kind == "void" or (run.other is not None and run.other.kind == "void"):
                             continue
                         if run.other is not None and run.other.kind == "ogrod_void":
                             continue
@@ -641,19 +643,19 @@ class House:
             floor_rooms = [r for r in indoor if r.kind != "void"]
             terr = [r for r in L["rooms"] if r.outdoor]
             if idx == idxs[0]:
-                base = unary_union([r.poly for r in floor_rooms + terr]) if floor_rooms else Polygon()
+                base = _u([r.poly for r in floor_rooms + terr]) if floor_rooms else Polygon()
                 L["base"] = base
             else:
-                fl = unary_union([r.poly for r in floor_rooms + terr]) if floor_rooms + terr else Polygon()
+                fl = _u([r.poly for r in floor_rooms + terr]) if floor_rooms + terr else Polygon()
                 for fp, s in L["voids"]:
                     fl = fl.difference(fp)
                 L["floor_slab"] = fl
                 self.slabs.append((lev.z, fl, "strop"))
             # dach nad poziomem
-            cover = unary_union([r.poly for r in indoor] + [r.poly for r in terr if r.roof == "full"]) if indoor else Polygon()
+            cover = _u([r.poly for r in indoor] + [r.poly for r in terr if r.roof == "full"]) if indoor else Polygon()
             nxt = self.L.get(idxs[i + 1]) if i + 1 < len(idxs) else None
             if nxt is not None:
-                above = unary_union([r.poly for r in nxt["rooms"] if r.kind not in ("ogrod_void",)])
+                above = _u([r.poly for r in nxt["rooms"] if r.kind not in ("ogrod_void",)])
                 cover = cover.difference(above)
             cover = cover.buffer(0)
             for p in polygons(cover):
@@ -663,7 +665,7 @@ class House:
             for r in terr:
                 if isinstance(r.roof, Polygon):
                     self.patio_roofs.append((r, r.roof))
-        self.footprint = unary_union([r.poly for r in self.all_rooms if r.level == idxs[0]])
+        self.footprint = _u([r.poly for r in self.all_rooms if r.level == idxs[0]])
 
     def _areas(self):
         self.area = {"uzytkowa": 0.0, "ogrod": 0.0, "zewn": 0.0, "sezon": 0.0}
@@ -690,6 +692,26 @@ class House:
 
 
 # ------------------------------------------------------------------ pomocnicze
+def _u(polys, eps=0.003):
+    """Suma wielokątów bez włoskowatych szczelin między sąsiadami (styki T, łuki)."""
+    if not polys:
+        return Polygon()
+    g = unary_union([p.buffer(eps, join_style="mitre") for p in polys])
+    return g.buffer(-eps, join_style="mitre")
+
+
+def _clean(poly, tol=1e-4):
+    """Usuwa wierzchołki leżące prawie w tym samym miejscu (krawędzie 0 m po odejmowaniu łuków)."""
+    cs = list(poly.exterior.coords)[:-1]
+    out = []
+    for c in cs:
+        if not out or math.hypot(c[0] - out[-1][0], c[1] - out[-1][1]) > tol:
+            out.append(c)
+    if len(out) > 3 and math.hypot(out[0][0] - out[-1][0], out[0][1] - out[-1][1]) <= tol:
+        out.pop()
+    return Polygon(out) if len(out) >= 3 else poly
+
+
 def _ekey(a, b):
     ka = (round(a[0], 4), round(a[1], 4))
     kb = (round(b[0], 4), round(b[1], 4))
@@ -746,8 +768,12 @@ def _merge_runs(room, seg):
         a, b, _ = s
         return math.degrees(math.atan2(b[1] - a[1], b[0] - a[0]))
 
+    def sector60(s):
+        # kierunek krawędzi w 60-stopniowych przedziałach; od strony sąsiada (+180°) granice wypadają w tych samych miejscach
+        return int((round(ang(s) % 360.0, 6) % 360.0) // 60)
+
     def same(s1, s2):
-        return s1[2] is s2[2] and ang_diff(ang(s1), ang(s2)) < 16.5
+        return s1[2] is s2[2] and ang_diff(ang(s1), ang(s2)) < 16.5 and sector60(s1) == sector60(s2)
 
     start = 0
     for i in range(n):
@@ -761,8 +787,7 @@ def _merge_runs(room, seg):
     runs = []
     cur = [order[0]]
     for s in order[1:]:
-        # nie łącz zbyt długich łuków (max 90°) – lepsze rozmieszczenie okien
-        if same(cur[-1], s) and ang_diff(ang(cur[0]), ang(s)) < 80:
+        if same(cur[-1], s):
             cur.append(s)
         else:
             runs.append(cur)

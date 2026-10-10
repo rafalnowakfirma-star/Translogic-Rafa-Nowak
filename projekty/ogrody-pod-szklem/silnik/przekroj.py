@@ -76,7 +76,9 @@ def section(house, name, a, b, uid):
         zmax = max(zmax, lev.z + lev.h)
     for r in house.all_rooms:
         if r.kind == "ogrod":
-            zmax = max(zmax, r.roof_z + 1.2)
+            rr = math.sqrt(r.poly.area / math.pi)
+            rise = {"pyramid": rr * 0.55, "iris": rr * 0.18}.get(r.roof_type, 0.0)
+            zmax = max(zmax, r.roof_z + rise + 1.3)
     C = SecCanvas(-1.5, Ltot + 1.5, -1.2, zmax + 1.6)
     # niebo / tło ogrodów
     C.rect(-1.5, -0.3, Ltot + 1.5, zmax + 1.6, "s-sky")

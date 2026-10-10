@@ -12,10 +12,21 @@ KRU_SE = union(rect(X0, GY2, X1, Y1), rect(GX2, GY1, X1, GY2))
 
 H = House(
     "p09", "Pawilony",
-    "Cztery drewniane pawilony – dzienny, nocny, pracy i gościnny z sauną – stoją wokół ogrodu leśnego przesunięte jak skrzydła wiatraka. Łączy je szklany krużganek od strony ogrodu, zimą zamknięty, latem otwarty.",
+    "Cztery drewniane pawilony – dzienny, nocny, pracy i gościnny z sauną – wokół ogrodu z brzozami pod dachem z lameli szklanych. Łączy je krużganek od strony ogrodu, zimą zamknięty szklaną harmonijką, latem otwarty.",
     style=dict(fasada="drewno", dach="sedum"),
-    concept=["(szkic)"],
-    notes=dict(lato="(szkic)", zima="(szkic)", technologia="(szkic)"),
+    concept=[
+        "Cztery pawilony stoją wokół ogrodu przesunięte jak skrzydła wiatraka, więc w narożach zostają dziedzińce: patio kuchni, taras sypialni, taras sauny i prześwit z brzozą przy wejściu.",
+        "Pawilony łączy krużganek od strony ogrodu, a nie ogrzewany korytarz: ma pełny dach i ściany ze szklanej harmonijki, więc zimą jest zamkniętym buforem jak oranżeria, a latem zadaszoną werandą.",
+        "To odpowiedź na pytanie o korytarze od zewnątrz: taki korytarz zabrałby pokojom widok i trzeba by go grzać, a tu pokoje mają okna na krajobraz – biuro szkło z obu stron, sypialnia całą szklaną ścianę na wschód.",
+        "Wejście to osobny mały pawilon z amfiladą: wiatrołap z WC, szatnia i herbaciarnia, z której wychodzi się na krużganek i ścieżką w głąb ogrodu.",
+        "Dwie kondygnacje mają tylko salon z kuchnią od północy i pracownia w zachodnim narożniku, więc od południa nic wysokiego nie zasłania ogrodowi zimowego słońca.",
+        "Ogród 10 × 9 m ma 7 m wysokości, żeby zmieściły się brzozy; przykrywają go obrotowe lamele szklane, które latem stają pionowo i wypuszczają ciepłe powietrze.",
+    ],
+    notes=dict(
+        lato="Lamele nad ogrodem stają pionowo, a harmonijki krużganka składają się, więc pawilony wychodzą wprost na ogród i dziedzińce, a krużganek jest zadaszoną werandą.",
+        zima="Harmonijki i lamele są zamknięte; nieogrzewany krużganek nagrzewa słońce i ciepło z pawilonów, więc przejście jest chłodne, ale osłonięte od wiatru, a pawilony tracą mniej ciepła, bo od strony ogrodu mają bufor zamiast mrozu.",
+        technologia="Pawilony z prefabrykowanych modułów szkieletowych drewnianych – ściany, stropy i dach przyjeżdżają z fabryki jako gotowe skrzynie i stają na płycie fundamentowej w kilka dni. Krużganek ze stalowych słupów i belek ze szklanymi harmonijkami, dach ogrodu z systemowych lameli szklanych na stalowej ramie.",
+    ),
 )
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.4)
@@ -24,8 +35,8 @@ H.ogrod("og", "Ogród leśny", rect(GX1, GY1, GX2, GY2), levels=2, roof_type="lo
         edge="glass", seed=4, label_at=(16.6, 18.0))
 
 # krużganek (patio sezonowe): pełne zadaszenie jako osobna płyta, harmonijka szklana
-H.room("kn", "Krużganek", "patio_sezonowe", KRU_NW, roof=KRU_NW, furn=False)
-H.room("ks", "Krużganek", "patio_sezonowe", KRU_SE, roof=KRU_SE, furn=False)
+H.room("kn", "Krużganek", "patio_sezonowe", KRU_NW, roof=KRU_NW, furn=False, label_at=(18.6, 8.7))
+H.room("ks", "Krużganek", "patio_sezonowe", KRU_SE, roof=KRU_SE, furn=False, label_at=(11.6, 20.2))
 
 # pawilon wejściowy – amfilada: wiatrołap → szatnia → herbaciarnia → krużganek
 H.room("wia", "Wiatrołap", "wiatrolap", rect(9.0, -0.5, 13.5, 1.7), ext={"N": "slits", "W": "solid", "E": "slits"})
@@ -45,7 +56,7 @@ H.room("laz", "Łazienka", "lazienka", rect(X1, 14.2, 28.0, 17.2), ext="band_hig
 H.room("gar", "Garderoba", "garderoba", rect(X1, 17.2, 28.0, 19.0))
 H.room("syp", "Sypialnia", "sypialnia_glowna", rect(X1, 19.0, 28.0, 24.0),
        ext={"E": "glass_slide", "W": "solid", "S": "windows"})
-H.room("tsy", "Taras", "taras", rect(17.0, Y1, X1, 24.0))
+H.room("tsy", "Taras sypialni", "taras", rect(17.0, Y1, X1, 24.0))
 
 # pawilon pracy
 H.room("biu", "Biuro", "biuro", rect(X0, Y1, 17.0, 26.5),

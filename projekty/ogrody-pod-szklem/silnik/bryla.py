@@ -166,7 +166,12 @@ def build_mesh(house):
                 continue
             if r.outdoor:
                 z = r.z0
-                M.extrude(r.net if r.net is not None else r.poly, z - 0.14, z, "deck" if r.floor in ("deska", "drewno") else FLOOR_MAT.get(r.floor, "deck"))
+                mat = "deck" if r.floor in ("deska", "drewno") else FLOOR_MAT.get(r.floor, "deck")
+                if r.level > base_idx:
+                    # taras na stropie: deski 5 cm nad płytą (bez migotania płaszczyzn)
+                    M.extrude(r.net if r.net is not None else r.poly, z + 0.005, z + 0.05, mat)
+                else:
+                    M.extrude(r.net if r.net is not None else r.poly, z - 0.14, z, mat)
                 continue
             net = r.net if r.net is not None else r.poly
             for fp, s in L.get("voids", []):

@@ -5,6 +5,7 @@ from silnik import House, rect
 GX1, GY1, GX2, GY2 = 6.0, 6.0, 15.0, 15.0
 XW, YN, YS, XS = 2.0, 1.0, 19.0, 16.5
 DZ = 0.03   # deska tarasów na piętrach 3 cm nad stropem (inaczej w renderze migoczą na czarno)
+ZB = 0.8    # pas zielonego dachu z attyką między tarasem a krawędzią elewacji
 
 H = House(
     "p07", "Ślimak",
@@ -41,11 +42,11 @@ H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(GX1, YN, GX2, GY1), leve
        ext={"N": "solid", "S": "glass", "E": "glass_slide"}, kitchen_at="W")
 # skrzydło W – amfilada od frontu: garderoba (z WC), wiatrołap, herbaciarnia, pracownia
 WC = rect(4.1, GY1, GX1, 8.0)
-H.room("gar0", "Garderoba", "garderoba", rect(XW, GY1, GX1, 8.8).difference(WC), ext={"W": "solid"})
+H.room("gar0", "Garderoba", "garderoba", rect(XW, GY1, GX1, 8.8).difference(WC), ext={"W": "band_high"})
 H.room("wc", "WC", "wc", WC)
 H.room("wia", "Wiatrołap", "wiatrolap", rect(XW, 8.8, GX1, 10.85), ext={"W": "solid"})
 H.room("her", "Herbaciarnia", "herbaciarnia", rect(XW, 10.85, GX1, GY2), ext={"W": "solid"}, garden="glass")
-H.room("pra", "Pracownia", "pracownia", rect(XW, GY2, GX1, YS), ext={"W": "solid", "S": "windows"})
+H.room("pra", "Pracownia", "pracownia", rect(XW, GY2, GX1, YS), ext={"W": "band_high", "S": "windows"})
 # skrzydło S – biuro przeszklone z obu stron, na końcu pralnia z wyjściem na zewnątrz
 H.room("biu", "Biuro", "biuro", rect(GX1, GY2, 13.6, YS), ext={"S": "glass_slide"})
 H.room("pral", "Pralnia", "pralnia", rect(13.6, GY2, XS, YS), ext={"E": "solid", "N": "solid", "S": "windows_sq"},
@@ -59,27 +60,27 @@ H.room("pat", "Patio", "patio", rect(GX2, YN, 19.5, 9.6), roof=rect(GX2, YN, 19.
 H.room("hol1", "Hol", "hol", rect(XW, YN, GX1, GY1), level=1, ext={"N": "slits", "W": "slits"}, furn=False)
 # biblioteka w kształcie L obiega łazienkę od strony ogrodu i prowadzi do sypialni (zamiast korytarza)
 H.room("bib", "Biblioteka", "biblioteka", rect(XW, GY1, GX1, 10.4).union(rect(4.1, 10.4, GX1, 13.6)), level=1,
-       ext={"W": "solid", "E": "glass"})
+       ext={"W": "band_high", "E": "glass"})
 H.room("laz1", "Łazienka", "lazienka", rect(XW, 10.4, 4.1, 13.6), level=1, ext={"W": "band_high"})
 H.room("syp1", "Sypialnia", "sypialnia", rect(XW, 13.6, GX1, YS), level=1,
        ext={"W": "windows", "S": "glass", "E": "glass"})
 T1B = rect(15.25, GY2, 16.35, 16.0)
-H.room("t1", "Taras", "taras", rect(GX1, GY2, XS, YS).difference(T1B), level=1, dz=DZ)
+H.room("t1", "Taras", "taras", rect(GX1, GY2, XS, YS - ZB).difference(T1B), level=1, dz=DZ)
 H.room("t1b", "Podest", "taras", T1B, level=1, dz=DZ, enclose="open", furn=False)
 
 # ---------------------------------------------------------------- II piętro (+6,8)
 H.room("hol2", "Hol", "hol", rect(XW, YN, GX1, GY1), level=2, ext={"N": "slits", "W": "slits", "S": "glass"}, furn=False)
-H.room("gar2", "Garderoba", "garderoba", rect(GX1, YN, 9.0, 3.4), level=2, ext={"N": "solid"})
+H.room("gar2", "Garderoba", "garderoba", rect(GX1, YN, 9.0, 3.4), level=2, ext={"N": "band_high"})
 H.room("laz2", "Łazienka", "lazienka", rect(GX1, 3.4, 9.0, GY1), level=2, ext={"S": "band_high"})
 H.room("syp", "Sypialnia", "sypialnia_glowna", rect(9.0, YN, GX2, GY1), level=2,
        ext={"S": "glass", "E": "glass_slide", "N": "band"})
 T2B = rect(5.0, 15.2, GX1, 16.3)
-H.room("t2", "Taras", "taras", rect(XW, GY1, GX1, YS).difference(T2B), level=2, dz=DZ)
+H.room("t2", "Taras", "taras", rect(XW + ZB, GY1, GX1, YS - ZB).difference(T2B), level=2, dz=DZ)
 H.room("t2b", "Podest", "taras", T2B, level=2, dz=DZ, enclose="open", furn=False)
 
 # ---------------------------------------------------------------- dach (+10,2)
-T3B = rect(2.25, 5.0, 3.35, GY1)
-H.room("t3", "Taras na dachu", "taras", rect(XW, YN, 8.5, GY1).difference(T3B), level=3, dz=DZ)
+T3B = rect(2.95, 5.0, 4.05, GY1)
+H.room("t3", "Taras na dachu", "taras", rect(XW + ZB, YN + ZB, 8.5, GY1).difference(T3B), level=3, dz=DZ)
 H.room("t3b", "Podest", "taras", T3B, level=3, dz=DZ, enclose="open", furn=False)
 
 # ---------------------------------------------------------------- schody
@@ -89,7 +90,7 @@ H.stair("U", level=1, rect=(2.25, 1.3, 4.3, 5.6), up="N")
 # zewnętrzne: spirala tarasów (wschód → południe → zachód)
 H.stair("straight", level=0, rect=(15.25, 9.6, 16.35, 14.8), up="S")
 H.stair("straight", level=1, rect=(6.25, 15.2, 11.45, 16.3), up="W")
-H.stair("straight", level=2, rect=(2.25, 6.25, 3.35, 11.45), up="N")
+H.stair("straight", level=2, rect=(2.95, 6.25, 4.05, 11.45), up="N")
 
 # ---------------------------------------------------------------- połączenia
 # parter (at dla krawędzi poziomych liczone od wschodu)
@@ -115,7 +116,6 @@ H.connect("hol2", "t2", "slide", at=0.3)
 H.entrance("wia", "W")
 H.window("sal", "N", at=0.78, width=3.2, sill=0.5, head=2.6)
 H.window("her", "W", at=0.2, width=1.2, sill=0.3, head=0.9)   # niskie okno przy tatami
-H.window("bib", "W", at=0.93, width=0.6, sill=0.1, head=2.6)  # wąskie okno przy schodach
 H.exit("pral", "E", kind="door", width=1.0)
 
 # ---------------------------------------------------------------- teren
