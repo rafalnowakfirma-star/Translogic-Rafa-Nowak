@@ -705,12 +705,20 @@ def _u(polys, eps=0.003):
 
 
 def _wtop(r):
-    """Góra ścian pomieszczenia: otwarte bez dachu – 2,6 m (balustrady, murki); zadaszone – pod strop."""
+    """Góra ścian pomieszczenia: otwarte bez dachu – 2,6 m (balustrady, murki); zadaszone
+    (dachem albo pokojem piętra, np. podcień) – pod strop."""
     if not r.outdoor:
         return r.top
     if r.roof == "full" or isinstance(r.roof, Polygon):
         return r.top
-    return r.z0 + 2.6
+    cov = getattr(r, "_covered", None)
+    if cov is None:
+        inner = r.poly.buffer(-0.1)
+        cov = (not inner.is_empty) and any(
+            o.level == r.level + 1 and o.kind not in ("void", "ogrod_void") and o.poly.intersects(inner)
+            for o in r.house.rooms)
+        r._covered = cov
+    return r.top if cov else r.z0 + 2.6
 
 
 def _clean(poly, tol=1e-4):

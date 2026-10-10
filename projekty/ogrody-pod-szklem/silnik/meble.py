@@ -925,7 +925,10 @@ def door_clearance(room, level):
     for fp, s in level.get("voids", []):
         zones.append(fp.buffer(0.15))
     for s in level.get("stairs_here", []):
-        zones.append(s.footprint().buffer(0.6))
+        fp = s.footprint()
+        # strefa przy schodach tylko w pokoju, w którym schody stoją (nie przez ścianę do sąsiada)
+        if room.net is not None and fp.intersects(room.net):
+            zones.append(fp.buffer(0.6).intersection(room.net.buffer(0.05)))
     return unary_union(zones) if zones else None
 
 

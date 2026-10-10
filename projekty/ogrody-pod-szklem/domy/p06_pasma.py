@@ -22,7 +22,7 @@ H = House(
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.4)
 
-# ogród między pasmami: 10 × 7 m, kanał wodny, dach przesuwny; od północy harmonijka na podcień
+# ogród między pasmami: 10 × 7 m, podłużny basen (styl "woda"), dach przesuwny; od północy harmonijka na podcień
 # (wierzchołki od krawędzi zachodniej: kładka z kamieni zaczyna się wtedy od drzwi biura, na osi widokowej)
 H.ogrod("og", "Ogród wodny", poly((4.5, 13.0), (4.5, 6.0), (14.5, 6.0), (14.5, 13.0)), levels=2,
         roof_type="slide", style="woda", edge={"N": "fold", "*": "glass"}, seed=11)
@@ -36,7 +36,7 @@ H.room("wia", "Wiatrołap", "wiatrolap", rect(16.1, 6.0, 18.5, 8.4), ext={"E": "
 H.room("bib", "Biblioteka", "biblioteka", rect(14.5, 8.4, 18.5, 13.0), ext={"E": "glass"})
 
 # ---- pasmo nocne, parter: pracownia (2 kondygnacje), galeria ze schodami, podcień pod piętrem
-H.room("pra", "Pracownia", "pracownia", rect(0.5, 0, 4.5, 6.0), levels=2, ext={"N": "glass", "W": "slits", "S": "windows"})
+H.room("pra", "Pracownia", "pracownia", rect(0.5, 0, 4.5, 6.0), levels=2, ext={"N": "glass", "W": "band_high", "S": "windows"})
 H.room("gal", "Galeria", "galeria", rect(4.5, 0, 8.0, 6.0), ext={"N": "slits", "E": "solid"})
 H.stair("straight", level=0, rect=(4.85, 0.3, 5.95, 5.3), up="S")
 H.room("pod", "Podcień", "loggia", rect(8.0, 0, 21.5, 6.0), dz=0.2, roof="none", enclose="columns")
@@ -62,7 +62,7 @@ H.room("kre", "Kredens", "spizarnia", rect(14.5, 13.0, 16.5, 18.4), ext={"S": "s
 H.room("pral", "Pralnia", "pralnia", rect(16.5, 13.0, 18.5, 18.4))
 
 # ---- połączenia
-H.connect("pra", "biu", "door", at=0.2)
+H.connect("pra", "biu", "double")
 H.connect("pra", "gal", "double", at=0.82)
 H.connect("wia", "bib", "double")
 H.connect("wia", "wc", "door")
