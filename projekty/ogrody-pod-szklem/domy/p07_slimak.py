@@ -10,20 +10,20 @@ ZB = 0.8    # pas zielonego dachu z attyką między tarasem a krawędzią elewac
 H = House(
     "p07", "Ślimak",
     "Dom wokół ogrodu japońskiego, którego skrzydła mają kolejno jedną, dwie i trzy kondygnacje. "
-    "Dach każdego niższego skrzydła jest tarasem dla wyższego, a schody zewnętrzne łączą tarasy w drogę, która okrąża ogród i kończy się na dachu.",
+    "Dach każdego niższego skrzydła jest tarasem dla wyższego, a schody zewnętrzne prowadzą z tarasu na taras dookoła ogrodu aż na dach.",
     style=dict(fasada="beton", dach="sedum"),
     concept=[
-        "Skrzydło południowe ma jedną kondygnację, zachodnie dwie, a północne trzy. Dzięki temu zimowe słońce wpada nad niskim skrzydłem prosto do ogrodu, a najwyższa bryła osłania go od północy.",
-        "Dachy niższych skrzydeł są tarasami na +3,4 m i +6,8 m, a dach skrzydła północnego na +10,2 m. Trzy biegi schodów zewnętrznych – od patio wzdłuż wschodu, nad biurem wzdłuż południa i nad skrzydłem zachodnim – prowadzą z tarasu na taras dookoła ogrodu, zgodnie z ruchem wskazówek zegara.",
-        "Biuro zajmuje całe skrzydło południowe: od północy ma szkło do ogrodu, od południa szkło na trawnik, a od wschodu osobne wejście dla gości.",
-        "Od wejścia w elewacji zachodniej idzie się przez kolejne pokoje: wiatrołap, garderobę, herbaciarnię i pracownię aż do biura. W drugą stronę hol ze schodami prowadzi do kuchni.",
-        "Salon z kuchnią w skrzydle północnym ma 6,5 m wysokości; górne okno ponad szklanym dachem ogrodu wpuszcza słońce w głąb pokoju, a od wschodu salon wychodzi na patio z daszkiem.",
-        "Sypialnia główna na najwyższym piętrze ma szklaną ścianę od południa, z widokiem na ogród i tarasy.",
+        "Skrzydło południowe ma jedną kondygnację, zachodnie dwie, a północne trzy, więc zimowe słońce wpada nad niskim skrzydłem prosto do ogrodu, a najwyższa bryła osłania go od północy.",
+        "Ogród 9 × 9 m ma dach z obrotowych lameli szklanych na wysokości parteru, dlatego z tarasów i z okien pięter patrzy się na niego z góry.",
+        "Dachy niższych skrzydeł są tarasami dla wyższych (+3,4 i +6,8 m), a na dachu skrzydła północnego jest taras na +10,2 m; trzy proste biegi schodów zewnętrznych – od patio, nad biurem i nad skrzydłem zachodnim – łączą je w drogę, która okrąża ogród zgodnie z ruchem wskazówek zegara.",
+        "Biuro zajmuje skrzydło południowe: od północy ma szkło do ogrodu, od południa szklaną ścianę z drzwiami na drewniany taras.",
+        "Od wejścia w elewacji zachodniej przechodzi się przez kolejne pokoje bez korytarzy: na południe przez herbaciarnię i pracownię do biura, na północ przez garderobę do holu ze schodami i kuchni, a na piętrze przez bibliotekę do sypialni.",
+        "Salon z kuchnią w skrzydle północnym ma 6,5 m wysokości, górne przeszklenie nad dachem ogrodu i wyjście na patio z daszkiem; nad nim leży sypialnia główna ze szklanymi ścianami od południa i wschodu.",
     ],
     notes=dict(
-        lato="Lamele dachu ogrodu stoją pionowo, harmonijka od wschodu jest złożona i ogród łączy się z patio; tarasy na dachach są letnimi pokojami pod niebem.",
-        zima="Lamele są zamknięte, ogród grzeje słońce wpadające nad parterowym biurem, a trzykondygnacyjne skrzydło północne zatrzymuje wiatr.",
-        technologia="Ściany z bloczków ICF (styropian zalewany betonem) z okładziną z betonu w deskowaniu, więc bryła działa jak monolit; stropy i płyty tarasów żelbetowe, schody zewnętrzne z prefabrykowanych stopni wspornikowych.",
+        lato="Lamele nad ogrodem stoją pionowo, a szklana harmonijka od wschodu jest złożona, więc ogród łączy się z patio; tarasy na dachach służą jako letnie pokoje.",
+        zima="Lamele są zamknięte, ogród nagrzewa słońce wpadające nad parterowym biurem, a trzykondygnacyjne skrzydło północne zatrzymuje wiatr.",
+        technologia="Ściany z bloczków ICF (styropian zalewany betonem) tworzą jeden monolit, od zewnątrz obłożony płytami z betonu odlewanego w deskowaniu. Stropy i płyty tarasów żelbetowe, schody zewnętrzne z drewnianych stopni na stalowej belce.",
     ),
 )
 H.level(0, z=0.0, h=3.4)
@@ -64,6 +64,7 @@ H.room("bib", "Biblioteka", "biblioteka", rect(XW, GY1, GX1, 10.4).union(rect(4.
 H.room("laz1", "Łazienka", "lazienka", rect(XW, 10.4, 4.1, 13.6), level=1, ext={"W": "band_high"})
 H.room("syp1", "Sypialnia", "sypialnia", rect(XW, 13.6, GX1, YS), level=1,
        ext={"W": "windows", "S": "glass", "E": "glass"})
+# „Podest” = kawałek tarasu bez balustrady tam, gdzie dochodzą schody zewnętrzne
 T1B = rect(15.25, GY2, 16.35, 16.0)
 H.room("t1", "Taras", "taras", rect(GX1, GY2, XS, YS - ZB).difference(T1B), level=1, dz=DZ)
 H.room("t1b", "Podest", "taras", T1B, level=1, dz=DZ, enclose="open", furn=False)

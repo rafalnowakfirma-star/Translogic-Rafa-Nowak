@@ -23,8 +23,9 @@ H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.4)
 
 # ogród między pasmami: 10 × 7 m, kanał wodny, dach przesuwny; od północy harmonijka na podcień
-H.ogrod("og", "Ogród z kanałem", rect(4.5, 6.0, 14.5, 13.0), levels=2, roof_type="slide", style="woda",
-        edge={"N": "fold", "*": "glass"}, seed=11)
+# (wierzchołki od krawędzi zachodniej: kładka z kamieni zaczyna się wtedy od drzwi biura, na osi widokowej)
+H.ogrod("og", "Ogród z kanałem", poly((4.5, 13.0), (4.5, 6.0), (14.5, 6.0), (14.5, 13.0)), levels=2,
+        roof_type="slide", style="woda", edge={"N": "fold", "*": "glass"}, seed=11)
 
 # ---- most zachodni: biuro przeszklone od ogrodu i od pola
 H.room("biu", "Biuro", "biuro", rect(0.5, 6.0, 4.5, 13.0), ext={"W": "glass_slide", "S": "windows"})
@@ -66,7 +67,7 @@ H.connect("pra", "gal", "double")
 H.connect("wia", "bib", "double")
 H.connect("wia", "wc", "door")
 H.connect("bib", "kre", "door")
-H.connect("kre", "sal", "door")
+H.connect("kre", "sal", "door", at=0.85)
 H.connect("kre", "pral", "door")
 H.connect("gp", "lazd", "door")
 H.connect("gp", "dz1", "door")
