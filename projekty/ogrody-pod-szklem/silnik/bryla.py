@@ -206,7 +206,9 @@ def build_mesh(house):
         if r.outdoor and r.roof == "full" and r.parent is None:
             lev = house.levels[r.level]
             z = lev.z + lev.h
-            covered = any(abs(rz - z) < 0.05 and poly.contains(r.poly.representative_point()) for rz, poly, fin, li in house.roofs)
+            rp = r.poly.representative_point()
+            covered = any(abs(rz - z) < 0.05 and poly.contains(rp) for rz, poly, fin, li in house.roofs) or \
+                any(abs(sz - z) < 0.05 and poly.contains(rp) for sz, poly, kind in house.slabs)
             if not covered:
                 M.extrude(r.poly, z - SLAB, z, fac)
             _posts(M, house, r, r.poly, r.z0, z - SLAB)
@@ -447,7 +449,9 @@ def _garden3d(M, house, g):
         elif t == "krok":
             M.cyl(x, y, z - 0.02, ft.r * 0.85, 0.06, "kamien_ogrod" if ft.kw.get("cls") != "plyta" else "plyty_ogrod", n=10)
         elif t in ("klon", "brzoza", "oliwka", "sosna", "palma"):
-            _tree3d(M, t, x, y, z, ft.kw.get("h", 3.5), max(0.6, ft.r), seed=sd)
+            # drzewo nie może przebić szklanego dachu ogrodu
+            hmax = g.roof_z - z - 0.45
+            _tree3d(M, t, x, y, z, max(1.6, min(ft.kw.get("h", 3.5), hmax)), max(0.6, min(ft.r, hmax * 0.4)), seed=sd)
         elif t == "cytrus":
             M.cyl(x, y, z, 0.38, 0.55, "donica", n=14)
             M.cyl(x, y, z + 0.55, 0.04, 0.7, "pien", n=6)

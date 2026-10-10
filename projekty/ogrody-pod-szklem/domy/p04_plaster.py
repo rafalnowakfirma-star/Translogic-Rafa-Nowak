@@ -112,7 +112,7 @@ H.ogrod("og", "Ogród-las", poly(VI), levels=2, roof_type="pyramid", style="las"
 # --- front (NE): wiatrołap, WC, techniczne, hol; przed wiatrołapem ganek
 H.room("wc", "WC", "wc", poly(VO[4], W1, W2, X4))
 H.room("wia", "Wiatrołap", "wiatrolap", poly(W1, G0, G1, W3, W4, W2), ext="slits")
-H.room("tech", "Techniczne", "techniczne", poly(W3, VO[5], X5, W4))
+H.room("tech", "Techniczne", "techniczne", poly(W3, VO[5], X5, W4), label_at=(CX + 5.35, CY - 4.75))
 H.room("hol", "Hol", "hol", poly(X4, W2, W4, X5, VI[5], VI[4]))
 H.room("gan", "Ganek", "loggia", poly(PORCH), furn=False)
 # --- NW: biblioteka, ściana zewnętrzna w regałach
@@ -149,7 +149,8 @@ H.connect("her", "gar", "door", at=0.75)
 H.connect("gar", "pral", "door", at=0.8)
 H.connect("syp", "laz", "door", at=0.8)
 H.connect("sal", "tar", "glass")
-H.connect("sal", "og", "glass", width=1.0)
+H.connect("sal", "og", "glass", width=1.0)      # zwykłe drzwi szklane: bez fałszywych drzwi w pustce na piętrze
+H.connect("kuch", "og", "glass", width=1.0)
 
 H.entrance("wia", 300)
 

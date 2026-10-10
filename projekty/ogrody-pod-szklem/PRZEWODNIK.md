@@ -79,7 +79,7 @@ H.cut("A–A", (x1, y1), (x2, y2))    # linia przekroju (patrzymy w lewo od kier
 |---|---|
 | `level=0` | kondygnacja |
 | `levels=2` | pokój na 2 (lub 3) kondygnacje – silnik robi pustkę nad nim |
-| `ext="windows"` | elewacja zewnętrzna: napis albo słownik wg kierunku `{"S": "glass_slide", "N": "slits", "*": "solid"}` |
+| `ext="windows"` | elewacja zewnętrzna: napis albo słownik wg kierunku `{"S": "glass_slide", "N": "slits", "*": "solid"}`; klucz może też być kluczem sąsiedniego patio/loggii, np. `{"log1": "glass_slide", "*": "solid"}` |
 | `garden="glass_slide"` | ściana od ogrodu (domyślnie szkło przesuwne z drzwiami do ogrodu) |
 | `roof=` | dla patio/tarasu: `None` (otwarte), `"full"` (całe zadaszone) albo wielokąt (zadaszona część) |
 | `enclose=` | dla patio: czym zamknąć krawędzie zewnętrzne (`"fold"`, `"railing"`, `"low"`…) |

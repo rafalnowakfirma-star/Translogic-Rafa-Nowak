@@ -52,6 +52,7 @@ H = House(
 )
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.4)
+H.level(2, z=6.8, h=1.3)
 
 # --- brama (N): hol ze schodami kręconymi i WC
 Y_WC, X_WC = 2.8, 9.3
@@ -87,8 +88,7 @@ H.room("syp", "Sypialnia", "sypialnia_glowna", seg(5), level=1,
 H.room("tar", "Taras", "taras", seg(4), level=1, dz=0.05)  # deska 5 cm nad stropem (patrz raport)
 
 # --- ogród
-H.ogrod("og", "Oranżeria", ngon(CX, CY, 8, A_IN), levels=2, roof_type="pyramid", style="oranzeria", seed=4,
-        roof_z=7.25)  # podstawa piramidy na wysokości attyk
+H.ogrod("og", "Oranżeria", ngon(CX, CY, 8, A_IN), levels=3, roof_type="pyramid", style="oranzeria", seed=4)  # podstawa piramidy na wysokości attyk
 
 # --- połączenia
 H.connect("hol", "wc", "door", at=0.2)

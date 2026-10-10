@@ -71,7 +71,7 @@ H.room("hol1", "Hol", "hol", union(rect(12.2, 6.2, 14.6, 8), rect(14.6, 3.8, 17.
        ext={"N": "slits", "S": "glass"})
 H.room("pok2", "Pokój gościnny", "gosc", rect(17.6, 3.8, 21.2, 8), level=1, ext={"N": "windows", "S": "windows", "E": "glass_slide"})
 H.room("tar", "Taras", "taras", rect(21.2, 3.8, 23.8, 8), level=1)
-H.stair("spiral", level=0, center=(16.3, 5.25), r=1.0, start=180, sweep=300, n=15)
+H.stair("spiral", level=0, center=(16.3, 6.6), r=1.0, start=300, sweep=300, n=15)
 
 # połączenia
 H.connect("wia", "wc", "door")
@@ -89,7 +89,7 @@ H.connect("hol1", "laz1", "door")
 H.connect("hol1", "pok2", "door")
 
 H.entrance("wia", "N")
-H.window("bib", "N", at=0.84, width=1.4, sill=1.7, head=2.7)   # wysokie okno nad krętymi schodami; reszta ściany pod regały
+H.window("bib", "N", at=0.87, width=1.2, sill=1.7, head=2.7)   # wysokie okno w rogu biblioteki; reszta ściany pod regały
 H.exit("pral", "W", kind="door", width=1.0)
 H.exit("tech", "N", kind="door", width=1.0)
 
@@ -104,4 +104,4 @@ H.tree(24.5, 20.0, "lipa")
 H.tree(5.5, 26.5, "klon")
 
 H.cut("A–A", (13.4, -2.0), (13.4, 28.0))
-H.cut("B–B", (-1.0, 5.0), (27.0, 5.0))
+H.cut("B–B", (-1.0, 6.6), (27.0, 6.6))

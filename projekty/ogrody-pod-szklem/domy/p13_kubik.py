@@ -1,4 +1,4 @@
-"""P13 · Kubik – zwarta kostka 12,8 × 13,1 m z atrium 5,6 × 5,6 m przez dwie kondygnacje pod lamelowym dachem."""
+"""P13 · Kubik – zwarta kostka 13,2 × 13,5 m z atrium 5,6 × 5,6 m przez dwie kondygnacje pod lamelowym dachem."""
 from silnik import House, rect, poly
 
 # siatka: pasma W | atrium | E = 3,6 | 5,6 | 3,6 m (x), N | atrium | S = 3,3 | 5,6 | 4,2 m (y)
@@ -7,15 +7,15 @@ YN, YS, YY = 3.3, 8.9, 13.1
 
 H = House(
     "p13", "Kubik",
-    "Najmniejszy dom kolekcji: kostka 12,8 × 13,1 m na dwie kondygnacje z atrium 5,6 × 5,6 m w samym środku. "
-    "Z kostki wycięto trzy kawałki: podcień przy wejściu, patio sezonowe w narożniku i taras nad nim.",
+    "Najmniejszy dom kolekcji: kostka 13,2 × 13,5 m na dwie kondygnacje z atrium 5,6 × 5,6 m w samym środku. "
+    "Z kostki wycięto trzy kawałki: wnękę wejściową, patio sezonowe w narożniku i taras nad nim.",
     style=dict(fasada="blacha", dach="sedum", akcent="modrzew"),
     concept=[
         "Atrium 5,6 × 5,6 m przechodzi przez obie kondygnacje i ma dach z obrotowych szklanych lameli; wokół niego biegnie pierścień pokoi o głębokości 3,3–4,2 m, więc dom nie potrzebuje korytarzy.",
         "Biuro zajmuje zachodnie pasmo piętra: od wschodu patrzy przez szkło w koronę klonu w atrium, od zachodu przez szklaną ścianę na pola, a na południu wychodzi na taras nad patio.",
         "Parter obchodzi się amfiladą: z wiatrołapu w jedną stronę do holu ze schodami i pokoju gościnnego, w drugą przez bibliotekę na patio i do salonu, a z kuchni przez spiżarnię-kredens do pralni. Zimą z holu do salonu przechodzi się przez atrium.",
         "Salon z kuchnią ma 6,1 m wysokości i zajmuje południowe pasmo; na zachodzie otwiera się szklaną ścianą na patio sezonowe wycięte z narożnika bryły – zimą zamknięte szklaną harmonijką, latem całkiem otwarte.",
-        "Schody proste biegną w holu wzdłuż północnej ściany i wychodzą na galerię, która ciągnie się przez całą szerokość domu wzdłuż szkła atrium; z niej wchodzi się do biura i – przez przelotową garderobę – do sypialni.",
+        "Schody proste biegną w holu wzdłuż północnej ściany i wychodzą na galerię, która ciągnie się przez całą szerokość domu wzdłuż szkła atrium; z niej wchodzi się do biura i – przez przelotową garderobę – do sypialni z własną łazienką.",
         "Sypialnia na piętrze ma całą wschodnią ścianę ze szkła, a od atrium tylko wysokie pasmo okien, żeby biuro po drugiej stronie ogrodu nie zaglądało do łóżka; wezgłowie stoi przy ścianie wysokiego salonu.",
     ],
     notes=dict(

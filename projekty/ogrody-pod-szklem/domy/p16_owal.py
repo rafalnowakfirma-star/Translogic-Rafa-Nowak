@@ -69,7 +69,7 @@ H.room("kuch", "Kuchnia z jadalnią", "kuchnia", cut(XE, YS, W, D), levels=2,
 H.room("hol", "Hol", "hol", rect(XE, 0, 17.6, 3.4), level=1, ext={"N": "slits", "W": "windows", "E": "solid"})
 H.room("gar", "Garderoba", "garderoba", cut(XE, 3.4, 17.6, YN), level=1, ext="solid", garden="solid")
 H.room("log", "Loggia", "loggia", rect(17.6, 0, W, 2.4), level=1, enclose="railing")
-H.room("laz", "Łazienka", "lazienka", rect(17.6, 2.4, W, YN), level=1, ext={"E": "band_high", "N": "glass_slide"})
+H.room("laz", "Łazienka", "lazienka", rect(17.6, 2.4, W, YN), level=1, ext={"E": "band_high", "N": "glass"})
 H.room("syp", "Sypialnia", "sypialnia_glowna", cut(XE, YN, W, YS), level=1, ext={"E": "glass_slide"}, garden="glass")
 
 # --- połączenia ---------------------------------------------------------------

@@ -10,7 +10,7 @@ H = House(
     "p07", "Ślimak",
     "Dom wokół ogrodu japońskiego, którego skrzydła mają kolejno jedną, dwie i trzy kondygnacje. "
     "Dach każdego niższego skrzydła jest tarasem dla wyższego, a schody zewnętrzne łączą tarasy w drogę, która okrąża ogród i kończy się na dachu.",
-    style=dict(fasada="beton", dach="sedum", akcent="stal"),
+    style=dict(fasada="beton", dach="sedum"),
     concept=[
         "Skrzydło południowe ma jedną kondygnację, zachodnie dwie, a północne trzy. Dzięki temu zimowe słońce wpada nad niskim skrzydłem prosto do ogrodu, a najwyższa bryła osłania go od północy.",
         "Dachy niższych skrzydeł są tarasami na +3,4 m i +6,8 m, a dach skrzydła północnego na +10,2 m. Trzy biegi schodów zewnętrznych – od patio wzdłuż wschodu, nad biurem wzdłuż południa i nad skrzydłem zachodnim – prowadzą z tarasu na taras dookoła ogrodu, zgodnie z ruchem wskazówek zegara.",
@@ -114,6 +114,7 @@ H.connect("hol2", "t2", "slide", at=0.3)
 
 H.entrance("wia", "W")
 H.window("sal", "N", at=0.78, width=3.2, sill=0.5, head=2.6)
+H.window("her", "W", at=0.2, width=1.2, sill=0.3, head=0.9)   # niskie okno przy tatami
 H.exit("pral", "E", kind="door", width=1.0)
 
 # ---------------------------------------------------------------- teren
@@ -122,5 +123,5 @@ H.path(rect(16.7, 16.4, 22.0, 17.6))
 H.tree(-3.5, 22.5, "klon")
 H.tree(23.5, -2.0, "sosna")
 H.tree(-4.0, -1.5, "brzoza")
-H.cut("A–A", (10.5, -2.0), (10.5, 21.0))
-H.cut("B–B", (-1.0, 10.5), (21.0, 10.5))
+H.cut("A–A", (7.5, -1.5), (7.5, 22.5))
+H.cut("B–B", (-0.5, 11.2), (21.0, 11.2))

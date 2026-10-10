@@ -17,7 +17,9 @@ from shapely.geometry import Polygon, LineString, Point, MultiLineString
 from shapely.geometry.polygon import orient
 from shapely.ops import unary_union, linemerge
 
-from .geom import ang_diff, dir_angle, largest, polygons, circle, rect
+from .geom import ang_diff, dir_angle, largest, polygons, circle, rect, DIRS
+
+DIR_KEYS = set(DIRS)
 
 # grubości ścian [m]
 THICK = {"ext": 0.40, "int": 0.12, "glass": 0.12, "fold": 0.12, "gwall": 0.30,
@@ -112,22 +114,25 @@ class Room:
             return L.z + L.h * self.levels - SLAB
         return last.z + last.h - SLAB
 
-    def ext_for(self, angle):
-        return _spec_for(self.ext, angle)
+    def ext_for(self, angle, other=None):
+        return _spec_for(self.ext, angle, other)
 
-    def garden_for(self, angle):
-        return _spec_for(self.garden, angle)
+    def garden_for(self, angle, other=None):
+        return _spec_for(self.garden, angle, other)
 
     def __repr__(self):
         return f"<Room {self.key} {self.kind} L{self.level}>"
 
 
-def _spec_for(spec, angle):
+def _spec_for(spec, angle, other=None):
+    """Specyfikacja ściany: napis albo słownik wg kierunku ("N", "SE", …), klucza sąsiada lub "*"."""
     if isinstance(spec, str):
         return spec
+    if other is not None and other in spec:
+        return spec[other]
     best, bd = spec.get("*", "windows"), 999
     for k, v in spec.items():
-        if k == "*":
+        if k == "*" or k.upper() not in DIR_KEYS:
             continue
         d = ang_diff(angle, dir_angle(k))
         if d < bd and d <= 50:
@@ -429,8 +434,10 @@ class House:
         # wnętrze ↔ ogród
         if indoor(A) and is_garden(B) or indoor(B) and is_garden(A):
             r = EA if indoor(A) else EB
+            o = EB if indoor(A) else EA
             ang = run.angle if indoor(A) else (run.angle + 180) % 360
-            return _cls_of(r.garden_for(ang)), r.garden_for(ang), r
+            sp = r.garden_for(ang, o.key)
+            return _cls_of(sp), sp, r
         # wnętrze ↔ wnętrze
         if indoor(A) and indoor(B):
             if EA is EB:
@@ -441,8 +448,9 @@ class House:
         # wnętrze ↔ zewnątrz lub pomieszczenie otwarte (patio, taras)
         if indoor(A) and (B is None or B.outdoor) or indoor(B) and A.outdoor:
             r = EA if indoor(A) else EB
+            o = EB if indoor(A) else EA
             ang = run.angle if indoor(A) else (run.angle + 180) % 360
-            sp = r.ext_for(ang)
+            sp = r.ext_for(ang, o.key if o is not None else None)
             if B is not None and B.outdoor and indoor(A) and sp in ("windows", "windows_sq", "slits", "band", "band_high", "solid"):
                 sp = sp  # zostaw wybór projektanta
             return _cls_of(sp), sp, r
