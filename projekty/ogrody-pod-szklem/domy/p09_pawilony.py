@@ -24,8 +24,8 @@ H.ogrod("og", "Ogród leśny", rect(GX1, GY1, GX2, GY2), levels=2, roof_type="lo
         edge="glass", seed=4, label_at=(16.6, 18.0))
 
 # krużganek (patio sezonowe): pełne zadaszenie jako osobna płyta, harmonijka szklana
-H.room("kn", "Krużganek", "patio_sezonowe", KRU_NW, roof=KRU_NW)
-H.room("ks", "Krużganek", "patio_sezonowe", KRU_SE, roof=KRU_SE)
+H.room("kn", "Krużganek", "patio_sezonowe", KRU_NW, roof=KRU_NW, furn=False)
+H.room("ks", "Krużganek", "patio_sezonowe", KRU_SE, roof=KRU_SE, furn=False)
 
 # pawilon wejściowy – amfilada: wiatrołap → szatnia → herbaciarnia → krużganek
 H.room("wia", "Wiatrołap", "wiatrolap", rect(9.0, -0.5, 13.5, 1.7), ext={"N": "slits", "W": "solid", "E": "slits"})

@@ -718,6 +718,8 @@ def plan_roof(house, uid):
             C.path(r.poly, "pl-parapet")
             p = r.poly.representative_point()
             C.text(p.x, p.y, r.name, "t-room-s")
+        if r.outdoor and isinstance(r.roof, Polygon) and r.parent is None:
+            C.path(r.roof, "pl-roofpatio")
         if r.outdoor and r.roof == "full":
             rp = r.poly.representative_point()
             above = any(o.level > r.level and o.kind not in ("void", "ogrod_void") and o.poly.contains(rp)

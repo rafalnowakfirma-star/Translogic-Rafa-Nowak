@@ -6,7 +6,7 @@ from silnik import House, rect, ellipse
 # prostokąt 21 × 17 m, elipsa ogrodu 12 × 9 m (półosie 6 × 4,5) w środku
 W, D = 21.0, 17.0
 CX, CY, RX, RY = W / 2, D / 2, 6.0, 4.5
-E = ellipse(CX, CY, RX, RY)
+E = set_precision(ellipse(CX, CY, RX, RY), 1e-6)   # ta sama siatka współrzędnych co pokoje
 
 # linie podziału pierścienia – każda przecina elipsę
 XW, XE = 6.5, 14.5      # granice pasm północnego i południowego

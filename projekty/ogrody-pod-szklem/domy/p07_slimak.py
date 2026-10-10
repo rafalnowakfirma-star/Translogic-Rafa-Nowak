@@ -59,7 +59,7 @@ H.room("pat", "Patio", "patio", rect(GX2, YN, 19.5, 9.6), roof=rect(GX2, YN, 19.
 H.room("hol1", "Hol", "hol", rect(XW, YN, GX1, GY1), level=1, ext={"N": "slits", "W": "slits"}, furn=False)
 # biblioteka w kształcie L obiega łazienkę od strony ogrodu i prowadzi do sypialni (zamiast korytarza)
 H.room("bib", "Biblioteka", "biblioteka", rect(XW, GY1, GX1, 10.4).union(rect(4.1, 10.4, GX1, 13.6)), level=1,
-       ext={"W": "windows", "E": "glass"})
+       ext={"W": "solid", "E": "glass"})
 H.room("laz1", "Łazienka", "lazienka", rect(XW, 10.4, 4.1, 13.6), level=1, ext={"W": "band_high"})
 H.room("syp1", "Sypialnia", "sypialnia", rect(XW, 13.6, GX1, YS), level=1,
        ext={"W": "windows", "S": "glass", "E": "glass"})
@@ -115,6 +115,7 @@ H.connect("hol2", "t2", "slide", at=0.3)
 H.entrance("wia", "W")
 H.window("sal", "N", at=0.78, width=3.2, sill=0.5, head=2.6)
 H.window("her", "W", at=0.2, width=1.2, sill=0.3, head=0.9)   # niskie okno przy tatami
+H.window("bib", "W", at=0.93, width=0.6, sill=0.1, head=2.6)  # wąskie okno przy schodach
 H.exit("pral", "E", kind="door", width=1.0)
 
 # ---------------------------------------------------------------- teren

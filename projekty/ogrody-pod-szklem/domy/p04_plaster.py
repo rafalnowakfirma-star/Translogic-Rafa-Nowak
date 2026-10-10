@@ -107,8 +107,6 @@ H = House(
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.4)
 
-H.ogrod("og", "Ogród-las", poly(VI), levels=2, roof_type="pyramid", style="las", seed=4, edge="glass")
-
 # --- front (NE): wiatrołap, WC, techniczne, hol; przed wiatrołapem ganek
 H.room("wc", "WC", "wc", poly(VO[4], W1, W2, X4))
 H.room("wia", "Wiatrołap", "wiatrolap", poly(W1, G0, G1, W3, W4, W2), ext="slits")
@@ -135,6 +133,10 @@ H.room("syp", "Sypialnia", "sypialnia_glowna", poly(ES, t0, t1, t2, WS), level=1
        ext={"SE": "glass_slide", "SW": "glass_slide", "W": "glass", "E": "windows"})
 H.room("laz", "Łazienka", "lazienka", poly(WS, t3, t4, t5, ES), level=1, ext={"NW": "solid", "NE": "band_high"})
 H.room("tar", "Taras", "taras", poly(PATIO), level=1, dz=0.03)   # dz: posadzka tarasu nad stropem patio
+
+# --- ogród (definiowany po pokojach: wtedy silnik nie stawia drzwi przesuwnych między pustką ogrodu
+#     a pustkami salonu i kuchni na piętrze)
+H.ogrod("og", "Ogród-las", poly(VI), levels=2, roof_type="pyramid", style="las", seed=4, edge="glass")
 
 # --- połączenia (szklane ściany przesuwne same dają drzwi: salon–patio, sypialnia–taras, pokoje–ogród)
 H.connect("wia", "hol", "double")
