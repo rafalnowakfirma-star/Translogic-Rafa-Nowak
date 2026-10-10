@@ -24,7 +24,7 @@ H.level(1, z=3.4, h=3.4)
 
 # ogród między pasmami: 10 × 7 m, kanał wodny, dach przesuwny; od północy harmonijka na podcień
 # (wierzchołki od krawędzi zachodniej: kładka z kamieni zaczyna się wtedy od drzwi biura, na osi widokowej)
-H.ogrod("og", "Ogród z kanałem", poly((4.5, 13.0), (4.5, 6.0), (14.5, 6.0), (14.5, 13.0)), levels=2,
+H.ogrod("og", "Ogród wodny", poly((4.5, 13.0), (4.5, 6.0), (14.5, 6.0), (14.5, 13.0)), levels=2,
         roof_type="slide", style="woda", edge={"N": "fold", "*": "glass"}, seed=11)
 
 # ---- most zachodni: biuro przeszklone od ogrodu i od pola
@@ -36,18 +36,18 @@ H.room("wia", "Wiatrołap", "wiatrolap", rect(16.1, 6.0, 18.5, 8.4), ext={"E": "
 H.room("bib", "Biblioteka", "biblioteka", rect(14.5, 8.4, 18.5, 13.0), ext={"E": "glass"})
 
 # ---- pasmo nocne, parter: pracownia (2 kondygnacje), galeria ze schodami, podcień pod piętrem
-H.room("pra", "Pracownia", "pracownia", rect(0.5, 0, 4.5, 6.0), levels=2, ext={"N": "glass", "W": "windows", "S": "windows"})
-H.room("gal", "Galeria", "galeria", rect(4.5, 0, 8.0, 6.0), ext={"N": "windows", "E": "solid"})
+H.room("pra", "Pracownia", "pracownia", rect(0.5, 0, 4.5, 6.0), levels=2, ext={"N": "glass", "W": "slits", "S": "windows"})
+H.room("gal", "Galeria", "galeria", rect(4.5, 0, 8.0, 6.0), ext={"N": "slits", "E": "solid"})
 H.stair("straight", level=0, rect=(4.85, 0.3, 5.95, 5.3), up="S")
 H.room("pod", "Podcień", "loggia", rect(8.0, 0, 21.5, 6.0), dz=0.2, roof="none", enclose="columns")
 
 # ---- pasmo nocne, piętro: galeria wzdłuż ogrodu, pokoje od północy, sypialnia nad podcieniem
 H.room("gp", "Galeria piętra", "galeria",
        poly((4.5, 0), (6.9, 0), (6.9, 4.4), (15.5, 4.4), (15.5, 6.0), (4.5, 6.0)),
-       level=1, ext={"N": "windows"}, garden="glass")
+       level=1, ext={"N": "band"}, garden="glass")
 H.room("lazd", "Łazienka", "lazienka", rect(6.9, 0, 8.9, 4.4), level=1)
-H.room("dz1", "Pokój dziecka", "pokoj", rect(8.9, 0, 12.2, 4.4), level=1)
-H.room("dz2", "Pokój dziecka", "pokoj", rect(12.2, 0, 15.5, 4.4), level=1)
+H.room("dz1", "Pokój dziecka", "pokoj", rect(8.9, 0, 12.2, 4.4), level=1, ext={"N": "band"})
+H.room("dz2", "Pokój dziecka", "pokoj", rect(12.2, 0, 15.5, 4.4), level=1, ext={"N": "band"})
 H.room("laz", "Łazienka", "lazienka", rect(15.5, 0, 17.5, 3.4), level=1)
 H.room("gar", "Garderoba", "garderoba", rect(15.5, 3.4, 17.5, 6.0), level=1)
 H.room("syp", "Sypialnia", "sypialnia_glowna", rect(17.5, 0, 21.5, 6.0), level=1,

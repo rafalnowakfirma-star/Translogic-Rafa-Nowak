@@ -54,7 +54,7 @@ H.room("pral", "Pralnia", "pralnia", rect(13.6, GY2, XS, YS), ext={"E": "solid",
 # taras na gruncie przed biurem
 H.room("tar0", "Taras", "taras", rect(GX1, YS, 13.6, 21.0))
 # wschód – patio częściowo zadaszone
-H.room("pat", "Patio", "patio", rect(GX2, YN, 19.5, 9.6), roof=rect(GX2, YN, 19.5, 4.6))
+H.room("pat", "Patio", "patio", rect(GX2, YN, 19.5, 9.6), roof=rect(GX2, YN, 19.5, 4.6), label_at=(17.25, 5.45))
 
 # ---------------------------------------------------------------- piętro (+3,4)
 H.room("hol1", "Hol", "hol", rect(XW, YN, GX1, GY1), level=1, ext={"N": "slits", "W": "slits"}, furn=False)

@@ -176,6 +176,11 @@ def plan_level(house, idx, uid):
             if li < idx:
                 C.path(poly, "", f'fill="url(#{C.pattern(fin if fin in ("sedum", "zwir") else "zwir")})" class="pl-roofbelow"')
                 C.path(poly, "pl-roofedge")
+        # tarasy niższych pięter widziane z góry
+        for r in house.all_rooms:
+            if r.outdoor and r.parent is None and min(house.L) < r.level < idx:
+                C.path(r.poly, "", f'fill="url(#{C.pattern("deska", _room_angle(r))})" class="pl-roofbelow"')
+                C.path(r.poly, "pl-roofedge")
         # ogrody z poziomu 0 widziane z góry
     # posadzki
     for r in rooms:

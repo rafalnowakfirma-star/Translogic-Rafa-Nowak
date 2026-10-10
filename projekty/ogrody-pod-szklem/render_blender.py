@@ -64,6 +64,7 @@ M = {
     "kamien_ogrod": dict(c=(0.42, 0.41, 0.39), r=0.8, var=0.12, ns=4),
     "lisc_klon": dict(c=(0.62, 0.13, 0.05), r=0.7, var=0.18, ns=10, leaf=True),
     "lisc_zielony": dict(c=(0.18, 0.33, 0.09), r=0.7, var=0.15, ns=10, leaf=True),
+    "lisc": dict(c=(0.20, 0.35, 0.11), r=0.7, var=0.15, ns=10, leaf=True),
     "lisc_brzoza": dict(c=(0.36, 0.50, 0.16), r=0.7, var=0.15, ns=10, leaf=True),
     "lisc_oliwka": dict(c=(0.40, 0.45, 0.30), r=0.7, var=0.1, ns=10, leaf=True),
     "lisc_sosna": dict(c=(0.09, 0.21, 0.09), r=0.8, var=0.1, ns=10, leaf=True),
