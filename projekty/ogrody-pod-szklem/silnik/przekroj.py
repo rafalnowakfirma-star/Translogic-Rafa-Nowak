@@ -281,7 +281,8 @@ def section(house, name, a, b, uid):
     for r in house.all_rooms:
         if r.kind == "ogrod":
             for h1, h2 in _intervals(line, r.poly):
-                C.text((h1 + h2) / 2, 3.0, r.name.lower(), "t-garden")
+                # podpis tuż pod szklanym dachem, nad koronami drzew
+                C.text((h1 + h2) / 2, max(2.6, r.roof_z - 0.75), r.name.lower(), "t-garden")
     # ludzie dla skali
     done = 0
     for r, h1, h2 in sorted(labels, key=lambda t: -(t[2] - t[1])):
