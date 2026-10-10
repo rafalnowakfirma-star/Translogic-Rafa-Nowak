@@ -69,23 +69,23 @@ for i, p in enumerate(PATIO):
             PATIO[i] = q
 
 # front (bok NE) – podział na pasmo zewnętrzne (WC | wiatrołap | pralnia) i wewnętrzne (hol)
-V_SPLIT = 6.2
+V_SPLIT = 5.8
 X4, X5 = R(4, V_SPLIT), R(5, V_SPLIT)
-W1, W2 = S(5, -1.4, A_OUT), S(5, -1.4, V_SPLIT)
-W3, W4 = S(5, 1.4, A_OUT), S(5, 1.4, V_SPLIT)
+W1, W2 = S(5, -1.5, A_OUT), S(5, -1.5, V_SPLIT)
+W3, W4 = S(5, 1.5, A_OUT), S(5, 1.5, V_SPLIT)
 
 # piętro nad galerią: łazienka od ogrodu, garderoba wzdłuż ściany zewnętrznej
 RB = R(3, 6.4)
 B1, B2 = S(3, -0.9, 6.4), S(3, -0.9, A_IN)
 
 # schody proste w galerii, wzdłuż zachodniej ściany (bieg 5,2 m)
-STAIR = (CX - 8.25, CY - 3.2, CX - 7.15, CY + 2.0)
+STAIR = (CX - 8.25, CY - 2.6, CX - 7.15, CY + 2.6)
 
 # ------------------------------------------------------------------- dom
 H = House(
     "p04", "Plaster miodu",
     "Dom z sześciokątów: wokół sześciokątnego ogrodu-lasu stoi pierścień sześciu pomieszczeń, a do niego przyklejone są komórki – wieża z sypialnią i szklane patio. Nad ogrodem jest szklana piramida z unoszoną latarnią.",
-    style=dict(fasada="drewno_opal", dach="sedum", akcent="miedz"),
+    style=dict(fasada="drewno_opal", dach="sedum"),
     concept=[
         "Ogród o boku 4,6 m ma wysokość dwóch kondygnacji i rośnie w nim las: brzozy, paprocie i mech. Szklana piramida ma w szczycie latarnię, którą latem podnosi się o 70 cm, i ciepłe powietrze uchodzi górą.",
         "Biuro zajmuje wschodni segment: od ogrodu ma przesuwną szklaną ścianę, a od wschodu szkło na brzozowy zagajnik. Wchodzi się do niego tylko z holu, więc nikt przez nie nie przechodzi.",
@@ -110,45 +110,54 @@ H.room("wia", "Wiatrołap", "wiatrolap", poly(W1, W3, W4, W2), ext="slits")
 H.room("pral", "Pralnia", "pralnia", poly(W3, VO[5], X5, W4))
 H.room("hol", "Hol", "hol", poly(X4, W2, W4, X5, VI[5], VI[4]))
 # --- NW: biblioteka (przelotowa)
-H.room("bib", "Biblioteka", "biblioteka", poly(VO[3], VO[4], X4, VI[4], VI[3]), ext="slits")
+H.room("bib", "Biblioteka", "biblioteka", poly(VO[3], VO[4], X4, VI[4], VI[3]), ext="solid", garden="glass")
+H.window("bib", "NW", at=0.5, width=1.2, sill=0.45, head=2.6)
 # --- E: biuro przeszklone z obu stron
 H.room("biu", "Biuro", "biuro", poly(VO[5], VO[0], VI[0], VI[5], X5), ext="glass_slide", garden="glass_slide")
-# --- SE + SW: salon z kuchnią na dwie kondygnacje
-H.room("sal", "Salon z kuchnią", "salon_kuchnia", poly(VO[0], VO[1], QP, VO[2], VI[2], VI[1], VI[0]),
-       levels=2, ext="glass_slide", kitchen_at="E")
+# --- SE + SW: salon i kuchnia z jadalnią, razem, na dwie kondygnacje
+H.room("kuch", "Kuchnia z jadalnią", "kuchnia", poly(VO[0], VO[1], VI[1], VI[0]), levels=2,
+       ext="glass_slide", garden="glass", kitchen_at="E")
+H.room("sal", "Salon", "salon", poly(VO[1], QP, VO[2], VI[2], VI[1]), levels=2, ext="glass_slide")
 # --- W: galeria ze schodami
 H.room("gal", "Galeria", "galeria", poly(VO[2], QT, VO[3], VI[3], B2, VI[2]), ext="band_high")
 H.stair("straight", level=0, rect=STAIR, up="S")
 # --- komórki: wieża (herbaciarnia / sypialnia) i patio sezonowe z tarasem na dachu
 H.room("her", "Herbaciarnia", "herbaciarnia", poly(TOWER),
-       ext={"W": "glass", "SW": "glass_slide", "NW": "windows_sq", "N": "solid"})
+       ext={"W": "glass", "SW": "glass", "NW": "windows_sq", "N": "solid", "SE": "glass_slide"})
 H.room("ps", "Patio sezonowe", "patio_sezonowe", poly(PATIO))
 
 # --- piętro
-H.room("gar", "Garderoba", "garderoba", poly(VO[2], QT, VO[3], RB, B1, B2, VI[2]), level=1)
+H.room("gar", "Garderoba", "garderoba", poly(VO[2], QT, VO[3], RB, B1, B2, VI[2]), level=1, garden="glass")
 H.room("laz", "Łazienka", "lazienka", poly(VI[3], RB, B1, B2), level=1, garden="glass")
 H.room("syp", "Sypialnia", "sypialnia_glowna", poly(TOWER), level=1,
-       ext={"W": "glass_slide", "SW": "glass_slide", "NW": "glass", "N": "solid"})
+       ext={"W": "glass_slide", "SW": "glass_slide", "NW": "glass", "N": "solid", "SE": "glass_slide"})
 H.room("tar", "Taras", "taras", poly(PATIO), level=1)
 
-# --- połączenia
-H.connect("wia", "hol", "wide")
-H.connect("wia", "wc", "door")
+# --- połączenia (szklane ściany przesuwne same dają drzwi: kuchnia–patio, herbaciarnia–patio, sypialnia–taras)
+H.connect("wia", "hol", "double")
+H.connect("hol", "wc", "door")
 H.connect("hol", "pral", "door")
 H.connect("hol", "biu", "door")
 H.connect("hol", "bib", "wide")
-H.connect("bib", "gal", "wide")
-H.connect("gal", "sal", "wide")
+H.connect("bib", "gal", "wide", at=0.3)
+H.connect("gal", "sal", "wide", at=0.25)
+H.connect("sal", "kuch", "open")
 H.connect("gal", "her", "door")
-H.connect("sal", "ps", "slide")
-H.connect("her", "ps", "slide")
 H.connect("gar", "laz", "door")
 H.connect("gar", "syp", "door")
-H.connect("syp", "tar", "slide")
 H.connect("sal", "tar", "glass")
 
 H.entrance("wia", 300)
 
 # --- teren
+_n = (math.cos(math.radians(300)), math.sin(math.radians(300)))
+_t = (-_n[1], _n[0])
+_d = S(5, 0.0, A_OUT)
+H.path(poly(*[(_d[0] + _t[0] * a + _n[0] * b, _d[1] + _t[1] * a + _n[1] * b)
+              for a, b in ((-0.75, 0.25), (0.75, 0.25), (0.75, 6.5), (-0.75, 6.5))]))
+H.tree(CX + 12.0, CY - 1.5, "brzoza")      # zagajnik przed biurem
+H.tree(CX + 13.5, CY + 2.5, "brzoza")
+H.tree(CX + 11.2, CY + 5.0, "sosna")
+H.tree(CX - 14.5, CY + 11.5, "klon")
 H.cut("A–A", (CX + 3.0, CY - 13.0), (CX + 3.0, CY + 12.0))
-H.cut("B–B", (CX - 16.0, CY + 1.85), (CX + 11.0, CY + 1.85))
+H.cut("B–B", (CX - 16.0, CY + 2.0), (CX + 11.0, CY + 2.0))

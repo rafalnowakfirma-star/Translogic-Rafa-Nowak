@@ -491,6 +491,11 @@ class House:
                             continue
                         if run.other is not None and run.other.kind in ("ogrod", "ogrod_void") and not run.owner.garden_door:
                             continue
+                        # piętro: drzwi tylko na taras/patio albo do ogrodu, nie w powietrze
+                        if run.other is None and idx > min(self.levels):
+                            continue
+                        if run.other is not None and run.other.kind == "ogrod_void":
+                            continue
                         w = min(3.0, max(1.6, 0.45 * run.length))
                         m = run.length / 2
                         add("slide", run, m - w / 2, m + w / 2, 0, 2.6)

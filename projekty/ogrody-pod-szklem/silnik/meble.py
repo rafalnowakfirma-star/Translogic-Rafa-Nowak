@@ -380,6 +380,20 @@ class Placer:
             for rr in (r, r + 90):
                 if self.try_at(it, cx, cy, rr):
                     return True
+        # zapas: siatka po wolnej powierzchni, najpierw miejsca najbliżej środka
+        minx, miny, maxx, maxy = self.free.bounds
+        step = 0.2
+        cand = []
+        nx, ny = int((maxx - minx) / step) + 1, int((maxy - miny) / step) + 1
+        for i in range(nx):
+            for j in range(ny):
+                x, y = minx + i * step, miny + j * step
+                cand.append((math.hypot(x - c.x, y - c.y), x, y))
+        cand.sort()
+        for d, x, y in cand[:500]:
+            for rr in (r, r + 90):
+                if self.try_at(it, x, y, rr):
+                    return True
         return False
 
     def axis(self):
@@ -869,7 +883,7 @@ def door_clearance(room, level):
             continue
         ln = LineString([o.a, o.b])
         w = max(o.width, 0.8)
-        zones.append(ln.buffer(min(1.0, w) + 0.1, cap_style="flat"))
+        zones.append(ln.buffer(min(0.85, w) + 0.1, cap_style="flat"))
     for fp, s in level.get("voids", []):
         zones.append(fp.buffer(0.15))
     for s in level.get("stairs_here", []):

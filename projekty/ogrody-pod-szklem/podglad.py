@@ -36,7 +36,8 @@ def shot(svg_path, png_path, width=1400):
     w, h = (int(m.group(1)), int(m.group(2))) if m else (1200, 900)
     W = width
     H = int(h * W / w) + 4
-    subprocess.run([CHROME, "--headless", "--no-sandbox", "--hide-scrollbars", f"--window-size={W},{H}",
+    # okno trochę wyższe niż rysunek: headless Chromium ucina dół widoku o kilkadziesiąt pikseli
+    subprocess.run([CHROME, "--headless", "--no-sandbox", "--hide-scrollbars", f"--window-size={W},{H + 140}",
                     f"--screenshot={png_path}", "file://" + tmp], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=120)
     os.remove(tmp)
 

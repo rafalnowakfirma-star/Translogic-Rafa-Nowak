@@ -366,6 +366,8 @@ def _glass_run(M, run):
         n = max(2, int(L / 0.8))
         ux, uy = (b[0] - a[0]) / L, (b[1] - a[1]) / L
         nx, ny = -uy, ux
+        if run.room.kind in ("ogrod", "ogrod_void"):
+            nx, ny = -nx, -ny   # pakiety po stronie dziedzińca / patio, nie w ogrodzie
         for i in range(n):
             p1 = (a[0] + ux * L * i / n, a[1] + uy * L * i / n)
             p2 = (a[0] + ux * L * (i + 1) / n, a[1] + uy * L * (i + 1) / n)

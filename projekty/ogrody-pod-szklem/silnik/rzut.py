@@ -417,7 +417,10 @@ def _label(C, r, house, L):
         top = (13 + (n - 1) * 6) / S
         bot = (12 + (n - 1) * 6 + (12 if note else 0)) / S
         layouts.append((w, top, bot))
-    p, li = _place_box(r, L.get("items"), layouts)
+    if r.label_at:
+        p, li = Point(r.label_at), 0
+    else:
+        p, li = _place_box(r, L.get("items"), layouts)
     lines, cls, _ = cand[li]
     if r.kind == "ogrod":
         cls = "t-garden"
