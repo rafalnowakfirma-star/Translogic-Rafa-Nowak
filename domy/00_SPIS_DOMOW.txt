@@ -17,7 +17,7 @@ WERSJA 2 (aktualna)
   P08  Trójkąt                 160 m²   film 2:35             wersja_2/P08_Trojkat
   P09  Pawilony                168 m²   film 2:33             wersja_2/P09_Pawilony
   P10  Monolit                 165 m²   film 2:43             wersja_2/P10_Monolit
-  P11  Półksiężyc              163 m²   film w przygotowaniu  wersja_2/P11_Polksiezyc
+  P11  Półksiężyc              163 m²   film 2:43             wersja_2/P11_Polksiezyc
   P12  Oktagon                 168 m²   film w przygotowaniu  wersja_2/P12_Oktagon
   P13  Kubik                   168 m²   film w przygotowaniu  wersja_2/P13_Kubik
   P14  Zygzak                  163 m²   film w przygotowaniu  wersja_2/P14_Zygzak
