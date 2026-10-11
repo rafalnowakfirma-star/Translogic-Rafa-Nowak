@@ -678,6 +678,20 @@ def _kadr_stacji(H, st, rooms):
     for i in range(360):
         A = math.radians(st["kierunek"] - (i - 180))                # lon + w prawo (zgodnie z zegarem)
         oc.append(_promien(L, r, x, y, math.cos(A), -math.sin(A)))
+    # główne meble pokoju (łóżko, sofa, stół, biurko) – kadr ma pokazać wnętrze, nie tylko widok za oknem
+    for it in _items(H, r):
+        w = GLOWNE.get(it.kind)
+        if not w:
+            continue
+        dx, dy = it.cx - x, it.cy - y
+        d = math.hypot(dx, dy)
+        if d < 0.5:
+            continue
+        lon_m = (st["kierunek"] - _kat(dx, dy) + 180) % 360 - 180   # kierunek mebla w układzie lon stacji
+        szer = max(8.0, math.degrees(math.atan2(0.9, d)))
+        for i in range(360):
+            dl = (i - 180 - lon_m + 180) % 360 - 180
+            oc[i] += 0.12 * w * math.exp(-0.5 * (dl / szer) ** 2)
     hf = max(u[2] for u in st["ruch"])
     y0, y1 = st["ruch"][0][0], st["ruch"][-1][0]
     sr, amp = (y0 + y1) / 2, (y0 - y1) / 2
