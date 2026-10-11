@@ -955,7 +955,7 @@ def _grow(S0, D0, L, nseg, rng, env, wander, up, grav, gpow=1.3, flat=0.0, envk=
         d = d + rng.normal(0, wander, (M, 3)) + side * curl * 0.5 * math.sin(t * 6.3)
         d[:, 2] += up - grav * gl[:, 0] * t ** gpow
         if flat:
-            d[:, 2] *= 1 - flat
+            d[:, 2] *= 1 - 0.3 * flat      # łagodnie: piętra gałęzi bez sztucznie prostych linii
         if env is not None:
             d = d + env.pull(P[:, i] + d * step, envk)
         d = _nz(d)
@@ -1499,9 +1499,9 @@ SP = {
     "klon": dict(
         cb=0.14, env=(0.62, 0.35, 1.6, 2.6), core=0.2, stems=(1, 3), sang=(10, 26), tl=0.5, lean=8, tw=0.07, tup=0.03,
         tr=0.017, href=4.5, o2=0.45, o3=0.3, rtip=0.0013,
-        n1=(6, 9), a1=(66, 16), w1=0.13, up1=0.03, g1=0.02, c1=0.2,
-        d2=6.0, t2=0.12, a2=(58, 50), rot2="opposite", w2=0.15, up2=0.0, g2=0.03, f2=0.6, r2=0.75, m2=1.8,
-        d3=12.0, a3=(55, 50), rot3="opposite", w3=0.16, up3=0.0, g3=0.04, f3=0.35, m3=0.35,
+        n1=(6, 9), a1=(66, 16), w1=0.18, up1=0.0, g1=0.02, c1=0.25,
+        d2=6.0, t2=0.12, a2=(58, 50), rot2="opposite", w2=0.2, up2=0.02, g2=0.03, f2=0.6, r2=0.75, m2=1.8,
+        d3=12.0, a3=(55, 50), rot3="opposite", w3=0.22, up3=0.04, g3=0.03, f3=0.2, m3=0.35,
         leaf="klon", ls=0.085, sl=0.24, single_h=7.0, lmax=13000, lpet=(70, 12), ldroop=0.05, lup=1.6, lout=0.3,
         lrnd=0.45, fold=0.08, l2=0.5, bark="klon"),
     # brzoza brodawkowata: smukła, ażurowa, zwisające gałązki

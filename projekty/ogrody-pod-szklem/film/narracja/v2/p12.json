@@ -1,0 +1,21 @@
+{
+ "tytul": "Oktagon. Ośmiokątny dom w patynowanej miedzi, który chowa w środku oranżerię z cytrusami pod szklaną piramidą.",
+ "lotu": "Dom ma sto sześćdziesiąt osiem metrów kwadratowych. Osiem segmentów parteru otacza oranżerię, a na dachach czterech z nich leżą dwa tarasy. Od północy trzy moduły piętra wysuwają się poza parter jak korona.",
+ "dach": "Latem latarnia na szczycie piramidy unosi się i wyciąga ciepłe powietrze z oranżerii.",
+ "spacer": {
+  "przed": "Stoimy na osi od północy, pod wysuniętą koroną piętra. Podcień z kamienną posadzką osłania drzwi przed deszczem. Miedziane ściany mają okna tylko pod sufitem, więc ogrodu nie widać.",
+  "s1_hol": "W sieni stoją kręcone schody przed pełną ścianą. Za nią jest już oranżeria, ale jeszcze jej nie widać. Po prawej toaleta i pracownia, po lewej pralnia ze spiżarnią.",
+  "s2_og": "Przez pracownię wchodzimy do oranżerii. Osiem szklanych ścian, cytrusy w donicach, woda pośrodku i piramida światła nad głową. Cztery pokoje mają tu własne drzwi.",
+  "s3_sal": "Salon leży w południowym segmencie i ma prawie siedem metrów wysokości. Bez ścian łączy się z jadalnią i kuchnią, a szklanymi drzwiami wychodzi na patio za murem.",
+  "s4_biu": "Wracamy do sieni i schodami kręconymi wchodzimy do biblioteki ze ścianą książek i szkłem na piramidę. Przez nią przechodzimy do biura, przeszklonego na północny zachód i na taras zachodni.",
+  "s5_syp": "Z biblioteki w drugą stronę wchodzimy do sypialni. Szklana ściana patrzy na północny wschód, a za wezgłowiem łóżka schowana jest łazienka. Drzwi prowadzą na taras wschodni.",
+  "s6_taE": "Taras wschodni leży na dachu kuchni i jadalni, tuż przy szklanej piramidzie. Rano słońce jest tu pierwsze. Po drugiej stronie piramidy czeka bliźniaczy taras przy biurze."
+ },
+ "rzuty": "Po parterze idzie się w pętli, z pokoju do pokoju: sień, kuchnia, jadalnia, salon, galeria, pracownia i znów sień. Schody kręcone stoją w sieni. Na piętrze trzy moduły w ciągu, biuro, biblioteka i jedna sypialnia, między dwoma tarasami.",
+ "zmierzch": "Wieczorem piramida świeci nad dachem jak lampion, a oranżeria rozjaśnia pokoje od środka. Z drogi widać ledwie pasma światła pod okapem.",
+ "zima": "Zimą latarnia jest opuszczona. Oranżeria zbiera słońce przez piramidę i oddaje ciepło pokojom wokół. Tarasy śpią pod śniegiem.",
+ "zalety": ["Oranżeria z cytrusami, niewidoczna z zewnątrz", "Dwa duże tarasy na dachu", "Pętla pokoi bez korytarzy", "Podcień osłania wejście"],
+ "wady": ["Pokoje zwężają się ku ogrodowi", "Jedyne schody kręcone", "Do biura i sypialni przez bibliotekę", "Piramida i miedź kosztują"],
+ "zalety_wady": "Zalety: oranżeria z cytrusami jest sercem domu, niewidocznym z zewnątrz, a pokoje łączą się w pętlę bez korytarzy. Minusy: pokoje zwężają się ku ogrodowi, więc meble trzeba dobrać uważnie. Jedyne schody są kręcone, a do biura i sypialni idzie się przez bibliotekę. Piramida i miedź kosztują, za to miedź służy dziesiątki lat bez konserwacji.",
+ "koniec": "Oktagon: osiem boków miedzi wokół jednego słonecznego ogrodu."
+}

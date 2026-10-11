@@ -1,0 +1,20 @@
+{
+ "tytul": "Pierścień. Okrągły dom, który obchodzi się dookoła, a w samym środku ma ogród wodny pod szklaną kopułą.",
+ "lotu": "Z góry widać okrągły dom z białej cegły, o średnicy dwudziestu metrów. Ma nieco ponad dwieście dziesięć metrów kwadratowych, wszystko na jednym poziomie. Pośrodku, ponad dachem, wznosi się przeszklony ogród pod kopułą.",
+ "dach": "Szklany środek kopuły unosi się jak pokrywka, a ciepłe powietrze uchodzi górą znad stawu.",
+ "spacer": {
+  "przed": "Stoimy przed łukiem białej ceglanej ściany. Wejście ma tylko wąskie szczeliny okien, ale po prawej przeszklone biuro odsłania wnętrze, a nad dachem widać szklaną kopułę.",
+  "s1_wia": "Hol wejściowy ma szklaną ścianę od ogrodu, więc wodę widać od razu. Stąd jedna droga prowadzi przez bibliotekę do sypialni, druga przez biuro i patio do salonu.",
+  "s2_og": "Z biblioteki wchodzimy do okrągłego ogrodu. Przez staw z liliami prowadzi kładka z kamiennych płyt, nad brzegiem rośnie brzoza. Do ogrodu otwierają się wszystkie duże pokoje.",
+  "s3_sal": "Szklane drzwi prowadzą z ogrodu do salonu z kuchnią, który zajmuje cały południowy łuk. Sufit sięga tu dwóch kondygnacji, a wygięta szklana ściana działa jak panorama. Kuchnia z wyspą stoi przy pralni.",
+  "s4_biu": "Przez patio z daszkiem przechodzimy do biura. Jest przeszklone od ogrodu i od pól, ale na co dzień przechodzi się tędy z wejścia do salonu.",
+  "s5_syp": "Okrążamy staw i dochodzimy do sypialni. Jedna szklana ściana patrzy na wschód, druga na wodę. Z holu prowadzi tu też droga przez bibliotekę i przelotową garderobę."
+ },
+ "rzuty": "Wszystkie pokoje leżą na jednym poziomie, bez schodów i bez korytarzy. Od wejścia na wschód idzie się przez bibliotekę i garderobę do sypialni z łazienką. Na zachód są biuro i patio, a od południa salon z kuchnią i pralnią.",
+ "zmierzch": "Wieczorem w stawie odbijają się światła pokoi dookoła. Łukowe szyby salonu i sypialni odsłaniają wtedy wnętrza, więc przydadzą się zasłony.",
+ "zima": "Zimą kopuła jest zamknięta. Woda w stawie gromadzi ciepło za dnia i oddaje je wieczorem, a pokoje dostają światło z dwóch stron.",
+ "zalety": ["Cały dom na jednym poziomie", "Każdy duży pokój otwarty na ogród", "Salon z łukową, panoramiczną szybą", "Sypialnia z garderobą i dużą łazienką"],
+ "wady": ["Do salonu przez biuro lub ogród", "Łukowe ściany trudne w meblowaniu", "Duże szyby: upał i mniej prywatności", "Kopuła i łuki podnoszą koszt budowy"],
+ "zalety_wady": "Pierścień daje życie bez schodów, ogród wodny w sercu domu i salon z łukową panoramą. Minusy to droga do salonu przez biuro albo ogród oraz duże szyby. Łukowe ściany są drogie w budowie i trudne w meblowaniu. Pomogą meble na wymiar, rolety i zasłony.",
+ "koniec": "Pierścień w pierwszej wersji: dom bez schodów, który krąży wokół wody."
+}

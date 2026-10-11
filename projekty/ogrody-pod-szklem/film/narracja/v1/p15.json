@@ -1,0 +1,21 @@
+{
+ "tytul": "Wachlarz. Dom otwarty na południe, w którym pokoje rozchodzą się promieniście od półokrągłego ogrodu.",
+ "lotu": "Z góry widać wachlarz z siedmiu piór, które rozchodzą się od półokrągłego ogrodu ku krajobrazowi. Dom ma dwieście pięćdziesiąt metrów kwadratowych. Bryła faluje: wysokie pióra przeplatają się z niskimi, o zielonych dachach.",
+ "dach": "Wschodnia ćwiartka szklanego dachu wsuwa się nad zachodnią, jak składany wachlarz.",
+ "spacer": {
+  "przed": "Od północy wita nas niski blok wejściowy z białej cegły. Wiatrołap leży na osi wachlarza, a za nim, w samym środku domu, czeka ogród.",
+  "s1_wia": "Z wiatrołapu drzwi prowadzą wprost do ogrodu, który jest holem całego domu. Obok są toaleta oraz pralnia z kotłownią.",
+  "s2_og": "Ogród ma dwie kondygnacje wysokości. Jasny żwir, lawenda i drzewko oliwne, a dookoła pióra wachlarza, większość z własnymi drzwiami do ogrodu. Tędy chodzi się po całym domu.",
+  "s3_sal": "Na osi południowej leży salon z kuchnią, wysoki na dwie kondygnacje i przeszklony na łąkę. Obok jest salonik, a dalej patio, które od ogrodu oddziela szklana harmonijka.",
+  "s4_biu": "Z salonu przechodzimy do biura, przeszklonego od ogrodu i od łąki. Drzwi przy elewacji tworzą jedną oś widoku przez salon, biuro, bibliotekę i galerię.",
+  "s5_syp": "Przez ogród i galerię idziemy do schodów, które prowadzą prosto do sypialni. Ma całą wschodnią ścianę ze szkła, a obok jest przelotowa garderoba i łazienka.",
+  "s6_bal": "Z sypialni wychodzimy na wąski, wachlarzowy balkon od wschodu. Jest mały, ale rano łapie pierwsze słońce i patrzy na łąkę."
+ },
+ "rzuty": "Ogród działa jak hol, więc korytarzy nie ma. Na parterze są pokoje dzienne, biuro i pokój gościnny, a łazienka gości jest w bloku wejściowym. Piętro zajmuje tylko apartament właścicieli.",
+ "zmierzch": "Wieczorem przeszklone pióra świecą na łąkę, a w zawiasie wachlarza żarzy się ogród. Od południa widać sporo wnętrza.",
+ "zima": "Zimą dach i harmonijka są zamknięte, a ogród jest ciepłym holem nagrzanym słońcem. Patio i balkon zostają pod śniegiem.",
+ "zalety": ["Ogród jako ciepły hol domu", "Długa oś widoku przez pokoje", "Salon przeszklony na łąkę", "Apartament właścicieli na piętrze"],
+ "wady": ["Schody kończą się w sypialni", "Dużo szkła od południa", "Klinowe pokoje trudne w meblowaniu"],
+ "zalety_wady": "Zaletą jest ogród, który działa jak ciepły hol domu, długa oś widoku przez pokoje i salon otwarty na łąkę. Minusy: schody kończą się w samej sypialni, a duże szyby od południa latem nagrzewają dom. Pomogą drzwi u dołu schodów, zewnętrzne rolety i meble robione na wymiar.",
+ "koniec": "Wachlarz w pierwszej odsłonie: dom, w którym każda droga prowadzi przez ogród."
+}

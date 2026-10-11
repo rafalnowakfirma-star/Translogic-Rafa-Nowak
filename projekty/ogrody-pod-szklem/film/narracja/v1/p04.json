@@ -1,21 +1,21 @@
 {
  "tytul": "Plaster miodu. Sześć pokoi w pierścieniu wokół wysokiego lasu, a do nich doklejone komórki: wieża, patio i ganek.",
- "lotu": "Dom ma dwieście czterdzieści trzy metry kwadratowe. Sześciokątny pierścień otacza ogród z brzozami, wysoki na dwie kondygnacje, pod szklaną piramidą. Od zachodu stoi wieża z sypialnią, a na dachu patio leży duży taras.",
+ "lotu": "Dom ma dwieście czterdzieści trzy metry kwadratowe. Sześciokątny pierścień otacza wysoki ogród z brzozami pod szklaną piramidą. Od zachodu stoi wieża z sypialnią, a na dachu patio leży duży taras.",
  "dach": "Latem szklana latarnia na szczycie piramidy unosi się i ciepłe powietrze uchodzi z ogrodu górą.",
  "spacer": {
   "przed": "Stoimy przed sześciokątnym gankiem od północnego wschodu. Elewacja z opalanych desek jest ciemna i zamknięta, tylko za rogiem biuro błyszczy szkłem zwróconym na brzozowy zagajnik.",
   "s1_wia": "Wiatrołap jest niewielki. Za podwójnymi drzwiami przechodzimy do holu z toaletą i pomieszczeniem technicznym, a jego szklana ściana wychodzi wprost na ogród.",
   "s2_og": "Ogród-las ma ponad pięćdziesiąt metrów kwadratowych i dwie kondygnacje wysokości. Pięć pokoi otwiera na niego przesuwne drzwi. Latem to przewiewny dziedziniec, zimą ciepła szklarnia.",
-  "s3_kuch": "Kuchnia z jadalnią i salon zajmują dwa południowe boki, wysokie na dwie kondygnacje. Szkło jest z obu stron, więc słońce przechodzi przez nie aż do ogrodu. Obok salonu stoi szklane patio.",
-  "s4_biu": "Wracamy przez ogród do biura we wschodnim segmencie. Ma przesuwne szkło od ogrodu i od brzóz, a wchodzi się do niego tylko z holu, więc nikt tędy nie przechodzi.",
-  "s5_syp": "Do sypialni idziemy przez herbaciarnię i garderobę w wieży, potem kręconymi schodami na górę. Sypialnia ma szkło na trzy strony i własną łazienkę, pod nią jest pralnia.",
+  "s3_kuch": "Kuchnia z jadalnią i salon zajmują dwa południowe boki, wysokie na dwie kondygnacje. Szkło z obu stron przepuszcza słońce aż do ogrodu, a obok salonu stoi szklane patio.",
+  "s4_biu": "Wracamy przez ogród do biura we wschodnim segmencie. Ma przesuwne szkło od ogrodu i od brzóz, a wejście tylko z holu, więc nikt tędy nie przechodzi.",
+  "s5_syp": "Do sypialni idziemy przez herbaciarnię i garderobę w wieży, potem kręconymi schodami na górę. Sypialnia ma szkło na trzy strony i własną łazienkę.",
   "s6_tar": "Z sypialni wychodzimy na taras na dachu szklanego patio: trzydzieści sześć metrów kwadratowych, widok na południe i zachód, a obok piramida ogrodu."
  },
- "rzuty": "Parter to pierścień bez korytarzy: hol, biblioteka, herbaciarnia, salon, kuchnia z jadalnią i biuro; komórki to wieża z garderobą i pralnią, patio sezonowe i ganek. Jedyna sypialnia z łazienką leży na piętrze wieży, za kręconymi schodami.",
- "zmierzch": "Wieczorem piramida świeci nad dachem, a przez szklany salon światło ogrodu wychodzi na południe, w stronę patio.",
- "zima": "Zimą piramida jest zamknięta, a słońce przez szklany salon grzeje ogród. Patio zamknięte szklaną harmonijką służy jako jadalnia z kominkiem.",
+ "rzuty": "Parter to pierścień bez korytarzy: hol, biblioteka, herbaciarnia, salon, kuchnia z jadalnią i biuro; doklejone komórki to wieża, patio i ganek. Jedyna sypialnia z łazienką leży na piętrze wieży, za kręconymi schodami.",
+ "zmierzch": "Wieczorem piramida świeci nad dachem, a przez szklany salon światło ogrodu wychodzi na południe, ku patio.",
+ "zima": "Zimą piramida jest zamknięta, a słońce przez szklany salon grzeje ogród. Patio za szklaną harmonijką staje się jadalnią z kominkiem.",
  "zalety": ["Las na dwie kondygnacje wysokości", "Duże pokoje, parter bez korytarzy", "Biuro bez ruchu przechodniego", "Patio na lato i na zimę"],
  "wady": ["Tylko jedna sypialnia", "Do sypialni garderobą i kręconymi schodami", "Ogród widać z zewnątrz przez salon", "Duży obwód ścian, drogie ogrzewanie"],
- "zalety_wady": "Zalety: las na dwie kondygnacje, duże pokoje w pętli bez korytarzy i biuro, przez które nikt nie przechodzi. Patio latem jest otwarte, zimą służy jako jadalnia z kominkiem. Minusy: jest tylko jedna sypialnia, za garderobą i kręconymi schodami. Przez szklany salon widać ogród z zewnątrz, a długi obwód ścian podnosi koszt ogrzewania. Pokój gościnny można urządzić w bibliotece.",
- "koniec": "Plaster miodu w pierwszej wersji: duży, otwarty na słońce dom wokół wysokiego lasu."
+ "zalety_wady": "Zalety: las na dwie kondygnacje, duże pokoje w pętli bez korytarzy i biuro na uboczu. Patio latem jest otwarte, zimą służy jako jadalnia z kominkiem. Minusy: tylko jedna sypialnia, za garderobą i kręconymi schodami. Przez szklany salon widać ogród z zewnątrz, a długi obwód ścian podnosi koszt ogrzewania. Pokój gościnny można urządzić w bibliotece.",
+ "koniec": "Pierwsza wersja Plastra miodu: duży dom otwarty na słońce, wokół wysokiego lasu."
 }

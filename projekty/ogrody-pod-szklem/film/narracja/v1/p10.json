@@ -1,0 +1,21 @@
+{
+ "tytul": "Monolit. Jeden wyciosany blok kamienia z głębokimi wnękami, a w jego sercu staw z kładką i brzozą pod przesuwnym szkłem.",
+ "lotu": "Dom ma dwadzieścia na siedemnaście metrów i prawie dwieście pięćdziesiąt metrów kwadratowych. Pośrodku leży staw pod szklanym dachem, otoczony pokojami. Zamiast tarasów bryła ma głębokie wnęki od zachodu i wschodu oraz patio wcięte od południa.",
+ "dach": "Połowa szklanego dachu zjeżdża nad drugą i brzoza nad stawem staje pod otwartym niebem.",
+ "spacer": {
+  "przed": "Od drogi dom wygląda jak jeden kamienny blok z wąskimi szczelinami zamiast okien. Wejście jest od północy. Co dzieje się w środku, nie widać.",
+  "s1_wia": "Wiatrołap należy do północnej skorupy domu, razem z pralnią, szatnią i schodami. Ta warstwa chroni pokoje od chłodu. Przed nami otwiera się galeria wzdłuż stawu.",
+  "s2_og": "Ogród ze stawem ma prawie pięćdziesiąt metrów kwadratowych. Przez wodę biegnie kamienna kładka, kwitną lilie, rośnie brzoza. Od wschodu ogród przechodzi w werandę, zimą zamykaną szklaną harmonijką.",
+  "s3_sal": "Salon z kuchnią ma prawie siedem metrów wysokości. Od południa tylko szczeliny, światło wpada od stawu i z patio za przesuwnym szkłem. Obok kuchni winiarnia i spiżarnia.",
+  "s4_biu": "Przez bibliotekę przechodzimy do biura. Biurko stoi między stawem a głęboką wnęką od zachodu, która daje szkłu cień i prywatność. Z biura jest też wyjście na patio.",
+  "s5_sypm": "Schodami w północnej skorupie idziemy na piętro, przez hol i garderobę do jedynej sypialni. Od zachodu patrzy ona ponad szklany dach stawu, od wschodu otwiera się na lodżię.",
+  "s6_logu": "Lodżia sypialni to kryty balkon wycięty w kamiennej ścianie, z murkiem zamiast balustrady. Rano wpada tu słońce ze wschodu, a cień ściany chroni szkło sypialni w upał."
+ },
+ "rzuty": "Od północy skorupa pomieszczeń pomocniczych, dalej biblioteka, galeria i pracownia wzdłuż stawu. Po bokach biuro i weranda, od południa wysoki salon oraz sauna przy patio. Piętro to tylko sypialnia z garderobą i łazienką.",
+ "zmierzch": "Wieczorem staw i salon świecą w głębi bryły. Na zewnątrz światło wychodzi tylko wnękami i wąskimi szczelinami.",
+ "zima": "Zimą szklany dach i harmonijka werandy są zamknięte. Staw oddaje wieczorem ciepło zebrane za dnia, a skorupa od północy zatrzymuje mróz.",
+ "zalety": ["Prywatny staw z kładką i brzozą", "Weranda otwierana latem na krajobraz", "Głębokie wnęki dają szkłu cień", "Winiarnia, spiżarnia i sauna"],
+ "wady": ["Duży dom, drogi w budowie", "Tylko jedna sypialnia", "Do sauny i łazienki przez patio", "Długa droga z salonu do sypialni"],
+ "zalety_wady": "Zalety: staw z kładką i brzozą jest sercem domu, weranda otwiera się latem na krajobraz, a głębokie wnęki dają szkłu cień. Minusy: to duży, kosztowny dom z jedną sypialnią. Do sauny i dolnej łazienki wchodzi się przez patio, a z salonu do sypialni jest daleko. Pomogłoby zadaszenie całego patio.",
+ "koniec": "To pierwsza wersja Monolitu: duży kamienny dom zamknięty wokół jednego stawu."
+}

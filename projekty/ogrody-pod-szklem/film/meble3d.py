@@ -1662,7 +1662,7 @@ def _kominek(B):
     mb.box(-fw / 2, y0 - 0.002, fz0, fw / 2, y0 + 0.002, fz1, "szklo_dymione", r=0)
     # polana na ruszcie
     mb.box(-fw * 0.32, y0 + 0.12, fz0, fw * 0.32, y0 + 0.26, fz0 + 0.02, "czarny_metal", r=0.003)
-    for k, (dx, dy, yaw, dz) in enumerate(((-0.10, 0.17, 6, 0.0), (0.11, 0.21, -5, 0.0), (0.0, 0.19, 82, 0.07))):
+    for k, (dx, dy, yaw, dz) in enumerate(((-0.10, 0.17, 6, 0.0), (0.11, 0.21, -5, 0.0), (0.02, 0.19, 58, 0.07))):
         a = math.radians(yaw)
         L = 0.2 if k < 2 else 0.1
         lz = fz0 + 0.02 + 0.042 + dz
@@ -3082,14 +3082,20 @@ def _piec(B):
     it, r = B.it, B.rnd
     mb = MB()
     W, D, H = 0.44, 0.42, 0.62
-    mb.box(-W / 2, -D / 2, 0.06, W / 2, D / 2, H, "czarny_metal", r=0.008)
+    mb.box_hole(-W / 2, -D / 2, 0.06, W / 2, D / 2, H, "czarny_metal", (-0.11, 0.19, 0.11, 0.39), 0.26, "palenisko", r=0.008)
     for sx in (-1, 1):
         for sy in (-1, 1):
             mb.box(sx * (W / 2 - 0.04) - 0.015, sy * (D / 2 - 0.04) - 0.015, 0, sx * (W / 2 - 0.04) + 0.015,
                    sy * (D / 2 - 0.04) + 0.015, 0.06, "czarny_metal", r=0.003)
-    mb.box(-0.14, -D / 2 - 0.012, 0.16, 0.14, -D / 2 + 0.002, 0.42, "czarny_metal", r=0.006)
-    mb.box(-0.11, -D / 2 - 0.014, 0.19, 0.11, -D / 2 - 0.01, 0.39, "szklo_dymione", r=0.002)
-    mb.box(-0.11, -D / 2 + 0.003, 0.19, 0.11, -D / 2 + 0.006, 0.39, "zar", r=0)
+    for (a, b, c, e) in ((-0.14, 0.16, 0.14, 0.19), (-0.14, 0.39, 0.14, 0.42), (-0.14, 0.19, -0.11, 0.39), (0.11, 0.19, 0.14, 0.39)):
+        mb.box(a, -D / 2 - 0.012, b, c, -D / 2 + 0.002, e, "czarny_metal", r=0.003)
+    mb.box(-0.11, -D / 2 - 0.006, 0.19, 0.11, -D / 2 - 0.002, 0.39, "szklo_dymione", r=0)
+    for k, (dy, yaw) in enumerate(((0.10, 5), (0.15, -8))):
+        a = math.radians(yaw)
+        mb.tube([(-0.08 * math.cos(a), -D / 2 + dy - 0.08 * math.sin(a), 0.225), (0.08 * math.cos(a), -D / 2 + dy + 0.08 * math.sin(a), 0.225)],
+                0.028, "zar" if B.dusk else "kora", n=10)
+    if B.dusk:
+        _flames(mb, -D / 2 - 0.05, 0.215, 0.18, 0.17, r, key="ogien:0.215:0.16")
     mb.tube([(0.12, -D / 2 - 0.02, 0.3), (0.12, -D / 2 - 0.05, 0.3), (0.12, -D / 2 - 0.05, 0.36)], 0.008, "drewno_z", n=8)
     # kosz z kamieniami
     for sx in (-1, 1):

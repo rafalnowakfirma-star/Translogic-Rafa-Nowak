@@ -1,0 +1,20 @@
+{
+ "tytul": "Krużganek. Parterowy kwadrat, w którego środku ogród pod szklaną latarnią służy za główny hol domu.",
+ "lotu": "Dom to kwadrat o boku dwudziestu metrów. Ma prawie dwieście osiemdziesiąt metrów kwadratowych, wszystko na jednym poziomie. Niskie skrzydła z zielonymi dachami otaczają ogród pod szklaną latarnią. Od południa wyrasta wysoki salon, a w narożniku leży patio.",
+ "dach": "Szklany dach latarni jest przesuwny: jedna połowa wjeżdża nad drugą i odsłania niebo nad ogrodem.",
+ "spacer": {
+  "przed": "Stoimy przed północną elewacją z białego tynku. Nad niskim frontem widać szklaną latarnię ogrodu, więc już z drogi wiadomo, co kryje środek domu.",
+  "s1_wia": "Wchodzimy do wiatrołapu, po bokach są toaleta i pralnia. Na wprost otwiera się galeria sztuki wzdłuż ogrodu, więc zieleń widać już od progu.",
+  "s2_og": "Z galerii wchodzimy do ogrodu zimowego. Ścieżki z płaskich kamieni biegną przez grabiony żwir do biura, salonu i sypialni. To główny hol domu, tyle że z klonem i sosną.",
+  "s3_sal": "Z ogrodu przechodzimy do salonu z kuchnią, wysokiego na dwie kondygnacje. Kuchnia z wyspą zajmuje wschodni koniec. Latem szklana ściana od południa rozsuwa się, a od zachodu salon łączy się z patio.",
+  "s4_biu": "Przez patio idziemy do biura w zachodnim skrzydle. Jest przeszklone z obu stron: przy biurku po jednej stronie są pola, po drugiej ogród. Obok czeka pracownia.",
+  "s5_syp": "Przez ogród przechodzimy na drugą stronę, do sypialni. Od wschodu ma całą ścianę ze szkła, więc rano wpada tu pierwsze słońce. Przelotowa garderoba prowadzi do łazienki z wanną."
+ },
+ "rzuty": "Cały dom leży na jednym poziomie, bez schodów. Od frontu, zamiast korytarza, galeria prowadzi przez pracownię do biura, a z boku do pokoju gościnnego z łazienką. Sypialnia jest od wschodu, salon od południa, a środek spina ogród.",
+ "zmierzch": "Wieczorem szklana latarnia świeci nad dachami jak wielki lampion, widoczny z daleka. Przeszklone biuro i salon warto wtedy zasłonić.",
+ "zima": "Zimą dach latarni jest zamknięty. Słońce z góry ogrzewa ogród, a pokoje wokół tracą mniej ciepła, bo od środka nie mają mrozu.",
+ "zalety": ["Wszystko na jednym poziomie, bez schodów", "Ogród jako jasny hol domu", "Biuro przeszklone na pola i ogród", "Pokój gościnny z własną łazienką"],
+ "wady": ["Duży dom, wysokie koszty utrzymania", "Do sypialni przez ogród", "Szklana latarnia nagrzewa się latem", "Wnętrza i ogród widoczne z zewnątrz"],
+ "zalety_wady": "Największe atuty to życie bez schodów i jasny ogród w sercu domu. Biuro ma widok w dwie strony, a goście własną łazienkę. Minusy to duża powierzchnia i droga do sypialni przez ogród. Dużo szkła latem grzeje, a wieczorem odsłania wnętrza. Pomogą rolety zewnętrzne, a zimą lekkie dogrzewanie ogrodu.",
+ "koniec": "To pierwsza wersja Krużganka: przestronna, parterowa i pełna światła."
+}

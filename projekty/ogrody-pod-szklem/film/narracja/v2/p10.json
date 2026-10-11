@@ -1,0 +1,21 @@
+{
+ "tytul": "Monolit. Z zewnątrz zamknięty kamienny blok z wąskimi szczelinami okien. W środku staw, który odbija niebo pod przesuwnym szklanym dachem.",
+ "lotu": "Blok ma trzynaście na piętnaście metrów i sto sześćdziesiąt pięć metrów kwadratowych. Pokoje parteru otaczają staw ze wszystkich stron. Trzy tarasy leżą na dachu parteru za kamiennym murkiem, a nad skrzydłem wschodnim stoi rząd modułów piętra.",
+ "dach": "Latem jedna połowa szklanego dachu przesuwa się nad drugą i staw leży pod gołym niebem.",
+ "spacer": {
+  "przed": "Stoimy od północy, przed kamienną ścianą prawie bez okien. Tylko wąskie szczeliny zdradzają, że to dom. O stawie w środku nic tu nie mówi.",
+  "s1_wia": "Wiatrołap ma pełne ściany, bez widoku na ogród. Obok są pralnia i pomieszczenie techniczne, ciepła skorupa domu od północy. Staw odsłania się dopiero w galerii.",
+  "s2_og": "Z galerii wychodzimy nad staw. Płytka woda odbija niebo i szklany dach. Po prawej za szkłem biblioteka i herbaciarnia, po lewej pracownia i jadalnia, na wprost wysoki salon.",
+  "s3_sal": "Salon ma ponad sześć metrów wysokości. Szkło ma tylko do stawu i do patio za murem, więc nikt tu nie zagląda. Bez ściany przechodzi w niższą kuchnię.",
+  "s4_biu": "Z pracowni schodami kręconymi wchodzimy prosto do biura. Od wschodu szkło otwiera je na pola, od zachodu na taras północny. Stamtąd przechodzi się na taras zachodni.",
+  "s5_syp": "Z biura idziemy przelotowo, przez garderobę do sypialni. Łazienka jest po drodze. Sypialnia ma szklaną ścianę od południa i wyjście na własny taras nad kuchnią.",
+  "s6_taS": "Taras sypialni leży na dachu kuchni, za kamiennym murkiem wysokości metra. Rano jest tu słońce, a przez szkło obok zagląda się do wysokiego salonu."
+ },
+ "rzuty": "Pokoje parteru obiegają staw dookoła, bez korytarzy. Od północy ciepła skorupa z wiatrołapem i pralnią, od południa wysoki salon. Schody kręcone stoją w pracowni. Piętro to rząd modułów z jedyną sypialnią i trzy tarasy wokół szklanego dachu.",
+ "zmierzch": "Po zmroku światło z pokoi kładzie się na wodzie. Od drogi widać tylko świecące szczeliny w kamiennym bloku.",
+ "zima": "Zimą dach jest zamknięty. Staw z ogrodem zbiera ciepło słońca i oddaje je pokojom, a kamienne ściany trzymają mróz z daleka.",
+ "zalety": ["Staw niewidoczny z zewnątrz", "Parter bez korytarzy, wokół stawu", "Trzy tarasy za kamiennym murkiem", "Ciepła skorupa od północy"],
+ "wady": ["Jedyne schody są kręcone", "Do sypialni przez garderobę", "Wąskie okna, mało światła z zewnątrz", "Staw wymaga pielęgnacji"],
+ "zalety_wady": "Zalety: staw jest całkowicie prywatny, parter obchodzi się bez korytarzy, a trzy tarasy leżą tuż przy pokojach piętra. Minusy: jedyne schody są kręcone, trudne dla starszych osób. Do sypialni idzie się przez garderobę, a wąskie szczeliny dają mało światła z zewnątrz. Ratuje je szkło od stawu, który wymaga filtra i wentylacji.",
+ "koniec": "Monolit: kamień na zewnątrz, lustro wody w środku."
+}

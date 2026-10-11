@@ -1,0 +1,21 @@
+{
+ "tytul": "Owal. Duży kamienny prostokąt, z którego wycięto owalny ogród cytrusowy pod szklaną kopułą.",
+ "lotu": "Prostokąt z trawertynu ma w środku owalną szklaną kopułę. Dom ma dwieście pięćdziesiąt dwa metry kwadratowe, a ogród ponad osiemdziesiąt. Niskie skrzydło od północy i zachodu zazębia się z wysokim od wschodu i południa.",
+ "dach": "Środek kopuły rozchyla się jak przesłona obiektywu i wypuszcza ciepłe powietrze.",
+ "spacer": {
+  "przed": "Przed nami długa, prosta ściana z trawertynu, tylko z wąskimi szczelinami. Nic nie zapowiada, że za wiatrołapem zaczyna się ogromny, owalny ogród.",
+  "s1_wia": "Wiatrołap ma szklaną ścianę do ogrodu, więc zieleń widać już od progu. Szerokie przejście prowadzi do galerii, a drzwi obok do pracowni i toalety.",
+  "s2_og": "Wchodzimy do ogrodu cytrusowego, wysokiego na dwie kondygnacje. Wokół fontanny rosną drzewka cytrusowe i oliwka, a dookoła biegnie krzywa szklana ściana pokoi.",
+  "s3_kuch": "Przez salon dochodzimy do kuchni z jadalnią. Obie części mają dwie kondygnacje wysokości i krzywe szkło od ogrodu. Z salonu wychodzi się też na patio.",
+  "s4_biu": "Przez ogród dochodzimy do biura. Zamyka amfiladę, więc nikt tędy nie chodzi. Ma prostą szklaną ścianę na pole i drugą, krzywą, do ogrodu.",
+  "s5_syp": "Przez bibliotekę i schody kręcone wchodzimy na piętro, a przez garderobę do sypialni. Ma to samo podwójne przeszklenie: na pole i do ogrodu.",
+  "s6_log": "Loggia w narożniku jest dostępna tylko przez łazienkę. To prywatny kąt na poranną kawę, z widokiem na północ i wschód."
+ },
+ "rzuty": "Pokoje wypełniają pas między prostą elewacją a krzywym szkłem ogrodu, więc każdy ma inny kształt. Od wejścia biegną dwie amfilady: do biblioteki i biura oraz przez pracownię i salę muzyczną do salonu. Na piętrze jest jedna sypialnia.",
+ "zmierzch": "Wieczorem owalny ogród świeci jak wielki klosz, a przeszklony salon i patio odsłaniają go od południa.",
+ "zima": "Zimą kopuła i harmonijki patio są zamknięte. Ogród i patio zbierają słońce, a loggię i dachy przykrywa śnieg.",
+ "zalety": ["Ogromny ogród cytrusowy w środku", "Biuro z dwiema szklanymi ścianami", "Patio zamykane szklanymi harmonijkami", "Dwie amfilady, bez korytarzy"],
+ "wady": ["Tylko jedna sypialnia", "Loggia dostępna przez łazienkę", "Dużo szkła, wyższy koszt ogrzewania"],
+ "zalety_wady": "Atutem jest ogromny ogród, biuro przeszklone na pole i do ogrodu oraz patio, które zimą zamienia się w werandę. Minusy: w tak dużym domu jest tylko jedna sypialnia, a do loggii idzie się przez łazienkę. Pracownię można zamienić w pokój gościnny, a krzywe szkło wymaga dobrej izolacji.",
+ "koniec": "Owal, wersja pierwsza: kamienna rama dla wielkiego, cytrusowego ogrodu."
+}

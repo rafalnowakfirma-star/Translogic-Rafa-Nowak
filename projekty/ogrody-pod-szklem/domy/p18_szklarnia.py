@@ -25,7 +25,7 @@ H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.2)
 
 # ogród zimowy z jadalnią: środek pasa, 6,6 × 4,8 m, dach przesuwny
-H.ogrod("og", "Ogród zimowy z jadalnią", rect(6.6, 2.4, 13.2, 7.2), roof_type="slide", style="jadalnia", seed=5)
+H.ogrod("og", "Ogród zimowy z jadalnią", rect(6.6, 2.4, 13.2, 7.2), roof_type="slide", style="jadalnia", seed=18)
 
 # ---- zachodnia głowa, parter: wiatrołap, WC, spiżarnia, hol ze schodami, kuchnia bez okien na zewnątrz, pralnia
 H.room("wia", "Wiatrołap", "wiatrolap", rect(0, 0, 2.6, 2.4), ext={"N": "slits", "W": "solid"})
@@ -66,6 +66,7 @@ H.connect("spiz", "prac", "door", at=0.8)
 H.connect("prac", "sal", "door", at=0.2)
 H.connect("bib", "her", "door")
 H.connect("her", "sal", "door")
+H.connect("sal", "og", "slide", at=0.15, width=1.8)   # drzwi do ogrodu przy północnym końcu szkła salonu
 # ---- połączenia piętra (amfilada) i wyjścia na tarasy
 H.connect("czyt", "biu", "door", at=0.12)
 H.connect("biu", "syp", "door", at=0.88)

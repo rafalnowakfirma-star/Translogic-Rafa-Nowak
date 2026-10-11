@@ -1,21 +1,21 @@
 {
  "tytul": "Dwa pasma. Dwa drewniane pasma, dzienne i nocne, a między nimi ukryty basen pod przesuwnym szkłem.",
- "lotu": "Dom ma sto sześćdziesiąt osiem metrów kwadratowych i prosty obrys z modrzewiowych desek. Od północy pasmo nocne z piętrem, od południa wysoki salon, między nimi ogród wodny. Niskie łączniki na końcach dźwigają dwa tarasy.",
+ "lotu": "Dom ma sto sześćdziesiąt osiem metrów kwadratowych i prosty obrys z modrzewiowych desek. Od północy pasmo nocne z piętrem, od południa wysoki salon, między nimi ogród wodny i dwa tarasy na niskich łącznikach.",
  "dach": "Latem zachodnia połowa szklanego dachu zjeżdża nad wschodnią i basen staje pod otwartym niebem.",
  "spacer": {
   "przed": "Stoimy przed północną ścianą, od strony drogi. Modrzewiowe deski, kilka okien i wąskie szczeliny; nic nie zdradza, że kilka metrów dalej jest woda i brzozy.",
   "s1_wia": "Wiatrołap jest mały i nie dotyka ogrodu. Dopiero galeria wejściowa za drugimi drzwiami, z toaletą i kredensem, otwiera szklaną ścianę na basen.",
   "s2_og": "Ogród wodny: podłużny basen, dwie brzozy w narożnikach i szkło nad głową. Pięć pokoi ma do niego drzwi, więc obchodzimy dom dookoła, a latem woda chłodzi powietrze.",
-  "s3_sal": "Salon z kuchnią biegnie przez całe południowe pasmo i ma ponad sześć metrów wysokości. Od ogrodu jest szklany, a na południe otwiera się tylko na patio za murem.",
-  "s4_biu": "Kręconymi schodami wchodzimy na galerię piętra, przeszkloną na dach ogrodu. Obok jest biuro ze szkłem na trzy strony: na pola od północy, na ogród i na taras wschodni.",
-  "s5_syp": "Wracamy przez galerię i przelotową garderobę do sypialni na zachodnim końcu. Ma szklaną ścianę na zachód, wyjście na taras i małą łazienkę dostępną tylko stąd.",
-  "s6_taW": "Taras zachodni leży na dachu biblioteki i pralni i obiega szczyt salonu. Z góry zaglądamy do ogrodu z basenem, a z drugiej strony patrzymy w wieczorne słońce."
+  "s3_sal": "Salon z kuchnią biegnie przez całe południowe pasmo i ma ponad sześć metrów wysokości. Od ogrodu jest szklany, na południe otwiera się tylko na patio za murem.",
+  "s4_biu": "Kręconymi schodami wchodzimy na galerię piętra, przeszkloną na dach ogrodu. Obok jest biuro ze szkłem na trzy strony: na pola, na ogród i na taras wschodni.",
+  "s5_syp": "Przez galerię i przelotową garderobę wracamy do sypialni na zachodnim końcu. Ma szklaną ścianę na zachód, wyjście na taras i małą łazienkę dostępną tylko stąd.",
+  "s6_taW": "Taras zachodni leży na dachu biblioteki i pralni i obiega szczyt salonu. Z góry zaglądamy do basenu, a z drugiej strony patrzymy w wieczorne słońce."
  },
  "rzuty": "Parter obchodzimy w pętli: galeria wejściowa, pokój muzyczny, galeria ze schodami, pracownia, biblioteka i salon. Na piętrze amfilada: sypialnia z łazienką i garderobą, galeria nad schodami i biuro, a po obu końcach tarasy.",
  "zmierzch": "Wieczorem woda odbija światło i cały ogród świeci między pasmami, a od drogi widać tylko wąskie szczeliny w drewnie.",
- "zima": "Zimą dach jest zamknięty, a woda zbiera ciepło słońca i oddaje je wieczorem. Oba pasma mają od środka ciepły ogród zamiast mrozu.",
+ "zima": "Zimą dach jest zamknięty, a woda zbiera ciepło słońca i oddaje je wieczorem. Oba pasma mają od środka ciepły ogród.",
  "zalety": ["Prosty obrys, szybka budowa z paneli", "Woda chłodzi dom latem", "Parter w pętli, bez korytarzy", "Dwa tarasy przy sypialni i biurze"],
  "wady": ["Łazienka bardzo mała, przez sypialnię", "Jedna sypialnia, niewielka", "Basen pod dachem: wilgoć i serwis", "Kręcone schody jako jedyne"],
- "zalety_wady": "Zalety: prosty obrys z drewnianych paneli, szybka budowa, woda chłodząca dom latem, parter w pętli bez korytarzy i dwa tarasy. Minusy: łazienka ma niecałe cztery metry i wejście przez sypialnię, a sypialnia jest niewielka. Basen pod dachem wymaga wentylacji i serwisu, kręcone schody są jedyną drogą na górę. Pracownia może być drugą sypialnią.",
+ "zalety_wady": "Zalety: prosty obrys z drewnianych paneli, szybka budowa, woda chłodząca dom latem, parter w pętli bez korytarzy i dwa tarasy. Minusy: łazienka ma niecałe cztery metry i wejście przez sypialnię, a sama sypialnia jest niewielka. Basen pod dachem wymaga wentylacji i serwisu, kręcone schody to jedyna droga na górę. Pracownia może być drugą sypialnią.",
  "koniec": "Dwa pasma: dom prosty jak dwie deski, z basenem schowanym w środku."
 }

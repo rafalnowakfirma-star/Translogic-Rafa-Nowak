@@ -1,0 +1,21 @@
+{
+ "tytul": "Wieża. Zwarty dom wokół ukrytej oranżerii, z biurem na szczycie wieży i tarasami na dachu.",
+ "lotu": "Dom ma sto sześćdziesiąt osiem metrów kwadratowych, tuż poniżej limitu klienta. Pokoje parteru otaczają oranżerię z czterech stron, a po bokach jej szklanego dachu leżą dwa tarasy. W narożniku wznosi się wieża.",
+ "dach": "Szklane lamele nad oranżerią obracają się jak żaluzje i stają pionowo, wypuszczając ciepłe powietrze.",
+ "spacer": {
+  "przed": "Stoimy u stóp betonowej wieży z drzwiami wejściowymi. Od drogi jest pełna, a dom obok ma tylko pasy okien pod sufitem, więc oranżerii nie widać.",
+  "s1_hol": "Hol w podstawie wieży nie ma szkła do ogrodu, są tu tylko schody kręcone, ławka i toaleta. Oranżerię zobaczymy dopiero w następnym pokoju.",
+  "s2_og": "Przez bibliotekę wchodzimy do oranżerii. Na kamiennej posadzce stoi fontanna, a wokół niej drzewka cytrusowe i oliwka. Cztery pokoje parteru mają tu szklane ściany.",
+  "s3_sal": "Obok, za szklaną ścianą oranżerii, jest salon z kuchnią o podwójnej wysokości. Kuchnia z wyspą stoi od północy, dalej stół i kanapa, a na końcu wyjście na patio za murem.",
+  "s4_biu": "Z holu schodami kręconymi wspinamy się dwa piętra, na szczyt wieży. Biuro ma szkło z trzech stron i widok ponad dachami, a od drogi pełną ścianę.",
+  "s5_syp": "Schodzimy piętro niżej, do saloniku, i przez garderobę idziemy do sypialni. Ma szklaną ścianę od wschodu, obok łazienkę, a przesuwne drzwi prowadzą na taras.",
+  "s6_taS": "Z sypialni wychodzimy na taras południowy. Od tarasu północnego dzielą go szklane lamele oranżerii, więc latem zagląda się stąd z góry między drzewka cytrusowe."
+ },
+ "rzuty": "Z holu w wieży jedna droga prowadzi przez bibliotekę do salonu, druga przez pracownię i pralnię do pokoju gościnnego. Na piętrze przelotowe pokoje stoją przy tarasach: salonik, garderoba i sypialnia z łazienką. Schody są w wieży.",
+ "zmierzch": "Wieczorem szklane biuro świeci na szczycie wieży, a oranżeria rozjaśnia dom od środka, niewidoczna z drogi.",
+ "zima": "Zimą lamele są zamknięte, a oranżeria oddaje pokojom ciepło słońca. Tarasy przykrywa śnieg, a od północy wiatr zatrzymuje pełna ściana wieży.",
+ "zalety": ["Biuro w wieży ponad dachami", "Oranżeria niewidoczna z drogi", "Dwa tarasy przy saloniku i sypialni", "Wysoki salon otwarty na patio"],
+ "wady": ["Trzy poziomy, tylko schody kręcone", "Łazienka tylko przez sypialnię", "Przeszklone biuro latem się nagrzewa", "Lamele i tarasy wymagają przeglądów"],
+ "zalety_wady": "Ten dom daje biuro z widokiem, oranżerię ukrytą przed drogą i dwa tarasy przy pokojach piętra. Minusy to schody kręcone i łazienka dostępna tylko przez sypialnię. Gościom przyda się prysznic w pralni, biuru zewnętrzne rolety, a lamelom coroczny przegląd.",
+ "koniec": "Wieża: zwarty dom z ukrytym ogrodem i biurem ponad dachami."
+}

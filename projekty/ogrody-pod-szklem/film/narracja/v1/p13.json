@@ -1,11 +1,11 @@
 {
  "tytul": "Kubik. Najmniejszy dom pierwszej wersji kolekcji: ciemna kostka z japońskim atrium wysokim na dwie kondygnacje.",
  "lotu": "Kostka ma sto siedemdziesiąt cztery metry kwadratowe na dwóch kondygnacjach i atrium pośrodku. Z bryły wycięto trzy kawałki: wnękę przy wejściu, patio w narożniku od południowego zachodu i taras nad nim.",
- "dach": "Obrotowe szklane lamele nad atrium stają pionowo i otwierają ogród na niebo.",
+ "dach": "Lamele dachu obracają się jak żaluzje i nad atrium pojawia się niebo.",
  "spacer": {
-  "przed": "Podchodzimy od północy. Drzwi schowane są we wnęce wyciętej z kostki, pod galerią piętra. Ciemna blacha ma tu tylko wąskie szczeliny.",
+  "przed": "Stajemy przed północną ścianą kostki. Drzwi schowane są we wnęce wyciętej z bryły, pod galerią piętra. Ciemna blacha ma tu tylko wąskie szczeliny.",
   "s1_wia": "W małym wiatrołapie zostawiamy płaszcz. Stąd dom rozchodzi się w dwie strony: do holu ze schodami i pokoju gościnnego albo przez bibliotekę na patio i do salonu.",
-  "s2_og": "Z holu wchodzimy do atrium. Ogród japoński sięga tu dwóch kondygnacji, a nad klonem widać szkło galerii i biura. Zimą to ciepłe przejście z holu do salonu.",
+  "s2_og": "Hol otwiera się na atrium. Ogród japoński sięga tu dwóch kondygnacji, a nad klonem widać szkło galerii i biura. Zimą to ciepłe przejście z holu do salonu.",
   "s3_sal": "Salon z kuchnią ma ponad sześć metrów wysokości, a jego południowa ściana jest cała ze szkła. Od zachodu wychodzimy na patio, które zimą zamyka szklana harmonijka.",
   "s4_biu": "Prostymi schodami z holu wchodzimy na galerię wzdłuż atrium, a z niej do biura. Z jednej strony widać koronę klonu, z drugiej pola za szklaną ścianą.",
   "s5_syp": "Galerią i przelotową garderobą dochodzimy do sypialni z własną łazienką. Wschodnia ściana jest cała ze szkła, a od atrium jest tylko wysokie pasmo okien.",
@@ -16,6 +16,6 @@
  "zima": "Zimą lamele są zamknięte, patio pod szkłem działa jak oranżeria, a atrium jak ciepły bufor. Na tarasie leży śnieg.",
  "zalety": ["Atrium na dwie kondygnacje", "Biuro z widokiem na klon i pola", "Patio otwarte latem, zamknięte zimą", "Zwarta bryła z modułów"],
  "wady": ["Łazienka dostępna tylko przez sypialnię", "Szklana ściana salonu nagrzewa się latem", "Lamele dachu wymagają przeglądów"],
- "zalety_wady": "Największe atuty to wysokie atrium widoczne z obu kondygnacji, biuro z widokiem na ogród i pola oraz patio, które działa latem i zimą. Minusy: jedyna łazienka jest za sypialnią, a szyba salonu latem mocno się nagrzewa. Pomogą drzwi z garderoby do łazienki i zewnętrzne żaluzje.",
+ "zalety_wady": "Największe atuty to wysokie atrium widoczne z obu kondygnacji i biuro z widokiem na ogród i pola. Do tego patio, które działa latem i zimą. Minusy: jedyna łazienka jest za sypialnią, a szyba salonu latem mocno się nagrzewa. Pomogą drzwi z garderoby do łazienki i zewnętrzne żaluzje.",
  "koniec": "Pierwsza wersja Kubika: mała kostka, w której ogród sięga aż po dach."
 }

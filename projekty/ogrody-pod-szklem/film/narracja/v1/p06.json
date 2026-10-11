@@ -1,21 +1,21 @@
 {
- "tytul": "Dwa pasma. Dwa długie drewniane pasma, a między nimi ogród z basenem pod szklanym dachem jak hala dworca.",
- "lotu": "Dom ma blisko dwieście pięćdziesiąt metrów kwadratowych. Piętro pasma nocnego stoi na wschodzie na słupach, nad otwartym podcieniem. Pasmo dzienne to wysoki salon, a między nimi ogród z basenem siedem na cztery metry.",
+ "tytul": "Dwa pasma. Dwa długie drewniane pasma, a między nimi basen pod szklanym dachem jak hala dworca.",
+ "lotu": "Dom ma blisko dwieście pięćdziesiąt metrów kwadratowych. Piętro pasma nocnego stoi na wschodzie na słupach, nad otwartym podcieniem. Pasmo dzienne to wysoki salon, a między nimi ogród z podłużnym basenem.",
  "dach": "Latem zachodnia połowa szklanego dachu zjeżdża nad wschodnią, a od północy składa się szklana harmonijka.",
  "spacer": {
-  "przed": "Wchodzimy od wschodu, od podjazdu. Po lewej biblioteka pokazuje przez szkło fragment ogrodu, a po prawej, pod piętrem na słupach, otwiera się długi podcień.",
-  "s1_wia": "Wiatrołap jest mały, z toaletą obok. Za podwójnymi drzwiami wchodzimy do biblioteki, a przez jej szkło widać już wodę i, na osi, biuro i łąkę za domem.",
-  "s2_og": "Ogród wodny ma blisko siedemdziesiąt metrów kwadratowych: basen, brzozy i kamienna kładka od drzwi biura. Stąd wchodzi się do salonu, biura i galerii ze schodami.",
-  "s3_sal": "Salon z kuchnią zajmuje całe pasmo dzienne i ma dwie kondygnacje wysokości. Szkło od ogrodu i od południa, na zachodnim końcu patio pod daszkiem, na wschodnim kredens i pralnia.",
-  "s4_biu": "Wzdłuż basenu dochodzimy do biura w zachodnim moście. Szkło na wodę z jednej strony i na pole z drugiej, obok wysoka pracownia z północnym światłem.",
-  "s5_syp": "Przez pracownię dochodzimy do galerii i prostymi schodami na piętro. Wzdłuż ogrodu biegnie szklana galeria, od północy pokoje dzieci z łazienką, a na końcu, za garderobą, sypialnia nad podcieniem.",
-  "s6_bal": "Z sypialni wychodzimy na balkon na wschodnim końcu pasma. Pod nami podcień i podjazd, przed nami poranne słońce, a z boku szklany dach ogrodu."
+  "przed": "Wchodzimy od wschodu, od podjazdu. Po lewej biblioteka pokazuje przez szkło fragment ogrodu, po prawej pod piętrem na słupach otwiera się długi podcień.",
+  "s1_wia": "Wiatrołap jest mały, z toaletą obok. Za podwójnymi drzwiami wchodzimy do biblioteki, a przez jej szkło widać już wodę, biuro i łąkę za domem.",
+  "s2_og": "Ogród wodny ma blisko siedemdziesiąt metrów kwadratowych: basen, brzozy i kamienna kładka od drzwi biura. Stąd wchodzi się do salonu, biura i galerii.",
+  "s3_sal": "Salon z kuchnią zajmuje całe pasmo dzienne i ma dwie kondygnacje wysokości. Szkło od ogrodu i od południa, na zachodnim końcu patio pod daszkiem, na wschodnim kredens.",
+  "s4_biu": "Wzdłuż basenu dochodzimy do biura w zachodnim moście: szkło na wodę z jednej strony, na pole z drugiej, a obok wysoka pracownia z północnym światłem.",
+  "s5_syp": "Przez pracownię dochodzimy do galerii i prostymi schodami na piętro. Wzdłuż ogrodu biegnie szklana galeria, od północy pokoje dzieci, a na końcu, za garderobą, sypialnia nad podcieniem.",
+  "s6_bal": "Z sypialni wychodzimy na balkon na wschodnim końcu pasma. Pod nami podcień i podjazd, przed nami poranne słońce, z boku szklany dach ogrodu."
  },
- "rzuty": "Parter: wschodni most z wejściem i biblioteką, zachodni z biurem, między nimi ogród. Pasmo dzienne to salon z kredensem i pralnią, nocne ma na dole pracownię, galerię ze schodami i podcień. Piętro: trzy sypialnie i dwie łazienki wzdłuż szklanej galerii.",
- "zmierzch": "Wieczorem woda świeci między pasmami, a na osi domu światło ogrodu wychodzi przez biuro na łąkę i przez bibliotekę na podjazd.",
- "zima": "Zimą dach i harmonijka są zamknięte. Woda zbiera ciepło słońca i oddaje je wieczorem, a oba pasma mają od środka ciepły ogród.",
+ "rzuty": "Parter: wschodni most z wejściem i biblioteką, zachodni z biurem, między nimi ogród. Pasmo dzienne to salon z kredensem i pralnią, nocne ma pracownię, galerię ze schodami i podcień. Piętro: trzy sypialnie i dwie łazienki wzdłuż szklanej galerii.",
+ "zmierzch": "Wieczorem woda świeci między pasmami, a na osi domu światło wychodzi przez biuro na łąkę i przez bibliotekę na podjazd.",
+ "zima": "Zimą dach i harmonijka są zamknięte. Woda zbiera ciepło słońca i oddaje je wieczorem, a pasma mają od środka ciepły ogród.",
  "zalety": ["Trzy sypialnie, dwie łazienki i toaleta", "Proste schody zamiast kręconych", "Duży podcień pod piętrem na słupach", "Oś widoku przez cały dom"],
  "wady": ["Do schodów tylko przez ogród", "Piętro nad podcieniem: zimna podłoga", "Duży basen pod szkłem: wilgoć, serwis", "Ogród widać z zewnątrz na osi"],
- "zalety_wady": "Zalety: trzy sypialnie i dwie łazienki, proste schody, podcień pod piętrem i oś widoku przez cały dom. Minusy: do schodów i biura prowadzi tylko droga przez ogród, więc ogród trzeba ogrzewać jak pokój. Piętro nad podcieniem wymaga mocnej izolacji podłogi, basen pod szkłem to wilgoć i serwis, a na osi ogród widać z zewnątrz.",
+ "zalety_wady": "Zalety: trzy sypialnie i dwie łazienki, proste schody, podcień pod piętrem i oś widoku przez cały dom. Minusy: do schodów i biura prowadzi tylko droga przez ogród, który trzeba ogrzewać jak pokój. Piętro nad podcieniem wymaga mocnej izolacji podłogi, basen pod szkłem to wilgoć i serwis, a na osi ogród widać z zewnątrz.",
  "koniec": "Pierwsza wersja Dwóch pasm: długa, otwarta i z wodą w samym środku."
 }

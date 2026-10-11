@@ -1,10 +1,10 @@
 {
- "tytul": "Zygzak. Dziesięć stalowych modułów ustawionych w łańcuch wokół dwóch ogrodów: zimowego z palmami i letniego pod gołym niebem.",
+ "tytul": "Zygzak. Dziesięć stalowych modułów w łańcuchu wokół dwóch ogrodów: zimowego z palmami i letniego pod niebem.",
  "lotu": "Z lotu ptaka widać łańcuch modułów przesuniętych jak klocki, raz wyższych, raz niższych. Dom ma dwieście pięćdziesiąt siedem metrów kwadratowych. Pośrodku leżą obok siebie dwa ogrody, a na dachu pokoju muzycznego jest taras.",
  "dach": "Połowa szklanego dachu składa się w harmonijkę, a szklana ściana między ogrodami chowa się przy słupach.",
  "spacer": {
-  "przed": "Stoimy przed wejściem od północy. Rdzawe moduły wysuwają się i cofają jak klocki, a drzwi kryją się w jednym z załamań.",
-  "s1_wia": "Z przestronnego wiatrołapu szerokie przejście prowadzi do biblioteki, a za nią już widać palmy. Inne drzwi prowadzą do herbaciarni, pralni i toalety.",
+  "przed": "Od północy dom pokazuje rdzawe moduły, które wysuwają się i cofają jak klocki. Drzwi kryją się w jednym z załamań.",
+  "s1_wia": "Z przestronnego wiatrołapu szerokie przejście prowadzi do biblioteki, za którą widać już palmy. Boczne drzwi wiodą do herbaciarni, pralni i toalety.",
   "s2_og": "Przez bibliotekę wchodzimy do ogrodu zimowego. Pod szklanym dachem, siedem metrów nad posadzką, rosną palmy i tropikalne rośliny. Za szklaną harmonijką leży letni dziedziniec.",
   "s3_sal": "Z ogrodu przechodzimy do salonu z kuchnią. Ma ponad sześć metrów wysokości i trzy szklane ściany: na ogród zimowy, na letni dziedziniec i na południe.",
   "s4_biu": "Przez letni dziedziniec z drewnianym pokładem idziemy do biura. Jest przeszklone z dwóch stron: od dziedzińca i od pól na wschodzie.",
@@ -16,6 +16,6 @@
  "zima": "Zimą harmonijka i dach są zamknięte, a ogród zimowy staje się ogrzewaną halą z palmami. Dziedziniec i taras zostają pod śniegiem.",
  "zalety": ["Dwa ogrody, latem połączone w jeden", "Pokoje w amfiladzie, bez korytarzy", "Wysoki salon z trzema szklanymi ścianami", "Moduły z fabryki, szybka budowa"],
  "wady": ["Duży dom, długi obwód ścian", "Pętla domu przechodzi przez biuro", "Ogrzewanie palmiarni zimą kosztuje"],
- "zalety_wady": "Mocne strony to dwa ogrody, które latem stają się jednym, amfilada ciekawych pokoi i wysoki salon otwarty na trzy strony. Minusy: dom jest duży, ma długi obwód ścian i ogrzewaną palmiarnię. Najkrótsza droga z sypialni do kuchni prowadzi przez biuro. Pomoże dobra izolacja i regał oddzielający biurko od przejścia.",
+ "zalety_wady": "Mocne strony to dwa ogrody łączone latem w jeden, amfilada ciekawych pokoi i salon otwarty na trzy strony. Minusy: duży dom ma długi obwód ścian i ogrzewaną palmiarnię, a droga z sypialni do kuchni prowadzi przez biuro. Pomoże dobra izolacja i regał, który oddzieli biurko od przejścia.",
  "koniec": "Tak wyglądał Zygzak w pierwszej wersji: łańcuch rdzawych klocków wokół palm i letniego nieba."
 }

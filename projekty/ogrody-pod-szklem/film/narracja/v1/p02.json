@@ -1,0 +1,21 @@
+{
+ "tytul": "Wieża. Parterowy dom wokół oranżerii, nad którym góruje betonowa wieża z biurem na samym szczycie.",
+ "lotu": "Dom ma ponad dwieście pięćdziesiąt metrów kwadratowych, prawie wszystko na parterze. W środku leży oranżeria pod szklanymi lamelami. Od południa ciągnie się wysoki salon, a w północno-wschodnim narożniku stoi wieża na trzy poziomy.",
+ "dach": "Dach oranżerii tworzą szklane lamele, które obracają się do pionu i wypuszczają ciepłe powietrze.",
+ "spacer": {
+  "przed": "Stoimy przed północną ścianą z gładkiego betonu, z wąskimi szczelinami okien. Po lewej wznosi się wieża, której szczyt jest od tej strony pełny.",
+  "s1_wia": "Za drzwiami jest obszerny wiatrołap. Na wprost, za szklaną ścianą, od razu widać oranżerię, w lewo jest hol wieży, a w prawo biblioteka.",
+  "s2_og": "Wchodzimy do oranżerii długiej na dziesięć metrów. Szum fontanny, zapach cytrusów i oliwka w rogu dają tu klimat południa przez cały rok. Otwiera się na nią pięć pokoi.",
+  "s3_sal": "Z oranżerii przechodzimy do salonu z kuchnią. To sala długa na piętnaście metrów i wysoka na dwie kondygnacje, przeszklona od południa. Na jej końcu czeka patio z daszkiem.",
+  "s4_syp": "Oranżerią idziemy do sypialni w zachodnim skrzydle, ze szklaną ścianą na zachód. Za przelotową garderobą jest duża łazienka z wanną, jedyna w domu.",
+  "s5_gos": "Wracamy do holu wieży i wchodzimy schodami na piętro. Pokój gościnny ma widok ponad dachami, ale schody biegną przez niego dalej, do biura.",
+  "s6_biu": "Kolejny bieg schodów prowadzi do biura, prawie siedem metrów nad ziemią. Przez szkło z trzech stron widać zielone dachy i okolicę, a od północy ściana jest pełna."
+ },
+ "rzuty": "Od wejścia prowadzą dwie drogi. Na zachód przez bibliotekę i przelotową garderobę do sypialni z łazienką. Na wschód przez hol wieży i pracownię do salonu. Schody w wieży prowadzą do pokoju gościnnego i biura.",
+ "zmierzch": "Wieczorem przeszklony szczyt wieży świeci nad okolicą jak latarnia morska. Od strony drogi betonowa ściana przepuszcza tylko wąskie smugi światła.",
+ "zima": "Zimą szklane lamele zamykają się szczelnie, a oranżeria zbiera ciepło słońca dla pokoi wokół. Pełna północna ściana wieży osłania biuro od wiatru.",
+ "zalety": ["Biuro w wieży z panoramą", "Codzienne życie na parterze", "Oranżeria z fontanną pośrodku domu", "Długi, wysoki salon z patio"],
+ "wady": ["Jedna łazienka, wejście przez garderobę", "Do biura przez pokój gościnny", "Szkło biura latem się nagrzewa", "Duży dom, wysokie koszty"],
+ "zalety_wady": "Wieża daje biuro z panoramą, oddzielone od reszty domu, a codzienne życie toczy się na parterze, wokół oranżerii. Minusy to jedyna łazienka za garderobą, droga do biura przez pokój gościnny, nagrzewające się szkło i koszt dużego domu. Pomoże toaleta wydzielona z wiatrołapu i rolety w wieży.",
+ "koniec": "Wieża w pierwszej wersji: życie na parterze, praca na szczycie."
+}

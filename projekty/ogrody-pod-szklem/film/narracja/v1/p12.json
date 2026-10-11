@@ -1,0 +1,21 @@
+{
+ "tytul": "Oktagon. Miedziany ośmiobok, w którym osiem pokoi zamyka pętlę wokół oranżerii z fontanną pod szklaną piramidą.",
+ "lotu": "Dom ma prawie dwieście czterdzieści metrów kwadratowych i około dwudziestu metrów szerokości. Pośrodku stoi oranżeria na dwie kondygnacje, a nad nią szklana piramida. Piętro zajmuje tylko północną część, z tarasem na dachu sali muzycznej.",
+ "dach": "Latarnia na szczycie piramidy podnosi się, a gorące powietrze oranżerii uchodzi górą jak z komina.",
+ "spacer": {
+  "przed": "Stoimy na osi od północy, przed miedzianą ścianą z wąskimi szczelinami. Z boku osobna ścieżka prowadzi do drzwi biura. Nad płaskim dachem widać szczyt szklanej piramidy.",
+  "s1_hol": "W sieni stoją kręcone schody, a na wprost, przez szkło, od razu widać fontannę. Toaleta jest przy wejściu. Pętla pokoi biegnie stąd w obie strony.",
+  "s2_og": "Oranżeria ma sześćdziesiąt pięć metrów kwadratowych i sięga dwóch kondygnacji. Wokół fontanny stoją cytrusy w donicach, wysoko nad nimi szklana piramida. To ogród i zarazem hol domu.",
+  "s3_sal": "Salon z kuchnią zajmuje dwa segmenty od południa i sięga dachu. Przesuwne drzwi prowadzą do patio zimowego, które latem otwiera się na drewniany taras przed domem.",
+  "s4_biu": "Przez ogród przechodzimy do biura od północnego wschodu. Ma szkło od oranżerii i od pola oraz własne drzwi na zewnątrz. Klient nie przechodzi więc przez dom.",
+  "s5_syp": "Wracamy do sieni i schodami kręconymi wchodzimy do garderoby. Przez nią idziemy do sypialni ze szklaną ścianą na północny zachód. Łazienka jest obok, z oknem na oranżerię.",
+  "s6_tar": "Z sypialni przez przesuwne szkło wychodzimy na taras na dachu sali muzycznej. Obok wznosi się szklana ściana oranżerii, a wieczorem słońce zachodzi na wprost."
+ },
+ "rzuty": "Parter to pętla pokoi wokół oranżerii, bez korytarzy. Od sieni idzie się przez bibliotekę, salon i biuro z powrotem do sieni. Schody kręcone stoją w sieni, a piętro jest małe: garderoba, łazienka i jedna sypialnia.",
+ "zmierzch": "Wieczorem piramida świeci nad ośmiobokiem, a oranżeria oświetla pokoje od środka. Szkło biura i salonu wypuszcza światło także na zewnątrz.",
+ "zima": "Zimą latarnia jest opuszczona, a oranżeria zbiera słońce i osłania pokoje od środka. Patio zimowe za harmonijką zmienia się w zamkniętą werandę.",
+ "zalety": ["Oranżeria z fontanną widoczna z każdego pokoju", "Biuro z własnym wejściem", "Patio zimowe, weranda na cały rok", "Pętla pokoi bez korytarzy"],
+ "wady": ["Duży dom, jedna sypialnia", "Wysoka oranżeria kosztowna w ogrzewaniu", "Do sypialni przez garderobę", "Jedyne schody kręcone"],
+ "zalety_wady": "Zalety: oranżeria z fontanną jest widoczna z każdego pokoju, biuro ma własne wejście, a patio zimowe daje werandę na cały rok. Minusy: to duży dom z jedną sypialnią, do której idzie się przez garderobę, a jedyne schody są kręcone. Wysoka oranżeria jest kosztowna w ogrzaniu, a latem piramida wymaga zacienienia.",
+ "koniec": "To pierwsza wersja Oktagonu: większa, bardziej otwarta, z oranżerią w roli holu."
+}

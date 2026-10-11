@@ -1,0 +1,21 @@
+{
+ "tytul": "Pierścień. Okrągły dom z białej cegły, który chowa w środku ogród ze stawem, niewidoczny z zewnątrz.",
+ "lotu": "Dom ma piętnaście metrów średnicy i sto sześćdziesiąt sześć metrów kwadratowych, w limicie klienta. Parter zamyka się w krąg wokół ogrodu, a na jego dachu są dwa tarasy i łuk pokoi piętra.",
+ "dach": "Latem szklany środek kopuły podnosi się, a nad stawem otwiera się okrągły otwór na niebo.",
+ "spacer": {
+  "przed": "Stoimy na ścieżce od północnego zachodu. Widać tylko łuk białej cegły z wąskimi szczelinami okien i pokoje piętra nad nim, a ogród pozostaje ukryty.",
+  "s1_wia": "Wiatrołap ma szafę i ławkę, ale nie ma widoku na ogród. Jedne drzwi prowadzą stąd do biblioteki, drugie do holu ze schodami.",
+  "s2_og": "Z holu wchodzimy do ogrodu o średnicy siedmiu metrów. Staw przecina kładka z płyt, a przez szklane ściany ogród widać z prawie każdego pokoju parteru.",
+  "s3_sal": "Salon z kuchnią zajmuje łuk od wschodu po południowy zachód i ma ponad sześć metrów wysokości. Kuchnia z wyspą stoi od wschodu, a przeszklona ściana otwiera salon na patio za murem.",
+  "s4_biu": "Schody kręcone w holu prowadzą na galerię, skąd widać ogród z góry. Obok jest biuro z szybą na pola i drzwiami na taras wschodni.",
+  "s5_syp": "W drugą stronę z galerii przechodzimy do sypialni. Garderoba działa tu jak przedpokój, a obok jest łazienka z wanną. Szklana ściana otwiera sypialnię na zachód.",
+  "s6_taW": "Przesuwne drzwi wyprowadzają nas na taras zachodni, w kształcie wycinka koła. To miejsce na wieczorne słońce i leżak tuż przy kopule. Naprzeciw, za kopułą, leży taras wschodni."
+ },
+ "rzuty": "Na parterze salon, herbaciarnia i biblioteka leżą po jednej stronie ogrodu, pokój gościnny po drugiej. Na piętrze pokoje są przelotowe: garderoba i galeria łączą sypialnię z biurem, a każde ma swój taras. Schody kręcone są w holu.",
+ "zmierzch": "Po zmroku kopuła świeci między tarasami jak księżyc w pełni, a patio za murem zostaje osłonięte od sąsiadów.",
+ "zima": "Zimą kopuła jest zamknięta, a ogród oddaje pokojom ciepło zebrane ze słońca. Tarasy przykrywa śnieg, a od wiatru chronią pełne ściany.",
+ "zalety": ["Ogród ukryty przed sąsiadami", "Tarasy na poranek i na wieczór", "Duże patio za łukowym murem", "Sypialnia i biuro osobno na piętrze"],
+ "wady": ["Schody kręcone jedyną drogą na piętro", "Dla gości na dole tylko toaleta", "Łukowe pokoje trudniej umeblować", "Bardzo mała pralnia"],
+ "zalety_wady": "Pierścień ukrywa ogród przed sąsiadami, ma tarasy na poranek i wieczór oraz duże patio za murem. Minusy to schody kręcone, jedyna łazienka z wanną za sypialnią i bardzo mała pralnia. Pomoże prysznic przy toalecie na parterze i zabudowa na wymiar w łukach.",
+ "koniec": "Pierścień: krąg pokoi, w którego środku zawsze jest woda i niebo."
+}

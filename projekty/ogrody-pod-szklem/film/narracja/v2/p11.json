@@ -1,0 +1,21 @@
+{
+ "tytul": "Półksiężyc. Ceglany łuk obejmuje półokrągły ogród pod składanym szklanym dachem. Od południa domyka go proste pasmo z wysokim salonem.",
+ "lotu": "Dom ma sto sześćdziesiąt trzy metry kwadratowe. Pokoje stoją w łuku od zachodu przez północ na wschód, a salon zamyka go od południa. Na dachach rogów półksiężyca leżą dwa tarasy, a na szczycie łuku cztery moduły piętra.",
+ "dach": "Latem szklany dach składa się jak harmonijka i nad ogrodem zostaje tylko niebo.",
+ "spacer": {
+  "przed": "Podchodzimy od zachodu, wzdłuż ceglanej ściany z małymi oknami. Dom nie zdradza ogrodu w środku. Drzwi są w rogu, pod tarasem.",
+  "s1_wia": "Wiatrołap jest murowany, bez szkła od ogrodu, obok ma łazienkę. Prosto wchodzi się do salonu, w lewo do sali muzycznej. Tam ogród pokaże się pierwszy raz.",
+  "s2_og": "Z sali muzycznej wychodzimy na dziedziniec. Pod stopami kamienne płyty w żwirze, pośrodku drzewo, nad głową szklana harmonijka. Pokoje łuku mają tu własne drzwi, na wprost szklana ściana salonu.",
+  "s3_sal": "Salon z kuchnią to najwyższe wnętrze domu, ponad sześć metrów pod sufitem. Od ogrodu dzieli go tylko szkło, a od południa otwiera się na patio za murem.",
+  "s4_biu": "Przez ogród wracamy do holu i schodami kręconymi wchodzimy do galerii, a z niej do biura. Szkło otwiera je na łąkę i na taras zachodni. Tu pracuje się z dala od salonu.",
+  "s5_syp": "Wracamy przez galerię na drugą stronę, do sypialni. Przedsionek biegnie wzdłuż szklanego dachu, obok jest łazienka. Łóżko stoi pod szklaną ścianą od północnego wschodu, z wyjściem na taras.",
+  "s6_taE": "Jesteśmy na dachu biblioteki i spiżarni. Przy balustradzie taras otwiera się na łąkę, a po drugiej stronie szklanego dachu widać bliźniaczy taras przy biurze. To miejsce na poranną kawę."
+ },
+ "rzuty": "Po parterze chodzi się wkoło ogrodu drzwiami ustawionymi w jednej linii przy szkle, bez korytarza. Hol ze schodami kręconymi jest na szczycie łuku. Piętro to cztery moduły w rzędzie z jedną sypialnią, między dwoma tarasami.",
+ "zmierzch": "Wieczorem łuk szklanych ścian oświetla dziedziniec, a cegła od zewnątrz pokazuje tylko małe, ciepłe okna.",
+ "zima": "Zimą harmonijka jest zamknięta i ogród działa jak oranżeria, która grzeje pokoje dookoła. Tarasy czekają pod śniegiem do wiosny.",
+ "zalety": ["Ogród schowany w środku łuku", "Pokoje przelotowe, bez korytarza", "Dwa tarasy na rogach półksiężyca", "Wysoki salon między ogrodem a patio"],
+ "wady": ["Łukowe ściany trudne w meblowaniu", "Łuk droższy w budowie", "Jedyne schody kręcone", "Małe, klinowate pokoje"],
+ "zalety_wady": "Zalety: ogród schowany w środku łuku, pokoje bez korytarza, dwa tarasy po obu stronach szklanego dachu. Minusy: łukowe ściany utrudniają meblowanie i podnoszą koszt, dlatego łuk muruje się z krótkich prostych odcinków. Jedyne schody są kręcone, a pokoje w łuku małe, każdy do jednego zajęcia.",
+ "koniec": "Półksiężyc: ceglany łuk, który obejmuje własny słoneczny dziedziniec."
+}

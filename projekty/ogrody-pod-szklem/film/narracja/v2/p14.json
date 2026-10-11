@@ -3,11 +3,11 @@
  "lotu": "Sześć modułów parteru i cztery na piętrze, każdy przesunięty o metr, układają się w ząbkowany pierścień. Razem mają sto sześćdziesiąt trzy metry kwadratowe, w limicie klienta. Pośrodku leży ogród zimowy, obok patio za murem, a na niższych dachach dwa tarasy.",
  "dach": "Szklany dach składa się w harmonijkę, a razem z nim szklana ścianka do patio.",
  "spacer": {
-  "przed": "Podchodzimy od północy. Ściany z rdzawej stali łamią się co kilka metrów, a w jednym z załamań kryją się drzwi. Okien jest niewiele, więc ogrodu stąd nie widać.",
+  "przed": "Podchodzimy od północy. Ściany z rdzawej stali łamią się co kilka metrów, a w załamaniu kryją się drzwi. Okien jest niewiele, więc ogrodu stąd nie widać.",
   "s1_wia": "Wiatrołap jest zamknięty, bez szkła do ogrodu. Dopiero kolejne drzwi otwierają hol z biblioteką, a w nim schody kręcone i pierwszy widok na zieleń.",
   "s2_og": "Z holu wchodzimy do ogrodu zimowego. To mały las: brzozy, paprocie i mech, a między nimi kamienne płyty. Od wschodu, za szklaną harmonijką, czeka patio za murem.",
-  "s3_sal": "Salon z kuchnią biegnie przez całe południe domu i ma ponad sześć metrów wysokości. Od ogrodu i od patio jest cały ze szkła, a na zewnątrz ma tylko trzy duże okna.",
-  "s4_biu": "Wracamy do holu i schodami kręconymi wchodzimy na piętro. Biuro jest wysunięte metr przed front domu. Ma szkło na pola, na taras wschodni i na dach ogrodu.",
+  "s3_sal": "Salon z kuchnią zajmuje całe południe i ma ponad sześć metrów wysokości. Od ogrodu i od patio jest cały ze szkła, a na zewnątrz ma tylko trzy duże okna.",
+  "s4_biu": "Wracamy do holu i schodami kręconymi wchodzimy na piętro. Biuro jest wysunięte o metr przed front domu. Ma szkło na pola, na taras wschodni i na dach ogrodu.",
   "s5_syp": "Przez galerię przechodzimy do sypialni. Ma szklaną ścianę od zachodu i własną łazienkę, a wieczorem wpada tu zachodzące słońce.",
   "s6_taZ": "Z sypialni wychodzimy na taras zachodni, na dachu pracowni. Z jednej strony widać szklany dach ogrodu i korony brzóz, z drugiej wznosi się wysoka ściana salonu."
  },
@@ -16,6 +16,6 @@
  "zima": "Zimą dach i harmonijka są zamknięte, a ogród ogrzewa dom od środka. Mur patio osłania salon od wiatru, a tarasy przykrywa śnieg.",
  "zalety": ["Ukryty ogród i patio za murem", "Latem ogród i patio jako jedno", "Biuro z widokiem na trzy strony", "Szybka budowa z modułów"],
  "wady": ["Schody kręcone, mniej wygodne", "Tylko jedna sypialnia", "Wiele narożników podnosi koszt"],
- "zalety_wady": "Zalety Zygzaka to ogród niewidoczny z zewnątrz, patio, które latem łączy się z nim w jedno, biuro z widokiem na trzy strony i szybka budowa z modułów. Minusy: schody kręcone, tylko jedna sypialnia i wiele narożników, które podnoszą koszt. Pracownię na parterze łatwo urządzić jako pokój dla gości.",
+ "zalety_wady": "Zygzak ma ukryty ogród, który latem łączy się z patio, i biuro z widokiem na trzy strony. Buduje się go szybko z modułów. Minusy: schody kręcone, tylko jedna sypialnia i wiele narożników, które podnoszą koszt. Pracownię na parterze łatwo urządzić jako pokój dla gości.",
  "koniec": "Zygzak: rdzawa stal na zewnątrz, brzozowy las w środku."
 }

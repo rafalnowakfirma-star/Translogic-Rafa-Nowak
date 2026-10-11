@@ -1,0 +1,21 @@
+{
+ "tytul": "Półksiężyc. Piętrowy ceglany łuk obejmuje półokrągły ogród. Zimą to oranżeria, latem dziedziniec otwarty na łąkę.",
+ "lotu": "Dom ma prawie dwieście czterdzieści metrów kwadratowych. Pokoje leżą w łuku szerokim na dwadzieścia cztery metry, a ogród wypełnia półkole w środku. Od południa zamyka go szklana harmonijka, a jedyny taras leży na dachu biura.",
+ "dach": "Szklany dach i południowa ściana składają się w harmonijkę, a ogród przechodzi w łąkę.",
+ "spacer": {
+  "przed": "Podchodzimy od północy, do wypukłej ceglanej ściany z nielicznymi oknami. Cały łuk odwraca się plecami do drogi, a twarzą do południa i łąki.",
+  "s1_wia": "Wiatrołap to nisza wycięta z holu, podobnie jak toaleta i pralnia. Dzięki temu hol ze schodami jest wolny, a jego szklana ściana od razu pokazuje ogród.",
+  "s2_og": "Z holu wychodzimy do ogrodu. Pod szkłem rośnie oliwka, lawenda i rośliny w donicach, a na wprost, za szklaną harmonijką, ciągnie się łąka. Wszystkie pokoje łuku patrzą tutaj.",
+  "s3_sal": "Salon z kuchnią zajmuje zachodni róg i ma dwie kondygnacje wysokości. Szkło do ogrodu sięga sufitu. Dalej jest patio sezonowe: zimą zamknięte harmonijką, latem otwarte z trzech stron.",
+  "s4_biu": "Łukiem, przez hol, bibliotekę i herbaciarnię, dochodzimy do biura we wschodnim rogu. Szkło ma z trzech stron, a przesuwne drzwi od południa wychodzą na kamienny taras przed domem.",
+  "s5_syp": "Schodami w holu wchodzimy do pracowni, a przez garderobę do sypialni. Szkło otwiera ją na wschód i, ponad dachem ogrodu, na łąkę. Łazienka jest tuż obok.",
+  "s6_tar": "Taras leży na dachu biura, we wschodnim rogu. Z sypialni wychodzi się wprost na słońce. Obok lśni szklany dach ogrodu, a dalej ciągnie się łąka."
+ },
+ "rzuty": "Po łuku idzie się z pokoju do pokoju: z patio przez salon, hol, bibliotekę i herbaciarnię do biura. Schody stoją w holu. Piętro to pracownia, przelotowa garderoba, łazienka i jedna sypialnia z tarasem.",
+ "zmierzch": "Wieczorem cała wklęsła strona domu rozświetla łąkę od południa. Od drogi, za ceglanym łukiem, widać tylko kilka małych okien.",
+ "zima": "Zimą harmonijki są zamknięte, a ogród staje się oranżerią. Zbiera niskie słońce z południa i ogrzewa szklaną stronę domu.",
+ "zalety": ["Ogród otwarty latem na łąkę", "Zimowa oranżeria grzeje dom", "Biuro z własnym wejściem", "Amfilada pokoi, bez korytarzy"],
+ "wady": ["Ogród widoczny od południa", "Duży dom, jedna sypialnia", "Do sypialni przez pracownię i garderobę", "Łukowe ściany, trudne meble"],
+ "zalety_wady": "Zalety: ogród otwiera się latem na łąkę, a zimą jako oranżeria grzeje dom. Biuro ma własne wejście, pokoje łączą się amfiladą. Minusy: szkło od południa odsłania ogród i latem wymaga zacienienia. Dom jest duży, a jedyna sypialnia leży za pracownią i garderobą. Łukowe ściany wymagają mebli na wymiar.",
+ "koniec": "To pierwsza wersja Półksiężyca, szeroko otwarta na południową łąkę."
+}

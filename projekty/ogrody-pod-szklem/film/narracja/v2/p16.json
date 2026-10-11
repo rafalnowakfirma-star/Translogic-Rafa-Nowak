@@ -1,0 +1,21 @@
+{
+ "tytul": "Owal. Prostokątny dom z trawertynu, który w środku skrywa eliptyczną oranżerię z drzewkami cytrusowymi.",
+ "lotu": "Na planie prostokąta na przemian stoją dwie bryły piętrowe i dwa niskie skrzydła, a ich dachy są tarasami. Dom ma sto sześćdziesiąt siedem metrów kwadratowych razem z piętrem. Pośrodku błyszczy szklana kopuła ogrodu.",
+ "dach": "Środek kopuły otwiera się jak migawka aparatu i ciepłe powietrze uchodzi górą.",
+ "spacer": {
+  "przed": "Północna ściana z jasnego trawertynu jest prawie gładka. W kamieniu są tylko drzwi, szczeliny i wąskie pasy okien, więc ogrodu z zewnątrz nie widać.",
+  "s1_wia": "W wiatrołapie ogród wciąż jest schowany za pełną ścianą. Obok jest toaleta, a boczne drzwi prowadzą do pralni ze spiżarnią, więc zakupy trafiają od razu do kuchni.",
+  "s2_og": "Z holu z biblioteką rozsuwamy szklane drzwi i wchodzimy do ogrodu cytrusowego. Pośrodku stoi fontanna, wokół rosną drzewka cytrusowe i oliwka, a ściany są krzywe i szklane.",
+  "s3_kuch": "Przez herbaciarnię i salon z kominkiem dochodzimy do kuchni z jadalnią. Ma ponad sześć metrów wysokości, krzywą szklaną ścianę do ogrodu i wyjście na patio za murem.",
+  "s4_biu": "Przez spiżarnię i wiatrołap wracamy do holu, a schodami kręconymi wchodzimy na piętro. Biuro jest niewielkie, ale ma szkło na północ i drzwi na taras poranny.",
+  "s5_syp": "Przez małą galerię przy kopule przechodzimy do sypialni. Ma szklaną ścianę od zachodu i własną łazienkę w narożniku.",
+  "s6_taSW": "Z sypialni wychodzimy na taras wieczorny. Od północy i wschodu osłaniają go wyższe bryły, a na południe i zachód otwiera się widok na okolicę."
+ },
+ "rzuty": "Parter obiega ogród w pętli bez korytarzy, a najwyższe są salon i kuchnia. Na piętrze biuro, galeria ze schodami kręconymi i sypialnia łączą się drzwiami. Tarasy leżą na niższych dachach, tak jak chciał klient.",
+ "zmierzch": "Wieczorem kopuła świeci jak lampa w środku domu, a kamienne ściany od strony drogi pozostają spokojne i ciemne.",
+ "zima": "Zimą kopuła jest zamknięta, a ogród z drzewkami cytrusowymi zbiera słońce i oddaje ciepło pokojom. Tarasy przykrywa śnieg.",
+ "zalety": ["Oranżeria w środku, niewidoczna z zewnątrz", "Taras poranny i taras wieczorny", "Spiżarnia między wejściem a kuchnią", "Wysoki salon z kominkiem i patio"],
+ "wady": ["Krzywe szklane ściany drogie w budowie", "Małe biuro na piętrze", "Kopuła z migawką wymaga serwisu"],
+ "zalety_wady": "Owal ma ukrytą oranżerię, dwa tarasy na różne pory dnia i wygodną drogę od wejścia przez spiżarnię do kuchni. Minusy: krzywe szklane ściany są drogie, biuro jest małe, a mechanizm kopuły wymaga serwisu. Warto wybrać sprawdzony system kopuły i meble do biura robione na wymiar.",
+ "koniec": "Owal: spokojny kamienny prostokąt z cytrusowym, świetlistym sercem."
+}
