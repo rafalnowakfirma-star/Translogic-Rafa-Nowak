@@ -24,7 +24,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P06 Dwa pasma | 168 m² | [pobierz (2:33)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P06_Dwa_pasma/P06_Dwa_pasma_film.mp4) |
 | P07 Ślimak | 165 m² | [pobierz (2:45)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P07_Slimak/P07_Slimak_film.mp4) |
 | P08 Trójkąt | 160 m² | [pobierz (2:35)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P08_Trojkat/P08_Trojkat_film.mp4) |
-| P09 Pawilony | 168 m² | w przygotowaniu |
+| P09 Pawilony | 168 m² | [pobierz (2:33)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P09_Pawilony/P09_Pawilony_film.mp4) |
 | P10 Monolit | 165 m² | w przygotowaniu |
 | P11 Półksiężyc | 163 m² | w przygotowaniu |
 | P12 Oktagon | 168 m² | w przygotowaniu |
