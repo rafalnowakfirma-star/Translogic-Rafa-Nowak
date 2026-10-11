@@ -21,7 +21,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P04 Plaster miodu | 167 m² | [pobierz (2:33)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P04_Plaster_miodu/P04_Plaster_miodu_film.mp4) |
 | P05 Wiatrak | 165 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P05_Wiatrak/P05_Wiatrak_film.mp4) |
 | P06 Dwa pasma | 168 m² | [pobierz (2:33)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P06_Dwa_pasma/P06_Dwa_pasma_film.mp4) |
-| P07 Ślimak | 165 m² | w przygotowaniu |
+| P07 Ślimak | 165 m² | [pobierz (2:45)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P07_Slimak/P07_Slimak_film.mp4) |
 | P08 Trójkąt | 160 m² | w przygotowaniu |
 | P09 Pawilony | 168 m² | w przygotowaniu |
 | P10 Monolit | 165 m² | w przygotowaniu |
