@@ -47,7 +47,8 @@ def obrobka(w, pid, t0, bez_montazu, logdir, main_log):
     lj = os.path.join(out, "lektor", "lektor.json")
     if os.path.exists(nj) and (not os.path.exists(lj) or os.path.getmtime(lj) < os.path.getmtime(nj)):
         with open(os.path.join(logdir, f"v{w}_{pid}_lektor.log"), "a") as lf:
-            subprocess.run([TTS, os.path.join(HERE, "film", "lektor.py"), pid, "--wersja", str(w)],
+            # bez kontroli Whisperem – teksty sprawdzone przy pisaniu, a ASR zabierałby procesor renderom
+            subprocess.run([TTS, os.path.join(HERE, "film", "lektor.py"), pid, "--wersja", str(w), "--bez-sprawdzania"],
                            cwd=HERE, stdout=lf, stderr=subprocess.STDOUT)
     if bez_montazu:
         log(f"v{w} {pid}: rendery gotowe w {time.time() - t0:.0f} s", main_log)

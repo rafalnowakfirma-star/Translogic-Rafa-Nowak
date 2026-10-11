@@ -29,7 +29,10 @@ Q = {
     # rozdzielczość kadrów, próbki (zewn., wnętrza), próg szumu, rozdzielczość i próbki animacji, klatki animacji
     "podglad": dict(res=(640, 360), spp=(16, 24), noise=0.1, ares=(640, 360), aspp=12, aframes=12, ppd=6, pspp=16),
     "szybki": dict(res=(1280, 720), spp=(48, 80), noise=0.04, ares=(1280, 720), aspp=32, aframes=30, ppd=12, pspp=48),
-    "final": dict(res=(1920, 1080), spp=(64, 128), noise=0.02, ares=(1920, 1080), aspp=48, aframes=48, ppd=18, pspp=96),
+    # docelowa: 1080p; próbki dobrane testami (z odszumianiem OIDN 24–48 próbek ≈ 96 wizualnie, 2–3× szybciej);
+    # panoramy spaceru 14 px/° (kadr 78° ma ~20 px/° w środku – lekkie zmiękczenie, ale 2× krótszy render)
+    "final": dict(res=(1920, 1080), spp=(32, 48), noise=0.05, ares=(1920, 1080), aspp=32, aframes=40, ppd=14, pspp=24,
+                  pnoise=0.06),
 }
 SCENY = {"dzien": ("lato", "dzien", False), "zmierzch": ("zima", "zmierzch", False), "zima": ("zima", "zima", True)}
 INTERIOR = ("ogrod", "salon", "sypialnia", "biuro")
@@ -182,7 +185,7 @@ def panoramy(S, stations, P, sdir, od_nowa=False):
         W = int(round((st["lon"][1] - st["lon"][0]) * P["ppd"] / 2)) * 2
         Hh = int(round((st["lat"][1] - st["lat"][0]) * P["ppd"] / 2)) * 2
         inside = st["room"] is not None
-        scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P["noise"], persistent=True)
+        scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P.get("pnoise", P["noise"]), persistent=True)
         ev = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0)
         if prev_ev is not None:
             ev = max(prev_ev - 1.5, min(prev_ev + 1.5, ev))   # oko adaptuje się, ale bez skoków

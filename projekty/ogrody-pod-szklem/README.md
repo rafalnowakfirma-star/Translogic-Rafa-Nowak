@@ -22,6 +22,8 @@ wysoki salon z kuchnią połączony z patio, sypialnię ze szklaną ścianą zew
 
 Opublikowana strona (prywatna, do udostępnienia z menu „Share”): https://claude.ai/artifact/2nZooA7H2jdujE3Ec2JgLe
 
+Archiwum pierwszej wersji katalogu (16 domów sprzed zmian klienta; kopia strony v1 w `strona_v1/` z banerem archiwum): https://claude.ai/artifact/P2izSK4xe3VFVmYYuu4T1B
+
 ## Polecenia
 
 ```bash
