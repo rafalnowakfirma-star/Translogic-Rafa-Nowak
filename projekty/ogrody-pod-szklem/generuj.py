@@ -150,9 +150,12 @@ def images(pid, dst, H=None):
             caps.setdefault(v, pano[v][1])
         elif not os.path.exists(src):
             src = None
+            # stare rendery tylko, gdy są nowsze niż plik domu (po zmianach v2 pokazywałyby poprzedni projekt)
+            spec = glob.glob(os.path.join(HERE, "domy", f"{pid}_*.py"))
+            t_spec = os.path.getmtime(spec[0]) if spec else 0
             for d in ("render", "podglad3d"):
                 f = os.path.join(HERE, "out", pid, d, f"{v}.jpg")
-                if os.path.exists(f):
+                if os.path.exists(f) and os.path.getmtime(f) > t_spec:
                     src, final = f, d == "render"
                     break
         if src is None:

@@ -1,0 +1,21 @@
+{
+ "tytul": "Pawilony. Cztery drewniane pawilony zwarte w pierścień wokół leśnego ogrodu, z dwoma tarasami przy szklanym dachu.",
+ "lotu": "Dom ma sto sześćdziesiąt osiem metrów kwadratowych. Wysokie są tylko salon od zachodu i pawilon nocny od wschodu. Dachy niskich pawilonów od północy i południa to tarasy po obu stronach szklanego dachu ogrodu.",
+ "dach": "Szklane lamele stają pionowo i ciepłe powietrze uchodzi z ogrodu w niebo.",
+ "spacer": {
+  "przed": "Stoimy od północy przed niskim pawilonem wejściowym. Po bokach wznoszą się dwa wysokie, drewniane pawilony, a na dachu wejścia leży taras. Ogród jest stąd niewidoczny.",
+  "s1_wia": "Z małego wiatrołapu przy toalecie wchodzimy do galerii, która biegnie wzdłuż ogrodu. W prawo idzie się do salonu, w lewo przez pralnię do schodów.",
+  "s2_og": "Ogród leśny jest kameralny: brzozy, paprocie, mech i ścieżka z płyt. Pięć pokoi ma do niego szklane drzwi, a nad głową obracają się lamele.",
+  "s3_sal": "Wysoki salon z kuchnią ma dwie szklane ściany. Od wschodu patrzy na ogród, a od zachodu otwiera się na patio za murem.",
+  "s4_biu": "Kręcone schody w holu z biblioteką prowadzą nas na piętro pawilonu nocnego. Małe biuro ma szkło na las od wschodu i drzwi na taras północny.",
+  "s5_syp": "Z holu przez garderobę z łazienką trafiamy do sypialni. Od wschodu ma szkło na drzewa, od zachodu na dach ogrodu, a drzwi prowadzą na taras.",
+  "s6_taS": "Z sypialni wychodzimy na taras południowy nad herbaciarnią i czytelnią. Lamele są tuż obok, więc latem patrzy się z góry na korony brzóz."
+ },
+ "rzuty": "Pawilony łączą ogrzewane wnętrza: galeria od północy, czytelnia od południa i hol z biblioteką od wschodu. Na dole jest pokój gościnny z łazienką, na piętrze sypialnia i biuro. Schody kręcone stoją w holu.",
+ "zmierzch": "Wieczorem ogród jaśnieje między pawilonami, a z zewnątrz widać tylko jasne szczeliny w modrzewiowych deskach.",
+ "zima": "Zimą lamele są zamknięte, a ogród jest ciepłym buforem. Z pawilonu do pawilonu chodzi się przez ogrzewane wnętrza, a tarasy przykrywa śnieg.",
+ "zalety": ["Ogród schowany przed sąsiadami", "Ciepłe przejścia między pawilonami", "Dwa duże tarasy przy ogrodzie", "Pokój gościnny z łazienką na dole"],
+ "wady": ["Do schodów przez pralnię", "Kręcone schody do sypialni", "Do sypialni przez ciasną garderobę"],
+ "zalety_wady": "Zalety: ogród jest schowany przed sąsiadami, a między pawilonami chodzi się w cieple. Biuro i sypialnia mają po dużym tarasie. Minusy: droga do schodów prowadzi przez pralnię, więc warto ją zabudować szafami. Schody są kręcone, ale starsze osoby mogą spać na dole, w pokoju gościnnym z łazienką. Do sypialni idzie się przez ciasną garderobę.",
+ "koniec": "Pawilony: cztery drewniane domy splecione w jeden pierścień wokół ukrytego lasu."
+}

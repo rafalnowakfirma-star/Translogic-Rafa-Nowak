@@ -1,0 +1,31 @@
+{
+ "tytul": "Pomarańczarnia. Trawertynowa willa, która pod dachem ze szklanych lamel chowa jadalnię wśród drzewek pomarańczowych.",
+ "lotu": "Dom ma sto sześćdziesiąt pięć metrów kwadratowych, pięć poniżej limitu. Od północy i zachodu stoją wysokie skrzydła, od wschodu i południa niskie, które wpuszczają do ogrodu słońce. Na ich dachach leżą trzy tarasy.",
+ "dach": "Dach to szklane lamele: uchylone wietrzą ogród, a ustawione pionowo otwierają go na niebo.",
+ "spacer": {
+  "przed": "Wejście jest od północy, w ścianie z trawertynu. Kamień ma tylko szczeliny i wąskie okna, więc z zewnątrz nikt nie zobaczy ani pomarańczy, ani stołu.",
+  "s1_wia": "Wiatrołap jest niewielki i zamknięty, bez widoku na ogród. Prowadzi do dużego holu ze schodami kręconymi, z toaletą i wejściem do kuchni.",
+  "s2_sal": "Hol otwiera się szerokim przejściem na salon. Ma ponad sześć metrów wysokości i szklane ściany do ogrodu i na patio za murem, z pergolą.",
+  "s3_og": "Wchodzimy z salonu do ogrodu zimowego. Stół na osiem osób stoi wśród pięciu drzewek pomarańczowych i oliwki, za nim sześciometrowa harmonijka kuchni. Latem jest złożona, zimą w nocy zamyka ogród.",
+  "s4_biu": "Wracamy do holu i schodami kręconymi wchodzimy na galerię. Stąd przechodzimy do biura przeszklonego od zachodu, z drzwiami na taras przy dachu ogrodu.",
+  "s5_syp": "Dalej idziemy galerią do sypialni. Ma przesuwną szklaną ścianę na ten sam taras, a za nią dużą łazienkę z wanną i prysznicem.",
+  "s6_taN": "Wychodzimy z sypialni na taras, wspólny z biurem. Za trawertynowym murkiem leżą lamele dachu, a dalej tarasem wschodnim i południowym obchodzimy ogród dookoła."
+ },
+ "rzuty": "Na parterze obchodzi się ogród dookoła bez korytarzy: hol, kuchnia, pralnia, pracownia, winiarnia i salon. Na piętrze galeria, biuro, sypialnia i łazienka przechodzą jedno w drugie przy tarasie.",
+ "zmierzch": "Wieczorem ogród świeci przez lamele jak wielki klosz między skrzydłami, a od ulicy kamień zostaje ciemny i cichy.",
+ "zima": "Zimą lamele są zamknięte, a harmonijka rozłożona: drzewka zimują w chłodnej oranżerii, a w słoneczne dni stół dalej służy. Tarasy śpią pod śniegiem.",
+ "zalety": [
+  "Stół wśród pomarańczy w słońcu",
+  "Trzy tarasy wokół szklanego dachu",
+  "Winiarnia, pracownia i patio z pergolą",
+  "Lamele wietrzą ogród bez otwierania"
+ ],
+ "wady": [
+  "Taras wspólny dla biura i sypialni",
+  "Łazienka tylko przez sypialnię",
+  "Zimą stół w chłodnej oranżerii",
+  "Lamele mają wiele uszczelek do serwisu"
+ ],
+ "zalety_wady": "Pomarańczarnia daje jadalnię w słońcu wśród drzewek pomarańczowych, trzy tarasy wokół szklanego dachu, winiarnię i patio z pergolą. Minusy: biuro i sypialnia dzielą taras, do łazienki wchodzi się tylko przez sypialnię, a zimą drzewka wolą chłód, więc pod stołem przyda się ogrzewana posadzka. Uszczelki lamel trzeba co roku przejrzeć.",
+ "koniec": "Pomarańczarnia: kamienna willa ze stołem wśród pomarańczy w samym środku."
+}

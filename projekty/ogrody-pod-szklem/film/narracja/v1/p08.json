@@ -1,0 +1,21 @@
+{
+ "tytul": "Trójkąt. Dom o trzech narożnikach: w jednym wejście, w drugim salon, w trzecim sypialnia, a pośrodku palmy.",
+ "lotu": "Plan to trójkąt o boku prawie dwudziestu ośmiu metrów, a dom ma dwieście pięćdziesiąt metrów kwadratowych. Trzy skrzydła otaczają sześciokątny ogród wysoki na siedem metrów. Piętro stoi nad skrzydłem południowym, z tarasem na cyplu.",
+ "dach": "Szklana harmonijka składa się w pakiet nad jednym bokiem i palmy stają pod gołym niebem.",
+ "spacer": {
+  "przed": "Podchodzimy od północy do ściętego narożnika z drzwiami. Ponad niskimi dachami skrzydeł błyszczą szklane ściany ogrodu, a za nimi korony palm.",
+  "s1_wia": "Z wiatrołapu szerokie przejście prowadzi do holu, skąd przez szkło widać już ogród. Podwójne drzwi w lewo otwierają się prosto do biura.",
+  "s2_og": "Pod szklanym dachem na wysokości siedmiu metrów rosną palmy i monstery, a pośrodku leży sadzawka. Do ogrodu wychodzą drzwi z holu, biura, sypialni, biblioteki i salonu.",
+  "s3_sal": "Salon z kuchnią jest wysoki na sześć i pół metra. Z galerii piętra widać go przez balustradę. Za nami szklana ściana prowadzi na patio w cyplu, w połowie zadaszone.",
+  "s4_biu": "Przez ogród przechodzimy do biura. Ma szkło od ogrodu i od łąki, a klienci wchodzą tu prosto z holu, nie przechodząc przez dom.",
+  "s5_syp": "Z biura przez garderobę przechodzimy do sypialni w narożniku. Jedna szklana ściana patrzy na ogród, druga na krajobraz, a obok jest łazienka.",
+  "s6_tar": "Kręconymi schodami z biblioteki wchodzimy na piętro. Szklaną galerią nad ogrodem idziemy przez pokój gościnny na taras, który leży na dachu sypialni."
+ },
+ "rzuty": "Wokół ogrodu pokoje zamykają się w krąg. Od holu amfilada wiedzie przez pokój muzyczny i spiżarnię do kuchni. Od salonu druga biegnie przez bibliotekę, pralnię i łazienkę do sypialni. Na piętrze są dwa pokoje i łazienka.",
+ "zmierzch": "Wieczorem ogród świeci ponad dachami skrzydeł, a sylwetki palm widać z daleka.",
+ "zima": "Zimą harmonijka jest zamknięta i ogród działa jak szklarnia między skrzydłami. Niskie słońce wchodzi pod nadwieszone piętro do biblioteki i łazienki.",
+ "zalety": ["Biuro z wejściem prosto z holu", "Sypialnia z łazienką na parterze", "Wysoki salon z patio na cyplu", "Nadwieszone piętro zacienia szkło"],
+ "wady": ["Przechodnia łazienka przy sypialni", "Kręcone schody na piętro", "Taras tylko przez pokój gościnny", "Skośne ściany trudniej umeblować"],
+ "zalety_wady": "Mocne strony: biuro ma wejście prosto z holu, a sypialnia z łazienką leży na parterze. Wysoki salon wychodzi na patio. Minusy: przez łazienkę biegnie amfilada, ale tę drogę można omijać ogrodem. Na piętro prowadzą kręcone schody, na taras tylko przez pokój gościnny, a skośne ściany utrudniają meblowanie.",
+ "koniec": "Pierwsza wersja Trójkąta: duży dom, w którym palmy wyrastają ponad dachy."
+}

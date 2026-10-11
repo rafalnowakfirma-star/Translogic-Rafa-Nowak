@@ -1,21 +1,31 @@
 {
  "tytul": "Refektarz. Kwadrat z białej cegły zbudowany jak klasztor, z długim stołem pod szklaną piramidą w środku.",
- "lotu": "Dom ma sto sześćdziesiąt cztery metry kwadratowe, poniżej limitu klienta. Pokoje parteru otaczają ogród ze wszystkich stron, a nad nim stoi szklana piramida. Po jej bokach dach parteru jest tarasami, od północy stoją moduły piętra.",
+ "lotu": "Dom ma sto sześćdziesiąt cztery metry kwadratowe, poniżej limitu klienta. Pokoje parteru otaczają ogród, nad nim stoi szklana piramida, a po jej bokach dach parteru jest tarasami. Od północy stoją moduły piętra.",
  "dach": "Latem latarnia na szczycie piramidy unosi się o siedemdziesiąt centymetrów i ciepło uchodzi górą.",
  "spacer": {
-  "przed": "Stoimy przed północną ścianą z białej cegły. Są w niej tylko drzwi i wąskie szczeliny jak w murze klasztoru, więc ogrodu z drogi nie widać.",
-  "s1_wia": "Wiatrołap jest obszerny i zamknięty, z toaletą obok. Ogrodu stąd nie widać. Jedne drzwi prowadzą do pokoju gościnnego, drugie do biblioteki ze schodami.",
-  "s2_sal": "Przez bibliotekę, spiżarnię i kuchnię dochodzimy do salonu. Ma sześć i pół metra wysokości i dwa rzędy wąskich okien jak dawny refektarz. Szkło jest tylko od ogrodu i patio.",
-  "s3_og": "Z salonu wchodzimy do ogrodu zimowego. Pod piramidą stoi długi stół na dziesięć osób, obok rosną cytrusy. Latem harmonijka od kuchni jest złożona, w mroźne noce rozłożona zamyka ogród jak osobną salę.",
-  "s4_biu": "Wracamy do biblioteki i schodami kręconymi wchodzimy na piętro. Biuro w narożniku ma szkło od północy i zachodu, a drzwi przesuwne wychodzą na taras zachodni.",
-  "s5_syp": "Z holu przechodzimy przez garderobę do sypialni. Garderoba, łazienka za nią i sypialnia tworzą zaciszny kąt piętra, a szklana ściana sypialni wpuszcza poranne słońce.",
-  "s6_taE": "Z sypialni wychodzimy na taras wschodni. Tuż obok lśni piramida ogrodu, a za nią widać drugi taras, przy biurze. Rano jest tu słońce, w południe cień od salonu."
+  "przed": "Stoimy przed północną ścianą z białej cegły. Ma tylko drzwi i wąskie okna, jak mur klasztoru, więc z drogi nie widać ogrodu.",
+  "s1_wia": "Wiatrołap jest obszerny, z toaletą obok, i wciąż bez widoku na ogród. Jedne drzwi prowadzą do pokoju gościnnego, drugie do biblioteki ze schodami.",
+  "s2_sal": "Idziemy przez bibliotekę, spiżarnię i kuchnię do salonu. Ma sześć i pół metra wysokości i wąskie okna jak dawny refektarz, a szyby tylko od ogrodu i patio.",
+  "s3_og": "Wchodzimy z salonu do ogrodu zimowego. Pod piramidą stoi długi stół na dziesięć osób, obok rosną cytrusy. Latem harmonijka od kuchni jest złożona, w mroźne noce rozłożona zamyka ogród.",
+  "s4_biu": "Wracamy do biblioteki i schodami kręconymi wchodzimy na piętro. Biuro w narożniku jest przeszklone od północy i zachodu, z drzwiami na taras zachodni.",
+  "s5_syp": "Dalej, z holu przez garderobę, wchodzimy do sypialni. Garderoba, łazienka i sypialnia tworzą zaciszny kąt piętra, a szklana ściana wpuszcza poranne słońce.",
+  "s6_taE": "Wychodzimy z sypialni na taras wschodni. Obok wznosi się piramida ogrodu, a za nią leży drugi taras, przy biurze. Rano słońce jest tutaj, wieczorem tam."
  },
- "rzuty": "Na parterze idzie się dookoła ogrodu z pokoju do pokoju: biblioteka, spiżarnia, kuchnia i salon, a przy wejściu pokój gościnny. Na piętrze biuro, hol, garderoba z łazienką i jedyna sypialnia stoją w rzędzie między tarasami.",
- "zmierzch": "Wieczorem szczyt piramidy jarzy się nad dachami, a w białej cegle od drogi świecą tylko wąskie szczeliny.",
- "zima": "Zimą piramida jest zamknięta, a harmonijka rozłożona. Ogród z cytrusami to jasna sala, która chroni kuchnię od zimna. Tarasy czekają pod śniegiem.",
- "zalety": ["Stół pod piramidą w sercu domu", "Dwa tarasy po bokach piramidy", "Wysoki salon jak refektarz", "Zwarty kwadrat, prosta budowa"],
- "wady": ["Do sypialni przez garderobę", "Od wejścia do salonu przez spiżarnię", "Jadalnię pod szkłem trzeba grzać i zacieniać", "Latarnia piramidy wymaga serwisu"],
- "zalety_wady": "Refektarz ma stół w sercu domu, dwa tarasy po bokach piramidy i wysoki salon przy patio. Minusy: do sypialni idzie się przez garderobę, a od wejścia do salonu przez spiżarnię. Jadalnię pod szkłem trzeba zimą dogrzewać, a latem zacieniać roletą; latarnię warto co roku przejrzeć.",
- "koniec": "Refektarz: biały klasztorny kwadrat, a w środku stół pod szklaną piramidą."
+ "rzuty": "Na parterze idzie się dookoła ogrodu bez korytarzy: biblioteka, spiżarnia, kuchnia i salon, a przy wejściu pokój gościnny. Piętro to jeden rząd między tarasami: biuro, hol, garderoba z łazienką i sypialnia.",
+ "zmierzch": "Wieczorem piramida jarzy się między tarasami, a w białej cegle od drogi świecą tylko wąskie szczeliny.",
+ "zima": "Zimą piramida jest zamknięta, a harmonijka rozłożona. Ogród z cytrusami to osobna, jasna sala, a ciepło zostaje w kuchni. Tarasy czekają pod śniegiem.",
+ "zalety": [
+  "Stół pod piramidą w sercu domu",
+  "Dwa tarasy po bokach piramidy",
+  "Wysoki salon jak refektarz",
+  "Zwarty kwadrat, prosta budowa"
+ ],
+ "wady": [
+  "Do sypialni przez garderobę",
+  "Od wejścia do salonu przez spiżarnię",
+  "Jadalnię pod szkłem trzeba grzać i zacieniać",
+  "Latarnia piramidy wymaga serwisu"
+ ],
+ "zalety_wady": "Refektarz ma stół w sercu domu, dwa tarasy po bokach piramidy i wysoki salon przy patio. Minusy: do sypialni idzie się przez garderobę, a od wejścia do salonu przez spiżarnię. Jadalnię pod szkłem trzeba zimą dogrzewać, a latem zacieniać roletą; latarnię warto regularnie przeglądać.",
+ "koniec": "Refektarz: biały kwadrat jak klasztor, a w środku stół pod piramidą."
 }

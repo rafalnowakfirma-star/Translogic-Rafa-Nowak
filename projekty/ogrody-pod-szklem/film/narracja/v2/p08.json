@@ -1,0 +1,21 @@
+{
+ "tytul": "Trójkąt. Zwarty biały dom o ściętych narożnikach, który w środku chowa tropikalny ogród pod szklaną harmonijką.",
+ "lotu": "Bok trójkąta ma ponad dwadzieścia metrów, a cały dom sto sześćdziesiąt metrów kwadratowych. W środku leży sześciokątny ogród. Dachy dwóch niskich skrzydeł są tarasami, a nad trzecim stoi ciąg modułów piętra.",
+ "dach": "Szklana harmonijka składa się jak miech akordeonu nad jednym bokiem ogrodu.",
+ "spacer": {
+  "przed": "Stoimy od północy przed ściętym narożnikiem z białego tynku. Na parterze są tylko drzwi i małe okienko, a nad nimi przeszklone biuro. Ogrodu stąd nie widać.",
+  "s1_wia": "Wiatrołap ma pełne ściany, a obok jest łazienka gości. Zieleń zobaczymy dopiero z holu, przez szklane drzwi do ogrodu.",
+  "s2_og": "Ogród tropikalny ma trzydzieści pięć metrów kwadratowych: kamienne płyty, sadzawka i monstery. Drzwi do niego mają cztery pokoje, a herbaciarnia patrzy przez stałe szkło.",
+  "s3_sal": "Salon z kuchnią zajmuje narożnik i sięga pod sam dach. Po prawej mamy szkło do ogrodu, a na wprost kuchnię przy pralni. Kanapa stoi przy patio za murem.",
+  "s4_biu": "Z biblioteki kręconymi schodami wchodzimy na galerię, a z niej do biura nad wejściem. Ma szkło na północ i drzwi na taras zachodni.",
+  "s5_syp": "Galerią wzdłuż szklanego dachu ogrodu idziemy do sypialni w narożniku. Po drodze garderoba i mała łazienka. Sypialnia ma szkło na południowy wschód i wyjście na taras.",
+  "s6_taS": "Taras południowy leży na dachu herbaciarni, tuż przy szklanym dachu ogrodu. Naprzeciwko widać taras zachodni, a latem zagląda się stąd prosto w ogród."
+ },
+ "rzuty": "Na parterze pokoje idą jeden za drugim dookoła ogrodu: hol, biblioteka, pokój gościnny, herbaciarnia, salon i pralnia. Schody kręcone stoją w bibliotece. Na piętrze moduły tworzą jeden ciąg, od biura przez galerię do sypialni.",
+ "zmierzch": "Po zmroku ogród świeci w środku trójkąta, a na zewnątrz wychodzi tylko światło małych okien.",
+ "zima": "Zimą harmonijka zostaje zamknięta i ogród staje się ciepłą szklarnią w sercu domu. Mur patio i pełne ściany osłaniają pokoje od wiatru.",
+ "zalety": ["Tropikalny ogród tylko dla domowników", "Parter dookoła ogrodu, bez korytarzy", "Tarasy przy biurze i sypialni", "Salon na dwie kondygnacje z patio"],
+ "wady": ["Na piętro tylko schodami kręconymi", "Przechodni pokój gościnny", "Łazienka na piętrze tylko cztery metry", "Ukośne ściany utrudniają ustawienie mebli"],
+ "zalety_wady": "Zalety: tropikalny ogród widzą tylko domownicy, parter obchodzi się bez korytarzy, a biuro i sypialnia mają własne tarasy. Minusy: na piętro prowadzą tylko kręcone schody. Pokój gościnny jest przechodni, ale można go ominąć przez salon. Łazienka na górze jest ciasna, a ukośne ściany utrudniają meblowanie.",
+ "koniec": "Trójkąt: zwarty biały dom z tropikalnym sercem ukrytym przed światem."
+}

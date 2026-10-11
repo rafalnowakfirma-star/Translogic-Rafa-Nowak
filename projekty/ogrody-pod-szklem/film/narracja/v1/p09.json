@@ -1,0 +1,20 @@
+{
+ "tytul": "Pawilony. Cztery drewniane domki wokół ogrodu z brzozami. Łączy je szklany krużganek, który zimą osłania, a latem jest werandą.",
+ "lotu": "Dwieście czterdzieści metrów kwadratowych mieści się na jednym poziomie. Pawilony dzienny, nocny, pracy i gościnny stoją w krzyż wokół ogrodu dziesięć na dziewięć metrów. Między nimi zostają patio i dwa tarasy.",
+ "dach": "Lamele nad brzozami ustawiają się pionowo, a szklane ściany krużganka składają się jak parawan.",
+ "spacer": {
+  "przed": "Ścieżka od północy prowadzi do małego pawilonu wejściowego z modrzewia. Po lewej ciągnie się wysoki pawilon dzienny z wąskimi szczelinami okien, a między nimi rośnie brzoza.",
+  "s1_wia": "Wiatrołap z toaletą to początek amfilady. Przez szatnię wchodzimy do wysokiej herbaciarni z matami tatami, a z niej na krużganek i do ogrodu.",
+  "s2_og": "Ogród leśny ma siedem metrów wysokości, żeby zmieściły się brzozy. Między paprociami i mchem prowadzi ścieżka z płyt, a dookoła biegnie krużganek za szklaną harmonijką.",
+  "s3_sal": "Z krużganka wchodzimy do salonu z kuchnią, wysokiego na dwie kondygnacje. Szkło od południa wychodzi na krużganek i patio pod daszkiem.",
+  "s4_biu": "Krużgankiem obchodzimy ogród do pawilonu pracy od południa. Biuro ma prawie pięćdziesiąt metrów kwadratowych i szkło z obu stron, na ogród i na krajobraz.",
+  "s5_syp": "Pawilon nocny wychodzi na wschód. Z krużganka przez garderobę wchodzimy do sypialni z dwiema szklanymi ścianami i własnym tarasem. Obok jest duża łazienka."
+ },
+ "rzuty": "Wszystkie pokoje leżą na jednym poziomie. Od północy stoją pawilon wejściowy i dzienny, a od południa biuro. Sypialnia leży w ramieniu wschodnim, a pokój gościnny z sauną w zachodnim. Łączy je krużganek, bez schodów i korytarzy.",
+ "zmierzch": "Wieczorem krużganek świeci wokół ogrodu jak szklana obręcz, a między pawilonami widać z zewnątrz brzozy.",
+ "zima": "Zimą harmonijki i lamele są zamknięte. Krużganek nie jest ogrzewany, więc przejście bywa chłodne, ale osłonięte od wiatru, jak w oranżerii.",
+ "zalety": ["Wszystko na jednym poziomie, bez schodów", "Każdy pokój z widokiem na krajobraz", "Goście z sauną w osobnym pawilonie", "Szybki montaż z drewnianych modułów"],
+ "wady": ["Zimą chłodne przejścia krużgankiem", "Dużo ścian zewnętrznych, droższe ogrzewanie", "Ogród widoczny między pawilonami", "Wymaga dużej działki"],
+ "zalety_wady": "Największa zaleta to życie na jednym poziomie, bez schodów, a każdy pokój patrzy na krajobraz. Goście mają własny pawilon z sauną, a moduły stawia się w kilka dni. Minusy: zimą do sypialni idzie się chłodnym krużgankiem. Osobne pawilony mają dużo ścian, więc drożej je ogrzać. Ogród widać między pawilonami, ale osłoni go zieleń. Całość potrzebuje dużej działki.",
+ "koniec": "Pierwsza wersja Pawilonów: parterowa osada wokół brzozowego lasu pod szkłem."
+}

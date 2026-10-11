@@ -1,0 +1,31 @@
+{
+ "tytul": "Ten dom to Stół pod niebem: trapez z rdzawej blachy, w którym stół jadalny stoi pod składanym szklanym dachem.",
+ "lotu": "Dom rozszerza się ku południowi, z dziesięciu do prawie szesnastu metrów, i ma sto pięćdziesiąt dziewięć metrów kwadratowych, z zapasem do limitu. Ogród powtarza kształt trapezu, a po bokach szklanego dachu leżą dwa tarasy.",
+ "dach": "Południowa połowa szklanego dachu składa się nad północną: stół zostaje pod niebem, rośliny pod szkłem.",
+ "spacer": {
+  "przed": "Stoimy przed wąskim, północnym końcem domu. W rdzawej blasze są tu tylko drzwi i kilka szczelin, a ogród chowa się za wiatrołapem i holem.",
+  "s1_wia": "Tu jest wiatrołap z toaletą, dalej hol ze schodami kręconymi i pralnia ze spiżarnią. Żadne nie ma okna do ogrodu, wąski koniec domu to zaplecze.",
+  "s2_og": "Wchodzimy przez bibliotekę do ogrodu. Przy szerokim południowym boku stoi stół na osiem osób, tuż przy harmonijce kuchni, a w węższej części rosną rośliny. Latem harmonijka jest złożona, a w mrozy zamyka ogród.",
+  "s3_sal": "Obok, w narożniku, jest salon wysoki na sześć i pół metra. Ma dwie szklane ściany do ogrodu i trzecią na patio, a na zewnątrz tylko okna.",
+  "s4_biu": "Wracamy przez kuchnię, herbaciarnię i pracownię do holu, a schodami kręconymi wchodzimy na galerię. Obok jest biuro przeszklone na dach ogrodu, z drzwiami na duży taras.",
+  "s5_syp": "Galeria patrzy z góry na stół, a z niej przechodzimy do sypialni ze szklaną ścianą od zachodu. Łazienka jest naprzeciwko, bez korytarza.",
+  "s6_taW": "Wychodzimy z sypialni na taras zachodni, na dachu biblioteki. Przez otwartą połowę szklanego dachu widać stół, a dalej duży taras południowy przy biurze."
+ },
+ "rzuty": "Parter to pętla pokoi wokół ogrodu, bez korytarzy: biblioteka, salon, kuchnia, herbaciarnia, pracownia i hol. Na piętrze sypialnia, galeria, łazienka i biuro to cztery moduły przy dwóch tarasach.",
+ "zmierzch": "Wieczorem rdzawa blacha ciemnieje, a między dachami świeci szklany trapez. Z drogi widać tylko kilka małych okien.",
+ "zima": "Zimą dach i harmonijka są zamknięte, a ogród z jadalnią jest ogrzewaną szklarnią w środku domu. Na tarasach leży śnieg.",
+ "zalety": [
+  "Latem stół pod gołym niebem",
+  "Ogród dotyka wszystkich pokoi dziennych",
+  "Duży taras południowy przy biurze",
+  "Rdzawa stal bez malowania i konserwacji"
+ ],
+ "wady": [
+  "Kuchnia niewielka, trzynaście metrów",
+  "Stół zajmuje większość małego ogrodu",
+  "Skośne narożniki, meble na wymiar",
+  "Składany dach i ogrzewanie zimą kosztują"
+ ],
+ "zalety_wady": "Latem je się pod gołym niebem, a przy biurze jest duży taras. Minusy: kuchnia jest mała, choć złożona harmonijka ją powiększa, stół wypełnia większość ogrodu, a skośne narożniki wymagają mebli na wymiar. Zimą szklarnię trzeba ogrzewać, więc przydadzą się ciepłe szyby.",
+ "koniec": "To był Stół pod niebem: rdzawy trapez i jadalnia, nad którą latem znika dach."
+}

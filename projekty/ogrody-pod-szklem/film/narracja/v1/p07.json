@@ -1,0 +1,21 @@
+{
+ "tytul": "Ślimak. Dom z betonu, w którym dach każdego skrzydła jest tarasem dla wyższego, aż po taras na szczycie.",
+ "lotu": "Dom ma dwieście pięćdziesiąt metrów kwadratowych i rośnie jak muszla ślimaka. Skrzydło południowe ma jedną kondygnację, zachodnie dwie, a północne trzy. Zewnętrzne schody wiodą z tarasu na taras wokół ogrodu, aż na dach ponad dziesięć metrów nad ziemią.",
+ "dach": "Szklane lamele obracają się do pionu, a od strony patio składa się szklana harmonijka.",
+ "spacer": {
+  "przed": "Do domu wchodzimy od zachodu. Widzimy betonową ścianę z wąskimi oknami, a nad nią taras drugiego piętra. Po lewej wznosi się najwyższy narożnik.",
+  "s1_wia": "Już w wiatrołapie szklana ściana pokazuje ogród. W lewo przez garderobę idziemy do holu i kuchni, w prawo przez herbaciarnię i pracownię do biura.",
+  "s2_og": "Ogród japoński ma dziewięć na dziewięć metrów: grabiony żwir, kamienie, latarnia, sosna i klon na mchu. Dach jest nisko, więc z pięter widać ogród z góry.",
+  "s3_sal": "Salon z kuchnią sięga dwóch kondygnacji. Jego szklana ściana wystaje ponad dach ogrodu i łapie słońce z południa. Od wschodu wychodzimy na patio z daszkiem.",
+  "s4_biu": "Przez ogród idziemy do biura w parterowym skrzydle południowym. Ma szkło z obu stron: na ogród i na drewniany taras. Nad biurem leży pierwszy taras na dachu.",
+  "s5_syp": "Z holu wchodzimy schodami dwa piętra wyżej. Przez garderobę dochodzimy do sypialni głównej. Jedna szklana ściana patrzy z góry na ogród, druga na wschód słońca.",
+  "s6_t2": "Z holu wychodzimy na taras nad skrzydłem zachodnim. W dole szklany dach ogrodu i taras nad biurem, a schody prowadzą jeszcze wyżej, na dach."
+ },
+ "rzuty": "Parter to amfilada bez korytarzy: od wiatrołapu na północ do kuchni, na południe do biura. Dwie sypialnie są na górze, jedna za biblioteką, druga na drugim piętrze. Schody stoją w holu przy kuchni.",
+ "zmierzch": "Wieczorem ogród jarzy się pod lamelami, a tarasy na trzech poziomach stają się letnimi pokojami.",
+ "zima": "Zimą lamele są zamknięte. Słońce wpada do ogrodu nad parterowym biurem, a najwyższe skrzydło osłania go od wiatru. Tarasy śpią pod śniegiem.",
+ "zalety": ["Spiralna droga tarasów aż na dach", "Zimowe słońce nad niskim skrzydłem", "Amfilady zamiast korytarzy", "Biuro przeszklone z dwóch stron"],
+ "wady": ["Sypialnia główna na drugim piętrze", "Ogród odsłonięty od strony patio", "Schody zewnętrzne zimą do odśnieżania", "Duży i drogi w budowie"],
+ "zalety_wady": "Zalety: tarasy tworzą spiralną drogę aż na dach, a zimowe słońce wpada nad niskim biurem do ogrodu. Minusy: sypialnia główna jest na drugim piętrze, ale piętro niżej jest druga. Ogród widać od patio, pomoże mur albo żywopłot. Schody zewnętrzne trzeba zimą odśnieżać, a duży betonowy dom sporo kosztuje.",
+ "koniec": "To pierwsza wersja Ślimaka: dom, po którego dachach można obejść ogród dookoła."
+}

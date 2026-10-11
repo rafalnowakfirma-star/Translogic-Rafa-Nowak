@@ -1,0 +1,31 @@
+{
+ "tytul": "Oto Szklarnia. Długi dom z modrzewia jak dawna szklarnia ogrodnicza, ze stołem jadalnym w ogrodzie pośrodku.",
+ "lotu": "Pas domu ma dwadzieścia dwa metry długości i sto sześćdziesiąt metrów kwadratowych, w limicie klienta. W środku leży ogród pod przesuwnym dachem, po bokach dwa tarasy, a piętro stoi tylko nad zachodnią głową.",
+ "dach": "Zachodnia połowa dachu odjeżdża po szynach nad wschodnią, a stół zostaje pod gołym niebem.",
+ "spacer": {
+  "przed": "Stoimy od północy, przed zachodnią głową domu. W ścianie z desek modrzewia są tylko drzwi, szczeliny i wstęga okien, więc nikt nie zajrzy do ogrodu.",
+  "s1_wia": "Wiatrołap jest mały, z toaletą za ścianą, a ogród wciąż ukryty. Dalej jest hol ze schodami kręconymi i wejście do kuchni.",
+  "s2_sal": "Idziemy z kuchni przez spiżarnię i pracownię do salonu na końcu domu. Ma sześć i pół metra wysokości, a szklana ściana otwiera go na patio.",
+  "s3_og": "Rozsuwamy drzwi salonu i wchodzimy do ogrodu. Przy harmonijce kuchni stoi stół na osiem osób, obok oliwka. Złożona harmonijka łączy kuchnię i stół w jedną salę, rozłożona zamyka ogród na mroźną noc.",
+  "s4_biu": "Wracamy południową stroną domu do holu, a kręconymi schodami wchodzimy do czytelni. Obok jest biuro, przeszklone na taras i na dach ogrodu.",
+  "s5_syp": "Dalej przechodzimy z biura do sypialni. Jej szklana ściana wychodzi na północ, łóżko stoi zwrócone do szyby, a za sypialnią jest jeszcze łazienka.",
+  "s6_taN": "Wychodzimy na taras północny, na dachu pracowni. Patrzymy stąd z góry na stół w ogrodzie, a po drugiej stronie leży długi taras południowy."
+ },
+ "rzuty": "Parter obchodzi się bez korytarzy dwiema drogami wzdłuż ogrodu: północną przez pracownię, południową przez bibliotekę i herbaciarnię. Na piętrze czytelnia, biuro, sypialnia i łazienka tworzą jeden ciąg przy tarasach.",
+ "zmierzch": "Wieczorem szklany dach świeci w środku długiego pasa, a przez wstęgi okien pod sufitem wypływa tylko smuga światła.",
+ "zima": "Zimą dach jest zasunięty, tarasy pod śniegiem. Na noc rozkłada się harmonijkę i ogród jest chłodnym buforem, w dzień stół znów stoi w słońcu.",
+ "zalety": [
+  "Kuchnia, stół i ogród w jednej sali",
+  "Taras długi na trzynaście metrów",
+  "Patio jak otwarty koniec szklarni",
+  "Szybka budowa z drewnianych prefabrykatów"
+ ],
+ "wady": [
+  "Kuchnia bez okien na zewnątrz",
+  "Do sypialni przez biuro",
+  "Potrzebna długa, wąska działka",
+  "Szyny dachu wymagają czyszczenia"
+ ],
+ "zalety_wady": "Ten dom łączy kuchnię, stół i ogród w jedną długą salę, ma taras długi na trzynaście metrów i duże patio. Minusy: kuchnia nie ma okien na zewnątrz, więc harmonijkę trzyma się złożoną, do sypialni idzie się przez biuro, a działka musi być długa. Szyny dachu trzeba czyścić co sezon.",
+ "koniec": "Taka jest Szklarnia: długi drewniany pas, a w jego sercu stół wśród roślin."
+}
