@@ -149,12 +149,19 @@ def wczytaj_rgb(p):
     return im.convert("RGB")
 
 
+def okno(box, W, H):
+    """Prostokąt źródła przycięty do obrazu W×H (błędy zaokrągleń dają np. x0 = −1e−13, czego PIL nie przyjmuje)."""
+    x0, y0, x1, y1 = box
+    x0, y0 = min(max(0.0, x0), W - 1.0), min(max(0.0, y0), H - 1.0)
+    return x0, y0, min(max(x0 + 1.0, x1), float(W)), min(max(y0 + 1.0, y1), float(H))
+
+
 def kadruj_pokrycie(im, w, h, filtr=Image.LANCZOS):
     """Skalowanie z przycięciem do środka (pokrycie całego kadru w×h)."""
     s = max(w / im.width, h / im.height)
     bw, bh = w / s, h / s
     x0, y0 = (im.width - bw) / 2, (im.height - bh) / 2
-    return im.resize((w, h), filtr, box=(x0, y0, x0 + bw, y0 + bh))
+    return im.resize((w, h), filtr, box=okno((x0, y0, x0 + bw, y0 + bh), im.width, im.height))
 
 
 def wczytaj_audio(p, kanaly=1, sr=SR_AUDIO):
@@ -611,7 +618,7 @@ class UjecieKadr(Ujecie):
 
     def klatka(self, k):
         c = self.ctx
-        kl = np.array(self.im.resize((c.W, c.H), c.filtr, box=self.okno_box(k)))
+        kl = np.array(self.im.resize((c.W, c.H), c.filtr, box=okno(self.okno_box(k), self.im.width, self.im.height)))
         if self.podpis:
             self.podpis.rysuj(kl, k / FPS)
         return kl
@@ -913,7 +920,8 @@ class UjecieRzut(Ujecie):
         px, py = self.biegun
         x0 = min(max(px - px / z, 0.0), self.Ws - ww)
         y0 = min(max(py - py / z, 0.0), self.Hs - wh)
-        kl = np.array(self.arkusz.resize((c.W, c.H), c.filtr, box=(x0, y0, x0 + ww, y0 + wh)))
+        kl = np.array(self.arkusz.resize((c.W, c.H), c.filtr,
+                                         box=okno((x0, y0, x0 + ww, y0 + wh), self.arkusz.width, self.arkusz.height)))
         self.podpis.rysuj(kl, k / FPS)
         return kl
 
@@ -935,7 +943,7 @@ class UjecieTlo(Ujecie):
         bw, bh = self.bg.size
         ww, wh = bw / z, bh / z
         x0, y0 = (bw - ww) / 2, (bh - wh) / 2
-        kl = np.array(self.bg.resize((c.W, c.H), Image.BILINEAR, box=(x0, y0, x0 + ww, y0 + wh)))
+        kl = np.array(self.bg.resize((c.W, c.H), Image.BILINEAR, box=okno((x0, y0, x0 + ww, y0 + wh), bw, bh)))
         t = k / FPS
         for e in self.elementy:
             e.rysuj(kl, t)

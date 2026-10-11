@@ -55,7 +55,7 @@ def obrobka(w, pid, t0, bez_montazu, logdir, main_log):
         return
     t1 = time.time()
     with open(os.path.join(logdir, f"v{w}_{pid}_montaz.log"), "a") as lf:
-        r = subprocess.run([sys.executable, os.path.join(HERE, "film", "scenariusz.py"), pid, "--wersja", str(w),
+        r = subprocess.run([sys.executable, "-u", os.path.join(HERE, "film", "scenariusz.py"), pid, "--wersja", str(w),
                             "--montuj"], cwd=HERE, stdout=lf, stderr=subprocess.STDOUT)
     ok = r.returncode == 0 and os.path.exists(film)
     log(f"v{w} {pid}: {'film gotowy' if ok else 'BŁĄD montażu'} (montaż {time.time() - t1:.0f} s, "
