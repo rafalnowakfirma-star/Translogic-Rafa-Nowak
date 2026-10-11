@@ -1502,8 +1502,9 @@ def montuj(sb, katalog=None, podglad=False, web=None, watki=3, klatki=None):
     if podglad:
         opcje = ["-preset", "veryfast", "-crf", "23", "-profile:v", "high", "-g", "50"]
     else:
-        opcje = ["-preset", "slow", "-crf", "19", "-profile:v", "high", "-level:v", "4.1", "-g", "100",
-                 "-x264-params", "aq-mode=3"]
+        # CRF z storyboardu (domyślnie 19); limit szczytów przepływności ułatwia podział filmu na części ≤ 20 MB
+        opcje = ["-preset", "slow", "-crf", str(sb.get("crf", 19)), "-maxrate", "8M", "-bufsize", "16M",
+                 "-profile:v", "high", "-level:v", "4.1", "-g", "100", "-x264-params", "aq-mode=3"]
     kodery = [(_koder(tmp_v, m.W, m.H, opcje, log), tmp_v)]
     web_mb = float(sb.get("web_mb_na_minute", WEB_MB_NA_MINUTE)) * czas / 60.0
     ab_web = "128k"

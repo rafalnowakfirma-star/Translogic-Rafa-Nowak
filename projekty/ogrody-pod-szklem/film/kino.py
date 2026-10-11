@@ -24,7 +24,56 @@ def czas(fn):
     return float(r.stdout.strip() or 0)
 
 
-def czesci_web(src, dst_dir, base, part_s=45.0, target_mb=18.0, limit_mb=19.5):
+def czesci_kopia(src, dst_dir, base, limit_mb=18.5):
+    """Film → części MP4 bez ponownego kodowania (jakość oryginału): cięcia na klatkach kluczowych dobrane tak,
+    by każda część miała ≤ limit_mb (zasoby strony przyjmują pliki do 20 MiB)."""
+    os.makedirs(dst_dir, exist_ok=True)
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "packet=pts_time,size,flags",
+                        "-of", "csv=p=0", src], capture_output=True, text=True, check=True)
+    gopy = []                                   # [czas początku, bajty] kolejnych grup klatek
+    for line in r.stdout.split():
+        t, sz, fl = line.split(",")[:3]
+        if "K" in fl or not gopy:
+            gopy.append([float(t), 0])
+        gopy[-1][1] += int(sz)
+    gopy.sort()
+    dur = czas(src)
+    audio_bps = 170e3 / 8                       # AAC ~164 kb/s + narzut kontenera
+    limit = limit_mb * 1e6
+    ciecia, acc, t0 = [], 0.0, gopy[0][0]
+    for i, (t, b) in enumerate(gopy):
+        t_nast = gopy[i + 1][0] if i + 1 < len(gopy) else dur
+        dodatek = b + audio_bps * (t_nast - t)
+        if acc > 0 and acc + dodatek > limit:
+            ciecia.append(t)
+            acc, t0 = 0.0, t
+        acc += dodatek
+    for f in glob.glob(os.path.join(dst_dir, f"{base}_*.mp4")):
+        os.remove(f)
+    cmd = ["ffmpeg", "-y", "-v", "error", "-i", src, "-map", "0", "-c", "copy", "-f", "segment",
+           "-reset_timestamps", "1", "-segment_format", "mp4", "-segment_format_options", "movflags=+faststart"]
+    if ciecia:
+        cmd += ["-segment_times", ",".join(f"{t:.3f}" for t in ciecia)]
+    else:
+        cmd += ["-segment_time", "100000"]
+    subprocess.run(cmd + [os.path.join(dst_dir, f"{base}_%02d.mp4")], check=True)
+    out = []
+    for f in sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4"))):
+        if os.path.getsize(f) / 1e6 > 19.8:
+            return None                         # wyjątkowo gęsty fragment – lepiej przekodować
+        out.append((os.path.basename(f), czas(f)))
+    return out
+
+
+def czesci(src, dst_dir, base):
+    """Części gotowe i nowsze niż film – bez zmian; inaczej kopia strumienia, a gdy część za duża – przekodowanie."""
+    done = sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4")))
+    if done and all(os.path.getmtime(f) > os.path.getmtime(src) for f in done):
+        return [(os.path.basename(f), czas(f)) for f in done]
+    return czesci_kopia(src, dst_dir, base) or czesci_web(src, dst_dir, base)
+
+
+def czesci_web(src, dst_dir, base, part_s=40.0, target_mb=16.0, limit_mb=19.8):
     """Film → części MP4 (H.264 1080p, AAC) po ~45 s, każda ≤ 19,5 MB, cięte na klatkach kluczowych."""
     os.makedirs(dst_dir, exist_ok=True)
     done = sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4")))
@@ -87,7 +136,7 @@ def main():
                 continue
             s = json.load(open(sb, encoding="utf-8"))
             base = f"v{w}_{pid}"
-            parts = czesci_web(mp4, pl, base)
+            parts = czesci(mp4, pl, base)
             pos = os.path.join(d, "kadry", "lotu.png")
             if os.path.exists(pos):
                 plakat(pos, os.path.join(pl, f"{base}.jpg"))
@@ -98,7 +147,7 @@ def main():
     tpl = open(os.path.join(HERE, "film", "kino_szablon.html"), encoding="utf-8").read()
     ws = [dict(id=w, nazwa=WERSJE[w]) for w in wersje if any(f["wersja"] == w for f in filmy)]
     rep = {
-        "{{TYTUL}}": "Ogrody pod szkłem – kino",
+        "{{TYTUL}}": "Kino ogrodów pod szkłem",
         "{{OPIS}}": "Filmy z lektorem i spacerem po każdym domu. Na telewizorze: wybierz film strzałkami pilota i zatwierdź, "
                     "„Pełny ekran” powiększa obraz.",
         "{{STOPKA}}": "Wizualizacje koncepcyjne, wymiary orientacyjne. Lektor: syntezator mowy Piper (głos pl_PL gosia). "
