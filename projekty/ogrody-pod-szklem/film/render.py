@@ -168,7 +168,8 @@ def panoramy(S, stations, P, sdir, od_nowa=False):
     os.makedirs(sdir, exist_ok=True)
     t0 = time.time()
     meta = []
-    prev_ev = None
+    pokoje = {r.key: r for r in S["H"].rooms}
+    prev_ev, prev_inside = None, None
     for st in stations:
         fn = os.path.join(sdir, st["id"] + ".png")
         cam = bpy.data.cameras.new("pano_" + st["id"])
@@ -184,17 +185,20 @@ def panoramy(S, stations, P, sdir, od_nowa=False):
         sc.camera = co
         W = int(round((st["lon"][1] - st["lon"][0]) * P["ppd"] / 2)) * 2
         Hh = int(round((st["lat"][1] - st["lat"][0]) * P["ppd"] / 2)) * 2
-        inside = st["room"] is not None
+        r = pokoje.get(st["room"])
+        inside = r is not None and not r.outdoor          # taras liczy się jako „na dworze”
         scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P.get("pnoise", P["noise"]), persistent=True)
-        ev = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0)
-        if prev_ev is not None:
-            ev = max(prev_ev - 1.5, min(prev_ev + 1.5, ev))   # oko adaptuje się, ale bez skoków
+        ev = ev_zmierzone = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0)
+        if prev_ev is not None and prev_inside == inside:
+            # między pokojami oko adaptuje się, ale bez skoków; wejście z dworu do środka (i wyjście) – pełna ekspozycja
+            ev = max(prev_ev - 2.0, min(prev_ev + 2.0, ev))
             sc.view_settings.exposure = ev
-        prev_ev = ev
+        prev_ev, prev_inside = ev, inside
         if od_nowa or not os.path.exists(fn):
             sc.render.filepath = fn
             bpy.ops.render.render(write_still=True)
-            print(f"PANORAMA {st['id']} {W}×{Hh} {time.time() - t0:.0f} s, ekspozycja {ev:+.2f}", flush=True)
+            print(f"PANORAMA {st['id']} {W}×{Hh} {time.time() - t0:.0f} s, ekspozycja {ev:+.2f}"
+                  f" (zmierzona {ev_zmierzone:+.2f})", flush=True)
         meta.append(dict(st, obraz=f"spacer/{st['id']}.png", ev=round(ev, 2)))
     json.dump(meta, open(os.path.join(sdir, "spacer.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return round(time.time() - t0, 1)
