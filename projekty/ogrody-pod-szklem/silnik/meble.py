@@ -595,7 +595,10 @@ def r_salon(room, P):
 
 
 def r_kuchnia(room, P):
-    _kitchen_living(room, P, with_k=True, with_d=True, with_l=False)
+    # kuchnia przy ogrodzie-jadalni: stół stoi w ogrodzie, w kuchni go nie dublujemy
+    jad = any(run.room is room and run.other is not None and run.other.kind == "ogrod"
+              and getattr(run.other, "style", None) == "jadalnia" for run in room.house.L[room.level]["runs"])
+    _kitchen_living(room, P, with_k=True, with_d=not jad, with_l=False)
 
 
 def r_jadalnia(room, P):

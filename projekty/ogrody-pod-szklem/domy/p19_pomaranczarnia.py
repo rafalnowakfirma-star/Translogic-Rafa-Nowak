@@ -17,17 +17,19 @@ H = House(
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.2)
 
-H.ogrod("og", "Ogród zimowy z jadalnią", rect(XW, YN, XE, YS), levels=1, roof_type="louvre", style="jadalnia", seed=19)
+H.ogrod("og", "Ogród zimowy z jadalnią", rect(XW, YN, XE, YS), levels=1, roof_type="louvre", style="jadalnia", seed=19,
+        trees=[("cytrus", 5.05, 6.75, 0.4, 2.0), ("cytrus", 9.75, 6.75, 0.4, 2.0), ("cytrus", 9.75, 9.65, 0.4, 2.0)])
 
 # ---- parter: wysokie L (północ + zachód)
-H.room("hol", "Hol z biblioteką", "biblioteka", rect(0, 0, XW, YN), ext={"W": "band_high", "N": "slits"})
-H.room("wia", "Wiatrołap", "wiatrolap", rect(XW, 0, 7.0, YK), ext="slits")
-H.room("wc", "WC", "wc", rect(7.0, 0, 8.4, YK))
-H.room("kuch", "Kuchnia", "kuchnia", poly((XW, YK), (8.4, YK), (8.4, 0), (XE, 0), (XE, YN), (XW, YN)),
-       garden="fold", ext={"N": "windows"}, kitchen_at="N")
+H.room("hol", "Hol z biblioteką", "biblioteka", poly((0, 0), (XW, 0), (XW, YN), (1.8, YN), (1.8, 3.6), (0, 3.6)),
+       ext={"W": "band_high", "N": "slits"})
+H.room("wc", "WC", "wc", rect(0, 3.6, 1.8, YN))
+H.room("wia", "Wiatrołap", "wiatrolap", rect(XW, 0, 7.2, YK), ext="slits")
+H.room("spi", "Spiżarnia", "spizarnia", rect(7.2, 0, XE, YK))
+H.room("kuch", "Kuchnia", "kuchnia", rect(XW, YK, XE, YN), garden="fold", kitchen_at="N")
 H.room("sal", "Salon", "salon", rect(0, YN, XW, YY), levels=2,
        ext={"pat": "glass_slide", "W": "glass", "E": "glass", "taS": "windows", "S": "band_high"})
-H.room("pat", "Patio za murem", "patio", rect(-4.4, YN, 0, YY), roof=rect(-4.4, 9.8, 0, YY), enclose="gwall",
+H.room("pat", "Patio za murem", "patio", rect(-4.4, YN, 0, YY), roof=rect(-2.0, YN, 0, YY), enclose="gwall",
        floor="trawertyn")
 
 # ---- parter: niskie skrzydła gospodarcze (wschód + południe)
@@ -50,9 +52,10 @@ H.room("taS", "Taras południowy", "taras", rect(XW, YS, XE, YY), level=1, enclo
 
 # ---- połączenia parteru (amfilada dookoła ogrodu)
 H.connect("wia", "hol", "door")
-H.connect("wia", "wc", "door")
+H.connect("hol", "wc", "door")
 H.connect("hol", "kuch", "wide")
 H.connect("hol", "sal", "wide")
+H.connect("kuch", "spi", "door")
 H.connect("kuch", "pral", "door")
 H.connect("pral", "tech", "door")
 H.connect("pral", "pra", "door")
