@@ -65,7 +65,7 @@ def czesci_kopia(src, dst_dir, base, limit_mb=18.5):
     return out
 
 
-def wersja_tv(src, dst_dir, base, vbit=1150e3, abit="80k", limit_mb=13.5):
+def wersja_tv(src, dst_dir, base, vbit=1000e3, abit="80k", limit_mb=13.5):
     """Lżejsza wersja filmu do stron publicznych (720p, ~1,2 Mb/s, 2 przebiegi) pocięta na części ≤ limit_mb
     (pliki strony mogą mieć do 15 MB). Gotowe części nowsze niż film – bez zmian."""
     os.makedirs(dst_dir, exist_ok=True)
