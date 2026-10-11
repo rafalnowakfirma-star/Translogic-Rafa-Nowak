@@ -1,0 +1,60 @@
+# Ogrody pod szkłem – folder „domy” na pendrive
+
+Filmy (MP4 1080p z lektorem), zdjęcia i rzuty (JPG) oraz opisy wszystkich domów – do oglądania na telewizorze z pendrive'a.
+
+## Jak przenieść na telewizor
+
+1. Pobierz całość: **[Download ZIP](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/archive/refs/heads/ogrody-pendrive.zip)** (albo pojedyncze filmy z listy poniżej).
+2. Rozpakuj i skopiuj folder **`domy`** na pendrive (FAT32 lub exFAT).
+3. Włóż pendrive do telewizora → odtwarzacz multimediów / USB → folder `domy` → wybierz dom.
+
+W folderze każdego domu: film `…_film.mp4`, zdjęcia `01_…jpg`, rzuty `Rzut_…jpg` i `opis.txt`.
+Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, które już są.
+
+## Wersja 2 (aktualna)
+
+| Dom | Powierzchnia | Film |
+|---|---|---|
+| P01 Krużganek | 167 m² | [pobierz (2:31)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P01_Kruzganek/P01_Kruzganek_film.mp4) |
+| P02 Wieża | 168 m² | [pobierz (2:39)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P02_Wieza/P02_Wieza_film.mp4) |
+| P03 Pierścień | 166 m² | w przygotowaniu |
+| P04 Plaster miodu | 167 m² | w przygotowaniu |
+| P05 Wiatrak | 165 m² | w przygotowaniu |
+| P06 Dwa pasma | 168 m² | w przygotowaniu |
+| P07 Ślimak | 165 m² | w przygotowaniu |
+| P08 Trójkąt | 160 m² | w przygotowaniu |
+| P09 Pawilony | 168 m² | w przygotowaniu |
+| P10 Monolit | 165 m² | w przygotowaniu |
+| P11 Półksiężyc | 163 m² | w przygotowaniu |
+| P12 Oktagon | 168 m² | w przygotowaniu |
+| P13 Kubik | 168 m² | w przygotowaniu |
+| P14 Zygzak | 163 m² | w przygotowaniu |
+| P15 Wachlarz | 164 m² | w przygotowaniu |
+| P16 Owal | 167 m² | w przygotowaniu |
+| P17 Refektarz | 164 m² | w przygotowaniu |
+| P18 Szklarnia | 160 m² | w przygotowaniu |
+| P19 Pomarańczarnia | 165 m² | w przygotowaniu |
+| P20 Stół pod niebem | 159 m² | w przygotowaniu |
+
+## Wersja 1 – archiwum (przed zmianami)
+
+| Dom | Powierzchnia | Film |
+|---|---|---|
+| P01 Krużganek | 279 m² | w przygotowaniu |
+| P02 Wieża | 254 m² | w przygotowaniu |
+| P03 Pierścień | 211 m² | w przygotowaniu |
+| P04 Plaster miodu | 243 m² | w przygotowaniu |
+| P05 Wiatrak | 251 m² | w przygotowaniu |
+| P06 Dwa pasma | 248 m² | w przygotowaniu |
+| P07 Ślimak | 250 m² | w przygotowaniu |
+| P08 Trójkąt | 249 m² | w przygotowaniu |
+| P09 Pawilony | 240 m² | w przygotowaniu |
+| P10 Monolit | 249 m² | w przygotowaniu |
+| P11 Półksiężyc | 239 m² | w przygotowaniu |
+| P12 Oktagon | 236 m² | w przygotowaniu |
+| P13 Kubik | 174 m² | w przygotowaniu |
+| P14 Zygzak | 257 m² | w przygotowaniu |
+| P15 Wachlarz | 250 m² | w przygotowaniu |
+| P16 Owal | 252 m² | w przygotowaniu |
+
+Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.

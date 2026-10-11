@@ -1,0 +1,49 @@
+﻿OGRODY POD SZKŁEM – domy wokół prywatnego ogrodu pod otwieranym szklanym dachem
+
+Na telewizorze: włóż pendrive, otwórz odtwarzacz multimediów (USB) i wejdź do folderu „domy”.
+W folderze każdego domu: film (MP4, 1080p, z lektorem), zdjęcia i rzuty (JPG) oraz opis (opis.txt).
+
+
+WERSJA 2 (aktualna)
+
+  P01  Krużganek               167 m²   film 2:31             wersja_2/P01_Kruzganek
+  P02  Wieża                   168 m²   film 2:39             wersja_2/P02_Wieza
+  P03  Pierścień               166 m²   film w przygotowaniu  wersja_2/P03_Pierscien
+  P04  Plaster miodu           167 m²   film w przygotowaniu  wersja_2/P04_Plaster_miodu
+  P05  Wiatrak                 165 m²   film w przygotowaniu  wersja_2/P05_Wiatrak
+  P06  Dwa pasma               168 m²   film w przygotowaniu  wersja_2/P06_Dwa_pasma
+  P07  Ślimak                  165 m²   film w przygotowaniu  wersja_2/P07_Slimak
+  P08  Trójkąt                 160 m²   film w przygotowaniu  wersja_2/P08_Trojkat
+  P09  Pawilony                168 m²   film w przygotowaniu  wersja_2/P09_Pawilony
+  P10  Monolit                 165 m²   film w przygotowaniu  wersja_2/P10_Monolit
+  P11  Półksiężyc              163 m²   film w przygotowaniu  wersja_2/P11_Polksiezyc
+  P12  Oktagon                 168 m²   film w przygotowaniu  wersja_2/P12_Oktagon
+  P13  Kubik                   168 m²   film w przygotowaniu  wersja_2/P13_Kubik
+  P14  Zygzak                  163 m²   film w przygotowaniu  wersja_2/P14_Zygzak
+  P15  Wachlarz                164 m²   film w przygotowaniu  wersja_2/P15_Wachlarz
+  P16  Owal                    167 m²   film w przygotowaniu  wersja_2/P16_Owal
+  P17  Refektarz               164 m²   film w przygotowaniu  wersja_2/P17_Refektarz
+  P18  Szklarnia               160 m²   film w przygotowaniu  wersja_2/P18_Szklarnia
+  P19  Pomarańczarnia          165 m²   film w przygotowaniu  wersja_2/P19_Pomaranczarnia
+  P20  Stół pod niebem         159 m²   film w przygotowaniu  wersja_2/P20_Stol_pod_niebem
+
+WERSJA 1 (archiwum – przed zmianami)
+
+  P01  Krużganek               279 m²   film w przygotowaniu  wersja_1_archiwum/P01_Kruzganek
+  P02  Wieża                   254 m²   film w przygotowaniu  wersja_1_archiwum/P02_Wieza
+  P03  Pierścień               211 m²   film w przygotowaniu  wersja_1_archiwum/P03_Pierscien
+  P04  Plaster miodu           243 m²   film w przygotowaniu  wersja_1_archiwum/P04_Plaster_miodu
+  P05  Wiatrak                 251 m²   film w przygotowaniu  wersja_1_archiwum/P05_Wiatrak
+  P06  Dwa pasma               248 m²   film w przygotowaniu  wersja_1_archiwum/P06_Dwa_pasma
+  P07  Ślimak                  250 m²   film w przygotowaniu  wersja_1_archiwum/P07_Slimak
+  P08  Trójkąt                 249 m²   film w przygotowaniu  wersja_1_archiwum/P08_Trojkat
+  P09  Pawilony                240 m²   film w przygotowaniu  wersja_1_archiwum/P09_Pawilony
+  P10  Monolit                 249 m²   film w przygotowaniu  wersja_1_archiwum/P10_Monolit
+  P11  Półksiężyc              239 m²   film w przygotowaniu  wersja_1_archiwum/P11_Polksiezyc
+  P12  Oktagon                 236 m²   film w przygotowaniu  wersja_1_archiwum/P12_Oktagon
+  P13  Kubik                   174 m²   film w przygotowaniu  wersja_1_archiwum/P13_Kubik
+  P14  Zygzak                  257 m²   film w przygotowaniu  wersja_1_archiwum/P14_Zygzak
+  P15  Wachlarz                250 m²   film w przygotowaniu  wersja_1_archiwum/P15_Wachlarz
+  P16  Owal                    252 m²   film w przygotowaniu  wersja_1_archiwum/P16_Owal
+
+Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.
