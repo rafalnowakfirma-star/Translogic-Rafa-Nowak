@@ -303,6 +303,74 @@ def _fit_distance(H, phi, el, lens, fill=0.8, aspect=16 / 9, tz=None):
     return d, (ex, ey, ez), (cx, cy, tz)
 
 
+def _bryly(H):
+    """Bryły zasłaniające: (wielokąt, wysokość wierzchu) – pokoje z dachem/stropem i mury patio."""
+    out = []
+    for r in H.all_rooms:
+        if r.parent is not None or r.kind in ("ogrod", "void", "ogrod_void"):
+            continue
+        if r.outdoor:
+            if r.enclose in ("gwall", "solid", "wall"):
+                out.append((r.poly.boundary.buffer(0.15), r.z0 + 2.6))
+            continue
+        out.append((r.poly, r.top + 0.75))
+    return out
+
+
+def widocznosc(H, cam, pts, bryly=None):
+    """Udział punktów 3D widocznych z kamery (prosty test 2,5D: odcinek nie może przejść pod wierzchem bryły)."""
+    bryly = bryly or _bryly(H)
+    cx, cy, cz = cam
+    ok = 0
+    for (px, py, pz) in pts:
+        seg = LineString([(px, py), (cx, cy)])
+        L = seg.length or 1e-6
+        vis = True
+        for poly, zt in bryly:
+            if zt <= pz + 0.05:
+                continue
+            inter = seg.intersection(poly)
+            if inter.is_empty:
+                continue
+            # najniższy punkt odcinka nad bryłą to jego wejście nad bryłę (najbliżej celu)
+            d = min(Point(px, py).distance(g) for g in getattr(inter, "geoms", [inter]))
+            z = pz + (cz - pz) * d / L
+            if z < zt:
+                vis = False
+                break
+        ok += vis
+    return ok / max(1, len(pts))
+
+
+def ujecie_dachu(H, phi_pref, lens=35.0):
+    """Kamera z góry, z której widać szklany dach ogrodu (animacja otwierania)."""
+    gs = [r for r in H.all_rooms if r.kind == "ogrod"]
+    if not gs:
+        return None
+    g = gs[0]
+    pts = []
+    for q in [g.poly.buffer(-0.4)] if not g.poly.buffer(-0.4).is_empty else [g.poly]:
+        minx, miny, maxx, maxy = q.bounds
+        for i in range(5):
+            for j in range(5):
+                P = Point(minx + (maxx - minx) * (i + 0.5) / 5, miny + (maxy - miny) * (j + 0.5) / 5)
+                if q.contains(P):
+                    pts.append((P.x, P.y, g.roof_z + 0.1))
+    br = _bryly(H)
+    best = None
+    for el_d in (52, 60, 68):
+        for k in range(24):
+            phi = 2 * math.pi * k / 24
+            d, loc, tgt = _fit_distance(H, phi, math.radians(el_d), lens, fill=0.82, tz=g.roof_z)
+            v = widocznosc(H, loc, pts, br)
+            dphi = abs((phi - phi_pref + math.pi) % (2 * math.pi) - math.pi)
+            score = v - 0.08 * dphi - 0.002 * (el_d - 52)
+            if best is None or score > best[0]:
+                best = (score, v, loc, tgt, phi, el_d)
+    _, v, loc, tgt, phi, el_d = best
+    return dict(loc=loc, target=tgt, lens=lens, shift_y=0.0, poziom=False, widac=round(v, 2))
+
+
 def _side_scores(H):
     """Atrakcyjność stron domu (szkło, tarasy, patio) dla 24 kierunków (kąt w układzie planu)."""
     minx, miny, maxx, maxy = H.bbox
@@ -358,6 +426,10 @@ def plan_ujec(H, wersja=2):
                   podpis="Z lotu ptaka", podpis2=f"{_num(area)} m² użytkowe · ogród pod szkłem {_num(og)} m²",
                   ruch="zoom_in", fokus=(0.5, 0.5), ekspo=0.0))
     if g0 is not None:
+        cd = ujecie_dachu(H, phi_a)
+        if cd is not None:
+            U.append(dict(id="dach", scena="dzien", sun=sun, cam=cd, podpis="Dach ogrodu", podpis2=DACH.get(g0.roof_type, ""),
+                          ruch="statyczny", fokus=(0.5, 0.5), ekspo=0.0, tylko_anim=True))
         c = ujecie_ogrodu(H, g0)
         U.append(dict(id="ogrod", scena="dzien", sun=sun, cam=c, podpis="Ogród pod szkłem",
                       podpis2=f"{STYL.get(g0.style, 'ogród')} · {DACH.get(g0.roof_type, 'dach otwierany')}",

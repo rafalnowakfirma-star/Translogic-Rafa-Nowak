@@ -1,0 +1,21 @@
+{
+ "tytul": "Plaster miodu. Dom z sześciokątów, w którym sześć pokoi otacza mały las pod szklaną piramidą.",
+ "lotu": "Dom ma sto sześćdziesiąt siedem metrów kwadratowych. Sześć segmentów parteru zamyka pierścień wokół ogrodu, nad którym stoi szklana piramida. Po jej bokach leżą dwa tarasy, a od północy trzy moduły piętra.",
+ "dach": "Latem szklana latarnia na szczycie piramidy unosi się o siedemdziesiąt centymetrów i ciepłe powietrze uchodzi górą.",
+ "spacer": {
+  "przed": "Podchodzimy od północnego wschodu, przez sześciokątny ganek. Ciemna elewacja z opalanych desek ma tylko wąskie okna, więc nikt z drogi nie zgadnie, że w środku rośnie las.",
+  "s1_wia": "Wiatrołap od strony ogrodu ma pełną ścianę. Obok są drzwi do pralni ze spiżarnią, a ogród pokazuje się dopiero w holu, przy kręconych schodach.",
+  "s2_og": "Stoimy w ogrodzie-lesie: brzozy, paprocie i mech pod szklaną piramidą. Z każdej z sześciu stron przylega inny pokój, więc parter obchodzimy dookoła, bez korytarzy.",
+  "s3_jad": "Jadalnia zajmuje wschodni segment. Stół stoi przy szkle ogrodu, a przez szerokie przejście widać kuchnię i salon, wysoki na ponad sześć metrów, otwarty na patio za murem.",
+  "s4_biu": "Z holu kręconymi schodami wchodzimy do biblioteki, a z niej do biura. Biuro ma szkło na brzozowy zagajnik i przesuwne drzwi na taras wschodni, daleko od kuchni i salonu.",
+  "s5_syp": "Wracamy przez bibliotekę do sypialni na zachodnim końcu. Szklana ściana patrzy na zachód, przesuwne drzwi prowadzą na taras, a łazienka jest tuż obok, dostępna tylko stąd.",
+  "s6_taW": "Taras zachodni leży na dachu herbaciarni, tuż przy piramidzie. Przez jej szyby widać korony brzóz, a wieczorem zostaje tu ostatnie słońce."
+ },
+ "rzuty": "Parter to pętla sześciu segmentów: hol, pracownia, herbaciarnia, salon z kuchnią, jadalnia, pralnia i wiatrołap; patio i ganek to dodatkowe sześciokąty. Na piętrze stoją w rzędzie sypialnia z łazienką, biblioteka ze schodami i biuro, każdy koniec z tarasem.",
+ "zmierzch": "Wieczorem piramida świeci nad dachem jak latarnia, a od drogi widać tylko wąskie pasy światła w ciemnym drewnie.",
+ "zima": "Zimą latarnia jest opuszczona, a piramida zamknięta. Ogród zbiera ciepło słońca i ociepla od środka sześć pokoi, a na tarasach leży śnieg.",
+ "zalety": ["Ogród ukryty w środku pierścienia", "Parter w pętli, bez korytarzy", "Dwa tarasy przy sypialni i biurze", "Powtarzalne prefabrykowane ściany"],
+ "wady": ["Jedna łazienka, wejście przez sypialnię", "Ostre narożniki trudne w meblowaniu", "Kręcone schody jedyną drogą na górę", "Piramida wymaga mycia i serwisu"],
+ "zalety_wady": "Zalety: ukryty, prywatny ogród, parter w pętli bez korytarzy i własny taras przy sypialni i biurze. Ściany schodzą się pod jednym kątem, więc prefabrykaty się powtarzają. Minusy: jedyna pełna łazienka jest dostępna z sypialni, gościom zostaje toaleta na dole. Ostre narożniki warto wypełnić meblami na wymiar, kręcone schody są wąskie dla starszych osób, a piramidę trzeba myć.",
+ "koniec": "Plaster miodu: sześć pokoi wokół małego lasu, pod szklaną piramidą."
+}

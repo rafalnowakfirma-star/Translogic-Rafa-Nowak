@@ -1,0 +1,21 @@
+{
+ "tytul": "Kubik. Ciemna, zwarta kostka, która w samym środku chowa japoński ogród, niewidoczny z żadnej strony.",
+ "lotu": "Z góry Kubik to prosta kostka z atrium pośrodku. Ma sto sześćdziesiąt osiem metrów kwadratowych, tuż poniżej limitu klienta. Dach parterowego pasa od zachodu to duży taras, a moduły piętra obejmują jeszcze drugi, mniejszy taras od wschodu.",
+ "dach": "Szklane lamele nad atrium obracają się i stają pionowo, a ogród dostaje niebo i świeże powietrze.",
+ "spacer": {
+  "przed": "Stoimy przed wejściem od północy. Drzwi kryją się we wnęce pod biurem. Ciemna blacha ma tylko wąskie szczeliny, więc z drogi ogrodu w ogóle nie widać.",
+  "s1_wia": "Wiatrołap jest pełny, bez szyby do atrium. Obok jest toaleta dla gości, a dalej wybieramy drogę: do holu ze schodami albo do biblioteki.",
+  "s2_og": "Z holu przez szklane drzwi wchodzimy do atrium. Na grabionym żwirze leżą głazy, stoi kamienna latarnia, a klon rośnie na kępie mchu. Szkło mają tu hol, biblioteka, herbaciarnia i salon.",
+  "s3_sal": "Z atrium wchodzimy do salonu z kuchnią, wysokiego na ponad sześć metrów. Duże szyby ma tylko od ogrodu i od patio za murem, więc nikt tu nie zagląda.",
+  "s4_biu": "Wracamy do holu i prostymi schodami wchodzimy na galerię nad atrium. Obok jest biuro, ze szklaną ścianą od zachodu i przesuwnymi drzwiami na duży taras.",
+  "s5_syp": "Galerią przechodzimy na drugą stronę, do sypialni. Ma szklaną ścianę od wschodu, więc rano wpada tu pierwsze słońce. Tuż obok są łazienka i garderoba.",
+  "s6_taE": "Przez przelotową garderobę wychodzimy na taras wschodni. Jest mały i zaciszny, a od południa osłania go wysoka ściana salonu. To dobre miejsce na poranną kawę."
+ },
+ "rzuty": "Na parterze pokoje otaczają atrium pierścieniem, bez korytarzy, a pokój gościnny leży przy holu. Na piętrze biuro, galeria i sypialnia tworzą jeden ciąg przy tarasach. Przechodzi się przez nie z pokoju do pokoju.",
+ "zmierzch": "Wieczorem atrium świeci w środku kostki jak lampion, a przez szczeliny w blasze przebijają na zewnątrz tylko cienkie linie światła.",
+ "zima": "Zimą lamele są zamknięte, a atrium jest ciepłym buforem między holem a salonem. Na tarasach leży śnieg.",
+ "zalety": ["Atrium niewidoczne z zewnątrz", "Zwarta bryła, tańsza w ogrzewaniu", "Duży taras przy biurze", "Wygodne proste schody"],
+ "wady": ["Sypialnia i biuro dość małe", "Dla gości tylko toaleta", "Lamele wymagają serwisu"],
+ "zalety_wady": "Atuty Kubika to ogród ukryty w samym środku, zwarta bryła, która mniej traci ciepła, i duży taras przy biurze. Minusy: sypialnia i biuro są raczej małe, a gość ma na dole tylko toaletę. Warto dodać prysznic przy pralni i raz w roku przejrzeć mechanizm lameli.",
+ "koniec": "Kubik: prosta, ciemna kostka i jasny, japoński ogród w środku."
+}

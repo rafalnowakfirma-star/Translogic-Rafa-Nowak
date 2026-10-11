@@ -1,0 +1,21 @@
+{
+ "tytul": "Wiatrak. Cztery skrzydła jak łopaty wiatraczka obiegają kwadratowy ogród, którego z zewnątrz nie widać.",
+ "lotu": "Dom ma sto sześćdziesiąt pięć metrów kwadratowych. Każde skrzydło wystaje poza sąsiednie, więc między ich końcami powstają cztery dziedzińce. W środku leży ogród pod przesuwnym szkłem, a na dachach niskich skrzydeł dwa tarasy.",
+ "dach": "Latem połowa szklanego dachu zjeżdża nad drugą i oliwka w ogrodzie stoi pod gołym niebem.",
+ "spacer": {
+  "przed": "Stoimy na dziedzińcu wejściowym od północy, między końcem zachodniego skrzydła a ścianą biblioteki. Jasny trawertyn ma tu tylko wąskie szczeliny, nic nie zdradza ogrodu.",
+  "s1_wia": "Wiatrołap zamyka koniec zachodniej łopaty i nie styka się z ogrodem. Z niego wchodzimy do holu z kręconymi schodami i toaletą obok.",
+  "s2_og": "Z holu przez bibliotekę wychodzimy do ogrodu: żwir, kamienie i oliwka pośrodku. Cztery pokoje mają do niego szklane drzwi, więc to ogród łączy dom, nie korytarz.",
+  "s3_sal": "Salon z kuchnią wypełnia wschodnie skrzydło i ma ponad sześć metrów wysokości. Od ogrodu jest szklany, a na południe rozsuwa się na patio za murem, częściowo zadaszone.",
+  "s4_biu": "Kręconymi schodami z holu wchodzimy na galerię piętra. Obok jest biuro: szkło na pola od północy i przesuwne drzwi na długi taras północny. Łazienka ma wejście z galerii.",
+  "s5_syp": "Z galerii przechodzimy do sypialni nad pokojem gościnnym. Szklana ściana patrzy na zachód, w wieczorne słońce, a przesuwne drzwi prowadzą na taras południowy.",
+  "s6_taS": "Taras południowy leży na dachu herbaciarni i pralni. Z jednej strony mamy szklany dach ogrodu, z drugiej patio za murem i pola na południu."
+ },
+ "rzuty": "Parter obchodzimy w pętli: hol, biblioteka, pokój muzyczny z loggią, wysoki salon, herbaciarnia i pralnia; pokój gościnny przy ogrodzie ma drzwi z holu. Na piętrze cztery moduły w literę L: łazienka, galeria ze schodami, sypialnia i biuro z własnymi tarasami.",
+ "zmierzch": "Wieczorem ogród świeci przez szklany dach jak lampion między skrzydłami, a z drogi widać tylko jasne szczeliny w kamieniu.",
+ "zima": "Zimą dach jest zamknięty, a kamień i żwir oddają nocą ciepło zebrane za dnia. Pełne końce skrzydeł osłaniają dziedzińce od wiatru.",
+ "zalety": ["Cztery dziedzińce o różnym charakterze", "Ogród i patio schowane za murami", "Dwa duże tarasy na dachach skrzydeł", "Łazienka dostępna z galerii"],
+ "wady": ["Dużo narożników i ścian zewnętrznych", "Jedyna łazienka na piętrze", "Wysoki salon trudniej ogrzać", "Kręcone schody jako jedyne"],
+ "zalety_wady": "Zalety: cztery dziedzińce o różnym charakterze, ogród i patio niewidoczne dla sąsiadów, dwa duże tarasy i łazienka dostępna z galerii. Minusy: wystające skrzydła mają dużo narożników i długie ściany, co podnosi koszt budowy i ogrzewania. Jedyna łazienka jest na piętrze, gościom zostaje toaleta. Wysoki salon warto ogrzewać podłogowo, a kręcone schody są wąskie.",
+ "koniec": "Wiatrak: cztery skrzydła, cztery dziedzińce i jeden ogród, który widać tylko ze środka."
+}

@@ -101,9 +101,10 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
         grp = [u for u in U if u["scena"] == sname]
         if not grp:
             continue
-        todo = [u for u in grp if od_nowa or not os.path.exists(os.path.join(out, "kadry", u["id"] + ".png"))]
+        todo = [u for u in grp if not u.get("tylko_anim")
+                and (od_nowa or not os.path.exists(os.path.join(out, "kadry", u["id"] + ".png")))]
         sp_done = os.path.exists(os.path.join(out, "spacer", "spacer.json")) and not od_nowa
-        want_anim = anim and sname == "dzien" and any(u["id"] == "lotu" for u in grp)
+        want_anim = anim and sname == "dzien" and any(u["id"] == "dach" for u in grp)
         adir = os.path.join(out, "anim", "lotu")
         if want_anim and not od_nowa and os.path.exists(os.path.join(adir, "gotowe.json")):
             want_anim = False
@@ -135,7 +136,7 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
             u["ev"] = round(ev, 2)
             print(f"KADR {pid} v{wersja} {u['id']}: {czasy[u['id']]} s, ekspozycja {ev:+.2f}", flush=True)
         if want_anim:
-            u = next(u for u in grp if u["id"] == "lotu")
+            u = next(u for u in grp if u["id"] == "dach")
             czasy["anim"] = animacja_dachu(S, u, P, adir)
         if sname == "dzien" and spacer and not sp_done:
             czasy["spacer"] = panoramy(S, kamery.plan_spaceru(H), P, os.path.join(out, "spacer"), od_nowa)

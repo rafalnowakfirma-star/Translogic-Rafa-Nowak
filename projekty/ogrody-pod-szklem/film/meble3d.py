@@ -473,29 +473,45 @@ def _mk_screen(name, dusk):
     _p(t, col=(0.012, 0.012, 0.014), rough=0.05)
     if dusk:
         nz = t.noise(t.co(), 1.4, 2.0, 0.5)
-        c = t.ramp(nz.outputs["Fac"], [(0.25, rgba((0.05, 0.10, 0.20))), (0.55, rgba((0.30, 0.38, 0.48))),
-                                       (0.8, rgba((0.70, 0.52, 0.36)))])
+        c = t.ramp(nz.outputs["Fac"], [(0.25, rgba((0.20, 0.24, 0.30))), (0.55, rgba((0.55, 0.58, 0.62))),
+                                       (0.8, rgba((0.80, 0.74, 0.66)))])
         t.l(c, t.b.inputs["Emission Color"])
-        _p(t, emis_s=1.1)
+        _p(t, emis_s=0.45)
     return m
 
 
-def _mk_fire(name):
-    """Płomienie: emisja z szumu, brzegi przezroczyste."""
+def _mk_fire(name, z0=0.35, h=0.36):
+    """Płomienie na płaszczyznach: maska z szumu 4D (W sterowane klatką – ogień faluje w filmie),
+    jasna żółć u podstawy, pomarańcz i przezroczystość ku górze i na bokach."""
     m, t = _m_new(name)
-    nz = t.noise(t.co(), 7.0, 3.0, 0.5, 0.8)
-    c = t.ramp(nz.outputs["Fac"], [(0.25, rgba((1.0, 0.22, 0.02))), (0.6, rgba((1.0, 0.52, 0.10))),
-                                   (0.9, rgba((1.0, 0.82, 0.45)))])
+    co = t.co()
+    sep = t.n("ShaderNodeSeparateXYZ")
+    t.l(co, sep.inputs[0])
+    zr = t.math("DIVIDE", t.math("SUBTRACT", sep.outputs["Z"], z0), h)
+    v = t.map(co, scale=(9.0, 9.0, 2.6))
+    nz = t.n("ShaderNodeTexNoise", noise_dimensions="4D", Scale=1.0, Detail=3.0, Roughness=0.55, Distortion=0.5)
+    t.l(v, nz.inputs["Vector"])
+    fc = nz.inputs["W"].driver_add("default_value")
+    fc.driver.type = "SCRIPTED"
+    fc.driver.expression = "frame*0.07"
+    m1 = t.math("MULTIPLY_ADD", t.math("SUBTRACT", nz.outputs["Fac"], 0.5), 1.3, t.math("MULTIPLY_ADD", zr, -1.3, 1.12))
+    fx = t.n("ShaderNodeMapRange", interpolation_type="SMOOTHSTEP")
+    t.l(t.math("ABSOLUTE", sep.outputs["X"]), _sock(fx, "Value"))
+    _sock(fx, "From Min").default_value = 0.16
+    _sock(fx, "From Max").default_value = 0.34
+    _sock(fx, "To Min").default_value = 1.0
+    _sock(fx, "To Max").default_value = 0.0
+    base = t.math("MINIMUM", t.math("MULTIPLY", zr, 8.0), 1.0, clamp=True)
+    mask = t.math("MULTIPLY", t.math("MULTIPLY", m1, fx.outputs[0]), base, clamp=True)
+    c = t.ramp(mask, [(0.0, rgba((0.80, 0.10, 0.01))), (0.45, rgba((1.0, 0.36, 0.04))), (0.85, rgba((1.0, 0.70, 0.25)))])
     em = t.n("ShaderNodeEmission")
     t.l(c, em.inputs["Color"])
-    em.inputs["Strength"].default_value = 30.0
+    t.l(t.math("MULTIPLY", mask, 9.0), em.inputs["Strength"])
     tr = t.n("ShaderNodeBsdfTransparent")
-    lw = t.n("ShaderNodeLayerWeight")
-    lw.inputs["Blend"].default_value = 0.55
     mx = t.n("ShaderNodeMixShader")
-    t.l(t.math("POWER", lw.outputs["Facing"], 1.6), mx.inputs[0])
-    t.l(em.outputs[0], mx.inputs[1])
-    t.l(tr.outputs[0], mx.inputs[2])
+    t.l(t.math("POWER", mask, 0.6), mx.inputs[0])
+    t.l(tr.outputs[0], mx.inputs[1])
+    t.l(em.outputs[0], mx.inputs[2])
     t.shader_out(mx.outputs[0])
     return m
 
@@ -503,17 +519,17 @@ def _mk_fire(name):
 def _mk_embers(name, dusk):
     m, t = _m_new(name)
     co = t.co()
-    vo = t.n("ShaderNodeTexVoronoi", Scale=55.0, feature="DISTANCE_TO_EDGE")
+    vo = t.n("ShaderNodeTexVoronoi", Scale=140.0, feature="DISTANCE_TO_EDGE")
     t.l(co, vo.inputs["Vector"])
     nz = t.noise(co, 12.0, 3.0, 0.5)
     t.l(t.ramp(nz.outputs["Fac"], [(0.3, rgba((0.03, 0.025, 0.02))), (0.8, rgba((0.12, 0.10, 0.09)))]),
         t.b.inputs["Base Color"])
     _p(t, rough=0.95)
     if dusk:
-        k = t.math("LESS_THAN", vo.outputs["Distance"], 0.06)
-        k = t.math("MULTIPLY", k, t.math("GREATER_THAN", nz.outputs["Fac"], 0.45))
-        t.l(rgba((1.0, 0.30, 0.05)), t.b.inputs["Emission Color"])
-        t.l(t.math("MULTIPLY", k, 6.0), t.b.inputs["Emission Strength"])
+        k = t.math("LESS_THAN", vo.outputs["Distance"], 0.05)
+        k = t.math("MULTIPLY", k, t.math("GREATER_THAN", nz.outputs["Fac"], 0.5))
+        t.l(rgba((1.0, 0.25, 0.03)), t.b.inputs["Emission Color"])
+        t.l(t.math("MULTIPLY", k, 3.0), t.b.inputs["Emission Strength"])
     return m
 
 
@@ -693,6 +709,8 @@ def _make_mat(ctx, key):
     if b == "obraz":
         return _mk_painting(nm, f"{ctx.seed}:{a[0] if a else 0}")
     if b == "ekran":
+        return _mk_screen(nm, False)
+    if b == "monitor":
         return _mk_screen(nm, dusk)
     if b == "zarowka":
         return _mk_emit(nm, dusk, (0.88, 0.87, 0.84), 30.0)
@@ -703,7 +721,7 @@ def _make_mat(ctx, key):
     if b == "led":
         return _mk_emit(nm, dusk, (0.80, 0.80, 0.80), 14.0, temp=3000.0)
     if b == "ogien":
-        return _mk_fire(nm)
+        return _mk_fire(nm, float(a[0]), float(a[1])) if a else _mk_fire(nm)
     if b == "zar":
         return _mk_embers(nm, dusk)
     if b == "braz":
@@ -1609,9 +1627,19 @@ def _rtv(B):
     B.mesh(mb, "rtv")
 
 
-def _flame(mb, x, y, z, h, rnd):
-    fs = mb.lathe([(0.0, 0.0), (0.035, 0.015), (0.042, 0.06), (0.03, 0.12), (0.014, 0.19), (0.0, 0.25)], "ogien", n=12)
-    mb.xf(fs, T(x, y, z) @ R("Y", rnd.uniform(-10, 10)) @ Sc(rnd.uniform(1.0, 1.5), 0.6, h / 0.25))
+def _flames(mb, y0, z0, w, h, rnd, key="ogien"):
+    """Kilka skrzyżowanych płaszczyzn z teksturą płomieni (maska w materiale)."""
+    bm = mb.bm
+    fs = []
+    for k, (dy, yaw) in enumerate(((0.13, 8.0), (0.19, -6.0), (0.25, 4.0), (0.19, 70.0))):
+        L = w if k < 3 else w * 0.35
+        a = math.radians(yaw)
+        cx, cy = (rnd.uniform(-0.05, 0.05) if k == 3 else 0.0), y0 + dy
+        pts = [(cx - L / 2 * math.cos(a), cy - L / 2 * math.sin(a)), (cx + L / 2 * math.cos(a), cy + L / 2 * math.sin(a))]
+        v = [bm.verts.new((pts[0][0], pts[0][1], z0)), bm.verts.new((pts[1][0], pts[1][1], z0)),
+             bm.verts.new((pts[1][0], pts[1][1], z0 + h)), bm.verts.new((pts[0][0], pts[0][1], z0 + h))]
+        fs.append(bm.faces.new(v))
+    return mb.tag(fs, key)
 
 
 def _kominek(B):
@@ -1641,10 +1669,7 @@ def _kominek(B):
         mb.tube([(dx - L * math.cos(a), y0 + dy - L * math.sin(a), lz), (dx + L * math.cos(a), y0 + dy + L * math.sin(a), lz)],
                 0.042, "zar" if B.dusk else "kora", n=12)
     if B.dusk:
-        for k in range(9):
-            x = -fw * 0.34 + k * fw * 0.085 + r.uniform(-0.02, 0.02)
-            hh = (0.30 - 0.2 * abs(k - 4) / 4) * r.uniform(0.8, 1.15)
-            _flame(mb, x, y0 + 0.19 + r.uniform(-0.04, 0.04), fz0 + 0.05, hh, r)
+        _flames(mb, y0, fz0 + 0.03, min(0.7, fw - 0.1), 0.38, r, key=f"ogien:{fz0 + 0.03:.2f}:0.36")
         li = B.light((0, y0 - 0.25, fz0 + 0.2), 90.0, size=0.2, temp=1900.0, name="ogien")
         li.visible_glossy = False          # bez odbicia źródła w szybie
         B.flicker(li, 0.35)
@@ -2442,7 +2467,7 @@ def _monitor(mb, x, y, z, w=0.62):
     mb.box(x - 0.11, y - 0.09, z, x + 0.11, y + 0.08, z + 0.01, "aluminium", r=0.003)
     mb.box(x - 0.025, y + 0.04, z, x + 0.025, y + 0.06, z + 0.3, "aluminium", r=0.004)
     mb.box(x - w / 2, y + 0.005, z + 0.1, x + w / 2, y + 0.02, z + 0.1 + h, "plastik_czarny", r=0.003)
-    mb.box(x - w / 2 + 0.006, y + 0.0035, z + 0.106, x + w / 2 - 0.006, y + 0.005, z + 0.094 + h, "ekran", r=0)
+    mb.box(x - w / 2 + 0.006, y + 0.0035, z + 0.106, x + w / 2 - 0.006, y + 0.005, z + 0.094 + h, "monitor", r=0)
 
 
 def _desk_lamp(B, mb, x, y, z, yaw=0.0):

@@ -1,21 +1,46 @@
-"""P17 · Refektarz (wersja 2) – zwarty kwadrat jak klasztorny wirydarz: w środku ogród zimowy z długim stołem
-pod szklaną piramidą, kuchnia z harmonijką od wschodu, wysoki salon od południa, moduły piętra od północy."""
+"""P17 · Refektarz (wersja 2) – zwarty kwadrat z białej cegły jak klasztorny wirydarz: w środku ogród zimowy z długim stołem
+pod szklaną piramidą, od kuchni szklana harmonijka, wysoki salon od południa, moduły piętra od północy, tarasy po bokach piramidy."""
 from silnik import House, rect, poly
 
-# siatka: pasma W | ogród | E = 3,6 | 5,6 | 4,2 m (x), N | ogród | S = 4,0 | 5,6 | 3,8 m (y) – kwadrat 13,4 × 13,4 m
+# siatka: pasma W | ogród | E = 3,6 | 5,6 | 4,2 m (x), N | ogród | S = 4,0 | 5,6 | 3,8 m (y) – kwadrat 13,4 × 13,4 m po osiach ścian
 XW, XE, XX = 3.6, 9.2, 13.4
 YN, YS, YY = 4.0, 9.6, 13.4
 XS = 11.2    # granica spiżarni i pralni (pas północny)
-YK = 4.6     # spiżarnia i pralnia sięgają głębiej niż pas północny – kuchnia (i harmonijka) zaczyna się 0,6 m niżej
-XH = 6.1     # koniec holu na piętrze
+YK = 4.6     # spiżarnia i pralnia sięgają 0,6 m głębiej – harmonijka kuchni ma 5 m, a stół przesuwa się na południe
+XH = 6.1     # koniec holu ze schodami na piętrze
 YL = 2.0     # granica garderoby i łazienki (piętro)
 
 H = House(
     "p17", "Refektarz",
-    "Szkic.",
+    "Zwarty kwadrat z białej cegły zbudowany jak klasztorny wirydarz: w środku ogród zimowy z długim stołem pod szklaną piramidą, "
+    "oddzielony od kuchni szklaną harmonijką. Na dachu parteru po obu stronach piramidy są tarasy, a od północy moduły piętra z biurem i sypialnią.",
     style=dict(fasada="cegla_biala", dach="sedum", akcent="dab"),
-    concept=["Szkic."],
-    notes=dict(lato="-", zima="-", technologia="-"),
+    concept=[
+        "Dom to kwadrat 13,8 × 13,8 m (164 m²) ułożony jak klasztor wokół wirydarza: ogród zimowy 5,6 × 5,6 m w środku "
+        "ze wszystkich stron otaczają pokoje, które na zewnątrz mają tylko okna-szczeliny, wysokie pasma i zwykłe okna, "
+        "a jedyne szklane drzwi parteru wychodzą na patio za murem – dlatego ogrodu nie widać ani z drogi, ani od sąsiadów.",
+        "Ogród jest jadalnią: na kamiennej posadzce w poziomie podłogi stoi długi stół na 8–10 osób, wzdłuż pięciometrowej "
+        "szklanej harmonijki od kuchni – złożona łączy kuchnię i ogród w jedną salę, rozłożona zamyka ogród zimowy w mroźne noce "
+        "albo wtedy, gdy w deszczowy dzień dach jest otwarty.",
+        "Nad stołem stoi szklana piramida z latarnią, którą latem unosi się o 0,7 m, żeby ciepłe powietrze uchodziło górą, "
+        "a wysoki salon od południa daje stołowi cień w letnie południe.",
+        "Wchodzi się od północy przez wiatrołap z WC bez szkła do ogrodu i dalej idzie się bez korytarzy, z pokoju do pokoju: "
+        "biblioteka ze schodami kręconymi i szklaną ścianą na ogród, spiżarnia, kuchnia i salon, a z wiatrołapu także pokój gościnny "
+        "z wyjściem na patio.",
+        "Salon ma 6,6 m wysokości i szkło tylko do ogrodu oraz do patio za murem 2,6 m w południowo-zachodnim narożniku, "
+        "częściowo zadaszonego; na zewnątrz ma dwa rzędy wąskich, wysokich okien jak refektarz.",
+        "Moduły piętra od północy łączą się przelotowo – biuro przeszklone na krajobraz od północy i zachodu i na taras zachodni, "
+        "hol ze schodami, garderoba z łazienką, sypialnia ze szklaną ścianą od wschodu i wyjściem na taras wschodni – a dach nad nimi jest zielony.",
+    ],
+    notes=dict(
+        lato="Harmonijka jest złożona, a latarnia piramidy uniesiona: kuchnia, ogród ze stołem i salon są jedną salą, "
+             "salon otwiera się na patio za murem, a wieczorem siedzi się na tarasach po obu stronach piramidy.",
+        zima="Harmonijka jest rozłożona, a piramida zamknięta, więc ogród z cytrusami i stołem jest osobną, jasną salą pod szkłem, "
+             "do której wchodzi się z salonu, a pełne ściany z białej cegły z wąskimi oknami chronią dom przed wiatrem.",
+        technologia="Ściany z bloczków ICF (styropian + beton) z licówką z białej cegły na kotwach, stropy z prefabrykowanych płyt kanałowych, "
+                    "tarasy na stropie parteru z warstwą spadkową. Piramida ze szkła zespolonego na stalowej ramie z latarnią na siłownikach, "
+                    "harmonijka kuchni w systemowej ramie aluminiowej.",
+    ),
 )
 H.level(0, z=0.0, h=3.4)
 H.level(1, z=3.4, h=3.2)
@@ -34,7 +59,7 @@ H.room("pral", "Pralnia", "pralnia", rect(XS, 0, XX, YK), ext={"N": "band_high",
 H.room("gos", "Pokój gościnny", "gosc", rect(0, YN, XW, YS), ext={"W": "windows", "pat": "glass_slide"}, garden="windows")
 H.room("kuch", "Kuchnia", "kuchnia", rect(XE, YK, XX, YS), ext="band_high", garden="fold", kitchen_at="N")
 H.room("sal", "Salon", "salon", rect(XW, YS, XX, YY), levels=2,
-       ext={"pat": "glass_slide", "taE": "band_high", "S": "slits", "E": "solid", "N": "glass", "W": "glass"})
+       ext={"pat": "glass_slide", "taE": "band_high", "S": "slits", "W": "slits", "E": "solid", "N": "glass"})
 H.room("pat", "Patio za murem", "patio", rect(0, YS, XW, YY), roof=rect(2.2, YS, XW, YY), enclose="gwall")
 
 H.connect("wia", "bib", "door", at=0.2)
@@ -66,8 +91,8 @@ H.connect("syp", "taE", "slide")
 # ---------------------------------------------------------------- teren
 H.path(rect(1.5, -6.0, 2.8, -0.2))
 H.path(rect(XX + 0.2, 1.65, XX + 1.4, 2.95))
-H.tree(-4.0, 6.5, "brzoza")
-H.tree(17.5, 12.0, "lipa")
-H.tree(17.0, -2.5, "klon")
+H.tree(-3.6, -2.8, "brzoza")
+H.tree(17.6, 10.5, "lipa")
+H.tree(17.2, -2.5, "klon")
 H.cut("A–A", (5.6, -2.0), (5.6, 16.0))
 H.cut("B–B", (-2.0, 6.8), (16.0, 6.8))

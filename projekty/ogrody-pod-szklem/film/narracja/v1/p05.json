@@ -1,0 +1,21 @@
+{
+ "tytul": "Wiatrak. Cztery skrzydła jak łopaty obiegają ogród z oliwką, a każda łopata kończy się otwartym zadaszeniem.",
+ "lotu": "Dom ma dwieście pięćdziesiąt metrów kwadratowych. Cztery skrzydła obracają się wokół ogrodu osiem na osiem metrów pod przesuwnym szkłem. Każde wystaje poza sąsiednie i kończy się daszkiem: wiatą, loggią, zadaszeniem patio albo drewutnią.",
+ "dach": "Latem jedna szklana tafla zsuwa się nad drugą i ogród staje się otwartym dziedzińcem.",
+ "spacer": {
+  "przed": "Podchodzimy od północy. Po prawej wiata na samochód zamyka koniec zachodniego skrzydła, przed nami drzwi wiatrołapu w jasnej ścianie z trawertynu.",
+  "s1_wia": "Wiatrołap ma już szklaną ścianę do ogrodu, więc oliwkę widać od progu. Obok jest toaleta, a szerokie przejście prowadzi do biblioteki z kręconymi schodami.",
+  "s2_og": "Ogród jest holem tego domu. Stąd wchodzi się do biura, sypialni i salonu, więc codzienne drogi prowadzą między oliwką, lawendą i żwirem, pod szklanym dachem.",
+  "s3_sal": "Salon z kuchnią ma sześćdziesiąt pięć metrów kwadratowych i dwie kondygnacje wysokości. Szkło od południa i od ogrodu przepuszcza słońce przez cały dom, a przesuwne drzwi prowadzą na patio.",
+  "s4_biu": "Wracamy przez ogród do biura w zachodnim skrzydle. Ma szkło od ogrodu i od zachodu, więc po południu widać stąd zachód słońca nad gospodarczym dziedzińcem.",
+  "s5_syp": "Sypialnia leży na parterze, we wschodniej łopacie. Cała wschodnia ściana ze szkła patrzy na poranny dziedziniec, a przez przelotową garderobę przechodzimy do dużej łazienki.",
+  "s6_tar": "Kręconymi schodami z biblioteki wchodzimy na piętro nad skrzydłem północnym: hol, dwa pokoje i łazienka. Z pokoju gościnnego wychodzimy na taras nad loggią, zwrócony na wschód."
+ },
+ "rzuty": "Skrzydło północne to amfilada: wiatrołap, biblioteka, pokój muzyczny i loggia. Biuro, sypialnia z garderobą i łazienką oraz wysoki salon łączą się tylko przez ogród. Na piętrze nad północnym skrzydłem są dwa pokoje, łazienka i taras.",
+ "zmierzch": "Wieczorem ogród świeci przez szklany dach i przez salon, a światło wychodzi na patio i na poranny dziedziniec.",
+ "zima": "Zimą dach jest zamknięty, a żwir i kamienne mury zbierają ciepło słońca. Droga między skrzydłami prowadzi przez ciepły ogród.",
+ "zalety": ["Sypialnia na parterze, dzieci na piętrze", "Cztery dziedzińce i wiata w bryle", "Duży salon otwarty na patio", "Biuro z widokiem na zachód słońca"],
+ "wady": ["Między skrzydłami tylko przez ogród", "Ogród widać od wejścia i z południa", "Długie ściany, drogie ogrzewanie", "Mała łazienka na piętrze"],
+ "zalety_wady": "Zalety: sypialnia rodziców na parterze, dzieci osobno na piętrze, cztery dziedzińce, wiata w bryle domu i duży salon otwarty na patio. Minusy: biuro, sypialnia i salon łączą się tylko przez ogród, więc ogród trzeba ogrzewać jak pokój, a w deszcz zamykać dach. Ogród widać od wejścia i przez salon, długie ściany kosztują, a łazienka na górze jest mała.",
+ "koniec": "Pierwsza wersja Wiatraka: duży dom, w którym ogród jest holem."
+}
