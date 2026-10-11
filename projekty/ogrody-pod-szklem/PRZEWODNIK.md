@@ -167,3 +167,37 @@ albo zamiast ściany: `open` (bez ściany), `glass`, `glass_slide`, `fold`, `rai
 * Przekrój przechodzi przez ogród i wysoki salon (i wieżę/schody, jeśli są) – to najciekawszy rysunek.
 * Podgląd 3D `lotu.jpg` pokazuje ciekawą bryłę, `ogrod.jpg` – wnętrze ogrodu pod szkłem.
 * Drzewa na działce (2–4) i ścieżka do wejścia (`H.path`).
+
+
+## WERSJA 2 – nowe zasady klienta (obowiązkowe, sprawdzane automatycznie)
+
+Klient po obejrzeniu pierwszej wersji napisał: *„170 m² max, ogród wewnętrzny musi być wyizolowany
+i nie widać go bezpośrednio z zewnątrz, na przestrzeni dachowej – nie na samej górze, ale na niższych –
+tarasy użytkowe, moduły wokół tarasu przelotowe, użytkowe”*. Dlatego:
+
+1. **Najwyżej 170 m² powierzchni użytkowej** (bez ogrodu, patio i tarasów). `podglad.py` ją wypisuje.
+2. **Ogród zamknięty ze wszystkich stron domem.** Na parterze każda krawędź ogrodu przylega do pokoju
+   (nie do zewnętrza ani do otwartego patio). Ogród jednokondygnacyjny (`levels=1`) z dachem szklanym
+   na wysokości dachu parteru jest najprostszy – wokół jego szklanego dachu leżą tarasy piętra.
+3. **Z zewnątrz nie widać ogrodu na wylot.** Pokój, który ma szkło od ogrodu, nie może mieć naprzeciw
+   szkła ani szklanych drzwi na zewnątrz w linii prostej. Rozwiązania: od zewnątrz okna (`windows`, `slits`,
+   `band`), szkło przesunięte za róg, albo szkło na **patio za murem** – pokój rodzaju `patio` z
+   `enclose="gwall"` (mur 2,6 m) liczy się jako prywatny. Wiatrołap nie ma szkła do ogrodu.
+4. **Tarasy użytkowe na niższych dachach, nie na samej górze.** Pokoje rodzaju `taras` na piętrze
+   (`level=1`), położone na dachu parteru, z wyjściem z pokoju piętra (`connect(pokój, taras, "slide")`).
+   Najwyższy dach (nad modułami piętra) jest zielony – bez tarasu.
+5. **Moduły piętra wokół tarasu, przelotowe i użytkowe**: na piętrze 2–5 pomieszczeń (sypialnia, biuro,
+   biblioteka, pracownia, pokój gościnny, łazienka, garderoba…) ustawionych przy tarasach i połączonych
+   drzwiami w ciąg (przechodzi się z jednego do drugiego, bez korytarza).
+
+`podglad.py` wypisuje linie `ZASADA OK/NIE`. **Dom jest gotowy dopiero, gdy wszystkie są OK.**
+
+Nadal obowiązują: biuro przeszklone z dwóch stron (najlepiej moduł na piętrze: szkło na krajobraz i na
+taras), pokoje przelotowe zamiast korytarzy, wysoki salon z kuchnią (`levels=2`) połączony z częściowo
+zadaszonym patio (najlepiej za murem), sypialnia główna ze szklaną ścianą zewnętrzną (na piętrze można
+dać szkło stałe), tylko płaskie dachy. Wzór wersji 2: `domy/p01_kruzganek.py`.
+Wersje 1 wszystkich domów są w `domy_v1/`.
+
+Przydatne: `ext={"pat": "glass_slide", "S": "solid", "*": "windows"}` – szkło tylko do patio za murem;
+`H.room("pat", "Patio za murem", "patio", rect(...), roof=rect(...), enclose="gwall")`;
+schody kręcone (`H.stair("spiral", center=(x, y), r=1.0)`) zajmują najmniej miejsca.
