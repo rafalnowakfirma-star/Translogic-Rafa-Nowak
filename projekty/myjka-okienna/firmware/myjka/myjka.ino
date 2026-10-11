@@ -4,8 +4,10 @@
  *
  * Biblioteki: OneWire, DallasTemperature, Adafruit INA219.
  *
- * Głowica parkuje na dole. Cykl: bazowanie w dół, potem N razy
- * [natrysk, namaczanie, w górę (szorowanie), płukanie, w dół (ściąganie)].
+ * Głowica parkuje na dole z elementami odsuniętymi od szyby. Cykl:
+ * bazowanie w dół, potem N razy
+ *   [w górę: szczotka obrotowa + roztwór z płynem, namaczanie,
+ *    w dół: guma + czysta woda natryskiwana tuż przed gumą].
  * Pętla główna nie blokuje, więc STOP i czujniki działają w każdej chwili.
  */
 #include <WiFi.h>
@@ -19,40 +21,55 @@
 #include "config.h"
 
 // ---------- Piny ----------
-constexpr int PIN_MOT_IN1 = 25;  // DRV8871 IN1 — w górę
-constexpr int PIN_MOT_IN2 = 26;  // DRV8871 IN2 — w dół
-constexpr int PIN_ENC_A   = 34;  // zewnętrzny pull-up 10k
-constexpr int PIN_ENC_B   = 35;
-constexpr int PIN_END_TOP = 32;  // Hall, LOW = magnes
-constexpr int PIN_END_BOT = 33;
-constexpr int PIN_PUMP    = 27;
-constexpr int PIN_SASH    = 14;  // kontaktron, LOW = okno zamknięte
-constexpr int PIN_TANK    = 13;  // pływak, LOW = jest woda
-constexpr int PIN_RAIN    = 4;   // LOW = mokro
-constexpr int PIN_ONEWIRE = 19;
-constexpr int PIN_LED     = 2;
+constexpr int PIN_MOT_IN1    = 25;  // DRV8871 IN1 — w górę
+constexpr int PIN_MOT_IN2    = 26;  // DRV8871 IN2 — w dół
+constexpr int PIN_BRUSH      = 27;  // MOSFET silnika szczotki (PWM)
+constexpr int PIN_SERVO      = 18;  // sygnał serwa wahacza
+constexpr int PIN_ENC_A      = 34;  // zewnętrzny pull-up 10k
+constexpr int PIN_ENC_B      = 35;
+constexpr int PIN_END_TOP    = 32;  // Hall, LOW = magnes
+constexpr int PIN_END_BOT    = 33;
+constexpr int PIN_PUMP_RINSE = 16;  // P1: czysta woda -> dysze przed gumą
+constexpr int PIN_PUMP_SOL   = 17;  // P2: roztwór -> dysze przed szczotką
+constexpr int PIN_DOSE       = 15;  // P3: pompa perystaltyczna płynu
+constexpr int PIN_REFILL     = 23;  // Z0: zawór dolewania z kranu
+constexpr int PIN_SASH       = 14;  // kontaktron, LOW = okno zamknięte
+constexpr int PIN_TANK_LOW   = 13;  // pływak dolny, LOW = jest woda
+constexpr int PIN_TANK_HIGH  = 36;  // pływak górny, LOW = poniżej górnego poziomu (zewn. pull-up)
+constexpr int PIN_FLUID      = 39;  // czujnik płynu, LOW = jest płyn (zewn. pull-up)
+constexpr int PIN_RAIN       = 4;   // LOW = mokro
+constexpr int PIN_ONEWIRE    = 19;
+constexpr int PIN_LED        = 2;
 
-constexpr uint32_t PWM_FREQ = 20000;
-constexpr uint8_t  PWM_BITS = 10;
-constexpr int      PWM_MAX  = (1 << PWM_BITS) - 1;
+// Kanały LEDC: 0–1 timer 0 (silnik), 2 timer 1 (szczotka), 4 timer 2 (serwo).
+constexpr uint32_t PWM_FREQ   = 20000;
+constexpr uint8_t  PWM_BITS   = 10;
+constexpr int      PWM_MAX    = (1 << PWM_BITS) - 1;
+constexpr uint32_t SERVO_FREQ = 50;
+constexpr uint8_t  SERVO_BITS = 14;
 
 // ---------- Stan ----------
 enum class Mode { Idle, Running, Parking, Fault };
-enum class Op : uint8_t { Home, Spray, Wait, Up, Down };
+enum class Op : uint8_t { Servo, Home, Up, Down, Wait };
+
+constexpr uint8_t F_BRUSH    = 1;  // szczotka kręci się w trakcie ruchu
+constexpr uint8_t F_SOLUTION = 2;  // natrysk roztworu (górny rząd dysz)
+constexpr uint8_t F_RINSE    = 4;  // natrysk czystej wody (dolny rząd dysz)
 
 struct Step {
   Op op;
-  uint32_t arg;  // ms dla Spray/Wait, prędkość % dla Home/Up/Down
+  uint32_t arg;   // µs dla Servo, ms dla Wait, prędkość % dla Home/Up/Down
+  uint8_t flags;
 };
 
-constexpr int MAX_STEPS = 2 + MAX_CYCLES * 5;
+constexpr int MAX_STEPS = 3 + MAX_CYCLES * 5;
 Step program[MAX_STEPS];
 int progLen = 0;
 int progPos = 0;
 
 Mode mode = Mode::Idle;
 String lastError;      // awaria (wymaga /reset)
-String lastWarning;    // przerwanie łagodne
+String lastWarning;    // przerwanie łagodne lub uwaga (np. brak płynu)
 uint32_t stepT0 = 0;
 bool stepStarted = false;
 
@@ -63,21 +80,36 @@ bool homed = false;
 int32_t strokeCounts = 0;  // zmierzony skok dół→góra
 
 float currentMa = 0;
+float brushMa = 0;
 float tempC = NAN;
 uint32_t lastTempReq = 0;
+
+bool brushOn = false;
+uint32_t brushT0 = 0;
+bool solutionOn = false;
+bool rinseOn = false;
+bool refilling = false;
+bool refillRequested = false;
+uint32_t refillT0 = 0;
+bool waterLow = false;
+uint32_t waterLowSince = 0;
 
 WebServer server(80);
 OneWire oneWire(PIN_ONEWIRE);
 DallasTemperature tempSensor(&oneWire);
-Adafruit_INA219 ina;
+Adafruit_INA219 ina(0x40);       // prąd silnika jazdy
+Adafruit_INA219 inaBrush(0x41);  // prąd silnika szczotki (zworka A0)
 bool inaOk = false;
+bool inaBrushOk = false;
 
 // ---------- Wejścia ----------
-bool sashClosed() { return digitalRead(PIN_SASH) == LOW; }
-bool waterOk()    { return digitalRead(PIN_TANK) == LOW; }
-bool raining()    { return digitalRead(PIN_RAIN) == LOW; }
-bool endTop()     { return digitalRead(PIN_END_TOP) == LOW; }
-bool endBot()     { return digitalRead(PIN_END_BOT) == LOW; }
+bool sashClosed()   { return digitalRead(PIN_SASH) == LOW; }
+bool tankOk()       { return digitalRead(PIN_TANK_LOW) == LOW; }
+bool tankBelowTop() { return digitalRead(PIN_TANK_HIGH) == LOW; }  // przerwany przewód = „pełny”
+bool fluidOk()      { return digitalRead(PIN_FLUID) == LOW; }
+bool raining()      { return digitalRead(PIN_RAIN) == LOW; }
+bool endTop()       { return digitalRead(PIN_END_TOP) == LOW; }
+bool endBot()       { return digitalRead(PIN_END_BOT) == LOW; }
 
 void IRAM_ATTR onEncA() {
   bool a = digitalRead(PIN_ENC_A);
@@ -99,6 +131,19 @@ void encZero() {
   lastEnc = 0;
 }
 
+// Woda dostępna z tolerancją na falowanie w zbiorniku (i na dolewanie z kranu).
+bool waterAvailable() {
+  if (tankOk()) {
+    waterLow = false;
+    return true;
+  }
+  if (!waterLow) {
+    waterLow = true;
+    waterLowSince = millis();
+  }
+  return millis() - waterLowSince < LOW_WATER_GRACE_MS;
+}
+
 // ---------- Wyjścia ----------
 void motorDrive(int dir, int duty) {  // dir: +1 góra, -1 dół
   ledcWrite(PIN_MOT_IN1, dir > 0 ? duty : 0);
@@ -115,11 +160,34 @@ void motorCoast() {
   ledcWrite(PIN_MOT_IN2, 0);
 }
 
-void pump(bool on) { digitalWrite(PIN_PUMP, on ? HIGH : LOW); }
+void servoUs(uint32_t us) {
+  ledcWrite(PIN_SERVO, us * ((1u << SERVO_BITS) - 1) / 20000);
+}
+
+void brush(bool on) {
+  if (on && !brushOn) brushT0 = millis();
+  brushOn = on;
+  if (!on) ledcWrite(PIN_BRUSH, 0);
+}
+
+void setWater(bool solution, bool rinse) {
+  solutionOn = solution;
+  rinseOn = rinse;
+  digitalWrite(PIN_PUMP_SOL, solution ? HIGH : LOW);
+  digitalWrite(PIN_PUMP_RINSE, rinse ? HIGH : LOW);
+  if (!solution) digitalWrite(PIN_DOSE, LOW);
+}
+
+void refillValve(bool open) {
+  refilling = open;
+  digitalWrite(PIN_REFILL, open ? HIGH : LOW);
+}
 
 void allOff() {
   motorBrake();
-  pump(false);
+  brush(false);
+  setWater(false, false);
+  refillValve(false);
   delay(50);
   motorCoast();  // przekładnia ślimakowa trzyma głowicę sama
 }
@@ -133,44 +201,50 @@ void fault(const String& why) {
   Serial.println("AWARIA: " + why);
 }
 
-// Przerwanie łagodne: zjedź gumą na dół i zatrzymaj się.
+// Przerwanie łagodne: zjedź gumą na dół, odsuń elementy i zatrzymaj się.
 void softAbort(const String& why) {
-  pump(false);
+  brush(false);
+  setWater(false, false);
   motorCoast();
   lastWarning = why;
   Serial.println("Przerwano: " + why);
   progLen = 0;
-  program[progLen++] = {Op::Down, SPEED_SQUEEGEE};
+  program[progLen++] = {Op::Servo, SERVO_US_SQUEEGEE, 0};
+  program[progLen++] = {Op::Down, SPEED_SQUEEGEE, 0};
+  program[progLen++] = {Op::Servo, SERVO_US_PARK, 0};
   progPos = 0;
   stepStarted = false;
   mode = Mode::Parking;
 }
 
 // ---------- Program mycia ----------
-void addStep(Op op, uint32_t arg) {
-  if (progLen < MAX_STEPS) program[progLen++] = {op, arg};
+void addStep(Op op, uint32_t arg, uint8_t flags = 0) {
+  if (progLen < MAX_STEPS) program[progLen++] = {op, arg, flags};
 }
 
 void buildProgram(int cycles) {
   progLen = 0;
+  addStep(Op::Servo, SERVO_US_PARK);
   addStep(Op::Home, SPEED_HOME);
   for (int i = 0; i < cycles; i++) {
-    addStep(Op::Spray, SPRAY_MS);
+    addStep(Op::Servo, SERVO_US_BRUSH);
+    addStep(Op::Up, SPEED_SCRUB, F_BRUSH | F_SOLUTION);
     addStep(Op::Wait, SOAK_MS);
-    addStep(Op::Up, SPEED_SCRUB);
-    addStep(Op::Spray, RINSE_MS);
-    addStep(Op::Wait, DRAIN_MS);
-    addStep(Op::Down, i == cycles - 1 ? SPEED_FINAL : SPEED_SQUEEGEE);
+    addStep(Op::Servo, SERVO_US_SQUEEGEE);
+    addStep(Op::Down, i == cycles - 1 ? SPEED_FINAL : SPEED_SQUEEGEE, F_RINSE);
   }
+  addStep(Op::Servo, SERVO_US_PARK);
 }
 
 String precheck() {
   if (!sashClosed()) return "okno otwarte";
-  if (!inaOk) return "brak czujnika pradu INA219";
+  if (!inaOk) return "brak czujnika pradu silnika (INA219 0x40)";
+  if (!inaBrushOk) return "brak czujnika pradu szczotki (INA219 0x41)";
   if (isnan(tempC)) return "brak odczytu temperatury";
   if (tempC < MIN_TEMP_C) return "za zimno (" + String(tempC, 1) + " C)";
   if (raining()) return "pada deszcz";
-  if (!waterOk()) return "brak wody w zbiorniku";
+  if (!tankOk()) return REFILL_FROM_MAINS ? "brak wody - trwa dolewanie z kranu, sprobuj za chwile"
+                                          : "brak wody w zbiorniku";
   return "";
 }
 
@@ -179,12 +253,14 @@ String startWash(int cycles) {
   if (mode == Mode::Fault) return "awaria: " + lastError + " (wymagany /reset)";
   String why = precheck();
   if (why.length()) return why;
-  buildProgram(constrain(cycles, 1, MAX_CYCLES));
+  int n = constrain(cycles, 1, MAX_CYCLES);
+  buildProgram(n);
   progPos = 0;
   stepStarted = false;
-  lastWarning = "";
+  waterLow = false;
+  lastWarning = fluidOk() ? "" : "brak plynu - myje sama woda";
   mode = Mode::Running;
-  Serial.printf("Start: %d cykli\n", constrain(cycles, 1, MAX_CYCLES));
+  Serial.printf("Start: %d cykli\n", n);
   return "";
 }
 
@@ -244,6 +320,11 @@ bool motionTick(int dir, int speedPct) {
   return false;
 }
 
+void endMotion() {
+  brush(false);
+  setWater(false, false);
+}
+
 // Zwraca true, gdy bieżący krok się zakończył.
 bool stepTick(const Step& s) {
   uint32_t now = millis();
@@ -252,10 +333,25 @@ bool stepTick(const Step& s) {
     stepT0 = now;
     lastEncChangeMs = now;
     lastEnc = encRead();
-    if (s.op == Op::Spray) pump(true);
+    if (s.op == Op::Servo) servoUs(s.arg);
+    if (s.op == Op::Up || s.op == Op::Down) {
+      setWater(s.flags & F_SOLUTION, s.flags & F_RINSE);
+      brush(s.flags & F_BRUSH);
+    }
+  }
+
+  if ((s.flags & (F_SOLUTION | F_RINSE)) && !waterAvailable()) {
+    softAbort("skonczyla sie woda");
+    return false;
   }
 
   switch (s.op) {
+    case Op::Servo:
+      return now - stepT0 >= SERVO_MOVE_MS;
+
+    case Op::Wait:
+      return now - stepT0 >= s.arg;
+
     case Op::Home:
       if (motionTick(-1, s.arg)) {
         encZero();
@@ -266,6 +362,7 @@ bool stepTick(const Step& s) {
 
     case Op::Up:
       if (motionTick(+1, s.arg)) {
+        endMotion();
         int32_t pos = encRead();
         if (homed && strokeCounts == 0) {
           if (pos < MIN_STROKE_COUNTS) {
@@ -281,24 +378,11 @@ bool stepTick(const Step& s) {
 
     case Op::Down:
       if (motionTick(-1, s.arg)) {
+        endMotion();
         encZero();  // korekta dryfu enkodera na krańcówce dolnej
         return true;
       }
       return false;
-
-    case Op::Spray:
-      if (!waterOk()) {
-        softAbort("skonczyla sie woda");
-        return false;
-      }
-      if (now - stepT0 >= s.arg) {
-        pump(false);
-        return true;
-      }
-      return false;
-
-    case Op::Wait:
-      return now - stepT0 >= s.arg;
   }
   return true;
 }
@@ -319,7 +403,8 @@ void runTick() {
   if (progPos >= progLen) {
     allOff();
     mode = Mode::Idle;
-    Serial.println(lastWarning.length() ? "Zaparkowano po przerwaniu" : "Mycie zakonczone");
+    refillRequested = true;
+    Serial.println(lastWarning.length() ? "Koniec: " + lastWarning : String("Mycie zakonczone"));
     return;
   }
 
@@ -332,14 +417,59 @@ void runTick() {
   }
 }
 
-// ---------- Czujniki okresowe ----------
+// ---------- Procesy w tle ----------
+void brushTick() {
+  if (!brushOn) return;
+  uint32_t t = millis() - brushT0;
+  int target = PWM_MAX * BRUSH_SPEED / 100;
+  ledcWrite(PIN_BRUSH, t < BRUSH_RAMP_MS ? (int)((int64_t)target * t / BRUSH_RAMP_MS) : target);
+  if (t > BRUSH_RAMP_MS && brushMa > BRUSH_CURRENT_LIMIT_MA) {
+    fault("szczotka zablokowana " + String(brushMa, 0) + " mA");
+  }
+}
+
+// Płyn podawany impulsami do ssania pompy roztworu w proporcji DOSE_RATIO.
+void doseTick() {
+  if (!solutionOn || !fluidOk()) {
+    digitalWrite(PIN_DOSE, LOW);
+    return;
+  }
+  uint32_t onMs = (uint32_t)(DOSE_PERIOD_MS * DOSE_RATIO * FLOW_SOLUTION_LPM / FLOW_DOSE_LPM);
+  digitalWrite(PIN_DOSE, (millis() % DOSE_PERIOD_MS) < onMs ? HIGH : LOW);
+}
+
+// Dolewanie z kranu: po każdym myciu i gdy poziom spadnie poniżej dolnego pływaka.
+void refillTick() {
+  if (!REFILL_FROM_MAINS) return;
+  bool frost = isnan(tempC) || tempC < MIN_TEMP_C;
+  if (mode == Mode::Fault || frost) {
+    if (refilling) refillValve(false);
+    refillRequested = false;
+    return;
+  }
+  if (!refilling) {
+    if ((refillRequested || !tankOk()) && tankBelowTop()) {
+      refillValve(true);
+      refillT0 = millis();
+    }
+    refillRequested = false;
+    return;
+  }
+  if (!tankBelowTop()) {
+    refillValve(false);
+  } else if (millis() - refillT0 > REFILL_TIMEOUT_MS) {
+    fault("dolewanie trwa za dlugo - wyciek albo zakrecony kran");
+  }
+}
+
 void sensorsTick() {
   static uint32_t lastIna = 0;
   uint32_t now = millis();
 
-  if (inaOk && now - lastIna >= 10) {
+  if (now - lastIna >= 10) {
     lastIna = now;
-    currentMa = fabsf(ina.getCurrent_mA());
+    if (inaOk) currentMa = fabsf(ina.getCurrent_mA());
+    if (inaBrushOk) brushMa = fabsf(inaBrush.getCurrent_mA());
   }
 
   if (now - lastTempReq >= 5000) {  // pomiar asynchroniczny co 5 s
@@ -361,20 +491,22 @@ const char* modeName() {
   return "?";
 }
 
-const char* opName(Op op) {
-  switch (op) {
+const char* opName(const Step& s) {
+  switch (s.op) {
+    case Op::Servo: return "przestawianie wahacza";
     case Op::Home:  return "bazowanie";
-    case Op::Spray: return "natrysk";
-    case Op::Wait:  return "oczekiwanie";
-    case Op::Up:    return "szorowanie (gora)";
+    case Op::Wait:  return "dzialanie plynu";
+    case Op::Up:    return "szczotkowanie (gora)";
     case Op::Down:  return "sciaganie (dol)";
   }
   return "?";
 }
 
+String jsonBool(bool v) { return v ? "true" : "false"; }
+
 String statusJson() {
   String step = (mode == Mode::Running || mode == Mode::Parking) && progPos < progLen
-                    ? String(opName(program[progPos].op)) + " " + (progPos + 1) + "/" + progLen
+                    ? String(opName(program[progPos])) + " " + (progPos + 1) + "/" + progLen
                     : "";
   String j = "{";
   j += "\"mode\":\"" + String(modeName()) + "\"";
@@ -383,14 +515,19 @@ String statusJson() {
   j += ",\"warning\":\"" + lastWarning + "\"";
   j += ",\"temp_c\":" + (isnan(tempC) ? String("null") : String(tempC, 1));
   j += ",\"current_ma\":" + String(currentMa, 0);
+  j += ",\"brush_ma\":" + String(brushMa, 0);
   j += ",\"position\":" + String(encRead());
   j += ",\"stroke\":" + String(strokeCounts);
-  j += ",\"homed\":" + String(homed ? "true" : "false");
-  j += ",\"sash_closed\":" + String(sashClosed() ? "true" : "false");
-  j += ",\"water_ok\":" + String(waterOk() ? "true" : "false");
-  j += ",\"raining\":" + String(raining() ? "true" : "false");
-  j += ",\"end_top\":" + String(endTop() ? "true" : "false");
-  j += ",\"end_bottom\":" + String(endBot() ? "true" : "false");
+  j += ",\"homed\":" + jsonBool(homed);
+  j += ",\"sash_closed\":" + jsonBool(sashClosed());
+  j += ",\"water_ok\":" + jsonBool(tankOk());
+  j += ",\"tank_full\":" + jsonBool(!tankBelowTop());
+  j += ",\"fluid_ok\":" + jsonBool(fluidOk());
+  j += ",\"refill_mains\":" + jsonBool(REFILL_FROM_MAINS);
+  j += ",\"refilling\":" + jsonBool(refilling);
+  j += ",\"raining\":" + jsonBool(raining());
+  j += ",\"end_top\":" + jsonBool(endTop());
+  j += ",\"end_bottom\":" + jsonBool(endBot());
   j += "}";
   return j;
 }
@@ -416,6 +553,13 @@ function upd(){fetch('/status').then(r=>r.json()).then(j=>s.textContent=JSON.str
 setInterval(upd,1000);upd();
 </script></body></html>)HTML";
 
+void resetFault() {
+  if (mode == Mode::Fault) {
+    mode = Mode::Idle;
+    lastError = "";
+  }
+}
+
 void setupWeb() {
   server.on("/", [] { server.send_P(200, "text/html", PAGE); });
   server.on("/status", [] { server.send(200, "application/json", statusJson()); });
@@ -429,10 +573,7 @@ void setupWeb() {
     server.send(200, "text/plain", "ok");
   });
   server.on("/reset", [] {
-    if (mode == Mode::Fault) {
-      mode = Mode::Idle;
-      lastError = "";
-    }
+    resetFault();
     server.send(200, "text/plain", "ok");
   });
   server.begin();
@@ -448,7 +589,7 @@ void serialTick() {
       break;
     }
     case 'x': stopWash(); Serial.println("STOP"); break;
-    case 'r': if (mode == Mode::Fault) { mode = Mode::Idle; lastError = ""; } break;
+    case 'r': resetFault(); break;
     case '?': Serial.println(statusJson()); break;
   }
 }
@@ -456,33 +597,44 @@ void serialTick() {
 // ---------- Start ----------
 void setup() {
   // Wyjścia mocy najpierw, żeby nic nie ruszyło przy starcie.
-  pinMode(PIN_PUMP, OUTPUT);
-  pump(false);
-  ledcAttach(PIN_MOT_IN1, PWM_FREQ, PWM_BITS);
-  ledcAttach(PIN_MOT_IN2, PWM_FREQ, PWM_BITS);
+  const int outs[] = {PIN_PUMP_RINSE, PIN_PUMP_SOL, PIN_DOSE, PIN_REFILL};
+  for (int p : outs) {
+    pinMode(p, OUTPUT);
+    digitalWrite(p, LOW);
+  }
+  ledcAttachChannel(PIN_MOT_IN1, PWM_FREQ, PWM_BITS, 0);
+  ledcAttachChannel(PIN_MOT_IN2, PWM_FREQ, PWM_BITS, 1);
+  ledcAttachChannel(PIN_BRUSH, PWM_FREQ, PWM_BITS, 2);
+  ledcAttachChannel(PIN_SERVO, SERVO_FREQ, SERVO_BITS, 4);
   motorCoast();
+  brush(false);
+  servoUs(SERVO_US_PARK);
 
   Serial.begin(115200);
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_ENC_A, INPUT);
   pinMode(PIN_ENC_B, INPUT);
+  pinMode(PIN_TANK_HIGH, INPUT);  // GPIO36/39 nie mają pull-upów — rezystory na płytce
+  pinMode(PIN_FLUID, INPUT);
   pinMode(PIN_END_TOP, INPUT_PULLUP);
   pinMode(PIN_END_BOT, INPUT_PULLUP);
   pinMode(PIN_SASH, INPUT_PULLUP);
-  pinMode(PIN_TANK, INPUT_PULLUP);
+  pinMode(PIN_TANK_LOW, INPUT_PULLUP);
   pinMode(PIN_RAIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(PIN_ENC_A), onEncA, CHANGE);
 
   Wire.begin(21, 22);
   inaOk = ina.begin();
   if (inaOk) ina.setCalibration_32V_2A();
+  inaBrushOk = inaBrush.begin();
+  if (inaBrushOk) inaBrush.setCalibration_32V_2A();
 
   tempSensor.begin();
   tempSensor.setWaitForConversion(false);
   tempSensor.requestTemperatures();
   lastTempReq = millis();
 
-  // Watchdog: zawieszenie pętli > 3 s resetuje ESP32 (silnik staje).
+  // Watchdog: zawieszenie pętli > 3 s resetuje ESP32 (wszystko staje).
   esp_task_wdt_config_t wdt = {.timeout_ms = 3000, .idle_core_mask = 0, .trigger_panic = true};
   esp_task_wdt_reconfigure(&wdt);
   esp_task_wdt_add(NULL);
@@ -501,6 +653,9 @@ void loop() {
   esp_task_wdt_reset();
   sensorsTick();
   runTick();
+  brushTick();
+  doseTick();
+  refillTick();
   server.handleClient();
   serialTick();
 

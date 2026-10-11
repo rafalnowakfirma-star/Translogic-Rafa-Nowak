@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 460" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2a8bd6"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f7a4d"/>
+    </marker>
+  </defs>
+  <rect width="1040" height="460" fill="#ffffff"/>
+  <text x="520" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d232b">Układ wodny</text>
+
+  <!-- opcja: kran -->
+  <rect x="20" y="50" width="300" height="120" rx="8" fill="#f6f9f6" stroke="#1f7a4d" stroke-dasharray="6 4"/>
+  <text x="32" y="70" font-size="12" font-weight="bold" fill="#1f7a4d">OPCJA: podłączenie do kranu</text>
+  <rect x="34" y="88" width="56" height="34" rx="4" fill="#fff" stroke="#1d232b"/>
+  <text x="62" y="110" text-anchor="middle" font-size="12">kran</text>
+  <rect x="114" y="88" width="56" height="34" rx="4" fill="#fff" stroke="#1d232b"/>
+  <text x="142" y="104" text-anchor="middle" font-size="11">filtr</text>
+  <text x="142" y="117" text-anchor="middle" font-size="11">siatkowy</text>
+  <rect x="194" y="84" width="70" height="42" rx="4" fill="#fff" stroke="#1d232b"/>
+  <text x="229" y="102" text-anchor="middle" font-size="11" font-weight="bold">Z0</text>
+  <text x="229" y="117" text-anchor="middle" font-size="10">24 V, NC</text>
+  <line x1="90" y1="105" x2="112" y2="105" stroke="#1f7a4d" stroke-width="2.5" marker-end="url(#g)"/>
+  <line x1="170" y1="105" x2="192" y2="105" stroke="#1f7a4d" stroke-width="2.5" marker-end="url(#g)"/>
+  <path d="M 264 105 L 290 105 L 290 196" fill="none" stroke="#1f7a4d" stroke-width="2.5"/>
+  <text x="34" y="148" font-size="11" fill="#1d232b">dolewanie po myciu i przy niskim poziomie,</text>
+  <text x="34" y="162" font-size="11" fill="#1d232b">najdłużej 5 min (wyciek = awaria)</text>
+
+  <!-- szczelina powietrzna -->
+  <line x1="290" y1="196" x2="290" y2="202" stroke="#1f7a4d" stroke-width="2.5"/>
+  <g fill="#6aa6cf"><circle cx="290" cy="212" r="2"/><circle cx="290" cy="222" r="2"/><circle cx="290" cy="232" r="2"/></g>
+  <line x1="306" y1="200" x2="306" y2="240" stroke="#b3261e" stroke-width="1"/>
+  <text x="312" y="214" font-size="11" fill="#b3261e">szczelina</text>
+  <text x="312" y="228" font-size="11" fill="#b3261e">powietrzna ≥ 20 mm</text>
+
+  <!-- zbiornik wody -->
+  <rect x="200" y="244" width="180" height="150" rx="6" fill="#e9f3fb" stroke="#2a8bd6" stroke-width="2"/>
+  <rect x="202" y="290" width="176" height="102" fill="#bfe0f7"/>
+  <text x="290" y="320" text-anchor="middle" font-weight="bold">Zbiornik wody 10 l</text>
+  <text x="290" y="338" text-anchor="middle" font-size="11">(najlepiej demineralizowana)</text>
+  <text x="372" y="270" text-anchor="end" font-size="11">pływak górny „pełny” ─</text>
+  <text x="372" y="378" text-anchor="end" font-size="11">pływak dolny „jest woda” ─</text>
+  <path d="M 200 262 L 180 262 L 180 420" fill="none" stroke="#5b6573" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="70" y="434" font-size="11" fill="#5b6573">przelew → na parapet</text>
+
+  <!-- pojemnik płynu -->
+  <rect x="440" y="320" width="100" height="74" rx="6" fill="#eef7ea" stroke="#1f7a4d" stroke-width="2"/>
+  <rect x="442" y="350" width="96" height="42" fill="#cfe9c4"/>
+  <text x="490" y="340" text-anchor="middle" font-weight="bold">Płyn 0,5–1 l</text>
+  <text x="490" y="412" text-anchor="middle" font-size="11">czujnik poziomu</text>
+  <rect x="580" y="346" width="64" height="34" rx="17" fill="#fff" stroke="#1f7a4d" stroke-width="2"/>
+  <text x="612" y="361" text-anchor="middle" font-size="11" font-weight="bold">P3</text>
+  <text x="612" y="374" text-anchor="middle" font-size="9">perystalt.</text>
+  <line x1="540" y1="363" x2="578" y2="363" stroke="#1f7a4d" stroke-width="2.5" marker-end="url(#g)"/>
+  <path d="M 644 363 L 680 363 L 680 300" fill="none" stroke="#1f7a4d" stroke-width="2.5" marker-end="url(#g)"/>
+  <text x="688" y="340" font-size="11" fill="#1f7a4d">impulsy, 1:200</text>
+
+  <!-- linia roztworu -->
+  <path d="M 380 290 L 664 290" fill="none" stroke="#2a8bd6" stroke-width="2.5"/>
+  <circle cx="680" cy="290" r="5" fill="#fff" stroke="#1d232b"/>
+  <line x1="664" y1="290" x2="675" y2="290" stroke="#2a8bd6" stroke-width="2.5"/>
+  <text x="560" y="282" font-size="11" fill="#1d232b">ssanie (niskie ciśnienie)</text>
+  <line x1="685" y1="290" x2="738" y2="290" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="740" y="272" width="56" height="36" rx="18" fill="#fff" stroke="#2a8bd6" stroke-width="2"/>
+  <text x="768" y="295" text-anchor="middle" font-weight="bold">P2</text>
+  <line x1="796" y1="290" x2="826" y2="290" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <polygon points="828,282 828,298 842,290" fill="#fff" stroke="#1d232b"/>
+  <line x1="842" y1="290" x2="870" y2="290" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="872" y="262" width="150" height="56" rx="6" fill="#eef7ea" stroke="#1f7a4d"/>
+  <text x="947" y="284" text-anchor="middle" font-size="12" font-weight="bold">górny rząd dysz</text>
+  <text x="947" y="302" text-anchor="middle" font-size="11">roztwór przed szczotką</text>
+
+  <!-- linia czystej wody -->
+  <path d="M 380 380 L 420 380 L 420 200 L 738 200" fill="none" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="740" y="182" width="56" height="36" rx="18" fill="#fff" stroke="#2a8bd6" stroke-width="2"/>
+  <text x="768" y="205" text-anchor="middle" font-weight="bold">P1</text>
+  <line x1="796" y1="200" x2="826" y2="200" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <polygon points="828,192 828,208 842,200" fill="#fff" stroke="#1d232b"/>
+  <line x1="842" y1="200" x2="870" y2="200" stroke="#2a8bd6" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="872" y="172" width="150" height="56" rx="6" fill="#e9f3fb" stroke="#2a8bd6"/>
+  <text x="947" y="194" text-anchor="middle" font-size="12" font-weight="bold">dolny rząd dysz</text>
+  <text x="947" y="212" text-anchor="middle" font-size="11">czysta woda przed gumą</text>
+
+  <text x="835" y="248" text-anchor="middle" font-size="10" fill="#5b6573">zawory zwrotne</text>
+  <text x="947" y="150" text-anchor="middle" font-size="11" fill="#5b6573">węże w prowadniku do głowicy</text>
+
+  <!-- legenda -->
+  <g font-size="11" fill="#1d232b">
+    <line x1="580" y1="430" x2="610" y2="430" stroke="#2a8bd6" stroke-width="2.5"/><text x="616" y="434">woda</text>
+    <line x1="670" y1="430" x2="700" y2="430" stroke="#1f7a4d" stroke-width="2.5"/><text x="706" y="434">płyn / woda z kranu</text>
+    <polygon points="840,423 840,437 852,430" fill="#fff" stroke="#1d232b"/><text x="858" y="434">zawór zwrotny</text>
+  </g>
+</svg>
