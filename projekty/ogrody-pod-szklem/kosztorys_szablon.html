@@ -1,0 +1,322 @@
+<title>Kosztorys domów · Ogrody pod szkłem</title>
+<meta name="description" content="Szacunkowy kosztorys 36 domów „Ogrody pod szkłem”: stan surowy, deweloperski, pod klucz – porównanie i rozbicie na pozycje.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Arkusz kosztorysu inwestorskiego: papier, tusz, mosiądz okuć (ten sam świat co katalog i strona TV).
+   Etapy mają stałe kolory w całej stronie: SSZ ciemny, deweloperski średni, pod klucz jasny, koszty dodatkowe kreskowane. */
+:root{
+  --bg:#f5f3ec; --paper:#fffdf7; --line:#ddd8c8; --line-2:#c9c2ad;
+  --ink:#1b211d; --ink-2:#4b5650; --ink-3:#7a8279;
+  --brass:#9a7638; --brass-soft:#efe4cc;
+  --e1:#2f4a3c; --e2:#5f8a6d; --e3:#a9c9a1; --e4:#c9a96e;
+  --f-disp:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b100e; --paper:#131a17; --line:#26322d; --line-2:#34433c;
+    --ink:#eef0ea; --ink-2:#b2bdb6; --ink-3:#7f8d86;
+    --brass:#c9a96e; --brass-soft:#2a2519;
+    --e1:#cfe3c8; --e2:#8fb98a; --e3:#4f7a5a; --e4:#c9a96e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b100e; --paper:#131a17; --line:#26322d; --line-2:#34433c;
+  --ink:#eef0ea; --ink-2:#b2bdb6; --ink-3:#7f8d86;
+  --brass:#c9a96e; --brass-soft:#2a2519;
+  --e1:#cfe3c8; --e2:#8fb98a; --e3:#4f7a5a; --e4:#c9a96e;
+  color-scheme:dark;
+}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;
+  padding-inline:clamp(16px,3vw,48px);padding-block:28px 64px}
+.wrap{max-width:1240px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+button,select{font:inherit;color:inherit}
+.mono{font:500 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.num{font-variant-numeric:tabular-nums}
+
+/* nagłówek */
+header{display:grid;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:18px}
+header h1{margin:0;font:760 clamp(30px,5vw,54px)/1 var(--f-disp);font-stretch:118%;letter-spacing:-.01em;text-wrap:balance}
+header h1 span{color:var(--brass)}
+header p{margin:0;color:var(--ink-2);max-width:72ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font:400 12px/1.4 var(--f-mono);color:var(--ink-3)}
+
+/* sterowanie */
+.ster{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:end}
+.grupa{display:grid;gap:6px;min-width:0;max-width:100%}
+.grupa > span{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:1px solid var(--line-2);border-radius:20px;padding:3px;background:var(--paper);gap:2px}
+.seg button{border:0;background:none;border-radius:999px;padding:6px 13px;white-space:nowrap;cursor:pointer;font-weight:600;font-size:13.5px;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible,select:focus-visible,.wiersz:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+select{border:1px solid var(--line-2);border-radius:999px;background:var(--paper);padding:7px 12px;font-weight:600;font-size:13.5px}
+
+/* legenda */
+.legenda{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2)}
+.legenda i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+.s1{background:var(--e1)} .s2{background:var(--e2)} .s3{background:var(--e3)}
+.s4{background:repeating-linear-gradient(135deg,var(--e4) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1px var(--e4)}
+
+/* układ */
+.uklad{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}
+@media (max-width:980px){.uklad{grid-template-columns:minmax(0,1fr)}}
+
+/* porównanie */
+.lista{display:grid;gap:2px}
+.lista-gl{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 12px;font:500 11px/1 var(--f-mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);padding:0 10px 8px;border-bottom:1px solid var(--line)}
+.wiersz{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:4px 12px;width:100%;text-align:left;
+  background:none;border:0;border-radius:6px;padding:8px 10px;cursor:pointer}
+.wiersz:hover{background:var(--paper)}
+.wiersz[aria-current="true"]{background:var(--paper);box-shadow:inset 3px 0 0 var(--brass)}
+.wiersz img{width:44px;height:30px;object-fit:cover;border-radius:3px;background:var(--line)}
+.wiersz .nz{display:grid;gap:4px;min-width:0}
+.wiersz .nz b{font:700 15px/1.15 var(--f-disp);font-stretch:108%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wiersz .nz b small{font:500 11px/1 var(--f-mono);color:var(--ink-3);letter-spacing:.06em;margin-right:6px}
+.pasek{display:flex;height:9px;border-radius:2px;overflow:hidden;background:transparent}
+.pasek i{display:block;height:100%}
+.wiersz .kw{text-align:right;display:grid;gap:2px}
+.wiersz .kw b{font:700 15px/1 var(--f-disp);font-variant-numeric:tabular-nums}
+.wiersz .kw span{font:400 11.5px/1 var(--f-mono);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.skala{display:flex;justify-content:space-between;padding:6px 10px 0 66px;font:400 10.5px/1 var(--f-mono);color:var(--ink-3)}
+
+/* karta domu */
+.karta{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 14px);background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  display:grid;gap:18px;padding:20px clamp(14px,2.2vw,26px) 24px;min-width:0}
+@media (max-width:980px){.karta{position:static}}
+.karta-gl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:start}
+.karta-gl h2{margin:4px 0 0;font:760 clamp(24px,3vw,34px)/1.02 var(--f-disp);font-stretch:114%;text-wrap:balance}
+.karta-gl img{width:clamp(120px,22vw,190px);aspect-ratio:16/9;object-fit:cover;border-radius:4px;background:var(--line);max-width:100%}
+.dane{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink-2);grid-column:1/-1}
+.etapy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-block:1px solid var(--line)}
+.etapy div{display:grid;gap:3px;padding:12px 10px 12px 0;align-content:start}
+.etapy div + div{padding-left:12px;border-left:1px solid var(--line)}
+.etapy dt{font-size:12px;color:var(--ink-3);display:flex;gap:6px;align-items:center}
+.etapy dt i{width:9px;height:9px;border-radius:2px;flex:none}
+.etapy dd{margin:0;font:720 clamp(17px,2.1vw,22px)/1.1 var(--f-disp);font-variant-numeric:tabular-nums;white-space:nowrap}
+.etapy dd small{display:block;white-space:normal;font:400 11.5px/1.3 var(--f-mono);color:var(--ink-3);margin-top:2px}
+@media (max-width:560px){.etapy{grid-template-columns:repeat(2,minmax(0,1fr))}.etapy div:nth-child(3){padding-left:0;border-left:0}
+  .etapy div:nth-child(n+3){border-top:1px solid var(--line)}}
+.wniosek{margin:0;font-size:14px;color:var(--ink-2);max-width:68ch}
+.wniosek b{color:var(--ink)}
+.tab-wrap{overflow-x:auto;margin-inline:-4px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+th{font:500 10.5px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:6px 4px;border-bottom:1px solid var(--line-2)}
+th:nth-child(2){text-align:left}
+td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
+td:nth-child(1){color:var(--ink-3);font:400 11.5px/1.5 var(--f-mono);width:2.6em}
+td:nth-child(2){text-align:left;color:var(--ink)}
+td:nth-child(3){color:var(--ink-3)}
+tr.etap td{font:600 11px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding-top:16px;border-bottom:1px solid var(--line-2)}
+tr.etap td i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:0}
+tr.razem td{font-weight:700;border-bottom:0;padding-bottom:4px}
+tr.razem td:nth-child(2){color:var(--ink-2);font-weight:600}
+tr.suma td{border-top:2px solid var(--ink);border-bottom:0;font:720 15px/1.3 var(--f-disp);padding-top:10px}
+@media (max-width:560px){.karta table{min-width:0}.karta td:nth-child(1),.karta th:nth-child(1),.karta td:nth-child(4),.karta th:nth-child(4){display:none}.karta tr.etap td{display:table-cell}}
+
+/* metodyka */
+.metoda{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:22px 36px;border-top:2px solid var(--ink);padding-top:22px}
+.metoda h3{margin:0 0 8px;font:700 18px/1.2 var(--f-disp);font-stretch:110%}
+.metoda p,.metoda li{color:var(--ink-2);font-size:14px;max-width:66ch}
+.metoda ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.ceny{grid-column:1/-1}
+.ceny table{min-width:640px}
+.ceny td:nth-child(1){width:auto;font:inherit;color:var(--ink)}
+.ceny td:nth-child(1),.ceny th:nth-child(1){text-align:left}
+.ceny td:nth-child(4){text-align:left;color:var(--ink-3);font-size:12px}
+.ceny td:nth-child(4) a{color:var(--brass)}
+footer{font:400 12px/1.5 var(--f-mono);color:var(--ink-3)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="mono">Ogrody pod szkłem · kosztorys inwestorski (wskaźnikowy)</div>
+    <h1>Ile kosztuje <span>dom wokół ogrodu</span></h1>
+    <p id="hOpis"></p>
+    <div class="meta"><span>Ceny brutto, VAT 8% (budownictwo mieszkaniowe)</span><span id="hPoziom"></span><span>Dokładność ±15–20%</span></div>
+  </header>
+
+  <div class="ster">
+    <div class="grupa"><span>Zestaw</span>
+      <div class="seg" id="sWersja" role="group" aria-label="Zestaw domów"></div></div>
+    <div class="grupa"><span>Porównuj</span>
+      <div class="seg" id="sEtap" role="group" aria-label="Etap budowy"></div></div>
+    <div class="grupa"><span>Kolejność</span>
+      <div class="seg" id="sSort" role="group" aria-label="Kolejność"></div></div>
+    <label class="grupa"><span>Region</span>
+      <select id="sRegion"></select></label>
+  </div>
+
+  <div class="uklad">
+    <section aria-label="Porównanie domów">
+      <div class="legenda" style="margin-bottom:12px">
+        <span><i class="s1"></i>stan surowy zamknięty</span><span><i class="s2"></i>do deweloperskiego</span>
+        <span><i class="s3"></i>do „pod klucz”</span><span><i class="s4"></i>projekt, nadzór, rezerwa</span>
+      </div>
+      <div class="lista-gl"><span></span><span>Dom</span><span id="lKol">Pod klucz</span></div>
+      <div class="lista" id="lista"></div>
+      <div class="skala num" id="skala"></div>
+    </section>
+    <article class="karta" id="karta" aria-live="polite"></article>
+  </div>
+
+  <section class="metoda" aria-label="Jak liczone">
+    <div><h3>Skąd ilości</h3>
+      <p>Każda pozycja jest policzona z modelu projektu, tego samego, z którego powstały rzuty i filmy: metry ścian zewnętrznych bez otworów,
+        okna, fasady szklane i drzwi przesuwne z wymiarów otworów, stropy i dachy z obrysów, tarasy i patio z pomieszczeń zewnętrznych,
+        liczba łazienek, schodów i drzwi z rzutów. Ściana między dwoma pomieszczeniami liczona raz.</p></div>
+    <div><h3>Co zawiera, czego nie</h3>
+      <ul>
+        <li>Stan surowy zamknięty: fundamenty, ściany z ociepleniem, stropy, dachy, cała stolarka, dach ogrodu z napędem.</li>
+        <li>Deweloperski: tynki, wylewki, instalacje, ogrzewanie podłogowe, pompa ciepła, rekuperacja, schody, tarasy, balustrady.</li>
+        <li>Pod klucz: podłogi, malowanie, drzwi, łazienki, kuchnia z AGD, ogród wewnętrzny z nawadnianiem.</li>
+        <li>Poza kosztorysem: działka, przyłącza, ogrodzenie i podjazd, meble ruchome, wyposażenie ogrodu poza zielenią.</li>
+      </ul></div>
+    <div><h3>Dlaczego drożej niż „typowy dom”</h3>
+      <p id="mDrozej"></p></div>
+    <div class="ceny"><h3>Ceny jednostkowe</h3>
+      <div class="tab-wrap"><table><thead><tr><th>Pozycja</th><th>j.m.</th><th>Cena</th><th>Podstawa</th></tr></thead>
+        <tbody id="tCeny"></tbody></table></div></div>
+  </section>
+  <footer id="stopka"></footer>
+</div>
+
+<script>
+const DANE = {{DANE}};
+const $ = (id) => document.getElementById(id);
+const ETAPY = [["SSZ", "Stan surowy zamknięty", "s1", "--e1"], ["DEW", "Deweloperski", "s2", "--e2"], ["PK", "Pod klucz", "s3", "--e3"],
+               ["RAZEM", "Razem z dodatkami", "s4", "--e4"]];
+const WERSJE = [[2, "Wersja 2 · do 170 m²"], [1, "Wersja 1 · archiwum"]];
+const SORT = [["nr", "Numer"], ["zl", "Cena"], ["m2", "zł/m²"]];
+const REGIONY = [[1, "Średnia krajowa"], [1.12, "Warszawa, Kraków, Trójmiasto (+12%)"], [1.05, "Inne duże miasta (+5%)"],
+                 [0.92, "Mniejsze miejscowości (−8%)"]];
+let st = {w: 2, etap: "PK", sort: "nr", reg: 1, dom: null};
+try { const z = JSON.parse(localStorage.getItem("kosztorys-st") || "{}"); Object.assign(st, z, {dom: null}); } catch (e) {}
+if (location.hash) { const m = /^#v([12])_(p\d\d)$/.exec(location.hash); if (m) { st.w = +m[1]; st.dom = m[2]; } }
+
+const grupy = (x) => String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+const zl = (x) => grupy(x) + "\u00a0zł";
+const mln = (x) => (x / 1e6).toLocaleString("pl-PL", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " mln zł";
+const tys = (x) => grupy(x / 1000) + "\u00a0tys.";
+const il = (x) => x.toLocaleString("pl-PL", {minimumFractionDigits: x % 1 ? 1 : 0, maximumFractionDigits: 1});
+function el(tag, cls, txt){ const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+function zapisz(){ try { localStorage.setItem("kosztorys-st", JSON.stringify({w: st.w, etap: st.etap, sort: st.sort, reg: st.reg})); } catch (e) {} }
+
+function seg(id, opcje, klucz, conv){
+  const s = $(id); s.textContent = "";
+  for (const [v, t] of opcje) {
+    const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", String(st[klucz] === v));
+    b.onclick = () => { st[klucz] = v; if (klucz === "w") st.dom = null; zapisz(); rysuj(); };
+    s.appendChild(b);
+  }
+}
+function domy(){ return DANE.domy.filter(d => d.w === st.w); }
+function wart(d, e){ return d.n[e] * st.reg; }
+
+function rysuj(){
+  seg("sWersja", WERSJE, "w"); seg("sEtap", ETAPY.map(e => [e[0], e[1]]), "etap"); seg("sSort", SORT, "sort");
+  const ds = domy();
+  const ileE = {SSZ: 1, DEW: 2, PK: 3, RAZEM: 4}[st.etap];
+  $("lKol").textContent = ETAPY.find(e => e[0] === st.etap)[1];
+  const lista = $("lista"); lista.textContent = "";
+  const kol = [...ds].sort((a, b) => st.sort === "nr" ? a.nr.localeCompare(b.nr)
+    : st.sort === "zl" ? wart(a, st.etap) - wart(b, st.etap) : wart(a, st.etap) / a.pu - wart(b, st.etap) / b.pu);
+  const maks = Math.max(...ds.map(d => wart(d, st.etap)));
+  const krok = maks > 4e6 ? 1e6 : 5e5, gora = Math.ceil(maks / krok) * krok;
+  if (!st.dom || !ds.some(d => d.pid === st.dom)) st.dom = kol[0].pid;
+  for (const d of kol) {
+    const b = el("button", "wiersz"); b.type = "button"; b.setAttribute("aria-current", String(d.pid === st.dom));
+    const im = el("img"); im.alt = ""; im.loading = "lazy"; if (d.img) im.src = d.img; b.appendChild(im);
+    const nz = el("span", "nz"); const nb = el("b"); nb.appendChild(el("small", null, d.nr)); nb.appendChild(document.createTextNode(d.nazwa));
+    nz.appendChild(nb);
+    const p = el("span", "pasek"); p.style.width = (wart(d, st.etap) / gora * 100) + "%";
+    const czesci = [d.n.SSZ, d.n.DEW - d.n.SSZ, d.n.PK - d.n.DEW, d.n.RAZEM - d.n.PK].slice(0, ileE);
+    const sm = czesci.reduce((a, x) => a + x, 0);
+    czesci.forEach((x, k) => { const i = el("i", "s" + (k + 1)); i.style.width = (x / sm * 100) + "%"; p.appendChild(i); });
+    nz.appendChild(p); b.appendChild(nz);
+    const kw = el("span", "kw"); kw.appendChild(el("b", null, mln(wart(d, st.etap))));
+    kw.appendChild(el("span", null, grupy(wart(d, st.etap) / d.pu) + " zł/m² · " + Math.round(d.pu) + " m²"));
+    b.appendChild(kw);
+    b.onclick = () => { st.dom = d.pid; rysuj(); if (matchMedia("(max-width:980px)").matches) $("karta").scrollIntoView({behavior: "smooth", block: "start"}); };
+    lista.appendChild(b);
+  }
+  const sk = $("skala"); sk.textContent = "";
+  for (let x = 0; x <= gora + 1; x += krok) sk.appendChild(el("span", null, x ? (x / 1e6).toLocaleString("pl-PL") + " mln" : "0"));
+  karta(ds.find(d => d.pid === st.dom));
+  const r = $("sRegion"); if (!r.options.length) { for (const [v, t] of REGIONY) { const o = el("option", null, t); o.value = v; r.appendChild(o); } }
+  r.value = String(st.reg);
+  try { history.replaceState(null, "", "#v" + st.w + "_" + st.dom); } catch (e) {}
+}
+
+function karta(d){
+  const k = $("karta"); k.textContent = "";
+  const gl = el("div", "karta-gl");
+  const t = el("div"); t.appendChild(el("div", "mono", d.nr + " · wersja " + d.w)); t.appendChild(el("h2", null, d.nazwa)); gl.appendChild(t);
+  if (d.img) { const im = el("img"); im.alt = ""; im.src = d.img; gl.appendChild(im); }
+  const dn = el("div", "dane");
+  for (const x of [Math.round(d.pu) + " m² użytkowej", "ogród pod szkłem " + Math.round(d.ogrod) + " m²",
+                   d.tarasy >= 1 ? "tarasy " + Math.round(d.tarasy) + " m²" : null, d.dach ? "dach ogrodu: " + d.dach : null]) if (x) dn.appendChild(el("span", null, x));
+  gl.appendChild(dn); k.appendChild(gl);
+  const et = el("dl", "etapy");
+  const KROTKO = {SSZ: "Surowy zamknięty", DEW: "Deweloperski", PK: "Pod klucz", RAZEM: "Z dodatkami"};
+  for (const [e, , , kolor] of ETAPY) {
+    const nazwa = KROTKO[e];
+    const w = el("div"); const dt = el("dt"); const i = el("i"); i.style.background = `var(${kolor})`; dt.appendChild(i); dt.appendChild(document.createTextNode(nazwa));
+    const dd = el("dd", null, mln(wart(d, e))); dd.appendChild(el("small", null, e === "RAZEM" ? "projekt, nadzór, rezerwa" : zl(wart(d, e) / d.pu) + "/m²"));
+    w.appendChild(dt); w.appendChild(dd); et.appendChild(w);
+  }
+  k.appendChild(et);
+  const szklo = d.poz.filter(p => p[6]).reduce((a, p) => a + p[5], 0);
+  const naj = [...d.poz].filter(p => p[0] !== "DOD").sort((a, b) => b[5] - a[5]).slice(0, 3);
+  const wn = el("p", "wniosek");
+  wn.append("Przeszklenia, drzwi przesuwne i otwierany dach ogrodu to ");
+  wn.appendChild(el("b", null, Math.round(szklo / d.n.PK * 100) + "% kosztu „pod klucz”"));
+  wn.append(" (" + mln(szklo * st.reg) + "). Najdroższe pozycje: " + naj.map(p => p[1].toLowerCase() + " – " + tys(p[5] * st.reg)).join("; ") + " zł.");
+  k.appendChild(wn);
+  const tw = el("div", "tab-wrap"); const tb = el("table");
+  const th = el("thead"); const hr = el("tr");
+  for (const x of ["Lp.", "Pozycja", "Ilość", "Cena jedn.", "Wartość"]) hr.appendChild(el("th", null, x));
+  th.appendChild(hr); tb.appendChild(th);
+  const bd = el("tbody"); let lp = 0;
+  const nazwyE = {SSZ: ["Stan surowy zamknięty", "--e1"], DEW: ["Stan deweloperski – dopłata", "--e2"], PK: ["Pod klucz – dopłata", "--e3"],
+                  DOD: ["Koszty dodatkowe", "--e4"]};
+  for (const e of ["SSZ", "DEW", "PK", "DOD"]) {
+    const r = el("tr", "etap"); const c = el("td"); c.colSpan = 5; const i = el("i"); i.style.background = `var(${nazwyE[e][1]})`;
+    c.appendChild(i); c.appendChild(document.createTextNode(nazwyE[e][0])); r.appendChild(c); bd.appendChild(r);
+    for (const p of d.poz.filter(p => p[0] === e)) {
+      const tr = el("tr");
+      tr.appendChild(el("td", null, String(++lp)));
+      tr.appendChild(el("td", null, p[1]));
+      tr.appendChild(el("td", null, p[3] === "kpl." && p[2] === 1 ? "1 kpl." : il(p[2]) + " " + p[3]));
+      tr.appendChild(el("td", null, p[3] === "kpl." && p[2] === 1 ? "" : zl(p[4] * st.reg)));
+      tr.appendChild(el("td", null, zl(p[5] * st.reg)));
+      bd.appendChild(tr);
+    }
+    const s = el("tr", "razem"); s.appendChild(el("td")); s.appendChild(el("td", null, "razem"));
+    const v = el("td", null, zl(d.s[e] * st.reg)); v.colSpan = 3; s.appendChild(v); bd.appendChild(s);
+  }
+  const su = el("tr", "suma"); su.appendChild(el("td")); su.appendChild(el("td", null, "Razem inwestycja"));
+  const sv = el("td", null, zl(d.n.RAZEM * st.reg)); sv.colSpan = 3; su.appendChild(sv); bd.appendChild(su);
+  tb.appendChild(bd); tw.appendChild(tb); k.appendChild(tw);
+}
+
+$("sRegion").onchange = (e) => { st.reg = +e.target.value; zapisz(); rysuj(); };
+$("hOpis").textContent = DANE.opis;
+$("hPoziom").textContent = DANE.poziom;
+$("mDrozej").textContent = DANE.drozej;
+$("stopka").textContent = DANE.stopka;
+for (const c of DANE.ceny) {
+  const tr = el("tr"); tr.appendChild(el("td", null, c.nazwa)); tr.appendChild(el("td", null, c.jm));
+  tr.appendChild(el("td", null, c.cena));
+  const z = el("td");
+  if (c.zrodla && c.zrodla.length) c.zrodla.forEach((s, i) => { if (i) z.append(", "); const a = el("a", null, s.nazwa); a.href = s.url; a.target = "_blank"; a.rel = "noopener"; z.appendChild(a); });
+  if (c.uwaga) z.append((c.zrodla && c.zrodla.length ? " – " : "") + c.uwaga);
+  tr.appendChild(z); $("tCeny").appendChild(tr);
+}
+rysuj();
+</script>

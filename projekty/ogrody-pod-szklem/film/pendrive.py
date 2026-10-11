@@ -24,6 +24,7 @@ from PIL import Image  # noqa: E402
 from podglad import load  # noqa: E402
 from film.scenariusz import fakty_domu  # noqa: E402
 from film.portal import zdjecia, rzuty  # noqa: E402
+from kosztorys import kosztorys, tekst, zl, POZIOM_CEN  # noqa: E402
 
 WERSJE = {2: "wersja_2", 1: "wersja_1_archiwum"}
 PL = str.maketrans("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ", "acelnoszzACELNOSZZ")
@@ -101,12 +102,19 @@ def dom(w, pid, out_root, spis):
     opis = " ".join(x for x in (nar.get("lotu", ""), nar.get("rzuty", "")) if x)
     if opis:
         tl += ["", opis]
+    k = kosztorys(H)
+    n = k["narastajaco"]
+    tl += ["", f"Koszt budowy (szacunek, {POZIOM_CEN.lower()}): stan surowy zamknięty {zl(n['SSZ'])}, deweloperski {zl(n['DEW'])}, "
+           f"pod klucz {zl(n['PK'])} ({zl(k['za_m2']['PK'])}/m²); z projektem, nadzorem i rezerwą {zl(n['RAZEM'])}. "
+           "Szczegóły: kosztorys.txt."]
+    open(os.path.join(d, "kosztorys.txt"), "w", encoding="utf-8-sig").write(
+        tekst(dict(wersja=w, pid=pid, numer=pid.upper(), nazwa=H.name, **k)) + "\n")
     tl += ["", f"Film: {mmss(czas(film))}" if film else "Film: w przygotowaniu"]
     if not final:
         tl += ["Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu)."]
     open(os.path.join(d, "opis.txt"), "w", encoding="utf-8-sig").write("\n".join(tl) + "\n")
     spis.append((w, pid.upper(), H.name, fakty[0][0], mmss(czas(film)) if film else "w przygotowaniu",
-                 f"{WERSJE[w]}/{nazwa}"))
+                 f"{WERSJE[w]}/{nazwa}", k))
     return film
 
 
@@ -127,15 +135,37 @@ def main():
             print("DOM", w, pid, "film" if f else "bez filmu", flush=True)
     tl = ["OGRODY POD SZKŁEM – domy wokół prywatnego ogrodu pod otwieranym szklanym dachem", "",
           "Na telewizorze: włóż pendrive, otwórz odtwarzacz multimediów (USB) i wejdź do folderu „domy”.",
-          "W folderze każdego domu: film (MP4, 1080p, z lektorem), zdjęcia i rzuty (JPG) oraz opis (opis.txt).", ""]
+          "W folderze każdego domu: film (MP4, 1080p, z lektorem), zdjęcia i rzuty (JPG), opis (opis.txt) i kosztorys (kosztorys.txt).",
+          "Porównanie kosztów wszystkich domów: 00_KOSZTORYS_ZESTAWIENIE.txt.", ""]
     for w in sorted({s[0] for s in spis}, reverse=True):
         tl += ["", "WERSJA 2 (aktualna)" if w == 2 else "WERSJA 1 (archiwum – przed zmianami)", ""]
-        tl += [f"  {nr}  {nazwa:<22} {m2:>7}   film {f:<16} {kat}" for ww, nr, nazwa, m2, f, kat in spis if ww == w]
+        tl += [f"  {nr}  {nazwa:<22} {m2:>7}   film {f:<16} {kat}" for ww, nr, nazwa, m2, f, kat, _ in spis if ww == w]
     tl += ["", "Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany."]
     open(os.path.join(a.out, "00_SPIS_DOMOW.txt"), "w", encoding="utf-8-sig").write("\n".join(tl) + "\n")
+    zestawienie(a.out, spis)
     tot = sum(os.path.getsize(f) for f in filmy) / 1e6
     readme(os.path.dirname(a.out), spis, filmy)
     print(f"PENDRIVE: {len(spis)} domów, filmów {len(filmy)} ({tot:.0f} MB) → {a.out}")
+
+
+def zestawienie(out, spis):
+    """00_KOSZTORYS_ZESTAWIENIE.txt: koszt etapów wszystkich domów obok siebie (szczegóły w kosztorys.txt domu)."""
+    mln = lambda x: f"{x / 1e6:5.2f}".replace(".", ",")   # noqa: E731
+    tl = ["OGRODY POD SZKŁEM – KOSZTORYS SZACUNKOWY (porównanie domów)",
+          f"Ceny brutto (VAT 8%), {POZIOM_CEN.lower()}, średni standard; dokładność ±15–20%. Kwoty w mln zł.",
+          "SSZ – stan surowy zamknięty, DEW – deweloperski, PK – pod klucz, RAZEM – z projektem, nadzorem i rezerwą.", ""]
+    for w in sorted({x[0] for x in spis}, reverse=True):
+        tl += ["WERSJA 2 (aktualna)" if w == 2 else "WERSJA 1 (archiwum – przed zmianami)", "",
+               f"  {'dom':<27} {'pow.':>7}   {'SSZ':>5}  {'DEW':>5}  {'PK':>5}  {'RAZEM':>5}   zł/m² pod klucz"]
+        for ww, nr, nazwa, m2, f, kat, k in spis:
+            if ww == w:
+                n = k["narastajaco"]
+                tl.append(f"  {nr} {nazwa:<23} {m2:>7}   {mln(n['SSZ'])}  {mln(n['DEW'])}  {mln(n['PK'])}  {mln(n['RAZEM'])}   "
+                          + f"{k['za_m2']['PK']:>8,}".replace(",", " "))
+        tl.append("")
+    tl += ["Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.",
+           "Największy rozrzut cen: otwierany dach szklany ogrodu i stolarka aluminiowa – przed budową zapytania ofertowe."]
+    open(os.path.join(out, "00_KOSZTORYS_ZESTAWIENIE.txt"), "w", encoding="utf-8-sig").write("\n".join(tl) + "\n")
 
 
 REPO = "rafalnowakfirma-star/Translogic-Rafa-Nowak"
@@ -151,12 +181,13 @@ def readme(katalog, spis, filmy):
           f"1. Pobierz całość: **[Download ZIP]({zip_url})** (albo pojedyncze filmy z listy poniżej).",
           "2. Rozpakuj i skopiuj folder **`domy`** na pendrive (FAT32 lub exFAT).",
           "3. Włóż pendrive do telewizora → odtwarzacz multimediów / USB → folder `domy` → wybierz dom.",
-          "", "W folderze każdego domu: film `…_film.mp4`, zdjęcia `01_…jpg`, rzuty `Rzut_…jpg` i `opis.txt`.",
+          "", "W folderze każdego domu: film `…_film.mp4`, zdjęcia `01_…jpg`, rzuty `Rzut_…jpg`, `opis.txt` i `kosztorys.txt`.",
+          "Porównanie kosztów budowy wszystkich domów: `domy/00_KOSZTORYS_ZESTAWIENIE.txt`.",
           "Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, które już są.", ""]
     for w in sorted({x[0] for x in spis}, reverse=True):
         tl += ["## " + ("Wersja 2 (aktualna)" if w == 2 else "Wersja 1 – archiwum (przed zmianami)"), "",
                "| Dom | Powierzchnia | Film |", "|---|---|---|"]
-        for ww, nr, nazwa, m2, f, kat in spis:
+        for ww, nr, nazwa, m2, f, kat, _ in spis:
             if ww != w:
                 continue
             plik = os.path.basename(kat) + "_film.mp4"

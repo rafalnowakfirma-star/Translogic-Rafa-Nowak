@@ -28,6 +28,8 @@ Gdzie co jest (dla odbiorcy):
 - **Strony publiczne na przeglądarkę telewizora** (po włączeniu publicznego linku w menu „Udostępnij”; filmy 720p, 4 sekcje ≤ 256 MB): domy 1–10 https://claude.ai/artifact/GUBcv3upf33DPfTk6ibSvL, domy 11–20 https://claude.ai/artifact/H27Hk7wDukTMGGrdXTZ4Xc, archiwum 1–8 https://claude.ai/artifact/5XrpdCyMHJ8LMcBYCSLMRJ, archiwum 9–16 https://claude.ai/artifact/VqBaLpzvyNpVNfPWyzEmmG – budowa: `sh tv/buduj.sh`
 - **Folder „domy” na pendrive** (filmy MP4 1080p, zdjęcia i rzuty JPG, opisy): gałąź `ogrody-pendrive` (https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/tree/ogrody-pendrive) – budowa: `python3 film/pendrive.py`
 
+**Kosztorys** (szacunek wszystkich 36 domów: stan surowy zamknięty, deweloperski, pod klucz, koszty dodatkowe; ilości z modeli × ceny 2026 z portali cenowych): https://claude.ai/artifact/KeQmsZSoWTwV5ihHFokdsh – budowa: `python3 kosztorys.py` (strona w `out/kosztorys/strona`, jeden dom: `python3 kosztorys.py p05 --wersja 2`); na pendrive `kosztorys.txt` w folderze domu i `00_KOSZTORYS_ZESTAWIENIE.txt`, na stronach TV blok kosztów w teczce domu i przycisk „Koszty budowy”.
+
 Kino (filmy z lektorem, spacerem i animacją dachu – do oglądania na telewizorze; części filmów w zasobach strony, budowa: `python3 film/kino.py --wersje 2 --out kino --zasoby kino/zasoby.json`): https://claude.ai/artifact/7Lk7FCwkswm9KJtHGCip2C
 
 Archiwum pierwszej wersji katalogu (16 domów sprzed zmian klienta; kopia strony v1 w `strona_v1/` z banerem archiwum): https://claude.ai/artifact/P2izSK4xe3VFVmYYuu4T1B

@@ -92,6 +92,47 @@ a.btn{color:var(--ink);text-decoration:none}
 .zw .plus li::before{content:"+";color:var(--leaf);font-weight:700}
 .zw .minus li::before{content:"–";color:var(--rust);font-weight:700}
 .opis{color:var(--ink-2);font-size:.92rem;line-height:1.55;border-radius:4px;padding:.2rem .3rem;max-width:65ch}
+.koszt{display:grid;gap:.6rem;padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.koszt .kl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem 1rem;margin:0}
+.koszt .kl div{display:grid;gap:.1rem;min-width:0}
+.koszt .kl dt{order:2;font-size:.78rem;color:var(--ink-3)}
+.koszt .kl dd{order:1;margin:0;font:700 1.22rem/1.1 var(--f-disp);font-variant-numeric:tabular-nums;white-space:nowrap}
+.koszt .kl div:last-child dd{color:var(--brass)}
+.koszt p{margin:0;font-size:.85rem;color:var(--ink-3)}
+.koszt .btn{justify-self:start}
+
+/* ---------- nakładka: kosztorys domu i porównanie kosztów */
+#koszt{background:var(--bg);overflow-y:auto;display:block;padding:clamp(14px,1.6vw,36px) clamp(16px,2.6vw,64px) 48px}
+.k-top{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1rem;margin-bottom:1.2rem}
+.k-top h2{margin:0;font:750 clamp(1.5rem,2.5vw,2.6rem)/1.05 var(--f-disp);font-stretch:114%;flex:1;min-width:0;text-wrap:balance}
+.k-top p{flex-basis:100%;margin:0;color:var(--ink-3);font-size:.85rem}
+.k-etapy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:0 0 1.2rem}
+.k-etapy div{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:.7rem .9rem;display:grid;gap:.15rem}
+.k-etapy dt{order:2;font-size:.8rem;color:var(--ink-3)}
+.k-etapy dd{order:1;margin:0;font:700 1.55rem/1.1 var(--f-disp);font-variant-numeric:tabular-nums}
+.k-etapy dd small{display:block;font:400 .72rem/1.3 var(--f-mono);color:var(--ink-3);margin-top:.2rem}
+.k-etapy div:last-child dd{color:var(--brass)}
+.k-bloki{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:start}
+.k-blok{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:.7rem 1rem .5rem;min-width:0}
+.k-blok h3{margin:0 0 .3rem;display:flex;justify-content:space-between;gap:1rem;font:600 .78rem/1.2 var(--f-mono);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--brass)}
+.k-w{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:.2rem 1rem;padding:.32rem 0;border-top:1px solid var(--line);font-size:.88rem}
+.k-w span:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.k-w span:nth-child(2){color:var(--ink-3);font-size:.8rem}
+.k-uwaga{margin:1.2rem 0 0;color:var(--ink-3);font-size:.8rem;max-width:90ch}
+.k-lista{display:grid;gap:.25rem}
+.k-r{display:grid;grid-template-columns:3.2rem minmax(9rem,14rem) minmax(0,1fr) auto;align-items:center;gap:.4rem 1rem;
+  padding:.45rem .7rem;border-radius:var(--r);text-align:left;width:100%}
+.k-r:focus,.k-r:hover{background:var(--panel-2)}
+.k-r .nr{font:500 .75rem/1 var(--f-mono);color:var(--ink-3);letter-spacing:.08em}
+.k-r .nm{font:700 1.05rem/1.15 var(--f-disp);font-stretch:108%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k-r .pas{display:flex;height:.55rem;border-radius:2px;overflow:hidden}
+.k-r .pas i{display:block;height:100%}
+.k-r .wr{text-align:right;font:700 1.05rem/1.1 var(--f-disp);font-variant-numeric:tabular-nums;white-space:nowrap}
+.k-r .wr small{display:block;font:400 .7rem/1.3 var(--f-mono);color:var(--ink-3)}
+.e1{background:#cfe3c8}.e2{background:#8fb98a}.e3{background:#4f7a5a}.e4{background:repeating-linear-gradient(135deg,var(--brass) 0 3px,transparent 3px 6px)}
+.k-leg{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;font-size:.8rem;color:var(--ink-2);margin-bottom:.8rem}
+.k-leg i{display:inline-block;width:.75rem;height:.75rem;border-radius:2px;margin-right:.4rem;vertical-align:-.05rem}
 
 /* ---------- nakładki: zdjęcie i film */
 .nakladka{position:fixed;inset:0;z-index:20;background:#000;display:grid}
@@ -114,6 +155,10 @@ a.btn{color:var(--ink);text-decoration:none}
 @media (max-width:900px){
   .dom-body{grid-template-columns:minmax(0,1fr)}
   .zw{grid-template-columns:minmax(0,1fr)}
+  .k-bloki{grid-template-columns:minmax(0,1fr)}
+  .k-etapy{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .k-r{grid-template-columns:2.6rem minmax(0,1fr) auto}
+  .k-r .pas{grid-column:2/-1;grid-row:2}
 }
 @media (prefers-reduced-motion:reduce){[data-nav],.kafel{transition:none}.kafel:focus,.kafel:hover{transform:none}}
 </style>
@@ -126,6 +171,7 @@ a.btn{color:var(--ink);text-decoration:none}
     </div>
     <div class="akcje" id="sAkcje">
       <button class="btn glowny" type="button" data-nav id="sWszystkie">▶ Wszystkie filmy po kolei</button>
+      <button class="btn" type="button" data-nav id="sKoszty">Koszty budowy</button>
       <button class="btn" type="button" data-nav id="sPelny">Pełny ekran</button>
     </div>
   </header>
@@ -163,6 +209,11 @@ a.btn{color:var(--ink);text-decoration:none}
         <button class="btn" type="button" data-nav id="dRzuty">Rzuty</button>
       </div>
       <dl class="fakty" id="dFakty"></dl>
+      <div class="koszt" id="dKoszt" hidden>
+        <span class="mono">Koszt budowy · szacunek</span>
+        <dl class="kl" id="dKosztL"></dl>
+        <button class="btn" type="button" data-nav id="dKosztB">Kosztorys szczegółowy ›</button>
+      </div>
       <div class="zw">
         <div class="plus"><h3>Zalety</h3><ul id="dZalety"></ul></div>
         <div class="minus"><h3>Minusy</h3><ul id="dWady"></ul></div>
@@ -170,6 +221,16 @@ a.btn{color:var(--ink);text-decoration:none}
       <div class="opis" id="dOpis" tabindex="0" data-nav></div>
     </div>
   </div>
+</section>
+
+<section class="nakladka" id="koszt" hidden aria-label="Kosztorys">
+  <div class="k-top">
+    <button class="btn" type="button" data-nav id="kZamknij">‹ Wróć</button>
+    <h2 id="kTytul"></h2>
+    <p id="kPodtytul"></p>
+  </div>
+  <div id="kTresc"></div>
+  <p class="k-uwaga" id="kUwaga"></p>
 </section>
 
 <section class="nakladka" id="foto" hidden aria-label="Zdjęcie">
@@ -226,6 +287,7 @@ function start(){
     + "otwieranym szklanym dachem · " + (nf ? ile(nf, "film", "filmy", "filmów") + " z lektorem i spacerem po domu" : "filmy w przygotowaniu")
     + (nf && nf < DOMY.length ? " (kolejne dochodzą)" : "") + ".";
   $("sWszystkie").disabled = !nf;
+  $("sKoszty").hidden = !DOMY.some(d => d.koszt);
   const ak = $("sAkcje");
   for (const l of INFO.linki || []) {
     const a = el("a", "btn", l.nazwa); a.href = l.url; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("data-nav", "");
@@ -264,6 +326,14 @@ function otworzDom(i, zastap){
   const zl = $("dZalety"), wd = $("dWady"); zl.textContent = ""; wd.textContent = "";
   for (const z of d.zalety) zl.appendChild(el("li", null, z));
   for (const z of d.wady) wd.appendChild(el("li", null, z));
+  const k = d.koszt;
+  $("dKoszt").hidden = !k;
+  if (k) {
+    const kl = $("dKosztL"); kl.textContent = "";
+    for (const [e, t] of [["SSZ", "stan surowy zamknięty"], ["PK", "pod klucz · " + grupy(k.m2.PK) + " zł/m²"], ["RAZEM", "z projektem i rezerwą"]]) {
+      const w = el("div"); w.appendChild(el("dt", null, t)); w.appendChild(el("dd", null, mln(k.n[e]))); kl.appendChild(w);
+    }
+  }
   $("dOpis").textContent = d.opis || "";
   $("dOpis").hidden = !d.opis;
   const mn = $("dMini"); mn.textContent = "";
@@ -311,6 +381,76 @@ function rysujFoto(){
   $("fT2").textContent = (mi + 1) + " / " + media.length + " · ◀ ▶ kolejne · Wstecz zamyka";
 }
 function fotoKrok(k){ pokazMedia(mi + k); rysujFoto(); }
+
+/* ---------------------------------------------------------------- kosztorys */
+function grupy(x){ return String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+function mln(x){ return (x / 1e6).toFixed(2).replace(".", ",") + "\u00a0mln\u00a0zł"; }
+let kosztSkad = null;
+function otworzKoszt(){
+  kosztSkad = document.activeElement;
+  otworz("koszt");
+  $("koszt").hidden = false; $("koszt").scrollTop = 0;
+  $("kZamknij").focus({preventScroll: true});
+}
+function kosztDomu(i){
+  const d = DOMY[i], k = d.koszt; if (!k) return;
+  $("kTytul").textContent = d.numer + " " + d.nazwa + " · kosztorys";
+  $("kPodtytul").textContent = INFO.koszt_info || "";
+  const t = $("kTresc"); t.textContent = "";
+  const et = el("dl", "k-etapy");
+  for (const [e, n] of [["SSZ", "stan surowy zamknięty"], ["DEW", "stan deweloperski"], ["PK", "pod klucz"], ["RAZEM", "z projektem, nadzorem i rezerwą"]]) {
+    const w = el("div"); w.appendChild(el("dt", null, n));
+    const dd = el("dd", null, mln(k.n[e])); if (e !== "RAZEM") dd.appendChild(el("small", null, grupy(k.m2[e]) + " zł/m²"));
+    w.appendChild(dd); et.appendChild(w);
+  }
+  t.appendChild(et);
+  const bl = el("div", "k-bloki");
+  for (const [e, n] of [["SSZ", "Stan surowy zamknięty"], ["DEW", "Deweloperski – dopłata"], ["PK", "Pod klucz – dopłata"], ["DOD", "Koszty dodatkowe"]]) {
+    const b = el("div", "k-blok"); b.tabIndex = 0; b.setAttribute("data-nav", "");
+    const h = el("h3"); h.appendChild(el("span", null, n)); h.appendChild(el("span", null, grupy(k.s[e]) + " zł")); b.appendChild(h);
+    for (const p of k.poz.filter(p => p[0] === e)) {
+      const w = el("div", "k-w"); w.appendChild(el("span", null, p[1]));
+      w.appendChild(el("span", null, p[3] === "kpl." && p[2] === 1 ? "" : String(p[2]).replace(".", ",") + " " + p[3] + " × " + grupy(p[4])));
+      w.appendChild(el("span", null, grupy(p[5]) + " zł")); b.appendChild(w);
+    }
+    bl.appendChild(b);
+  }
+  t.appendChild(bl);
+  $("kUwaga").textContent = "Przeszklenia i otwierany dach ogrodu: " + Math.round(k.szklo * 100) + "% kosztu pod klucz. " + (INFO.koszt_uwaga || "");
+  otworzKoszt();
+}
+function kosztyWszystkich(){
+  const ds = DOMY.map((d, i) => [d, i]).filter(x => x[0].koszt).sort((a, b) => a[0].koszt.n.PK - b[0].koszt.n.PK);
+  if (!ds.length) return;
+  $("kTytul").textContent = "Koszty budowy · " + (INFO.zakres ? "domy " + INFO.zakres : INFO.nazwa_wersji.toLowerCase());
+  $("kPodtytul").textContent = (INFO.koszt_info || "") + " Od najtańszego. OK – kosztorys domu.";
+  const t = $("kTresc"); t.textContent = "";
+  const lg = el("div", "k-leg");
+  for (const [c, n] of [["e1", "stan surowy zamknięty"], ["e2", "do deweloperskiego"], ["e3", "do pod klucz"], ["e4", "projekt, nadzór, rezerwa"]]) {
+    const s = el("span"); s.appendChild(el("i", c)); s.appendChild(document.createTextNode(n)); lg.appendChild(s);
+  }
+  t.appendChild(lg);
+  const maks = Math.max(...ds.map(x => x[0].koszt.n.RAZEM));
+  const l = el("div", "k-lista");
+  for (const [d, i] of ds) {
+    const n = d.koszt.n;
+    const r = el("button", "k-r"); r.type = "button"; r.setAttribute("data-nav", "");
+    r.appendChild(el("span", "nr", d.numer)); r.appendChild(el("span", "nm", d.nazwa));
+    const p = el("span", "pas"); p.style.width = (n.RAZEM / maks * 100) + "%";
+    [[n.SSZ, "e1"], [n.DEW - n.SSZ, "e2"], [n.PK - n.DEW, "e3"], [n.RAZEM - n.PK, "e4"]].forEach(([v, c]) => { const x = el("i", c); x.style.width = (v / n.RAZEM * 100) + "%"; p.appendChild(x); });
+    r.appendChild(p);
+    const w = el("span", "wr", mln(n.PK)); w.appendChild(el("small", null, grupy(d.koszt.m2.PK) + " zł/m² · razem " + mln(n.RAZEM))); r.appendChild(w);
+    r.onclick = () => {           // kosztorys → dom: ten sam wpis historii (Wstecz wraca na półkę)
+      const g = stos.pop(); $("koszt").hidden = true;
+      stos.push({w: "dom", h: g ? g.h : false});
+      otworzDom(i, true);
+    };
+    l.appendChild(r);
+  }
+  t.appendChild(l);
+  $("kUwaga").textContent = INFO.koszt_uwaga || "";
+  otworzKoszt();
+}
 
 /* ---------------------------------------------------------------- film */
 function graj(i, poKolei){
@@ -414,6 +554,7 @@ function zamknijGorna(){
   const g = stos.pop();
   const w = g && g.w;
   if (w === "film") zamknijFilm();
+  else if (w === "koszt") { $("koszt").hidden = true; if (kosztSkad && kosztSkad.isConnected) kosztSkad.focus({preventScroll: true}); }
   else if (w === "foto") { $("foto").hidden = true; const m = $("dMini").children[mi]; (m || $("dKadr")).focus({preventScroll: true}); }
   else if (w === "dom") {
     $("dom").hidden = true; $("start").hidden = false;
@@ -445,6 +586,7 @@ function pelny(wlacz){
 /* ---------------------------------------------------------------- nawigacja pilotem: przestrzenna */
 function warstwa(){
   if (!$("film").hidden) return $("film");
+  if (!$("koszt").hidden) return $("koszt");
   if (!$("foto").hidden) return $("foto");
   if (!$("dom").hidden) return $("dom");
   return $("start");
@@ -500,6 +642,9 @@ document.addEventListener("keydown", (e) => {
 /* ---------------------------------------------------------------- przyciski */
 $("sWszystkie").onclick = () => { const i = DOMY.findIndex(d => d.film); if (i >= 0) graj(i, true); };
 $("sPelny").onclick = () => pelny();
+$("sKoszty").onclick = () => kosztyWszystkich();
+$("dKosztB").onclick = () => kosztDomu(dom);
+$("kZamknij").onclick = () => wstecz();
 $("dWroc").onclick = () => wstecz();
 $("dPrev").onclick = () => otworzDom(dom - 1, true);
 $("dNext").onclick = () => otworzDom(dom + 1, true);

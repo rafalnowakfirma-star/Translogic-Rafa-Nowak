@@ -111,6 +111,15 @@ def rzuty(H, pid, film_dir, dst, rel):
     return out
 
 
+def _koszt(H):
+    """Kosztorys domu w skrócie dla strony: etapy narastająco, zł/m², pozycje, udział szkła."""
+    from kosztorys import kosztorys
+    k = kosztorys(H)
+    szklo = sum(p["wartosc"] for p in k["pozycje"] if p["szklo"]) / k["narastajaco"]["PK"]
+    return dict(n=k["narastajaco"], m2=k["za_m2"], s=k["sumy"], szklo=round(szklo, 3),
+                poz=[[p["etap"], p["nazwa"], p["ilosc"], p["jm"], p["cena"], p["wartosc"]] for p in k["pozycje"]])
+
+
 def wybor_domow(spec, pids):
     """"p01-p10" albo "p01,p03" → lista z pids."""
     if not spec:
@@ -182,7 +191,7 @@ def main():
         opis = " ".join(x for x in (nar.get("lotu", ""), nar.get("rzuty", "")) if x)
         domy.append(dict(id=f"v{w}_{pid}", numer=pid.upper(), nazwa=H.name, haslo=getattr(H, "tagline", ""),
                          fakty=fakty_domu(H), zalety=nar.get("zalety", []), wady=nar.get("wady", []), opis=opis,
-                         zdjecia=zd, rzuty=rz, plakat=plakat, fotorealistyczne=final, film=film))
+                         zdjecia=zd, rzuty=rz, plakat=plakat, fotorealistyczne=final, film=film, koszt=_koszt(H)))
         for z in zd + rz + ([dict(src=plakat)] if plakat else []):
             pliki.append(z["src"])
         print(f"DOM {pid} {H.name}: zdjęć {len(zd)}{'' if final else ' (podglądy)'}, rzutów {len(rz)}, "
@@ -193,7 +202,11 @@ def main():
     sekcje = json.load(open(a.sekcje, encoding="utf-8")) if a.sekcje and os.path.exists(a.sekcje) else []
     for sk in sekcje:
         sk["biezaca"] = sk.get("id") == a.sekcja
-    info = dict(wersja=w, nazwa_wersji=NAZWY_WERSJI.get(w, f"Wersja {w}"), liczba=len(domy), filmy=n_film, linki=linki,
+    from kosztorys import POZIOM_CEN
+    info = dict(koszt_info=f"Szacunek: ceny brutto z VAT 8%, {POZIOM_CEN.lower()}, średni standard, dokładność ±15–20%.",
+                koszt_uwaga="Poza kosztorysem: działka, przyłącza, ogrodzenie, meble. Największa niewiadoma: otwierany dach "
+                            "szklany (brak polskich cenników) – przed budową oferty producentów.",
+                wersja=w, nazwa_wersji=NAZWY_WERSJI.get(w, f"Wersja {w}"), liczba=len(domy), filmy=n_film, linki=linki,
                 sekcje=sekcje, zakres=(f"{domy[0]['numer']}–{domy[-1]['numer']}" if a.domy and domy else ""))
     rep = {
         "{{TYTUL}}": a.tytul or ("Ogrody pod szkłem TV" if w == 2 else "Ogrody pod szkłem TV · wersja 1"),
