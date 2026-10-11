@@ -11,7 +11,7 @@ WERSJA 2 (aktualna)
   P03  Pierścień               166 m²   film 2:35             wersja_2/P03_Pierscien
   P04  Plaster miodu           167 m²   film 2:33             wersja_2/P04_Plaster_miodu
   P05  Wiatrak                 165 m²   film 2:34             wersja_2/P05_Wiatrak
-  P06  Dwa pasma               168 m²   film w przygotowaniu  wersja_2/P06_Dwa_pasma
+  P06  Dwa pasma               168 m²   film 2:33             wersja_2/P06_Dwa_pasma
   P07  Ślimak                  165 m²   film w przygotowaniu  wersja_2/P07_Slimak
   P08  Trójkąt                 160 m²   film w przygotowaniu  wersja_2/P08_Trojkat
   P09  Pawilony                168 m²   film w przygotowaniu  wersja_2/P09_Pawilony
