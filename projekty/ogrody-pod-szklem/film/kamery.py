@@ -766,6 +766,7 @@ def plan_spaceru(H, max_stacji=6):
         else:
             pos = _stoisko(H, r, entry, r.z0)
             look = _cel_pokoju(H, r, pos)
+        wejscie = k == start
         # kierunek dalej: punkt wejścia do kolejnej stacji (jeśli w tym pokoju)
         nxt = None
         if n_ + 1 < len(chosen):
@@ -774,6 +775,8 @@ def plan_spaceru(H, max_stacji=6):
             for (k2, x2, y2, l2) in seq[i + 1:j + 1]:
                 nxt = (x2, y2)
                 break
+        if wejscie and nxt is not None:
+            look = nxt                    # wiatrołap: patrzymy tam, dokąd idziemy (otwarcie do dalszej części domu)
         stations.append(dict(id=f"s{n_ + 1}_{k}", room=k, pos=(pos[0], pos[1], r.z0 + 1.5), look=look,
                              next=nxt, lvl=r.level, podpis=r.name))
     # kąty i zakres panoram
@@ -788,8 +791,8 @@ def plan_spaceru(H, max_stacji=6):
             a2 += math.copysign(18, d if d else 1)
             d = (a2 - a1 + 180) % 360 - 180
         if abs(d) > 50:
-            # rozglądanie się w granicach ±25° – panorama nie może być za szeroka (czas renderu)
-            a1 = a1 + (d - math.copysign(50, d)) / 2
+            # rozglądanie się w granicach ±25° (czas renderu): start na najlepszym widoku pokoju (okno, meble),
+            # potem obrót o 50° w stronę wyjścia – środek między nimi wypadał zwykle na gołą ścianę
             d = math.copysign(50, d)
             a2 = a1 + d
         mid = a1 + d / 2
