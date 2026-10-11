@@ -24,7 +24,7 @@ H.ogrod("og", "Ogród zimowy z jadalnią", rect(XW, YN, XE, YS), levels=1, roof_
 H.room("hol", "Hol", "hol", poly((0, 0), (XW, 0), (XW, YN), (1.8, YN), (1.8, 3.6), (0, 3.6)),
        ext={"W": "windows", "N": "slits"})
 H.room("wc", "WC", "wc", rect(0, 3.6, 1.8, YN))
-H.room("wia", "Wiatrołap", "wiatrolap", rect(XW, 0, 7.2, YK), ext="slits")
+H.room("wia", "Wiatrołap", "wiatrolap", rect(XW, 0, 7.2, YK), ext="slits", label_at=(5.48, 1.2))
 H.room("spi", "Spiżarnia", "spizarnia", rect(7.2, 0, XE, YK))
 H.room("kuch", "Kuchnia", "kuchnia", rect(XW, YK, XE, YN), garden="fold", kitchen_at="N")
 H.room("sal", "Salon", "salon", rect(0, YN, XW, YY), levels=2,
@@ -53,12 +53,12 @@ H.room("taS", "Taras południowy", "taras", rect(XW, YS, XE, YY), level=1, enclo
 
 # ---- połączenia parteru (amfilada dookoła ogrodu)
 H.connect("wia", "hol", "door")
-H.connect("hol", "wc", "door")
+H.connect("wc", "hol", "door")
 H.connect("hol", "kuch", "wide")
 H.connect("hol", "sal", "wide")
-H.connect("kuch", "spi", "door")
-H.connect("kuch", "pral", "door")
-H.connect("pral", "tech", "door")
+H.connect("kuch", "spi", "slide", width=1.0)
+H.connect("kuch", "pral", "slide", width=1.0)
+H.connect("pral", "tech", "slide", width=1.0)
 H.connect("pral", "pra", "door")
 H.connect("pra", "win", "door", at=0.8)
 H.connect("win", "sal", "door", at=0.2)
