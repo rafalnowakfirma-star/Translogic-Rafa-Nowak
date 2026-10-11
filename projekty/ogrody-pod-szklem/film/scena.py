@@ -262,8 +262,9 @@ def niebo(sc, pora="dzien", az=205.0, el=None, hdri="rooitou_park_1k.hdr", stren
 
 
 # --------------------------------------------------------------- światła wieczorne
-def swiatla_wieczor(H, Mh, ctx, col):
-    """Wpuszczane oczka w sufitach (ciepłe 2700 K), podświetlenie drzew w ogrodzie."""
+def swiatla_wieczor(H, Mh, ctx, col, skala=1.0, drzewa=True):
+    """Wpuszczane oczka w sufitach (ciepłe 2700 K), podświetlenie drzew w ogrodzie.
+    skala < 1 – w dzień światła wnętrz świecą słabiej (jak na zdjęciach nieruchomości)."""
     warm = (1.0, 0.72, 0.46)
     me_disc = None
     discs = []
@@ -279,7 +280,7 @@ def swiatla_wieczor(H, Mh, ctx, col):
                 if not poly.buffer(0.3).contains(Point(x, y)):
                     continue
                 li = bpy.data.lights.new("oczko", "SPOT")
-                li.energy = 34.0
+                li.energy = 34.0 * skala
                 li.color = warm
                 li.spot_size = math.radians(115)
                 li.spot_blend = 0.7
@@ -302,7 +303,7 @@ def swiatla_wieczor(H, Mh, ctx, col):
         col.objects.link(ob)
         me_disc.materials.append(material("lampa", ctx))
     # ogród: podświetlenie drzew od dołu
-    for g in [r for r in H.all_rooms if r.kind == "ogrod"]:
+    for g in ([r for r in H.all_rooms if r.kind == "ogrod"] if drzewa else []):
         lay = getattr(g, "_layout", None)
         for ft in (lay["features"] if lay else []):
             if ft.t in TREES + ("cytrus",):
@@ -405,6 +406,8 @@ def zbuduj(H, wariant="lato", pora="dzien", snieg=False, dach_t=None, kamery=(),
     sun = niebo(sc, pora, az=az)
     if pora == "zmierzch":
         swiatla_wieczor(H, Mh, ctx, _col("swiatla"))
+    elif pora == "dzien":
+        swiatla_wieczor(H, Mh, ctx, _col("swiatla"), skala=0.6, drzewa=False)
     S = dict(H=H, ctx=ctx, Mh=Mh, sc=sc, obs=obs, sun=sun,
              ruch={k: o for k, o in obs.items() if k[0] == "ruch"})
     return S

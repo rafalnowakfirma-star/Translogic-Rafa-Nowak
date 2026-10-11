@@ -1,0 +1,21 @@
+{
+ "tytul": "Krużganek. Kwadratowy dom, który z zewnątrz niczego nie zdradza, a w środku chowa ogród pod szklanym dachem.",
+ "lotu": "Dom ma sto sześćdziesiąt siedem metrów kwadratowych. Na parterze pokoje otaczają ogród ze wszystkich stron, a dach parteru po obu stronach szklanego dachu zamieniono w dwa tarasy. Od północy stoją moduły piętra z sypialnią i biurem.",
+ "dach": "Latem połowa szklanego dachu zsuwa się nad drugą i ogród staje się otwartym dziedzińcem.",
+ "spacer": {
+  "przed": "Wchodzimy od północy. Elewacja ma tylko wąskie okna i szczeliny, dlatego z drogi nie widać ani ogrodu, ani tego, co dzieje się w domu.",
+  "s1_wia": "Wiatrołap jest pełny, bez szyby do ogrodu. Tu zostają kurtki i buty, a ogród otwiera się dopiero za drugimi drzwiami, w holu z biblioteką.",
+  "s2_og": "Ogród japoński: grabiony żwir, kamienie, mech i czerwony klon. Wszystkie pokoje parteru mają do niego szklane ściany i drzwi przesuwne, więc dom obchodzi się dookoła bez korytarzy.",
+  "s3_sal": "Salon z kuchnią ma ponad sześć metrów wysokości. Od ogrodu jest cały przeszklony, a od południa wychodzi na patio schowane za murem, częściowo zadaszone.",
+  "s4_biu": "Schodami kręconymi z holu wchodzimy na piętro. Biuro jest przeszklone od północy na pola, a od południa ma drzwi na taras. To spokojne miejsce do pracy, z dala od życia domu.",
+  "s5_syp": "Sypialnia ma szklaną ścianę od zachodu i wyjście na taras. Prowadzi do niej przejście przez łazienkę, więc ta część piętra jest tylko dla domowników.",
+  "s6_taW": "Taras zachodni leży na dachu parteru, tuż przy szklanym dachu ogrodu. Wieczorem jest tu słońce, a z góry widać ogród i drugi taras, przy biurze."
+ },
+ "rzuty": "Na parterze pokoje tworzą pierścień: wiatrołap, hol z biblioteką, pralnia, herbaciarnia, salon i pokój gościnny. Na piętrze sypialnia, łazienka, galeria i biuro stoją w jednym rzędzie przy tarasach.",
+ "zmierzch": "Wieczorem ogród świeci jak latarnia w środku domu, a od drogi widać tylko wąskie pasy światła.",
+ "zima": "Zimą dach jest zamknięty. Ogród pod szkłem zatrzymuje ciepło słońca i osłania pokoje od środka, a tarasy odpoczywają pod śniegiem.",
+ "zalety": ["Ogród całkowicie prywatny", "Parter w pierścieniu, bez korytarzy", "Dwa tarasy przy pokojach piętra", "Wysoki, jasny salon z patio"],
+ "wady": ["Do sypialni przez łazienkę", "Mała łazienka na piętrze", "Szklany dach wymaga serwisu"],
+ "zalety_wady": "Największe zalety to prywatny ogród, parter bez korytarzy i dwa tarasy przy pokojach na piętrze. Minusy: do sypialni przechodzi się przez łazienkę, a sama łazienka jest mała. Szklany dach trzeba raz w roku przejrzeć i umyć, a latem zacieniać.",
+ "koniec": "Krużganek: prosty kwadrat z ukrytym, zielonym sercem."
+}

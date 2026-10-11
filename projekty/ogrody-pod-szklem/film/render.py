@@ -27,9 +27,9 @@ from film import scena, kamery  # noqa: E402
 
 Q = {
     # rozdzielczość kadrów, próbki (zewn., wnętrza), próg szumu, rozdzielczość i próbki animacji, klatki animacji
-    "podglad": dict(res=(640, 360), spp=(16, 24), noise=0.1, ares=(640, 360), aspp=12, aframes=12),
-    "szybki": dict(res=(1280, 720), spp=(48, 80), noise=0.04, ares=(1280, 720), aspp=32, aframes=30),
-    "final": dict(res=(2048, 1152), spp=(96, 192), noise=0.015, ares=(2048, 1152), aspp=96, aframes=60),
+    "podglad": dict(res=(640, 360), spp=(16, 24), noise=0.1, ares=(640, 360), aspp=12, aframes=12, ppd=6, pspp=16),
+    "szybki": dict(res=(1280, 720), spp=(48, 80), noise=0.04, ares=(1280, 720), aspp=32, aframes=30, ppd=12, pspp=48),
+    "final": dict(res=(2048, 1152), spp=(96, 192), noise=0.015, ares=(2048, 1152), aspp=96, aframes=60, ppd=20, pspp=128),
 }
 SCENY = {"dzien": ("lato", "dzien", False), "zmierzch": ("zima", "zmierzch", False), "zima": ("zima", "zima", True)}
 INTERIOR = ("ogrod", "salon", "sypialnia", "biuro")
@@ -86,7 +86,7 @@ def _projekcja(sc, cam, pts):
     return max(0.0, min(xs)), max(0.0, min(ys)), min(1.0, max(xs)), min(1.0, max(ys))
 
 
-def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True):
+def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True, spacer=True):
     kat = "domy" if wersja == 2 else "domy_v1"
     H = load(pid, kat).build()
     out = out or os.path.join(HERE, "out", "film", f"v{wersja}", pid)
@@ -102,11 +102,12 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True)
         if not grp:
             continue
         todo = [u for u in grp if od_nowa or not os.path.exists(os.path.join(out, "kadry", u["id"] + ".png"))]
+        sp_done = os.path.exists(os.path.join(out, "spacer", "spacer.json")) and not od_nowa
         want_anim = anim and sname == "dzien" and any(u["id"] == "lotu" for u in grp)
         adir = os.path.join(out, "anim", "lotu")
         if want_anim and not od_nowa and os.path.exists(os.path.join(adir, "gotowe.json")):
             want_anim = False
-        if not todo and not want_anim:
+        if not todo and not want_anim and not (sname == "dzien" and spacer and not sp_done):
             continue
         wariant, pora, snieg = SCENY[sname]
         t0 = time.time()
@@ -136,6 +137,8 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True)
         if want_anim:
             u = next(u for u in grp if u["id"] == "lotu")
             czasy["anim"] = animacja_dachu(S, u, P, adir)
+        if sname == "dzien" and spacer and not sp_done:
+            czasy["spacer"] = panoramy(S, kamery.plan_spaceru(H), P, os.path.join(out, "spacer"), od_nowa)
         del lock
     # plan ujęć dla montażu
     info = dict(pid=pid, wersja=wersja, nazwa=H.name, tagline=H.tagline if hasattr(H, "tagline") else "",
@@ -149,6 +152,44 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True)
         info["czasy"] = prev.get("czasy", czasy)
     json.dump(info, open(old, "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
     print("CZASY", pid, czasy, flush=True)
+
+
+def panoramy(S, stations, P, sdir, od_nowa=False):
+    """Panoramy (wycinek walcowo-kulisty, equirectangular) do spaceru z perspektywy pierwszej osoby."""
+    sc, ctx = S["sc"], S["ctx"]
+    os.makedirs(sdir, exist_ok=True)
+    t0 = time.time()
+    meta = []
+    prev_ev = None
+    for st in stations:
+        fn = os.path.join(sdir, st["id"] + ".png")
+        cam = bpy.data.cameras.new("pano_" + st["id"])
+        cam.type = "PANO"
+        cam.panorama_type = "EQUIRECTANGULAR"
+        cam.longitude_min, cam.longitude_max = (math.radians(v) for v in st["lon"])
+        cam.latitude_min, cam.latitude_max = (math.radians(v) for v in st["lat"])
+        cam.clip_start = 0.05
+        co = bpy.data.objects.new("pano_" + st["id"], cam)
+        sc.collection.objects.link(co)
+        co.location = bl(ctx, st["pos"])
+        co.rotation_euler = (math.radians(90), 0, math.radians(st["kierunek"] - 90))
+        sc.camera = co
+        W = int(round((st["lon"][1] - st["lon"][0]) * P["ppd"] / 2)) * 2
+        Hh = int(round((st["lat"][1] - st["lat"][0]) * P["ppd"] / 2)) * 2
+        inside = st["room"] is not None
+        scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P["noise"], persistent=True)
+        ev = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0)
+        if prev_ev is not None:
+            ev = max(prev_ev - 1.5, min(prev_ev + 1.5, ev))   # oko adaptuje się, ale bez skoków
+            sc.view_settings.exposure = ev
+        prev_ev = ev
+        if od_nowa or not os.path.exists(fn):
+            sc.render.filepath = fn
+            bpy.ops.render.render(write_still=True)
+            print(f"PANORAMA {st['id']} {W}×{Hh} {time.time() - t0:.0f} s, ekspozycja {ev:+.2f}", flush=True)
+        meta.append(dict(st, obraz=f"spacer/{st['id']}.png", ev=round(ev, 2)))
+    json.dump(meta, open(os.path.join(sdir, "spacer.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return round(time.time() - t0, 1)
 
 
 def animacja_dachu(S, u, P, adir):
@@ -202,5 +243,7 @@ if __name__ == "__main__":
     ap.add_argument("--out", default=None)
     ap.add_argument("--od-nowa", action="store_true")
     ap.add_argument("--bez-anim", action="store_true")
+    ap.add_argument("--bez-spaceru", action="store_true")
     a = ap.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:])
-    render_domu(a.pid, a.wersja, a.q, a.ujecia.split(",") if a.ujecia else None, a.out, a.od_nowa, not a.bez_anim)
+    render_domu(a.pid, a.wersja, a.q, a.ujecia.split(",") if a.ujecia else None, a.out, a.od_nowa, not a.bez_anim,
+                not a.bez_spaceru)

@@ -20,6 +20,7 @@ from film.kamery import DACH, STYL  # noqa: E402
 POZIOM = {0: "Rzut parteru", 1: "Rzut piętra", 2: "Rzut drugiego piętra", 3: "Rzut wieży"}
 NAPISY = [
     "Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.",
+    "Lektor: syntezator mowy Piper (głos pl_PL gosia), sherpa-onnx.",
     "Meble i dekoracje 3D: Khronos glTF Sample Assets (Eric Chadwick i in.), CC BY 4.0 / CC0.",
     "Tekstury i HDRI: three.js examples (MIT), Poly Haven (CC0).",
 ]
@@ -109,7 +110,13 @@ def scenariusz(pid, wersja, out=None):
     out = out or os.path.join(HERE, "out", "film", f"v{wersja}", pid)
     info = json.load(open(os.path.join(out, "kadry.json"), encoding="utf-8"))
     U = {u["id"]: u for u in info["ujecia"]}
-    gs = [r for r in H.all_rooms if r.kind == "ogrod"]
+    lj = os.path.join(out, "lektor", "lektor.json")
+    L = json.load(open(lj, encoding="utf-8")) if os.path.exists(lj) else {}
+    nj = os.path.join(HERE, "film", "narracja", f"v{wersja}", f"{pid}.json")
+    N = json.load(open(nj, encoding="utf-8")) if os.path.exists(nj) else {}
+    sj = os.path.join(out, "spacer", "spacer.json")
+    SP = json.load(open(sj, encoding="utf-8")) if os.path.exists(sj) else []
+    gs = [r for r in H.rooms if r.kind == "ogrod"]
     ter = [r for r in H.rooms if r.outdoor and r.level > min(H.L)]
     fakty = [[_m2(H.area["uzytkowa"]), "powierzchnia użytkowa"], [_m2(H.area["ogrod"]), "ogród pod szkłem"]]
     if ter:
@@ -120,35 +127,55 @@ def scenariusz(pid, wersja, out=None):
     fakty.append([str(nlev), "kondygnacje" if nlev in (2, 3, 4) else ("kondygnacja" if nlev == 1 else "kondygnacji")])
     sh = []
 
-    def kadr(uid, czas=6.0):
+    def lek(key, start=0.6):
+        v = L.get(key)
+        return dict(plik=v["plik"], start=start) if v else None
+
+    def add(d, key=None, start=0.6):
+        if key:
+            lk = lek(key, start)
+            if lk:
+                d["lektor"] = lk
+        sh.append(d)
+
+    def kadr(uid, czas=6.0, key=None):
         u = U.get(uid)
         if not u or not os.path.exists(os.path.join(out, "kadry", uid + ".png")):
-            return
-        sh.append(dict(typ="kadr", obraz=f"kadry/{uid}.png", czas=czas, ruch=u.get("ruch", "zoom_in"),
-                       fokus=u.get("fokus", [0.5, 0.5]), podpis=u.get("podpis", ""), podpis2=u.get("podpis2", "")))
+            return False
+        add(dict(typ="kadr", obraz=f"kadry/{uid}.png", czas=czas, ruch=u.get("ruch", "zoom_in"),
+                 fokus=u.get("fokus", [0.5, 0.5]), podpis=u.get("podpis", ""), podpis2=u.get("podpis2", "")), key)
+        return True
 
     tlo = "kadry/lotu.png" if os.path.exists(os.path.join(out, "kadry", "lotu.png")) else None
-    sh.append(dict(typ="tytul", tlo=tlo, czas=5.0))
+    add(dict(typ="tytul", tlo=tlo, czas=5.0), "tytul", 1.3)
+    kadr("lotu", 7.0, "lotu")
     an = klatki_animacji(out)
+    g0 = gs[0] if gs else None
     if an:
-        u = U.get("lotu", {})
-        g0 = gs[0] if gs else None
-        sh.append(dict(typ="animacja", klatki=an["klatki"], fps=25, fps_render=an["fps_render"],
-                       podpis=u.get("podpis", "Z lotu ptaka"),
-                       podpis2=(DACH.get(g0.roof_type, "dach") + " ogrodu otwiera się na lato").capitalize() if g0 else ""))
+        add(dict(typ="animacja", klatki=an["klatki"], fps=25, fps_render=an["fps_render"],
+                 podpis="Dach ogrodu", podpis2=(DACH.get(g0.roof_type, "dach") + " – latem otwarty") if g0 else ""), "dach", 0.4)
+    if SP:
+        for i, st in enumerate(SP):
+            if not os.path.exists(os.path.join(out, st["obraz"])):
+                continue
+            add(dict(typ="panorama", obraz=st["obraz"], lon=st["lon"], lat=st["lat"], ruch=st["ruch"], czas=6.0,
+                     przejscie="krok", podpis="Spacer po domu" if st["room"] is None else st["podpis"],
+                     podpis2="przed wejściem" if st["room"] is None else ""), f"spacer__{st['id']}", 0.5)
     else:
-        kadr("lotu", 6.0)
-    for uid in ("ogrod", "salon", "sypialnia", "biuro", "taras", "patio"):
-        kadr(uid)
-    for idx, png in plany(H, pid, out):
-        sh.append(dict(typ="rzut", obraz=os.path.relpath(png, out), czas=5.5, podpis=POZIOM.get(idx, f"Rzut poziomu {idx}")))
-    kadr("zmierzch", 6.5)
-    kadr("zima", 6.0)
-    sh.append(dict(typ="koniec", tlo="kadry/zmierzch.png" if os.path.exists(os.path.join(out, "kadry", "zmierzch.png")) else tlo,
-                   czas=7.0))
+        for uid in ("ogrod", "salon", "sypialnia", "biuro", "taras", "patio"):
+            kadr(uid)
+    for k, (idx, png) in enumerate(plany(H, pid, out)):
+        add(dict(typ="rzut", obraz=os.path.relpath(png, out), czas=5.5 if k else 6.0,
+                 podpis=POZIOM.get(idx, f"Rzut poziomu {idx}")), "rzuty" if k == 0 else None)
+    kadr("zmierzch", 6.5, "zmierzch")
+    kadr("zima", 6.0, "zima")
+    tz = "kadry/zmierzch.png" if os.path.exists(os.path.join(out, "kadry", "zmierzch.png")) else tlo
+    if N.get("zalety") or N.get("wady"):
+        add(dict(typ="zalety_wady", tlo=tz, zalety=N.get("zalety", []), wady=N.get("wady", []), czas=12.0), "zalety_wady", 0.8)
+    add(dict(typ="koniec", tlo=tz, czas=7.0), "koniec", 0.8)
     sb = dict(pid=pid, wersja=wersja, numer=pid.upper(), nazwa=H.name, tagline=H.tagline,
               seria=f"Ogrody pod szkłem · wersja {wersja}", fakty=fakty, napisy_koncowe=NAPISY,
-              ujecia=sh, muzyka=True, wyjscie=f"ogrody_v{wersja}_{pid}.mp4")
+              ujecia=sh, muzyka=True, muzyka_glosnosc=-2, wyjscie=f"ogrody_v{wersja}_{pid}.mp4")
     fn = os.path.join(out, "film.json")
     json.dump(sb, open(fn, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return fn

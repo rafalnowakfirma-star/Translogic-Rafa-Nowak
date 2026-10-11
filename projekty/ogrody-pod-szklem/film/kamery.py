@@ -419,3 +419,299 @@ def plan_ujec(H, wersja=2):
                   podpis="Zimą", podpis2="dach zamknięty – pod szkłem trwa lato", ruch="zoom_in", fokus=(0.5, 0.5),
                   ekspo=-0.2))
     return U
+
+
+# --------------------------------------------------------------- wirtualny spacer (pierwsza osoba)
+DOOR_KINDS = ("door", "slide", "double", "pivot", "wide", "portal", "arch")
+SALON = ("salon_kuchnia", "salon", "kuchnia", "jadalnia")
+
+
+def _graf(H):
+    """Graf przejść: klucz pokoju → [(sąsiad, punkt przejścia (x, y), poziom)]."""
+    def key(r):
+        return r.parent.key if r.parent is not None else r.key
+    G = {}
+
+    def link(a, b, p, lvl):
+        if a == b:
+            return
+        G.setdefault(a, []).append((b, p, lvl))
+        G.setdefault(b, []).append((a, p, lvl))
+    for idx, L in H.L.items():
+        for o in L["openings"]:
+            if o.kind in DOOR_KINDS and o.run.other is not None:
+                link(key(o.run.room), key(o.run.other), ((o.a[0] + o.b[0]) / 2, (o.a[1] + o.b[1]) / 2), idx)
+        for run in L["runs"]:
+            if run.other is not None and run.cls in (None, "open") and run.length > 0.8:
+                p = run.point_at(run.length / 2)
+                link(key(run.room), key(run.other), p, idx)
+    for s in H.stairs:
+        fp = s.footprint()
+        c = fp.centroid
+        ends = []
+        for lvl in (s.level, s.to_level):
+            best = None
+            for r in H.all_rooms:
+                if r.level <= lvl < r.level + r.levels and r.poly.buffer(0.05).intersects(fp):
+                    a = r.poly.intersection(fp).area
+                    if best is None or a > best[0]:
+                        best = (a, key(r))
+            if best:
+                ends.append(best[1])
+        if len(ends) == 2:
+            link(ends[0], ends[1], (c.x, c.y), "schody")
+    return G
+
+
+def _sciezka(G, a, b):
+    """Najkrótsza droga (liczba przejść) z a do b: lista (pokój, punkt wejścia, poziom przejścia)."""
+    from collections import deque
+    prev = {a: None}
+    dq = deque([a])
+    while dq:
+        k = dq.popleft()
+        if k == b:
+            break
+        for (n, p, lvl) in G.get(k, []):
+            if n not in prev:
+                prev[n] = (k, p, lvl)
+                dq.append(n)
+    if b not in prev:
+        return None
+    out = []
+    k = b
+    while prev[k] is not None:
+        pk, p, lvl = prev[k]
+        out.append((k, p, lvl))
+        k = pk
+    return out[::-1]
+
+
+def _kat(dx, dy):
+    """Kąt kierunku planu (x – wschód, y – południe) w układzie Blendera (stopnie, przeciwnie do zegara od +X)."""
+    return math.degrees(math.atan2(-dy, dx))
+
+
+def _stoisko(H, r, entry, lvl_z, back=None):
+    """Punkt kamery ~1,1 m za progiem wejścia do pokoju r, w wolnym miejscu."""
+    net = _net(r)
+    free = net.buffer(-0.3, join_style="mitre")
+    if r.kind != "ogrod":
+        free = free.difference(_blocked(H, r, pad=0.15))
+    else:
+        lay = getattr(r, "_layout", None) or {}
+        obst = [Point(f.x, f.y).buffer(f.r + 0.2) for f in lay.get("features", []) if f.t not in ("krok", "lilia", "mech")]
+        water = [geom.buffer(0.05) for kind, geom in lay.get("floor", []) if kind == "woda"]
+        if obst or water:
+            free = free.difference(unary_union(obst + water))
+        free = free.difference(_blocked(H, r, pad=0.15))
+    if free.is_empty:
+        free = net.buffer(-0.2)
+    ex, ey = entry
+    c = largest(free).representative_point() if not free.is_empty else net.representative_point()
+    vx, vy = c.x - ex, c.y - ey
+    L = math.hypot(vx, vy) or 1.0
+    vx, vy = vx / L, vy / L
+    best = None
+    for d in (1.1, 0.8, 1.5, 2.0, 0.6, 2.6):
+        for side in (0.0, 0.4, -0.4, 0.8, -0.8):
+            px = ex + vx * d - vy * side
+            py = ey + vy * d + vx * side
+            if free.contains(Point(px, py)):
+                best = (px, py)
+                break
+        if best:
+            break
+    if best is None:
+        best = (c.x, c.y)
+    return best
+
+
+def _cel_pokoju(H, r, pos):
+    """Na co patrzeć w pokoju: przeszklenie (ogród / krajobraz) albo główne meble."""
+    pts = []
+    for run in _runs(H, r):
+        if run.cls in GLASS:
+            for (x, y) in _seg_samples(run, 5):
+                pts.append((x, y, 1.0))
+    for it in _items(H, r):
+        w = GLOWNE.get(it.kind)
+        if w:
+            pts.append((it.cx, it.cy, w))
+    if r.kind == "ogrod":
+        lay = getattr(r, "_layout", None) or {}
+        for f in lay.get("features", []):
+            if f.t in ("klon", "brzoza", "oliwka", "sosna", "palma", "cytrus", "fontanna", "latarnia"):
+                pts.append((f.x, f.y, 2.0))
+        c = r.poly.centroid
+        pts.append((c.x, c.y, 3.0))
+    if not pts:
+        c = _net(r).centroid
+        return (c.x, c.y)
+    # najdalsze skupisko celów od kamery (ważone)
+    sx = sum(p[0] * p[2] for p in pts) / sum(p[2] for p in pts)
+    sy = sum(p[1] * p[2] for p in pts) / sum(p[2] for p in pts)
+    if math.hypot(sx - pos[0], sy - pos[1]) < 0.6:
+        c = _net(r).centroid
+        return (c.x, c.y)
+    return (sx, sy)
+
+
+def plan_spaceru(H, max_stacji=6):
+    """Stacje spaceru z perspektywy pierwszej osoby: przed wejściem → wnętrza → ogród → salon → piętro → taras."""
+    from silnik.meble import furnish_level
+    for idx, L in H.L.items():
+        if L.get("items") is None:
+            L["items"] = furnish_level(H, idx)
+    G = _graf(H)
+    rooms = {r.key: r for r in H.rooms}
+    if not H.entrances:
+        return []
+    start = H.entrances[0]["room"]
+    base = min(H.L)
+    # drzwi wejściowe
+    L0 = H.L[base]
+    door = None
+    for o in L0["openings"]:
+        if o.label == "wejście" and (o.run.room.key == start or (o.run.other is not None and o.run.other.key == start)):
+            door = o
+            break
+    targets = [start]
+    gs = [r for r in H.rooms if r.kind == "ogrod"]
+    if gs and gs[0].key in G:
+        targets.append(gs[0].key)
+    sal = [r for r in H.rooms if r.kind in SALON and not r.outdoor]
+    if sal:
+        targets.append(max(sal, key=lambda r: r.poly.area).key)
+    upper = [r for r in H.rooms if r.level > base and not r.outdoor and r.kind not in ("void",)]
+    rest = []
+    for kinds in (("sypialnia_glowna", "sypialnia"), ("biuro",)):
+        c = [r for r in upper if r.kind in kinds] or [r for r in H.rooms if r.kind in kinds and not r.outdoor]
+        if c:
+            rest.append(max(c, key=lambda r: r.poly.area).key)
+    cur0 = targets[-1]
+    while rest:
+        # najpierw pokój najbliższy w liczbie przejść
+        dist = [(len(_sciezka(G, cur0, k) or [0] * 99), k) for k in rest]
+        dist.sort()
+        cur0 = dist[0][1]
+        targets.append(cur0)
+        rest.remove(cur0)
+    ter = [r for r in H.rooms if r.outdoor and r.level > base and r.key in G]
+    if ter:
+        # taras najbliżej ostatniego pokoju
+        best = min(ter, key=lambda r: (len(_sciezka(G, cur0, r.key) or [0] * 99), -r.poly.area))
+        targets.append(best.key)
+    order = []
+    for t in targets:
+        if t not in order:
+            order.append(t)
+    stations = []
+    # 0: przed wejściem
+    if door is not None:
+        mx, my = (door.a[0] + door.b[0]) / 2, (door.a[1] + door.b[1]) / 2
+        nx, ny = door.run.normal
+        if door.run.room.key != start:
+            nx, ny = -nx, -ny
+        px, py = mx + nx * 6.0, my + ny * 6.0
+        stations.append(dict(id="przed", room=None, pos=(px, py, -0.3 + 1.6), look=(mx, my), next=(mx, my), lvl=base,
+                             podpis="Przed wejściem"))
+    cur = start
+    visited = set()
+    seq = [(start, (door.a[0] + door.b[0]) / 2 if door else None, (door.a[1] + door.b[1]) / 2 if door else None, base)]
+    for t in order[1:]:
+        p = _sciezka(G, cur, t)
+        if not p:
+            continue
+        for (k, pt, lvl) in p:
+            seq.append((k, pt[0], pt[1], lvl))
+        cur = t
+    # stacje: cele + pokój po schodach (przyjście na piętro)
+    keyset = set(order)
+    chosen = []
+    for i, (k, x, y, lvl) in enumerate(seq):
+        if k in visited:
+            continue
+        if k in keyset or (lvl == "schody"):
+            chosen.append((k, x, y, lvl, i))
+            visited.add(k)
+    # za dużo stacji: najpierw odpada pokój po schodach, potem wiatrołap (cele klienta zostają)
+    budget = max_stacji
+    while len(chosen) > budget:
+        extra = [c for c in chosen if c[0] not in keyset]
+        if extra:
+            chosen.remove(extra[0])
+        elif len(chosen) > 1 and chosen[0][0] == start:
+            chosen.pop(0)
+        else:
+            chosen.pop()
+    for n_, (k, x, y, lvl, i) in enumerate(chosen):
+        r = rooms.get(k)
+        if r is None:
+            continue
+        entry = (x, y) if x is not None else _net(r).representative_point().coords[0]
+        # najpierw dobry kadr jak w ujęciach wnętrz (kamera w głębi pokoju), w razie porażki – tuż za progiem
+        c = None
+        try:
+            if r.kind == "ogrod":
+                c = ujecie_ogrodu(H, r)
+            elif r.outdoor:
+                c = ujecie_tarasu(H, r)
+            elif k != start:
+                adj_g = any(run.other is not None and run.other.kind in ("ogrod", "ogrod_void") and run.cls in GLASS
+                            for run in _runs(H, r))
+                c = ujecie_wnetrza(H, r, "ogrod" if adj_g else "zewn")
+        except Exception:
+            c = None
+        if c is not None:
+            pos = c["loc"][:2]
+            look = c["target"][:2]
+        else:
+            pos = _stoisko(H, r, entry, r.z0)
+            look = _cel_pokoju(H, r, pos)
+        # kierunek dalej: punkt wejścia do kolejnej stacji (jeśli w tym pokoju)
+        nxt = None
+        if n_ + 1 < len(chosen):
+            j = chosen[n_ + 1][4]
+            # przejście z tego pokoju w stronę następnej stacji
+            for (k2, x2, y2, l2) in seq[i + 1:j + 1]:
+                nxt = (x2, y2)
+                break
+        stations.append(dict(id=f"s{n_ + 1}_{k}", room=k, pos=(pos[0], pos[1], r.z0 + 1.5), look=look,
+                             next=nxt, lvl=r.level, podpis=r.name))
+    # kąty i zakres panoram
+    out = []
+    for st in stations:
+        x, y, z = st["pos"]
+        a1 = _kat(st["look"][0] - x, st["look"][1] - y)
+        a2 = _kat(st["next"][0] - x, st["next"][1] - y) if st.get("next") else a1 - 40
+        d = (a2 - a1 + 180) % 360 - 180
+        if abs(d) < 30:
+            a1 -= math.copysign(18, d if d else 1)
+            a2 += math.copysign(18, d if d else 1)
+            d = (a2 - a1 + 180) % 360 - 180
+        if abs(d) > 50:
+            # rozglądanie się w granicach ±25° – panorama nie może być za szeroka (czas renderu)
+            a1 = a1 + (d - math.copysign(50, d)) / 2
+            d = math.copysign(50, d)
+            a2 = a1 + d
+        mid = a1 + d / 2
+        r = rooms.get(st["room"]) if st["room"] else None
+        small = r is not None and r.poly.area < 12
+        hfov = 70.0 if r is None else (84.0 if small else 78.0)
+        pitch = 0.0
+        if r is not None and r.kind == "ogrod":
+            pitch = 6.0
+        elif r is not None and (r.top - r.z0) > 4.5:
+            pitch = 4.0
+        yaw0, yaw1 = d / 2, -d / 2                # dodatni yaw = obrót w prawo (zgodnie z zegarem)
+        span = abs(d) + hfov + 16
+        vf = math.degrees(2 * math.atan(math.tan(math.radians(hfov / 2)) * 9 / 16))
+        lat = vf / 2 + abs(pitch) + 8
+        if r is None:
+            ruch = [[yaw0, 1.0, hfov], [yaw1, 0.0, hfov * 0.86]]
+        else:
+            ruch = [[yaw0, pitch, hfov], [yaw1, pitch * 0.5, hfov]]
+        out.append(dict(id=st["id"], room=st["room"], pos=st["pos"], kierunek=mid, lon=[-span / 2, span / 2],
+                        lat=[-lat, lat], ruch=ruch, podpis=st["podpis"]))
+    return out
