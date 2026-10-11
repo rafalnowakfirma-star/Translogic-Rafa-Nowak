@@ -1,83 +1,81 @@
-"""P14 · Zygzak – łańcuch stalowych modułów przesuniętych schodkowo wokół dwóch ogrodów: zimowego pod szkłem i letniego pod niebem."""
+"""P14 · Zygzak (wersja 2) – krótszy łańcuch przesuniętych modułów z cortenu wokół jednego, ukrytego ogrodu zimowego; letni dziedziniec został jako patio za murem."""
 from silnik import House, rect, poly
 
 H = House(
     "p14", "Zygzak",
-    "Dziesięć prostokątnych modułów ustawionych w łańcuch, każdy przesunięty o 1–2 m względem sąsiada, obiega dwa ogrody: zimowy pod harmonijkowym szklanym dachem i letni dziedziniec bez dachu. Latem szklana harmonijka między nimi składa się i oba ogrody stają się jednym.",
-    style=dict(fasada="corten", dach="zwir", akcent="stal"),
+    "Sześć cortenowych modułów na parterze i cztery na piętrze, każdy przesunięty o metr względem sąsiada, obiega ukryty ogród zimowy pod harmonijkowym szklanym dachem. Letni dziedziniec z pierwszej wersji został jako patio za murem, a na dachach parterowych modułów leżą dwa tarasy: przy sypialni i przy biurze.",
+    style=dict(fasada="corten", dach="sedum", akcent="stal"),
     concept=[
-        "Dom to zygzak: kolejne moduły o szerokości 4–4,5 m są przesunięte na przemian do środka i na zewnątrz o 1–2 m, więc obie elewacje – zewnętrzna i od ogrodu – są ząbkowane, a w każdym załamaniu powstaje nisza na drzwi, ławkę albo drzewo.",
-        "W środku są dwa ogrody obok siebie. Zachodni, zimowy, ma 52 m² i szklany dach harmonijkowy 7 m nad posadzką, pod którym rosną palmy. Wschodni, letni dziedziniec z drewnianym pokładem, nie ma dachu. Dzieli je 7 m szklanej harmonijki: zimą zamknięta, latem złożona przy słupach.",
-        "Biuro stoi w module wschodnim i jest przeszklone z obu stron: od letniego dziedzińca (szkło przesuwne) i od pól na wschodzie (szkło stałe). Nad biurem, w tym samym module, jest sypialnia główna z całą wschodnią ścianą ze szkła.",
-        "Od wejścia idzie się przez kolejne moduły bez korytarza: wiatrołap, biblioteka na dwie kondygnacje, pokój muzyczny ze szkłem na oba ogrody i hol ze schodami kręconymi – albo w drugą stronę: herbaciarnia przy palmach, wysoka pracownia i patio sezonowe aż do salonu. Pętla zamyka się wokół ogrodów.",
-        "Salon z kuchnią ma 6,5 m wysokości i trzy szklane ściany: na ogród zimowy, na letni dziedziniec i na południe. Od zachodu przylega patio sezonowe – szklany moduł, który zimą jest zamkniętą werandą, a latem całkiem otwartym tarasem.",
-        "Moduły mają różne wysokości: wieża biblioteki, pracownia, część wschodnia i salon są dwukondygnacyjne, reszta parterowa, dlatego bryła schodkuje się także w pionie. Na dachu pokoju muzycznego jest taras dostępny z górnej galerii.",
+        "Dom jest nadal zygzakiem, ale krótszym: sześć modułów parteru i cztery piętra, każdy przesunięty o metr względem sąsiada, więc obie elewacje są ząbkowane, a w załamaniach powstają wnęki na drzwi i ławkę. Ogród zimowy 40 m² leży w środku i każdą krawędzią dotyka pokoju; od zewnątrz dom ma pełne ściany z cortenu, szczeliny i małe okna, więc ogrodu nie widać ani z drogi, ani od sąsiadów.",
+        "Wchodzi się od północy przez wiatrołap, który nie ma szkła do ogrodu. Ogród otwiera się dopiero za drugimi drzwiami, w holu z biblioteką i schodami kręconymi, a dalej po parterze chodzi się bez korytarza: hol, herbaciarnia, pracownia, salon, patio, pralnia ze spiżarnią i z powrotem hol.",
+        "Letni dziedziniec z pierwszej wersji został jako patio za murem wysokości 2,6 m po wschodniej stronie ogrodu. Od ogrodu dzieli je szklana harmonijka: zimą zamknięta, latem złożona, więc oba ogrody znów są jedną przestrzenią – tyle że schowaną za murem.",
+        "Salon z kuchnią ma 6,6 m wysokości i zajmuje całą południową stronę, wysunięty o metr przed zachodnie moduły. Od ogrodu i od patio jest cały ze szkła, a na zewnątrz ma tylko trzy duże okna i wąski pas pod dachem, dlatego przez salon nie widać ogrodu na wylot.",
+        "Dachy parterowych modułów to dwa tarasy przy szklanym dachu ogrodu: zachodni na dachu pracowni, z wyjściem z sypialni, i wschodni na dachu pralni, z wyjściem z biura. Najwyższy dach nad modułami piętra jest zielony, bez tarasu.",
+        "Na piętrze cztery moduły łączą się drzwiami w ciąg: sypialnia ze szklaną ścianą od zachodu, łazienka, galeria ze schodami i biuro wysunięte o metr przed front domu, przeszklone na pola od północy, na taras od wschodu i na szklany dach ogrodu od południa.",
     ],
     notes=dict(
-        lato="Harmonijka między ogrodami i połowa szklanego dachu są złożone, więc palmy stoją pod otwartym niebem razem z dziedzińcem; patio sezonowe i szklane ściany salonu rozsuwają się na całą szerokość.",
-        zima="Harmonijka i dach są zamknięte: ogród zimowy jest ogrzewaną halą z palmami, a dziedziniec letni zostaje na zewnątrz i chroni wschodnie pokoje przed wiatrem; patio sezonowe działa jak zamknięta weranda.",
-        technologia="Prefabrykowane moduły stalowe o szerokości 4–4,5 m i długości 4–7 m (rama z profili HEB, strop z blachy trapezowej z nadbetonem, ściany warstwowe), ustawiane z przesunięciem jak klocki; elewacja z blachy cortenowskiej na ruszcie. Salon to jedyna przestrzeń poza modułem: stalowe kratownice rozpięte między sąsiednimi modułami. Dach szklany na stalowej ramie.",
+        lato="Harmonijkowy dach ogrodu i szklana ścianka do patio są złożone: ogród zimowy i patio za murem stają się jednym dziedzińcem pod niebem, salon otwiera się na nie przesuwnymi drzwiami, a z tarasów na dachu patrzy się na brzozy z góry.",
+        zima="Dach i harmonijka są zamknięte: ogród zimowy jest ogrzewanym buforem w środku domu, mur patio osłania salon od wschodniego wiatru, a pełne ściany modułów od północy i zachodu trzymają ciepło.",
+        technologia="Prefabrykowane moduły stalowe o szerokości 3–4,4 m (rama z profili HEB, strop z blachy trapezowej z nadbetonem, ściany warstwowe z wełną), ustawiane z przesunięciem o metr; biuro na piętrze to moduł wysunięty wspornikowo o metr przed hol. Salon to trzy moduły w rzędzie bez ścian i bez stropu pośredniego. Elewacja i mur patio z blachy cortenowskiej na ruszcie, dach szklany harmonijkowy na stalowej ramie, tarasy z deski na stropach modułów parteru.",
     ),
 )
 H.level(0, z=0.0, h=3.4)
-H.level(1, z=3.4, h=3.4)
+H.level(1, z=3.4, h=3.2)
 
-# dwa ogrody w środku: letni dziedziniec (wschód) i zimowy pod szkłem (zachód)
-# (dziedziniec zdefiniowany pierwszy: wtedy złożone latem panele harmonijki stoją po jego stronie, nie w ogrodzie)
-H.room("dz", "Dziedziniec letni", "patio", rect(11, 6.5, 17, 13.5), roof=None)
-H.ogrod("og", "Ogród zimowy",
-        poly((6, 4), (11, 4), (11, 13.5), (4.5, 13.5), (4.5, 9.5), (6, 9.5)),
-        levels=2, roof_type="fold", style="tropikalny", edge="fold", seed=14)
+# ogród zimowy w środku, jednokondygnacyjny: każdą krawędzią dotyka pokoju, od wschodu harmonijka do patio za murem
+H.ogrod("og", "Ogród zimowy", poly((4.4, 3.0), (9.4, 3.0), (9.4, 4.0), (10.6, 4.0), (10.6, 10.0), (4.4, 10.0)),
+        levels=1, roof_type="fold", style="las", edge="fold", seed=14)
 
-# --- północ: front, amfilada (moduły 1–3)
-H.room("pral", "Pralnia", "pralnia", rect(0, 1.5, 2, 5.5))
-H.room("wia", "Wiatrołap", "wiatrolap", poly((2, 1.5), (6, 1.5), (6, 5.5), (3.6, 5.5), (3.6, 3.5), (2, 3.5)), ext="slits")
-H.room("wc", "WC", "wc", rect(2, 3.5, 3.6, 5.5))
-H.room("bib", "Biblioteka", "biblioteka", rect(6, 0, 11, 4), levels=2, ext="solid")
-H.room("muz", "Pokój muzyczny", "muzyczny", rect(11, 2, 16, 6.5), ext={"N": "windows_sq", "S": "glass"}, garden="glass")
-# --- wschód: hol ze schodami, biuro, spiżarnia (moduły 4–6)
-H.room("hol", "Hol", "hol", rect(16, 1, 20, 6.5), ext={"N": "solid", "E": "windows_sq", "W": "slits", "S": "glass"})
-H.stair("spiral", level=0, center=(18.35, 4.0), r=1.15, start=180, sweep=320, n=16)
-H.room("biu", "Biuro", "biuro", rect(17, 6.5, 21, 13.5), ext={"E": "glass", "W": "glass_slide", "N": "solid", "S": "solid"})
-H.room("spiz", "Spiżarnia", "spizarnia", rect(15.5, 13.5, 19.5, 16))
-# --- południe: wysoki salon i patio sezonowe (moduły 7–8)
-H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(4.5, 13.5, 15.5, 19.1), levels=2,
-       ext={"S": "glass_slide", "W": "glass_slide", "E": "solid", "N": "glass_slide"}, kitchen_at="E")
-H.room("ps", "Patio sezonowe", "patio_sezonowe", rect(0.5, 14.5, 4.5, 20.3))
-# --- zachód: wysoka pracownia i herbaciarnia przy palmach (moduły 9–10)
-H.room("prac", "Pracownia", "pracownia", rect(0, 9.5, 4.5, 14.5), levels=2, ext={"W": "windows", "N": "solid", "S": "glass_slide"})
-H.room("herb", "Herbaciarnia", "herbaciarnia", rect(1.5, 5.5, 6, 9.5), ext={"W": "band"}, garden="glass")
+# --- parter, moduły północne (front): wiatrołap, hol z biblioteką wysunięty o 1 m, WC i pralnia ze spiżarnią
+H.room("wia", "Wiatrołap", "wiatrolap", rect(0, 0, 3.0, 3.0), ext={"N": "slits", "W": "solid"})
+H.room("hol", "Hol z biblioteką", "biblioteka", rect(3.0, -1.0, 9.4, 3.0), ext={"N": "band_high", "W": "solid", "E": "solid"})
+H.room("wc", "WC", "wc", rect(9.4, 0, 11.0, 1.8))
+H.room("pral", "Pralnia i spiżarnia", "pralnia", poly((11.0, 0), (12.4, 0), (12.4, 4.0), (9.4, 4.0), (9.4, 1.8), (11.0, 1.8)),
+       ext={"N": "band_high", "E": "windows_sq", "pat": "solid"})
+H.stair("spiral", level=0, center=(5.0, 1.3), r=1.05, start=200, sweep=320, n=16)
+# --- moduły zachodnie (przelotowe): herbaciarnia i pracownia; na południu wysoki salon wysunięty o 1 m na zachód
+H.room("herb", "Herbaciarnia", "herbaciarnia", rect(0, 3.0, 4.4, 7.0), ext={"W": "band"}, garden="glass", label_at=(1.6, 6.1))
+H.room("prac", "Pracownia", "pracownia", rect(0, 7.0, 4.4, 10.0), ext={"W": "windows"})
+H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(-1.0, 10.0, 13.4, 14.0), levels=2, kitchen_at="E",
+       ext={"pat": "glass", "S": "band_high", "W": "windows", "E": "windows", "N": "band", "taZ": "windows"})
+H.window("sal", "S", at=0.18, width=2.4, sill=0.45, head=2.6)
+H.window("sal", "S", at=0.50, width=2.4, sill=0.45, head=2.6)
+H.window("sal", "S", at=0.82, width=2.4, sill=0.45, head=2.6)
+# --- letnie patio za murem (dawny dziedziniec): między ogrodem, pralnią i salonem, zadaszone przy salonie
+H.room("pat", "Patio za murem", "patio", rect(10.6, 4.0, 14.4, 10.0), roof=rect(10.6, 8.2, 14.4, 10.0), enclose="gwall")
 
-# --- piętro: galeria nad holem, garderoba, sypialnia, łazienka, taras na dachu pokoju muzycznego
-H.room("gal", "Galeria", "galeria", rect(16, 1, 20, 6.5), level=1, ext={"N": "solid", "E": "windows_sq", "W": "glass", "S": "glass"})
-H.room("gard", "Garderoba", "garderoba", rect(17, 6.5, 21, 8.5), level=1)
-H.room("syp", "Sypialnia", "sypialnia_glowna", rect(17, 8.5, 21, 13.5), level=1, ext={"E": "glass_slide", "W": "glass", "S": "solid"})
-H.room("laz", "Łazienka", "lazienka", rect(15.5, 13.5, 19.5, 16), level=1)
-H.room("tar", "Taras", "taras", rect(11, 2, 16, 6.5), level=1)
+# --- piętro: łańcuch czterech modułów wokół dwóch tarasów (biuro wysunięte wspornikowo o 1 m przed hol)
+H.room("laz", "Łazienka", "lazienka", rect(0, 0, 3.0, 3.0), level=1, ext={"N": "band_high", "W": "band_high"}, label_at=(1.0, 1.8))
+H.room("gal", "Galeria", "galeria", rect(3.0, -1.0, 6.2, 3.0), level=1, ext={"N": "slits", "W": "solid", "S": "glass"})
+H.room("biu", "Biuro", "biuro", rect(6.2, -2.0, 9.4, 2.0), level=1,
+       ext={"N": "glass", "S": "glass", "E": "solid", "taE": "glass"})
+H.room("syp", "Sypialnia", "sypialnia_glowna", rect(0, 3.0, 4.4, 7.0), level=1,
+       ext={"W": "glass", "E": "band_high", "taZ": "glass"})
+H.room("taE", "Taras wschodni", "taras", rect(9.4, 0, 12.4, 4.0), level=1)
+H.room("taZ", "Taras zachodni", "taras", rect(0, 7.0, 4.4, 10.0), level=1)
 
-# --- połączenia: amfilada parteru (pętla wokół ogrodów)
-H.connect("wia", "pral", "door")
-H.connect("wia", "wc", "door")
-H.connect("wia", "bib", "wide")
-H.connect("bib", "muz", "wide")
-H.connect("muz", "hol", "double")
-H.connect("hol", "biu", "double")
-H.connect("biu", "spiz", "door", at=0.85)
-H.connect("spiz", "sal", "door")
-H.connect("wia", "herb", "door")
+# --- połączenia: amfilada parteru (pętla wokół ogrodu)
+H.connect("wia", "hol", "door", at=0.8)
+H.connect("hol", "wc", "door")
+H.connect("hol", "pral", "door")
+H.connect("hol", "herb", "door")
 H.connect("herb", "prac", "door")
-# --- piętro
-H.connect("gal", "gard", "door", at=0.85)
-H.connect("gard", "syp", "door", at=0.15)
+H.connect("prac", "sal", "door")
+H.connect("sal", "pat", "slide", width=3.0)
+H.connect("pral", "pat", "door")
+# --- piętro: sypialnia – galeria – biuro, łazienka przy sypialni, wyjścia na tarasy
 H.connect("syp", "laz", "door")
-H.connect("gal", "tar", "slide")
+H.connect("gal", "syp", "door")
+H.connect("gal", "biu", "door", at=0.15)
+H.connect("biu", "taE", "slide")
+H.connect("syp", "taZ", "slide")
 
 H.entrance("wia", "N")
-H.path(rect(3.3, -5.5, 4.7, 1.3))
-H.path(rect(5.0, 19.3, 15.0, 22.3))
-H.tree(-3.0, 3.0, "brzoza")
-H.tree(24.5, 16.5, "klon")
-H.tree(-2.5, 22.0, "lipa")
-H.tree(19.0, -4.0, "sosna")
-H.cut("A–A", (10.2, -2.0), (10.2, 23.0))
-H.cut("B–B", (-2.0, 10.0), (24.0, 10.0))
+H.exit("pral", "E", kind="door", width=0.9)
+H.path(rect(0.8, -6.0, 2.2, -0.2))
+H.tree(-3.5, 5.0, "brzoza")
+H.tree(18.0, 2.0, "sosna")
+H.tree(18.0, 15.5, "klon")
+H.tree(-3.0, 17.0, "lipa")
+H.cut("A–A", (5.0, -3.0), (5.0, 16.5))
+H.cut("B–B", (-2.5, 5.5), (17.5, 5.5))

@@ -148,7 +148,9 @@ def _icosphere(sub):
 
 
 # ------------------------------------------------------------------ budowa bryły
-def build_mesh(house):
+def build_mesh(house, meble=True, rosliny=True, ludzie=True, dach_t=None):
+    """meble/rosliny/ludzie=False – pomija uproszczone bryły (film wstawia w ich miejsce realistyczne modele);
+    dach_t (0 zamknięty … 1 otwarty) – ruchome części szklanego dachu w stanie pośrednim, wariant "ruch"."""
     M = Mesh()
     fac = FACADE.get(house.style.get("fasada", "tynk"), "tynk")
     base_idx = min(house.L)
@@ -186,8 +188,9 @@ def build_mesh(house):
         if items is None:
             items = furnish_level(house, idx)
             L["items"] = items
-        for it in items:
-            _item3d(M, it)
+        if meble:
+            for it in items:
+                _item3d(M, it)
     # stropy
     for z, poly, kind in house.slabs:
         M.extrude(poly, z - SLAB, z, "strop")
@@ -219,17 +222,18 @@ def build_mesh(house):
             _posts(M, house, r, r.poly, r.z0, z - SLAB)
     # ogród
     for g in [r for r in house.all_rooms if r.kind == "ogrod"]:
-        _garden3d(M, house, g)
-        _glass_roof3d(M, house, g)
+        _garden3d(M, house, g, rosliny)
+        _glass_roof3d(M, house, g, dach_t)
     # teren wokół
     for s_ in house.site:
         if s_["t"] == "path":
             M.extrude(s_["shape"], -0.32, -0.27, "sciezka", bottom=False)
-        elif s_["t"] == "tree":
+        elif s_["t"] == "tree" and rosliny:
             _tree3d(M, s_["kind"], s_["x"], s_["y"], -0.3, s_.get("h") or 7.5, s_.get("r") or 2.0, seed=int(s_["x"] * 13 + s_["y"]))
     _stairs3d(M, house)
     # ludzie
-    _people(M, house)
+    if ludzie:
+        _people(M, house)
     return M
 
 
@@ -422,7 +426,11 @@ def _item3d(M, it):
 
 
 # ------------------------------------------------------------------- ogród 3D
-def _garden3d(M, house, g):
+ROSLINY = ("mech", "kamien", "klon", "brzoza", "oliwka", "sosna", "palma", "cytrus", "lilia", "paproc", "lawenda",
+           "monstera", "donica")
+
+
+def _garden3d(M, house, g, rosliny=True):
     from .ogrod import garden_layout
     lay = getattr(g, "_layout", None)
     if lay is None:
@@ -447,6 +455,8 @@ def _garden3d(M, house, g):
         t = ft.t
         x, y = ft.x, ft.y
         sd = int(x * 100 + y * 10)
+        if not rosliny and t in ROSLINY:
+            continue
         if t == "mech":
             M.sphere(x, y, z - 0.05, ft.r, "mech", sx=1.0, sy=0.78, sz=0.18, seed=sd, jitter=0.1)
         elif t == "kamien":
@@ -581,7 +591,35 @@ def _people(M, house):
 
 
 # --------------------------------------------------------------- dach szklany
-def _glass_roof3d(M, house, g):
+def _ease(x):
+    x = min(1.0, max(0.0, x))
+    return x * x * (3 - 2 * x)
+
+
+def _slat(M, p1, p2, zc, w, th, ang, mat, var="base"):
+    """Lamela obrócona o kąt ang (stopnie) wokół osi p1–p2 na wysokości zc."""
+    dx, dy = p2[0] - p1[0], p2[1] - p1[1]
+    L = math.hypot(dx, dy)
+    if L < 1e-6:
+        return
+    nx, ny = -dy / L, dx / L
+    a = math.radians(ang)
+    ca, sa = math.cos(a), math.sin(a)
+    sec = []
+    for u, v in ((-w / 2, -th / 2), (w / 2, -th / 2), (w / 2, th / 2), (-w / 2, th / 2)):
+        uu, vv = u * ca - v * sa, u * sa + v * ca
+        sec.append((nx * uu, ny * uu, vv))
+    A = [(p1[0] + q[0], p1[1] + q[1], zc + q[2]) for q in sec]
+    B = [(p2[0] + q[0], p2[1] + q[1], zc + q[2]) for q in sec]
+    for i in range(4):
+        j = (i + 1) % 4
+        M.quad(A[i], A[j], B[j], B[i], mat, var)
+    M.quad(A[3], A[2], A[1], A[0], mat, var)
+    M.quad(B[0], B[1], B[2], B[3], mat, var)
+
+
+def _glass_roof3d(M, house, g, stan=None):
+    """stan=None: warianty zima (zamknięty) i lato (otwarty); stan∈[0,1]: ruchome części w stanie pośrednim (wariant "ruch")."""
     poly = g.poly
     z = g.roof_z
     t = g.roof_type
@@ -616,6 +654,9 @@ def _glass_roof3d(M, house, g):
                 seg = LineString([p1, p2]).intersection(poly)
                 for s_ in _segs(seg):
                     cs = list(s_.coords)
+                    if stan is not None:
+                        _slat(M, cs[0], cs[-1], z - 0.015, W / nl * 0.98, 0.03, 82 * _ease(stan), "szklo", var="ruch")
+                        continue
                     # lato – lamele uchylone (wąskie w rzucie), zima – zamknięte
                     M.seg_box(cs[0], cs[-1], 0.06, z - 0.05, z + 0.22, "szklo", var="lato")
                     M.seg_box(cs[0], cs[-1], W / nl, z - 0.03, z, "szklo", var="zima")
@@ -628,9 +669,19 @@ def _glass_roof3d(M, house, g):
         if t == "ridge":
             rise = W * 0.18
         M.extrude(half_fixed, z - 0.02, z, "szklo")
+        from shapely import affinity
+        if stan is not None:
+            # najpierw uniesienie o 16 cm, potem przesuw nad połowę stałą
+            lift = 0.16 * _ease(stan / 0.15)
+            dist = L / 2 * _ease((stan - 0.15) / 0.85)
+            mv = affinity.translate(half_move, ux * dist, uy * dist)
+            if dist > L / 2 - 0.05:
+                mv = mv.intersection(half_fixed.buffer(0.01))
+            M.extrude(mv, z - 0.02 + lift, z + lift, "szklo", var="ruch")
+            M.extrude(mv.boundary.buffer(0.04).intersection(mv.buffer(0.05)), z - 0.06 + lift, z + 0.02 + lift, "rama", var="ruch")
+            return
         M.extrude(half_move, z - 0.02, z, "szklo", var="zima")
         # lato: ruchoma połowa wsunięta nad stałą
-        from shapely import affinity
         moved = affinity.translate(half_move, ux * L / 2, uy * L / 2).intersection(half_fixed.buffer(0.01))
         M.extrude(moved, z + 0.14, z + 0.16, "szklo", var="lato")
         M.extrude(moved.boundary.buffer(0.04).intersection(moved.buffer(0.05)), z + 0.1, z + 0.18, "rama", var="lato")
@@ -657,6 +708,13 @@ def _glass_roof3d(M, house, g):
         inner = [(c.x + (x - c.x) * ring_open, c.y + (y - c.y) * ring_open) for x, y in cs]
         ip = Polygon(inner)
         M.extrude(ip.buffer(0.06).difference(ip.buffer(-0.06)), zt, zt + 0.08, "rama")
+        if stan is not None:
+            lift = 0.68 * _ease(stan)
+            M.extrude(ip.buffer(0.1), zt + 0.02 + lift, zt + 0.06 + lift, "szklo", var="ruch")
+            if lift > 0.02:
+                for x, y in inner[::max(1, len(inner) // 4)]:
+                    M.box(x, y, zt, 0.06, 0.06, lift + 0.04, 0, "rama", var="ruch")
+            return
         # zima – zamknięty kapelusz; lato – uniesiony
         M.extrude(ip.buffer(0.1), zt + 0.02, zt + 0.06, "szklo", var="zima")
         M.extrude(ip.buffer(0.1), zt + 0.7, zt + 0.74, "szklo", var="lato")

@@ -15,12 +15,13 @@ sys.path.insert(0, HERE)
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 
 
-def load(pid):
-    files = glob.glob(os.path.join(HERE, "domy", f"{pid}_*.py"))
+def load(pid, katalog="domy"):
+    """katalog="domy_v1" – pierwsza wersja kolekcji (przed zmianami klienta)."""
+    files = glob.glob(os.path.join(HERE, katalog, f"{pid}_*.py"))
     if not files:
-        raise SystemExit(f"brak pliku domy/{pid}_*.py")
+        raise SystemExit(f"brak pliku {katalog}/{pid}_*.py")
     name = os.path.splitext(os.path.basename(files[0]))[0]
-    mod = importlib.import_module(f"domy.{name}")
+    mod = importlib.import_module(f"{katalog}.{name}")
     importlib.reload(mod)
     return mod.H
 

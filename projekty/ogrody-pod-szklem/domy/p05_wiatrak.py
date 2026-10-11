@@ -1,107 +1,108 @@
-"""P05 · Wiatrak – cztery proste skrzydła ułożone jak łopaty wiatraczka wokół kwadratowego ogrodu."""
+"""P05 · Wiatrak (wersja 2) – cztery proste skrzydła jak łopaty wiatraczka wokół ukrytego ogrodu 6 × 6 m;
+dwie łopaty parterowe z tarasami na dachu, dwie z modułami piętra ustawionymi w literę L."""
 from silnik import House, rect, union
 
-# Ogród 8 × 8 m w kwadracie (8,8)–(16,16). Cztery skrzydła (4,2 m, południowe 5,6 m)
-# obiegają go zgodnie z ruchem wskazówek zegara i każde wystaje 3,6 m poza obrys sąsiada:
-#   północne  x 8–23,8  (wystaje na wschód)      zachodnie x 3,8–8  (wystaje na północ)
-#   wschodnie y 8–25,2  (wystaje na południe)    południowe x 0,2–16 (wystaje na zachód)
-# Między końcami powstają cztery dziedzińce: wejściowy (N), poranny (E), patio (S), gospodarczy (W).
+# Ogród 6 × 6 m w kwadracie (6,6)–(12,12). Cztery skrzydła obiegają go zgodnie z ruchem wskazówek zegara
+# i każde wystaje 2,8 m poza obrys sąsiada:
+#   zachodnie  x 2,8–6   y 0–12     (wystaje na północ: wiatrołap i WC, nad nimi łazienka)
+#   północne   y 2,8–6   x 6–19,2   (wystaje na wschód: loggia, nad nią koniec tarasu)
+#   wschodnie  x 12–16,4 y 6–18     (wystaje na południe: zadaszona część patio za murem)
+#   południowe y 12–15   x 0–12     (wystaje na zachód: drewutnia)
+# Piętro: moduły w literę L nad skrzydłem zachodnim i początkiem północnego; tarasy na dachach
+# skrzydła południowego i wschodniej części północnego.
 
 H = House(
     "p05", "Wiatrak",
-    "Cztery proste skrzydła ułożone jak łopaty wiatraczka wokół kwadratowego ogrodu pod przesuwnym szklanym dachem. "
-    "Każda łopata wystaje poza obrys domu i kończy się otwartym zadaszeniem, a między łopatami są cztery różne dziedzińce.",
+    "Cztery proste skrzydła ułożone jak łopaty wiatraczka wokół kwadratowego ogrodu, którego z zewnątrz nie widać. "
+    "Na dachach niskich skrzydeł są dwa tarasy, nad skrzydłem zachodnim i początkiem północnego stoją moduły piętra w literę L, "
+    "a skrzydło wschodnie to wysoki salon.",
     style=dict(fasada="trawertyn", dach="sedum", akcent="stal"),
     concept=[
-        "Ogród 8 × 8 m leży w środku, a cztery prostokątne skrzydła obiegają go zgodnie z ruchem wskazówek zegara. "
-        "Każde skrzydło wystaje 3 m poza sąsiednie, dlatego między ich końcami powstają cztery dziedzińce: wejściowy od północy, "
-        "poranny przy sypialni od wschodu, patio przy salonie od południa i gospodarczy od zachodu.",
-        "Każda łopata kończy się otwartym końcem pod dachem: wiata na samochód i rowery przy wejściu, loggia nad porannym ogrodem, "
-        "zadaszona część patio i drewutnia przy podwórzu gospodarczym. Dzięki temu dom ma 250 m² w środku, a wygląda na większy.",
-        "Skrzydło północne to amfilada: wiatrołap ze szklaną ścianą do ogrodu, biblioteka z krętymi schodami i pokój muzyczny, "
-        "z którego wychodzi się na loggię. Nad skrzydłem północnym jest piętro z dwoma pokojami, łazienką i tarasem nad loggią.",
-        "Biuro w skrzydle zachodnim ma szkło od ogrodu i od zachodu, więc po południu widać z biurka zachód słońca nad oliwkami "
-        "zachodniego dziedzińca. Wchodzi się do niego z ogrodu, który jest holem domu.",
-        "Salon z kuchnią w skrzydle południowym ma 6,5 m wysokości i szkło na całą południową ścianę. Kuchnia stoi przy ścianie "
-        "łazienki i spiżarni, a przez przesuwne szkło wychodzi się na patio, którego część pod końcem skrzydła wschodniego ma dach.",
-        "Sypialnia od wschodu ma całą ścianę ze szkła na poranny ogród. Przez przelotową garderobę przechodzi się do łazienki. "
-        "Dach ogrodu jest z dwóch szklanych tafli: latem jedna zsuwa się nad drugą i ogród z oliwką, lawendą i żwirem stoi pod gołym niebem.",
+        "Ogród 6 × 6 m leży w środku, a cztery skrzydła szerokości 3,0–4,4 m obiegają go zgodnie z ruchem wskazówek zegara. "
+        "Każde wystaje około 3 m poza sąsiednie, więc między końcami łopat są cztery dziedzińce: wejściowy od północy, poranny od wschodu, "
+        "patio za murem od południa i gospodarczy od zachodu.",
+        "Z zewnątrz ogrodu nie widać: pokoje przy ogrodzie mają od strony krajobrazu tylko okna i szczeliny, a szkło przesuwne "
+        "wychodzi wyłącznie na patio schowane za murem wysokości 2,6 m. Wiatrołap na końcu zachodniej łopaty nie styka się z ogrodem.",
+        "Parter obchodzi się bez korytarzy: z holu ze schodami kręconymi przez bibliotekę i pokój muzyczny z loggią na końcu łopaty "
+        "do wysokiego salonu, z salonu do herbaciarni i pralni; przy holu są WC i pokój gościnny przy ogrodzie.",
+        "Salon z kuchnią we wschodniej łopacie ma 6,6 m wysokości, szkło od ogrodu i szkło na patio, nad którym daszek tworzy "
+        "wystający koniec skrzydła.",
+        "Dachy skrzydła południowego i wschodniej części północnego to tarasy z balustradą; wychodzi się na nie z sypialni i z biura. "
+        "Najwyższy dach nad modułami piętra jest zielony.",
+        "Na piętrze cztery moduły w literę L połączone drzwiami: łazienka nad wiatrołapem, galeria ze schodami, sypialnia ze szklaną "
+        "ścianą od zachodu i biuro przeszklone na pola od północy i na taras od wschodu.",
     ],
     notes=dict(
-        lato="Połowa szklanego dachu zjeżdża nad drugą połowę, szklane ściany biura, salonu i sypialni rozsuwają się, a cień dają zadaszone końce skrzydeł: wiata, loggia i daszek patio.",
-        zima="Dach jest zamknięty, ogród ze żwirem i kamiennymi murami zbiera ciepło ze słońca, a wszystkie pokoje mają od środka ogród zamiast mrozu; wchodzi się do nich z ogrodu, nie z zewnątrz.",
-        technologia="Ściany z bloczków silikatowych na klej, okładzina z płyt trawertynu na ruszcie, stropy i dachy z prefabrykowanych płyt kanałowych; zadaszenia końców skrzydeł na stalowych słupach, dach szklany na stalowej ramie z napędem przesuwnym.",
+        lato="Połowa szklanego dachu zsuwa się nad drugą i ogród z oliwką stoi pod gołym niebem, szkło salonu i herbaciarni rozsuwa się na patio za murem, a z dwóch tarasów zagląda się do ogrodu z góry.",
+        zima="Dach jest zamknięty, ogród ze żwirem i kamieniem zbiera ciepło ze słońca i ociepla cztery pokoje wokół, a mur patio i pełne ściany końców łopat osłaniają dom od wiatru.",
+        technologia="Ściany z bloczków silikatowych na cienką spoinę z okładziną z płyt trawertynu na ruszcie, stropy i dachy z prefabrykowanych płyt kanałowych, tarasy na stropach z warstwą spadkową; daszki końców łopat na stalowych słupach, dach szklany na stalowej ramie z napędem przesuwnym.",
     ),
 )
 H.level(0, z=0.0, h=3.4)
-H.level(1, z=3.4, h=3.4)
+H.level(1, z=3.4, h=3.2)
 
-H.ogrod("og", "Ogród", rect(8, 8, 16, 16), levels=1, roof_type="slide", style="srodziemnomorski", seed=11)
+H.ogrod("og", "Ogród", rect(6, 6, 12, 12), levels=1, roof_type="slide", style="srodziemnomorski", seed=11)
 
-# skrzydło zachodnie (x 3,8–8): wiata, biuro, pralnia
-H.room("wiata", "Wiata", "loggia", rect(3.8, 0.2, 8, 8), floor="plyty", furn=False)
-H.room("biu", "Biuro", "biuro", rect(3.8, 8, 8, 13.6), ext={"W": "glass_slide", "N": "solid"}, garden="glass_slide")
-H.room("pral", "Pralnia", "pralnia", rect(3.8, 13.6, 8, 16), ext={"W": "windows_sq"}, garden="band_high")
+# skrzydło zachodnie (x 2,8–6): wiatrołap na końcu, hol ze schodami, pokój gościnny przy ogrodzie
+H.room("wia", "Wiatrołap", "wiatrolap", rect(2.8, 0, 6, 2.8), ext={"N": "slits", "E": "solid", "W": "solid"})
+H.room("hol", "Hol", "hol", rect(2.8, 2.8, 6, 6), ext={"W": "windows"})
+H.room("gos", "Pokój gościnny", "gosc", rect(2.8, 6, 6, 12), ext={"W": "windows"})
 
-# skrzydło północne (y 3,8–8): amfilada wiatrołap – biblioteka – pokój muzyczny – loggia
-H.room("wia", "Wiatrołap", "wiatrolap", rect(8, 3.8, 10.6, 8), ext={"N": "slits", "W": "solid"}, garden="glass_slide")
-H.room("wc", "WC", "wc", rect(10.6, 3.8, 12.2, 5.8))
-H.room("bib", "Biblioteka", "biblioteka", union(rect(10.6, 5.8, 12.2, 8), rect(12.2, 3.8, 17.6, 8)),
-       ext={"N": "solid"}, garden="glass_slide")
-H.room("muz", "Pokój muzyczny", "muzyczny", rect(17.6, 3.8, 21.2, 8), ext={"N": "windows", "E": "glass", "S": "solid"})
-H.room("log", "Loggia", "loggia", rect(21.2, 3.8, 23.8, 8))
+# skrzydło północne (y 2,8–6): WC przy holu, biblioteka – pokój muzyczny – loggia na końcu
+H.room("wc", "WC", "wc", rect(6, 2.8, 7.8, 4.7))
+H.room("bib", "Biblioteka", "biblioteka", union(rect(7.8, 2.8, 12, 6), rect(6, 4.7, 7.8, 6)), ext={"N": "slits"})
+H.room("muz", "Pokój muzyczny", "muzyczny", rect(12, 2.8, 16.4, 6), ext={"N": "windows", "log": "glass_slide", "*": "windows"})
+H.room("log", "Loggia", "loggia", rect(16.4, 2.8, 19.2, 6))
 
-# skrzydło wschodnie (x 16–20,2): sypialnia – garderoba – łazienka – spiżarnia, koniec zadaszony nad patio
-H.room("syp", "Sypialnia", "sypialnia_glowna", rect(16, 8, 20.2, 13.6), ext={"E": "glass_slide"}, garden="glass_slide")
-H.room("gar", "Garderoba", "garderoba", rect(16, 13.6, 20.2, 16), ext={"E": "band_high"})
-H.room("laz", "Łazienka", "lazienka", rect(16, 16, 20.2, 19.4), ext={"E": "band_high"})
-H.room("spi", "Spiżarnia", "spizarnia", rect(16, 19.4, 20.2, 21.6), ext="solid")
-H.room("pat", "Patio", "patio", rect(9.4, 21.6, 20.2, 25.8), roof=rect(16, 21.6, 20.2, 25.2))
+# skrzydło wschodnie (x 12–16,4): wysoki salon z kuchnią, na końcu patio za murem z daszkiem
+H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(12, 6, 16.4, 15), levels=2, kitchen_at="S",
+       ext={"pat": "glass_slide", "taN": "windows", "taS": "glass", "*": "windows"})
+H.room("pat", "Patio za murem", "patio", rect(6, 15, 16.4, 18), roof=rect(12, 15, 16.4, 18), enclose="gwall")
 
-# skrzydło południowe (y 16–21,6): salon z kuchnią na 2 kondygnacje, drewutnia i techniczne na końcu
-H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(3.8, 16, 16, 21.6), levels=2, kitchen_at="E",
-       ext={"S": "glass_slide", "E": "windows", "N": "glass", "W": "slits"})
-H.room("drew", "Drewutnia", "loggia", rect(0.2, 16, 3.8, 18.6), floor="plyty", furn=False)
-H.room("tech", "Techniczne", "techniczne", rect(0.2, 18.6, 3.8, 21.6), ext="solid")
+# skrzydło południowe (y 12–15): herbaciarnia przy ogrodzie, pralnia, drewutnia na końcu
+H.room("her", "Herbaciarnia", "herbaciarnia", rect(6, 12, 12, 15), ext={"pat": "glass_slide", "*": "windows"})
+H.room("pra", "Pralnia i techniczne", "pralnia", rect(2.8, 12, 6, 15), ext={"S": "windows_sq", "*": "solid"})
+H.room("dre", "Drewutnia", "loggia", rect(0, 12, 2.8, 15), floor="plyty", furn=False)
 
-# piętro nad skrzydłem północnym: dwa pokoje, łazienka, hol z krętymi schodami, taras nad loggią
-H.room("pok1", "Pokój dziecięcy", "pokoj", rect(8, 3.8, 12.2, 8), level=1, ext={"N": "windows", "W": "windows", "S": "windows"})
-H.room("laz1", "Łazienka", "lazienka", rect(12.2, 3.8, 14.6, 6.2), level=1)
-H.room("hol1", "Hol", "hol", union(rect(12.2, 6.2, 14.6, 8), rect(14.6, 3.8, 17.6, 8)), level=1,
-       ext={"N": "slits", "S": "glass"})
-H.room("pok2", "Pokój gościnny", "gosc", rect(17.6, 3.8, 21.2, 8), level=1, ext={"N": "windows", "S": "windows", "E": "glass_slide"})
-H.room("tar", "Taras", "taras", rect(21.2, 3.8, 23.8, 8), level=1)
-H.stair("spiral", level=0, center=(16.3, 6.6), r=1.0, start=300, sweep=300, n=15)
+H.stair("spiral", level=0, center=(4.0, 4.35), r=0.95, start=30, sweep=300, n=15)
 
-# połączenia
-H.connect("wia", "wc", "door")
-H.connect("wia", "bib", "wide")
-H.connect("wia", "wiata", "door", at=0.8)
-H.connect("bib", "muz", "double", at=0.25)
-H.connect("muz", "log", "slide", at=0.8)
-H.connect("syp", "gar", "door")
-H.connect("gar", "laz", "slide")
-H.connect("sal", "spi", "door")
-H.connect("sal", "pral", "door", at=0.3)
-H.connect("sal", "tech", "door", at=0.7)
-H.connect("hol1", "pok1", "door")
-H.connect("hol1", "laz1", "door")
-H.connect("hol1", "pok2", "door")
+# piętro: moduły w literę L (łazienka – galeria – sypialnia, galeria – biuro) i dwa tarasy
+H.room("laz", "Łazienka", "lazienka", rect(2.8, 0, 6, 2.8), level=1)
+H.room("gal", "Galeria", "galeria", rect(2.8, 2.8, 6, 6), level=1, ext={"W": "windows"})
+H.room("syp", "Sypialnia", "sypialnia_glowna", rect(2.8, 6, 6, 12), level=1,
+       ext={"W": "glass", "E": "windows", "taS": "glass_slide"})
+H.room("biu", "Biuro", "biuro", rect(6, 2.8, 9.6, 6), level=1, ext={"N": "glass", "S": "windows", "taN": "glass_slide"})
+H.room("taS", "Taras południowy", "taras", rect(2.8, 12, 12, 15), level=1)
+H.room("taN", "Taras północny", "taras", rect(9.6, 2.8, 19.2, 6), level=1)
 
-H.entrance("wia", "N")
-H.window("bib", "N", at=0.87, width=1.2, sill=1.7, head=2.7)   # wysokie okno w rogu biblioteki; reszta ściany pod regały
-H.exit("pral", "W", kind="door", width=1.0)
-H.exit("tech", "N", kind="door", width=1.0)
+# połączenia parteru
+H.connect("hol", "wia", "door", at=0.2)
+H.connect("hol", "wc", "door")
+H.connect("hol", "bib", "door")
+H.connect("hol", "gos", "door", at=0.15)
+H.connect("bib", "muz", "double")
+H.connect("muz", "sal", "double")
+H.connect("muz", "log", "slide")
+H.connect("sal", "her", "door", at=0.5)
+H.connect("her", "pra", "door", at=0.3)
+# połączenia piętra
+H.connect("gal", "laz", "door", at=0.2)
+H.connect("gal", "syp", "door", at=0.15)
+H.connect("gal", "biu", "door", at=0.2)
+H.connect("syp", "taS", "slide")
+H.connect("biu", "taN", "slide")
 
-# teren: dojście i podjazd od północy, deska przed sypialnią, podwórze przy pralni
-H.path(rect(8.6, -4.0, 10.0, 3.6))
-H.path(rect(4.0, -4.0, 7.8, 0.2))
-H.path(rect(20.5, 9.0, 23.8, 13.6))
-H.path(rect(0.0, 13.2, 3.6, 16.0))
-H.tree(1.2, 9.6, "oliwka")
-H.tree(15.5, -2.5, "brzoza")
-H.tree(24.5, 20.0, "lipa")
-H.tree(5.5, 26.5, "klon")
+H.entrance("wia", "E")
+H.exit("pra", "W", kind="door", width=1.0)
 
-H.cut("A–A", (13.4, -2.0), (13.4, 28.0))
-H.cut("B–B", (-1.0, 6.6), (27.0, 6.6))
+# teren: dojście od północy wzdłuż wiatrołapa do dziedzińca wejściowego, podwórze gospodarcze przy drewutni
+H.path(rect(6.4, -5.5, 7.8, 2.8))
+H.path(rect(6.0, 0.0, 9.6, 2.8))
+H.path(rect(-2.6, 12.4, 0.0, 15.0))
+H.tree(1.0, 3.5, "oliwka")
+H.tree(14.0, -2.6, "brzoza")
+H.tree(20.5, 11.0, "lipa")
+H.tree(6.0, 21.5, "klon")
+
+H.cut("A–A", (9.0, -2.0), (9.0, 20.5))
+H.cut("B–B", (-2.0, 9.0), (21.5, 9.0))

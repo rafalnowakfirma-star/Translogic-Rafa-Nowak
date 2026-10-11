@@ -520,6 +520,10 @@ class House:
                             continue
                         if run.other is not None and run.other.kind == "ogrod_void":
                             continue
+                        # drzwi do tego sąsiada zrobi już połączenie (connect) – bez podwójnych skrzydeł
+                        if run.other is not None and any({c["a"], c["b"]} == {run.room.key, run.other.key}
+                                                         for c in self.connects if c["kind"] != "open"):
+                            continue
                         w = min(3.0, max(1.6, 0.45 * run.length))
                         m = run.length / 2
                         add("slide", run, m - w / 2, m + w / 2, 0, 2.6)
