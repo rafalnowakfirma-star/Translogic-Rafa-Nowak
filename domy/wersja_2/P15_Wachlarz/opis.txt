@@ -19,5 +19,7 @@ Minusy:
 
 Z góry dom wygląda jak rozłożony wachlarz: pięć piór od południa i blok wejściowy od północy. Ma sto sześćdziesiąt cztery metry kwadratowe, więc mieści się w limicie. Dachy niskich piór to dwa tarasy wokół szklanego dachu ogrodu. Na parterze drzwi stoją w narożnikach przy szkle ogrodu, więc pokoje łączą się bez korytarzy. Pokój gościnny ma własną łazienkę. Na piętrze biuro, sypialnia i łazienka tworzą krótki ciąg przy tarasach.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 462 455 zł, deweloperski 1 859 296 zł, pod klucz 2 202 949 zł (13 405 zł/m²); z projektem, nadzorem i rezerwą 2 585 391 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

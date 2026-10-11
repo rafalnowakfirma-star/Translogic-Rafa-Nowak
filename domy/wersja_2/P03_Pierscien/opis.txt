@@ -20,4 +20,6 @@ Minusy:
 
 Dom ma piętnaście metrów średnicy i sto sześćdziesiąt sześć metrów kwadratowych, w limicie klienta. Parter zamyka się w krąg wokół ogrodu, a na jego dachu są dwa tarasy i łuk pokoi piętra. Na parterze salon, herbaciarnia i biblioteka leżą po jednej stronie ogrodu, pokój gościnny po drugiej. Na piętrze pokoje są przelotowe: garderoba i galeria łączą sypialnię z biurem, a każde ma swój taras. Schody kręcone są w holu.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 667 188 zł, deweloperski 2 009 298 zł, pod klucz 2 344 881 zł (14 132 zł/m²); z projektem, nadzorem i rezerwą 2 748 613 zł. Szczegóły: kosztorys.txt.
+
 Film: 2:35

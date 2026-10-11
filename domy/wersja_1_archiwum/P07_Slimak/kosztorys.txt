@@ -1,0 +1,59 @@
+﻿KOSZTORYS SZACUNKOWY – P07 Ślimak (wersja 1)
+Powierzchnia użytkowa 250 m², ogród pod szkłem 81 m², tarasy 97 m²
+Ceny brutto (VAT 8%), poziom cen: 2026, średnia krajowa, średni standard; dokładność ±15–20%.
+
+STAN SUROWY ZAMKNIĘTY
+  Fundamenty i płyta parteru (bez ogrodu)                           212.9 m²   ×     760 =     161 804 zł
+  Ściany zewnętrzne z ociepleniem i tynkiem                         282.7 m²   ×     520 =     146 991 zł
+  Elewacja: beton architektoniczny (dopłata do tynku)               282.7 m²   ×     400 =     113 070 zł
+  Ściany działowe                                                   197.5 m²   ×     160 =      31 606 zł
+  Stropy żelbetowe                                                  215.9 m²   ×     520 =     112 294 zł
+  Dachy płaskie (konstrukcja, ocieplenie, hydroizolacja)             62.4 m²   ×     950 =      59 299 zł
+  Dach zielony (sedum)                                               62.4 m²   ×     330 =      20 599 zł
+  Okna aluminiowe 3-szybowe                                          48.9 m²   ×   1 500 =      73 350 zł
+  Przeszklenia stałe (fasady słupowo-ryglowe)                       237.0 m²   ×   2 300 =     545 215 zł
+  Drzwi przesuwne HS                                                 39.7 m²   ×   2 900 =     115 159 zł
+  Ściana szklana składana (zamykanie ogrodu)                         30.6 m²   ×   2 700 =      82 620 zł
+  Drzwi wejściowe obrotowe (pivot)                                    1.0 szt. ×  18 000 =      18 000 zł
+  Drzwi zewnętrzne boczne / gospodarcze                               2.0 szt. ×   5 500 =      11 000 zł
+  Dach ogrodu: dach z obrotowych lamel szklanych                     87.5 m²   ×   8 500 =     743 580 zł
+  razem                                                                                      2 234 587 zł
+
+STAN DEWELOPERSKI
+  Tynki wewnętrzne, wylewki, izolacje podłóg                        250.1 m²   ×     270 =      67 517 zł
+  Instalacja elektryczna                                            250.1 m²   ×     280 =      70 018 zł
+  Instalacje wodno-kanalizacyjne                                    250.1 m²   ×     150 =      37 510 zł
+  Ogrzewanie podłogowe                                              290.6 m²   ×     300 =      87 169 zł
+  Pompa ciepła powietrze–woda                                         1.0 kpl. ×  42 000 =      42 000 zł
+  Wentylacja z rekuperacją                                            1.0 kpl. ×  28 000 =      28 000 zł
+  Schody dwubiegowe                                                   1.0 kpl. ×  22 000 =      22 000 zł
+  Schody dwubiegowe                                                   1.0 kpl. ×  22 000 =      22 000 zł
+  Schody proste                                                       1.0 kpl. ×  16 000 =      16 000 zł
+  Schody proste                                                       1.0 kpl. ×  16 000 =      16 000 zł
+  Schody proste                                                       1.0 kpl. ×  16 000 =      16 000 zł
+  Tarasy na stropie (ocieplenie, hydroizolacja, deska)               96.6 m²   ×     900 =      86 922 zł
+  Patio                                                              53.9 m²   ×     420 =      22 638 zł
+  Balustrady szklane                                                 68.3 mb   ×   1 900 =     129 770 zł
+  razem                                                                                        663 544 zł
+
+POD KLUCZ
+  Wykończenie wnętrz (podłogi, malowanie, sufity)                   250.1 m²   ×   1 050 =     262 567 zł
+  Drzwi wewnętrzne                                                   11.0 szt. ×   1 800 =      19 800 zł
+  Łazienki                                                            2.0 kpl. ×  32 000 =      64 000 zł
+  WC                                                                  1.0 kpl. ×  12 000 =      12 000 zł
+  Kuchnia (zabudowa i AGD)                                            1.0 kpl. ×  50 000 =      50 000 zł
+  Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)           81.0 m²   ×     600 =      48 600 zł
+  razem                                                                                        456 967 zł
+
+KOSZTY DODATKOWE
+  Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
+  Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 503 265 =     503 265 zł
+  razem                                                                                        555 265 zł
+
+Stan surowy zamknięty:   2 234 587 zł  (8 936 zł/m²)
+Stan deweloperski:       2 898 131 zł  (11 590 zł/m²)
+Pod klucz:               3 355 098 zł  (13 417 zł/m²)
+Razem z kosztami dodatkowymi: 3 910 363 zł
+
+Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.

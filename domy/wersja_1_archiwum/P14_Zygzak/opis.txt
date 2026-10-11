@@ -19,5 +19,7 @@ Minusy:
 
 Z lotu ptaka widać łańcuch modułów przesuniętych jak klocki, raz wyższych, raz niższych. Dom ma dwieście pięćdziesiąt siedem metrów kwadratowych. Pośrodku leżą obok siebie dwa ogrody, a na dachu pokoju muzycznego jest taras. Od wejścia prowadzą dwie amfilady wokół ogrodów: przez bibliotekę i pokój muzyczny do holu albo przez herbaciarnię i pracownię do salonu. Na piętrze jest tylko część prywatna z jedną sypialnią.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 838 992 zł, deweloperski 3 258 920 zł, pod klucz 3 694 552 zł (14 361 zł/m²); z projektem, nadzorem i rezerwą 4 300 735 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

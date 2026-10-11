@@ -20,5 +20,7 @@ Minusy:
 
 Pas domu ma dwadzieścia dwa metry długości i sto sześćdziesiąt metrów kwadratowych, w limicie klienta. W środku leży ogród pod przesuwnym dachem, po bokach dwa tarasy, a piętro stoi tylko nad zachodnią głową. Parter obchodzi się bez korytarzy dwiema drogami wzdłuż ogrodu: północną przez pracownię, południową przez bibliotekę i herbaciarnię. Na piętrze czytelnia, biuro, sypialnia i łazienka tworzą jeden ciąg przy tarasach.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 380 106 zł, deweloperski 1 761 668 zł, pod klucz 2 078 323 zł (12 970 zł/m²); z projektem, nadzorem i rezerwą 2 442 071 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

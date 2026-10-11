@@ -1,7 +1,8 @@
 ﻿OGRODY POD SZKŁEM – domy wokół prywatnego ogrodu pod otwieranym szklanym dachem
 
 Na telewizorze: włóż pendrive, otwórz odtwarzacz multimediów (USB) i wejdź do folderu „domy”.
-W folderze każdego domu: film (MP4, 1080p, z lektorem), zdjęcia i rzuty (JPG) oraz opis (opis.txt).
+W folderze każdego domu: film (MP4, 1080p, z lektorem), zdjęcia i rzuty (JPG), opis (opis.txt) i kosztorys (kosztorys.txt).
+Porównanie kosztów wszystkich domów: 00_KOSZTORYS_ZESTAWIENIE.txt.
 
 
 WERSJA 2 (aktualna)

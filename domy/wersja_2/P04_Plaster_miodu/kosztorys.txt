@@ -1,0 +1,53 @@
+﻿KOSZTORYS SZACUNKOWY – P04 Plaster miodu (wersja 2)
+Powierzchnia użytkowa 167 m², ogród pod szkłem 35 m², tarasy 38 m²
+Ceny brutto (VAT 8%), poziom cen: 2026, średnia krajowa, średni standard; dokładność ±15–20%.
+
+STAN SUROWY ZAMKNIĘTY
+  Fundamenty i płyta parteru (bez ogrodu)                           177.6 m²   ×     760 =     134 979 zł
+  Ściany zewnętrzne z ociepleniem i tynkiem                         289.3 m²   ×     520 =     150 453 zł
+  Elewacja: drewno opalane (dopłata do tynku)                       289.3 m²   ×     480 =     138 880 zł
+  Ściany działowe                                                   145.5 m²   ×     160 =      23 278 zł
+  Stropy żelbetowe                                                   95.9 m²   ×     520 =      49 854 zł
+  Dachy płaskie (konstrukcja, ocieplenie, hydroizolacja)            104.5 m²   ×     950 =      99 319 zł
+  Dach zielony (sedum)                                              104.5 m²   ×     330 =      34 500 zł
+  Okna aluminiowe 3-szybowe                                          30.7 m²   ×   1 500 =      45 975 zł
+  Przeszklenia stałe (fasady słupowo-ryglowe)                       166.2 m²   ×   2 300 =     382 342 zł
+  Drzwi przesuwne HS                                                 32.2 m²   ×   2 900 =      93 412 zł
+  Drzwi wejściowe obrotowe (pivot)                                    1.0 szt. ×  18 000 =      18 000 zł
+  Dach ogrodu: szklana piramida z podnoszoną latarnią                38.3 m²   ×   7 500 =     287 326 zł
+  razem                                                                                      1 458 318 zł
+
+STAN DEWELOPERSKI
+  Tynki wewnętrzne, wylewki, izolacje podłóg                        167.0 m²   ×     270 =      45 094 zł
+  Instalacja elektryczna                                            167.0 m²   ×     280 =      46 764 zł
+  Instalacje wodno-kanalizacyjne                                    167.0 m²   ×     150 =      25 052 zł
+  Ogrzewanie podłogowe                                              184.8 m²   ×     300 =      55 425 zł
+  Pompa ciepła powietrze–woda                                         1.0 kpl. ×  42 000 =      42 000 zł
+  Wentylacja z rekuperacją                                            1.0 kpl. ×  28 000 =      28 000 zł
+  Schody kręcone stalowe                                              1.0 kpl. ×  18 000 =      18 000 zł
+  Tarasy na stropie (ocieplenie, hydroizolacja, deska)               38.5 m²   ×     900 =      34 627 zł
+  Patio                                                              46.6 m²   ×     420 =      19 569 zł
+  Balustrady szklane                                                 22.6 mb   ×   1 900 =      43 001 zł
+  razem                                                                                        357 532 zł
+
+POD KLUCZ
+  Wykończenie wnętrz (podłogi, malowanie, sufity)                   167.0 m²   ×   1 050 =     175 365 zł
+  Drzwi wewnętrzne                                                    9.0 szt. ×   1 800 =      16 200 zł
+  Łazienki                                                            1.0 kpl. ×  32 000 =      32 000 zł
+  WC                                                                  1.0 kpl. ×  12 000 =      12 000 zł
+  Kuchnia (zabudowa i AGD)                                            1.0 kpl. ×  50 000 =      50 000 zł
+  Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)           35.5 m²   ×     600 =      21 283 zł
+  razem                                                                                        306 848 zł
+
+KOSZTY DODATKOWE
+  Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
+  Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 318 405 =     318 405 zł
+  razem                                                                                        370 405 zł
+
+Stan surowy zamknięty:   1 458 318 zł  (8 732 zł/m²)
+Stan deweloperski:       1 815 850 zł  (10 872 zł/m²)
+Pod klucz:               2 122 698 zł  (12 710 zł/m²)
+Razem z kosztami dodatkowymi: 2 493 103 zł
+
+Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.

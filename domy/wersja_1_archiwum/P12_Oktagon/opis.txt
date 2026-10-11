@@ -20,5 +20,7 @@ Minusy:
 
 Dom ma prawie dwieście czterdzieści metrów kwadratowych i około dwudziestu metrów szerokości. Pośrodku stoi oranżeria na dwie kondygnacje, a nad nią szklana piramida. Piętro zajmuje tylko północną część, z tarasem na dachu sali muzycznej. Parter to pętla pokoi wokół oranżerii, bez korytarzy. Od sieni idzie się przez bibliotekę, salon i biuro z powrotem do sieni. Schody kręcone stoją w sieni, a piętro jest małe: garderoba, łazienka i jedna sypialnia.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 364 506 zł, deweloperski 2 771 034 zł, pod klucz 3 170 678 zł (13 458 zł/m²); z projektem, nadzorem i rezerwą 3 698 280 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

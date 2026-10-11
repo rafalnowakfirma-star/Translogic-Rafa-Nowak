@@ -1,0 +1,51 @@
+﻿KOSZTORYS SZACUNKOWY – P02 Wieża (wersja 1)
+Powierzchnia użytkowa 254 m², ogród pod szkłem 60 m², tarasy 0 m²
+Ceny brutto (VAT 8%), poziom cen: 2026, średnia krajowa, średni standard; dokładność ±15–20%.
+
+STAN SUROWY ZAMKNIĘTY
+  Fundamenty i płyta parteru (bez ogrodu)                           276.0 m²   ×     760 =     209 760 zł
+  Ściany zewnętrzne z ociepleniem i tynkiem                         242.3 m²   ×     520 =     125 975 zł
+  Elewacja: beton architektoniczny (dopłata do tynku)               242.3 m²   ×     400 =      96 904 zł
+  Ściany działowe                                                   122.4 m²   ×     160 =      19 584 zł
+  Stropy żelbetowe                                                   30.7 m²   ×     520 =      15 938 zł
+  Dachy płaskie (konstrukcja, ocieplenie, hydroizolacja)            246.0 m²   ×     950 =     233 700 zł
+  Dach zielony (sedum)                                              246.0 m²   ×     330 =      81 180 zł
+  Okna aluminiowe 3-szybowe                                          54.3 m²   ×   1 500 =      81 450 zł
+  Przeszklenia stałe (fasady słupowo-ryglowe)                       281.7 m²   ×   2 300 =     647 887 zł
+  Drzwi przesuwne HS                                                 51.5 m²   ×   2 900 =     149 379 zł
+  Drzwi wejściowe obrotowe (pivot)                                    1.0 szt. ×  18 000 =      18 000 zł
+  Dach ogrodu: dach z obrotowych lamel szklanych                     64.8 m²   ×   8 500 =     550 800 zł
+  razem                                                                                      2 230 557 zł
+
+STAN DEWELOPERSKI
+  Tynki wewnętrzne, wylewki, izolacje podłóg                        254.5 m²   ×     270 =      68 706 zł
+  Instalacja elektryczna                                            254.5 m²   ×     280 =      71 251 zł
+  Instalacje wodno-kanalizacyjne                                    254.5 m²   ×     150 =      38 170 zł
+  Ogrzewanie podłogowe                                              284.5 m²   ×     300 =      85 341 zł
+  Pompa ciepła powietrze–woda                                         1.0 kpl. ×  42 000 =      42 000 zł
+  Wentylacja z rekuperacją                                            1.0 kpl. ×  28 000 =      28 000 zł
+  Schody dwubiegowe                                                   1.0 kpl. ×  22 000 =      22 000 zł
+  Schody dwubiegowe                                                   1.0 kpl. ×  22 000 =      22 000 zł
+  Patio                                                              30.0 m²   ×     420 =      12 600 zł
+  razem                                                                                        390 068 zł
+
+POD KLUCZ
+  Wykończenie wnętrz (podłogi, malowanie, sufity)                   254.5 m²   ×   1 050 =     267 192 zł
+  Drzwi wewnętrzne                                                    5.0 szt. ×   1 800 =       9 000 zł
+  Łazienki                                                            1.0 kpl. ×  32 000 =      32 000 zł
+  Kuchnia (zabudowa i AGD)                                            1.0 kpl. ×  50 000 =      50 000 zł
+  Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)           60.0 m²   ×     600 =      36 000 zł
+  razem                                                                                        394 192 zł
+
+KOSZTY DODATKOWE
+  Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
+  Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 452 223 =     452 223 zł
+  razem                                                                                        504 223 zł
+
+Stan surowy zamknięty:   2 230 557 zł  (8 766 zł/m²)
+Stan deweloperski:       2 620 625 zł  (10 298 zł/m²)
+Pod klucz:               3 014 817 zł  (11 848 zł/m²)
+Razem z kosztami dodatkowymi: 3 519 040 zł
+
+Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.

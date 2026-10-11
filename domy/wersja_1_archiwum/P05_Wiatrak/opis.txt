@@ -20,5 +20,7 @@ Minusy:
 
 Dom ma dwieście pięćdziesiąt metrów kwadratowych. Cztery skrzydła obracają się wokół ogrodu osiem na osiem metrów pod przesuwnym szkłem. Każde kończy się otwartym daszkiem: wiatą, loggią, zadaszeniem patio albo drewutnią. Północne skrzydło to amfilada: wiatrołap, biblioteka, pokój muzyczny i loggia. Biuro, sypialnia z łazienką i wysoki salon łączą się tylko przez ogród. Piętro nad północnym skrzydłem ma dwa pokoje, łazienkę i taras.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 440 380 zł, deweloperski 2 857 742 zł, pod klucz 3 305 225 zł (13 182 zł/m²); z projektem, nadzorem i rezerwą 3 853 009 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

@@ -8,7 +8,8 @@ Filmy (MP4 1080p z lektorem), zdjęcia i rzuty (JPG) oraz opisy wszystkich domó
 2. Rozpakuj i skopiuj folder **`domy`** na pendrive (FAT32 lub exFAT).
 3. Włóż pendrive do telewizora → odtwarzacz multimediów / USB → folder `domy` → wybierz dom.
 
-W folderze każdego domu: film `…_film.mp4`, zdjęcia `01_…jpg`, rzuty `Rzut_…jpg` i `opis.txt`.
+W folderze każdego domu: film `…_film.mp4`, zdjęcia `01_…jpg`, rzuty `Rzut_…jpg`, `opis.txt` i `kosztorys.txt`.
+Porównanie kosztów budowy wszystkich domów: `domy/00_KOSZTORYS_ZESTAWIENIE.txt`.
 Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, które już są.
 
 ## Wersja 2 (aktualna)

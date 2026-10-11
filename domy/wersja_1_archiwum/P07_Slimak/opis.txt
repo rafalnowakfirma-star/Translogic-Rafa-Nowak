@@ -20,5 +20,7 @@ Minusy:
 
 Dom ma dwieście pięćdziesiąt metrów kwadratowych i rośnie jak muszla ślimaka. Skrzydło południowe ma jedną kondygnację, zachodnie dwie, a północne trzy. Zewnętrzne schody wiodą z tarasu na taras wokół ogrodu, aż na dach ponad dziesięć metrów nad ziemią. Parter to amfilada bez korytarzy: od wiatrołapu na północ do kuchni, na południe do biura. Dwie sypialnie są na górze, jedna za biblioteką, druga na drugim piętrze. Schody stoją w holu przy kuchni.
 
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 234 587 zł, deweloperski 2 898 131 zł, pod klucz 3 355 098 zł (13 417 zł/m²); z projektem, nadzorem i rezerwą 3 910 363 zł. Szczegóły: kosztorys.txt.
+
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).
