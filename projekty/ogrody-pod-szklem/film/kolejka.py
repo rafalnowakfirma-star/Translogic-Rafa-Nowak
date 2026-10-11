@@ -23,10 +23,16 @@ def log(msg, fn):
         f.write(line + "\n")
 
 
+def domy_wersji(w):
+    """p01…p20 dla wersji 2 (katalog domy/), p01…p16 dla wersji 1 (domy_v1/); bez domu testowego p99."""
+    kat = os.path.join(HERE, "domy" if w == 2 else "domy_v1")
+    return sorted({f[:3] for f in os.listdir(kat) if f[0] == "p" and f[1:3].isdigit() and f.endswith(".py")} - {"p99"})
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--wersje", default="2,1")
-    ap.add_argument("--domy", default=",".join(f"p{i:02d}" for i in range(1, 17)))
+    ap.add_argument("--domy", default=None, help="np. p01,p02 (domyślnie wszystkie domy danej wersji)")
     ap.add_argument("--q", default="final")
     ap.add_argument("--tylko-montaz", action="store_true")
     ap.add_argument("--bez-montazu", action="store_true")
@@ -36,7 +42,7 @@ def main():
     main_log = os.path.join(logdir, "kolejka.log")
     env = dict(os.environ, OGRODY_SLOTY=os.environ.get("OGRODY_SLOTY", "1"))
     for w in [int(x) for x in a.wersje.split(",")]:
-        for pid in a.domy.split(","):
+        for pid in (a.domy.split(",") if a.domy else domy_wersji(w)):
             t0 = time.time()
             out = os.path.join(HERE, "out", "film", f"v{w}", pid)
             film = os.path.join(out, f"ogrody_v{w}_{pid}.mp4")
