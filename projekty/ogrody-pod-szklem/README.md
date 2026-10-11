@@ -22,6 +22,8 @@ wysoki salon z kuchnią połączony z patio, sypialnię ze szklaną ścianą zew
 
 Opublikowana strona (prywatna, do udostępnienia z menu „Share”): https://claude.ai/artifact/2nZooA7H2jdujE3Ec2JgLe
 
+Kino (filmy z lektorem, spacerem i animacją dachu – do oglądania na telewizorze; części filmów w zasobach strony, budowa: `python3 film/kino.py --wersje 2 --out kino --zasoby kino/zasoby.json`): https://claude.ai/artifact/7Lk7FCwkswm9KJtHGCip2C
+
 Archiwum pierwszej wersji katalogu (16 domów sprzed zmian klienta; kopia strony v1 w `strona_v1/` z banerem archiwum): https://claude.ai/artifact/P2izSK4xe3VFVmYYuu4T1B
 
 ## Polecenia
