@@ -418,7 +418,7 @@ def plan_ujec(H, wersja=2):
     d, loc, tgt = _fit_distance(H, phi_a, el, 35.0, fill=0.9)
     gs = [r for r in H.all_rooms if r.kind == "ogrod"]
     area = H.area["uzytkowa"]
-    og = sum(g.poly.area for g in gs)
+    og = H.area["ogrod"]
     g0 = gs[0] if gs else None
     sun = _sun_az(phi_a, 1)
     U.append(dict(id="lotu", scena="dzien", sun=sun, cam=dict(loc=loc, target=tgt, lens=35.0, shift_y=0.0, poziom=False),

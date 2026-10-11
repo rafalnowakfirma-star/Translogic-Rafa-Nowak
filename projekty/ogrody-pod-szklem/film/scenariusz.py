@@ -33,7 +33,7 @@ def _m2(x):
 def plany(H, pid, out):
     """Rzuty kondygnacji jako PNG (białe tło) – osobno dla każdej wersji domu."""
     from silnik.rzut import plan_level
-    d = os.path.join(out, "plany")
+    d = os.path.abspath(os.path.join(out, "plany"))     # Chromium potrzebuje bezwzględnej ścieżki file://
     os.makedirs(d, exist_ok=True)
     res = []
     for idx in sorted(H.L):
@@ -41,12 +41,23 @@ def plany(H, pid, out):
             continue
         svg = os.path.join(d, f"rzut_{idx}.svg")
         png = svg.replace(".svg", ".png")
-        if not os.path.exists(png):
+        if not os.path.exists(png) or _zly_zrzut(png):
             open(svg, "w", encoding="utf-8").write(plan_level(H, idx, f"{pid}f{idx}"))
             shot(svg, png, width=1800)
             _przytnij(png)
+            if _zly_zrzut(png):
+                raise RuntimeError(f"nieudany zrzut rzutu {png}")
         res.append((idx, png))
     return res
+
+
+def _zly_zrzut(png):
+    """Strona błędu Chromium zamiast rysunku: prawie brak zieleni terenu i ciemnych ścian."""
+    im = Image.open(png).convert("RGB").resize((90, 120))
+    px = list(im.getdata())
+    dark = sum(1 for r, g, b in px if r + g + b < 150)
+    green = sum(1 for r, g, b in px if g > r + 12 and g > b + 8)
+    return dark < 20 and green < 40
 
 
 def _przytnij(png):

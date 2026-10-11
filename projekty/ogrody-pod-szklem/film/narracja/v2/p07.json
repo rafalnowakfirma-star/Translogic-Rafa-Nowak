@@ -1,0 +1,21 @@
+{
+ "tytul": "Ślimak. Betonowy dom, który wznosi się spiralnie wokół ukrytego ogrodu, od jednej do trzech kondygnacji.",
+ "lotu": "Z góry widać, jak bryła rośnie wokół ogrodu. Skrzydła od południa i wschodu mają jedną kondygnację, zachodnie dwie, a narożnik północno-zachodni trzy. Dom ma sto sześćdziesiąt pięć metrów kwadratowych, a niższe dachy są tarasami.",
+ "dach": "Lamele szklanego dachu obracają się jak żaluzje i nad ogrodem otwiera się niebo.",
+ "spacer": {
+  "przed": "Stoimy przed wejściem od zachodu. Betonowe ściany parteru mają tylko wąskie szczeliny, więc ogrodu z drogi nie widać. Wysoko nad drzwiami jest przeszklone biuro.",
+  "s1_wia": "Wiatrołap jest mały i zamknięty, z szafą na okrycia. Ogród pojawia się dopiero w holu, za szklaną ścianą obok schodów kręconych.",
+  "s2_og": "Ogród japoński jest niewielki: grabiony żwir, mech, czerwony klon, kamienna latarnia i misa z wodą. Patrzy na niego pięć pokoi parteru, każdy przez szklaną ścianę.",
+  "s3_sal": "Salon z kuchnią jest wysoki na dwie kondygnacje. Górne okna nad dachem ogrodu łapią południowe słońce. Od wschodu szkło rozsuwa się na patio za murem, częściowo zadaszone.",
+  "s4_biu": "Z holu schodami kręconymi wchodzimy przez bibliotekę na drugie piętro. Biuro ma szklaną ścianę na zachód i drzwi na własny taras. To najcichsze miejsce w domu.",
+  "s5_syp": "Piętro niżej, za biblioteką, jest sypialnia ze szklaną ścianą od zachodu. Łazienka jest obok, za drzwiami przesuwnymi, a drugie drzwi prowadzą na taras.",
+  "s6_taS": "Taras południowy leży na dachu parteru, tuż przy szklanym dachu ogrodu. Schody prowadzą stąd wyżej, na taras przy biurze, a z tarasu wschodniego schodzimy do patio."
+ },
+ "rzuty": "Z holu parter rozchodzi się w dwie strony, bez korytarzy. Jedna droga wiedzie przez galerię do herbaciarni, druga przez salon do pokoju gościnnego. Na piętrze jest jedna sypialnia z łazienką, a schody kręcone prowadzą wyżej, do biura.",
+ "zmierzch": "Po zmroku szklany dach ogrodu świeci między tarasami, a z ulicy widać tylko kilka jasnych szczelin w betonie.",
+ "zima": "Zimą lamele są zamknięte. Niskie słońce wpada nad parterowym skrzydłem do ogrodu, który oddaje ciepło pokojom, a tarasy czekają pod śniegiem.",
+ "zalety": ["Ogród niewidoczny z ulicy", "Trzy tarasy połączone schodami", "Ciche biuro na najwyższym piętrze", "Wysoki salon z patio za murem"],
+ "wady": ["Jedyna łazienka za sypialnią", "Kręcone schody przez trzy kondygnacje", "Tarasy i lamele wymagają serwisu"],
+ "zalety_wady": "Zalety to ogród ukryty przed ulicą, trzy tarasy połączone schodami, ciche biuro i wysoki salon z patio. Minusy: jedyna łazienka jest za sypialnią, więc goście przechodzą przez pokój gospodarzy. Warto dodać prysznic przy toalecie na dole. Kręcone schody męczą starsze osoby, a tarasy i lamele wymagają przeglądów.",
+ "koniec": "Ślimak: betonowa spirala z ukrytym ogrodem i tarasem na każdym poziomie."
+}
