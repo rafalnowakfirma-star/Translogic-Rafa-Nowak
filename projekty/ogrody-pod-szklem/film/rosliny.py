@@ -2311,7 +2311,7 @@ def _build_lilia(r, var, season):
         d = r * 0.85 * math.sqrt(rng.random())
         pr = rng.uniform(0.09, 0.17) * min(1.4, max(0.7, r / 0.22) ** 0.5)
         x, y = math.cos(a) * d, math.sin(a) * d
-        if all(math.hypot(x - q[0], y - q[1]) > (pr + q[2]) * 0.8 for q in pts):
+        if all(math.hypot(x - q[0], y - q[1]) > (pr + q[2]) * 0.62 for q in pts):
             pts.append((x, y, pr))
     seg = 28
     for x, y, pr in pts:
@@ -2333,7 +2333,7 @@ def _build_lilia(r, var, season):
     for k in range(nfl):
         x, y, pr = pts[k] if k < len(pts) else (0, 0, 0.1)
         cx, cy = x + rng.uniform(-0.3, 0.3) * pr, y + rng.uniform(-0.3, 0.3) * pr
-        for ring, (npet, el, ln) in enumerate(((10, 28, 0.055), (8, 52, 0.048), (6, 70, 0.038))):
+        for ring, (npet, el, ln) in enumerate(((10, 28, 0.065), (8, 52, 0.056), (6, 70, 0.044))):
             az = np.arange(npet) * 2 * math.pi / npet + ring * 0.3 + rng.normal(0, 0.08, npet)
             D = np.stack([np.cos(az) * math.cos(math.radians(el)), np.sin(az) * math.cos(math.radians(el)),
                           np.full(npet, math.sin(math.radians(el)))], 1)
