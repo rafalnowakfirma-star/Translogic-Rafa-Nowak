@@ -629,6 +629,72 @@ def _cel_pokoju(H, r, pos):
     return (sx, sy)
 
 
+def _promien(L, room, x, y, dx, dy, d0=0.0, skoki=0):
+    """Co widać w kierunku (dx, dy) z punktu w pokoju: przeszklenie / okno (1,0 / 0,9), przejście do dalszej części domu
+    (śledzimy dalej, do 2 pokoi), ściana (0,15); dalszy widok lepszy. Plan: x – wschód, y – południe."""
+    P = Point(x, y)
+    ray = LineString([(x + dx * 0.01, y + dy * 0.01), (x + dx * 30, y + dy * 30)])
+    best = None
+    for run in L["runs"]:
+        if run.room is not room:
+            continue
+        hit = ray.intersection(run.line)
+        if hit.is_empty:
+            continue
+        pts = [hit] if hit.geom_type == "Point" else [Point(c) for g in getattr(hit, "geoms", [hit]) for c in g.coords]
+        for q in pts:
+            d = q.distance(P)
+            if best is None or d < best[0]:
+                best = (d, run, q)
+    if best is None:
+        return 0.5
+    d, run, q = best
+    D = d0 + d
+    f = 0.5 + 0.5 * min(1.0, D / 5.0)
+    if run.cls in GLASS:
+        return 1.0 * f
+    otw = None
+    for o in L["openings"]:
+        if (o.run is run or o.run is getattr(run, "twin", None)) and LineString([o.a, o.b]).distance(q) < 0.08:
+            otw = o
+            break
+    if otw is not None and otw.kind == "win":
+        return 0.9 * f
+    przejscie = run.cls in (None, "open", "columns") or otw is not None
+    if przejscie and run.other is not None and skoki < 2:
+        return max(0.55 * f, _promien(L, run.other, q.x, q.y, dx, dy, D, skoki + 1))
+    if przejscie:
+        return 0.6 * f
+    return 0.15 * f
+
+
+def _kadr_stacji(H, st, rooms):
+    """Przesunięcie (stopnie, + w prawo) i skala obrotu kamery stacji: oba skrajne kadry na przeszklenia, okna
+    i przejścia zamiast na ścianę (ocena z rzutu – niezależna od kolorów materiałów i oświetlenia)."""
+    r = rooms[st["room"]]
+    L = H.L[r.level]
+    x, y = st["pos"][0], st["pos"][1]
+    oc = []
+    for i in range(360):
+        A = math.radians(st["kierunek"] - (i - 180))                # lon + w prawo (zgodnie z zegarem)
+        oc.append(_promien(L, r, x, y, math.cos(A), -math.sin(A)))
+    hf = max(u[2] for u in st["ruch"])
+    y0, y1 = st["ruch"][0][0], st["ruch"][-1][0]
+    sr, amp = (y0 + y1) / 2, (y0 - y1) / 2
+    h = int(hf / 2)
+    wagi = [1.0 - 0.6 * abs(k) / h for k in range(-h, h + 1)]      # środek kadru ważniejszy niż brzegi
+
+    def kadr(c):
+        c = int(round(c))
+        return sum(w * oc[(c + k + 180) % 360] for w, k in zip(wagi, range(-h, h + 1))) / sum(wagi)
+
+    def ocena(c, f):
+        return min(kadr(sr + c + amp * f), kadr(sr + c - amp * f)) + 0.04 * f - 0.0006 * abs(c)
+
+    best = max(((c, f) for c in range(-120, 121, 5) for f in (1.0, 0.6, 0.3)), key=lambda x: ocena(*x))
+    return best[0], best[1], ocena(*best) - ocena(0, 1.0)
+
+
 def zasieg_widoku(ruch, margines=2.5, kroki=9, aspekt=16 / 9):
     """Najmniejszy wycinek panoramy (lon, lat w stopniach) pokrywający kadry 16:9 dla ruchu kamery
     [[yaw, pitch, hfov] na początku, [..] na końcu] – to samo odwzorowanie co montaż (UjeciePanorama._mapa)."""
@@ -754,7 +820,7 @@ def plan_spaceru(H, max_stacji=6):
                 c = ujecie_ogrodu(H, r)
             elif r.outdoor:
                 c = ujecie_tarasu(H, r)
-            elif k != start:
+            else:                         # także wiatrołap: najlepszy widok (przeszklenie, meble)
                 adj_g = any(run.other is not None and run.other.kind in ("ogrod", "ogrod_void") and run.cls in GLASS
                             for run in _runs(H, r))
                 c = ujecie_wnetrza(H, r, "ogrod" if adj_g else "zewn")
@@ -766,7 +832,6 @@ def plan_spaceru(H, max_stacji=6):
         else:
             pos = _stoisko(H, r, entry, r.z0)
             look = _cel_pokoju(H, r, pos)
-        wejscie = k == start
         # kierunek dalej: punkt wejścia do kolejnej stacji (jeśli w tym pokoju)
         nxt = None
         if n_ + 1 < len(chosen):
@@ -775,8 +840,6 @@ def plan_spaceru(H, max_stacji=6):
             for (k2, x2, y2, l2) in seq[i + 1:j + 1]:
                 nxt = (x2, y2)
                 break
-        if wejscie and nxt is not None:
-            look = nxt                    # wiatrołap: patrzymy tam, dokąd idziemy (otwarcie do dalszej części domu)
         stations.append(dict(id=f"s{n_ + 1}_{k}", room=k, pos=(pos[0], pos[1], r.z0 + 1.5), look=look,
                              next=nxt, lvl=r.level, podpis=r.name))
     # kąty i zakres panoram
@@ -806,9 +869,16 @@ def plan_spaceru(H, max_stacji=6):
             pitch = 4.0
         yaw0, yaw1 = d / 2, -d / 2                # dodatni yaw = obrót w prawo (zgodnie z zegarem)
         if r is None:
-            ruch = [[yaw0, 1.0, hfov], [yaw1, 0.0, hfov * 0.86]]
+            # przed wejściem: przesuwamy wzrok po fasadzie i kończymy na wprost drzwi (dalej „krok” do środka)
+            ruch = [[max(abs(yaw0), 22.0), 1.0, hfov], [0.0, 0.0, hfov * 0.86]]
         else:
             ruch = [[yaw0, pitch, hfov], [yaw1, pitch * 0.5, hfov]]
+        if r is not None and not r.outdoor and r.kind != "ogrod":
+            # kadry na przeszklenia i przejścia, nie na ścianę (ocena z rzutu)
+            c, f, zysk = _kadr_stacji(H, dict(st, kierunek=mid, ruch=ruch), rooms)
+            if zysk > 0.04 and (c or f != 1.0):
+                sr_, amp_ = (ruch[0][0] + ruch[1][0]) / 2, (ruch[0][0] - ruch[1][0]) / 2
+                ruch = [[sr_ + c + amp_ * f] + ruch[0][1:], [sr_ + c - amp_ * f] + ruch[1][1:]]
         # panorama tylko tak duża, jak wymagają kadry (czas renderu ∝ liczbie pikseli)
         lon, lat = zasieg_widoku(ruch)
         out.append(dict(id=st["id"], room=st["room"], pos=st["pos"], kierunek=mid, lon=lon,

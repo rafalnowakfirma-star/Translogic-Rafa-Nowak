@@ -163,6 +163,60 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
     print("CZASY", pid, czasy, flush=True)
 
 
+def kierunek_widoku(sc, ctx, st, zakres=120, krok=5):
+    """Szybki rzut 360° z punktu stacji (bardzo niska rozdzielczość): o ile stopni (+ w prawo) przesunąć kadry spaceru,
+    żeby patrzyły w najjaśniejszą i najbardziej otwartą stronę (okna, przejścia), a nie w ciemną ścianę czy szafę."""
+    r, cy = sc.render, sc.cycles
+    co = bpy.data.objects.get("sonda_360")
+    if co is None:                     # jedna kamera pomocnicza na scenę (usuwanie obiektów przy trwałych danych
+        cam = bpy.data.cameras.new("sonda_360")                       # renderu wywracało Blendera)
+        cam.type = "PANO"
+        cam.panorama_type = "EQUIRECTANGULAR"
+        cam.longitude_min, cam.longitude_max = -math.pi, math.pi
+        cam.latitude_min, cam.latitude_max = math.radians(-22), math.radians(22)
+        cam.clip_start = 0.05
+        co = bpy.data.objects.new("sonda_360", cam)
+        sc.collection.objects.link(co)
+    co.location = bl(ctx, st["pos"])
+    co.rotation_euler = (math.radians(90), 0, math.radians(st["kierunek"] - 90))
+    keep = (sc.camera, r.resolution_x, r.resolution_y, cy.samples, cy.use_adaptive_sampling, r.image_settings.file_format,
+            r.filepath)
+    sc.camera = co
+    r.engine = "CYCLES"                # przed pierwszym renderem sceny może być jeszcze silnik podglądu (wymaga GPU)
+    cy.device = "CPU"
+    r.resolution_x, r.resolution_y = 360, 44
+    cy.samples = 8
+    cy.use_adaptive_sampling = False
+    r.image_settings.file_format = "OPEN_EXR"
+    fn = f"/tmp/sonda_{os.getpid()}.exr"
+    r.filepath = fn
+    bpy.ops.render.render(write_still=True)
+    im = bpy.data.images.load(fn)
+    px = np.array(im.pixels[:], dtype=np.float32).reshape(im.size[1], im.size[0], 4)[..., :3]
+    bpy.data.images.remove(im)
+    os.remove(fn)
+    (sc.camera, r.resolution_x, r.resolution_y, cy.samples, cy.use_adaptive_sampling, r.image_settings.file_format,
+     r.filepath) = keep
+    Y = 0.2126 * px[..., 0] + 0.7152 * px[..., 1] + 0.0722 * px[..., 2]
+    kol = np.log(np.clip(np.median(Y, axis=0), 1e-5, None))        # 360 kolumn: długość −180…180 (lewo → prawo)
+    W = len(kol)
+    hf = max(u[2] for u in st["ruch"])
+    y0, y1 = st["ruch"][0][0], st["ruch"][-1][0]
+    sr, amp = (y0 + y1) / 2, (y0 - y1) / 2                          # środek i połowa obrotu (ze znakiem)
+    ciemno = np.median(kol) - 1.6                                   # kolumny wyraźnie ciemniejsze niż typowe w pokoju
+
+    def kadr(c):                                                    # ocena jednego kadru o środku c (stopnie)
+        idx = (np.arange(int(round(c - hf / 2)), int(round(c + hf / 2)) + 1) + W // 2) % W
+        w = kol[idx]
+        return float(np.median(w) - 2.0 * np.mean(w < ciemno))
+
+    def ocena(c, f):                                                # przesunięcie c, obrót zmniejszony do f
+        return min(kadr(sr + c + amp * f), kadr(sr + c - amp * f)) + 0.15 * f - 0.003 * abs(c)
+
+    best = max(((c, f) for c in range(-zakres, zakres + 1, krok) for f in (1.0, 0.6, 0.3)), key=lambda x: ocena(*x))
+    return best[0], best[1], ocena(*best) - ocena(0, 1.0)
+
+
 def panoramy(S, stations, P, sdir, od_nowa=False):
     """Panoramy (wycinek walcowo-kulisty, equirectangular) do spaceru z perspektywy pierwszej osoby."""
     sc, ctx = S["sc"], S["ctx"]
