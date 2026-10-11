@@ -29,10 +29,11 @@ Q = {
     # rozdzielczość kadrów, próbki (zewn., wnętrza), próg szumu, rozdzielczość i próbki animacji, klatki animacji
     "podglad": dict(res=(640, 360), spp=(16, 24), noise=0.1, ares=(640, 360), aspp=12, aframes=12, ppd=6, pspp=16),
     "szybki": dict(res=(1280, 720), spp=(48, 80), noise=0.04, ares=(1280, 720), aspp=32, aframes=30, ppd=12, pspp=48),
-    "final": dict(res=(2048, 1152), spp=(96, 192), noise=0.015, ares=(2048, 1152), aspp=96, aframes=60, ppd=20, pspp=128),
+    "final": dict(res=(1920, 1080), spp=(64, 128), noise=0.02, ares=(1920, 1080), aspp=48, aframes=48, ppd=18, pspp=96),
 }
 SCENY = {"dzien": ("lato", "dzien", False), "zmierzch": ("zima", "zmierzch", False), "zima": ("zima", "zima", True)}
 INTERIOR = ("ogrod", "salon", "sypialnia", "biuro")
+KADRY_FILMU = ("lotu", "dach", "zmierzch", "zima")
 
 
 def bl(ctx, p):
@@ -95,6 +96,9 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
     U = kamery.plan_ujec(H, wersja)
     if ujecia:
         U = [u for u in U if u["id"] in ujecia]
+    else:
+        # wnętrza pokazuje spacer z panoram – osobne kadry tylko z zewnątrz
+        U = [u for u in U if u["id"] in KADRY_FILMU]
     seed = int(pid[1:]) * 7 + wersja
     czasy = {}
     for sname in ("dzien", "zmierzch", "zima"):
