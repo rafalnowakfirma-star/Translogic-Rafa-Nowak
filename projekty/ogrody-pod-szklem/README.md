@@ -17,6 +17,8 @@ wysoki salon z kuchnią połączony z patio, sypialnię ze szklaną ścianą zew
 | `dane/inspiracje.py` | inspiracje i fakty o otwieranych dachach (ze źródłami) |
 | `strona/` | gotowa strona: `index.html`, rysunki, modele 3D, zdjęcia |
 
+Opublikowana strona (prywatna, do udostępnienia z menu „Share”): https://claude.ai/artifact/2nZooA7H2jdujE3Ec2JgLe
+
 ## Polecenia
 
 ```bash

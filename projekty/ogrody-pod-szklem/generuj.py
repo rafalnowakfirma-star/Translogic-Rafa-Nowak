@@ -253,8 +253,8 @@ def h_card(p):
     imgs = p["imgs"]
     lato = imgs.get("lotu", (None, None))[1]
     zima = imgs.get("zmierzch", imgs.get("lotu", (None, None)))[1]
-    img = (f'<img src="{lato}" data-lato="{lato}" data-zima="{zima}" alt="" loading="lazy" decoding="async">'
-           if lato else f'<div class="card-key">{p["keyplan"]}</div>')
+    img = (f'<span class="card-img"><img src="{lato}" data-lato="{lato}" data-zima="{zima}" alt="" loading="lazy" decoding="async"></span>'
+           if lato else f'<span class="card-key">{p["keyplan"]}</span>')
     return (f'<li class="card"><a href="#{p["pid"]}">{img}<span class="card-num">{p["num"]}</span>'
             f'<span class="card-name">{E(p["name"])}</span>'
             f'<span class="card-meta">{nice(p["area"]["uzytkowa"], 0)} m² · ogród {nice(p["area"]["ogrod"], 0)} m² · dach {E(ROOF_SHORT.get(p["roof"], ""))}</span></a></li>')
