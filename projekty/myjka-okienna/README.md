@@ -382,6 +382,8 @@ Materiały eksploatacyjne: guma ściągaczki (wymiana co ok. 12 mies.), płyn do
 
 ## 10. Plan prototypowania i ryzyka
 
+Pełny kosztorys (stanowisko testowe, prototyp, mała seria), harmonogram z kryteriami odbioru, lista wykonawców oraz przegląd konkurencji i patentów: [kosztorys-i-prototyp.md](kosztorys-i-prototyp.md).
+
 **Etap 1 — stanowisko testowe (przed zakupem całości):** stara szyba lub szkło ok. 60 × 60 cm w drewnianej ramce, krótki odcinek głowicy (30 cm) ze szczotką i gumą, waga hakowa.
 
 - dobrać docisk szczotki i gumy oraz obroty szczotki (efekt kontra rozbryzg),
