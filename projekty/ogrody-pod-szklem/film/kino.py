@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Kino: strona do oglądania filmów na telewizorze (kolejne części filmu po ≤ 14 MB – limit plików strony).
+"""Kino: strona do oglądania filmów na telewizorze (film w częściach po ≤ 19 MB, odtwarzanych jedna po drugiej).
 
-  python3 film/kino.py --wersje 2,1 --out kino          → kino/index.html + kino/pliki/*
-  python3 film/kino.py --wersje 2 --out kino_v2         → tylko wersja 2 (gdy całość nie mieści się w jednej stronie)
+  python3 film/kino.py --wersje 2,1 --out kino          → kino/index.html + kino/pliki/* (plakaty i części filmów)
+  python3 film/kino.py --wersje 2,1 --out kino --zasoby kino/zasoby.json
+        → części filmów wskazują na zasoby strony (asset store, mapa: nazwa pliku → url zwrócony przy wysyłce)
 """
 import argparse
 import glob
@@ -23,8 +24,8 @@ def czas(fn):
     return float(r.stdout.strip() or 0)
 
 
-def czesci_web(src, dst_dir, base, part_s=40.0, target_mb=13.6):
-    """Film → części MP4 (H.264 1080p, AAC) po ~40 s, każda ≤ ~14 MB, cięte na klatkach kluczowych."""
+def czesci_web(src, dst_dir, base, part_s=45.0, target_mb=18.0, limit_mb=19.5):
+    """Film → części MP4 (H.264 1080p, AAC) po ~45 s, każda ≤ 19,5 MB, cięte na klatkach kluczowych."""
     os.makedirs(dst_dir, exist_ok=True)
     done = sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4")))
     if done and os.path.getmtime(done[0]) > os.path.getmtime(src):
@@ -49,7 +50,7 @@ def czesci_web(src, dst_dir, base, part_s=40.0, target_mb=13.6):
     out = []
     for f in sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4"))):
         mb = os.path.getsize(f) / 1e6
-        if mb > 15.0:
+        if mb > limit_mb:
             raise SystemExit(f"{f}: {mb:.1f} MB – za duży plik")
         out.append((os.path.basename(f), czas(f)))
     return out
@@ -67,7 +68,9 @@ def main():
     ap.add_argument("--wersje", default="2,1")
     ap.add_argument("--out", default=os.path.join(HERE, "kino"))
     ap.add_argument("--domy", default=None)
+    ap.add_argument("--zasoby", default=None, help="JSON: nazwa pliku części → url zasobu strony")
     a = ap.parse_args()
+    zasoby = json.load(open(a.zasoby, encoding="utf-8")) if a.zasoby and os.path.exists(a.zasoby) else {}
     out = a.out if os.path.isabs(a.out) else os.path.join(HERE, a.out)
     pl = os.path.join(out, "pliki")
     os.makedirs(pl, exist_ok=True)
@@ -90,7 +93,7 @@ def main():
                 plakat(pos, os.path.join(pl, f"{base}.jpg"))
             filmy.append(dict(id=base, wersja=w, numer=s["numer"], nazwa=s["nazwa"], opis=s.get("tagline", ""),
                               czas=round(sum(t for _, t in parts), 1), plakat=f"pliki/{base}.jpg",
-                              czesci=[dict(src=f"pliki/{f}", czas=round(t, 2)) for f, t in parts]))
+                              czesci=[dict(src=zasoby.get(f, f"pliki/{f}"), czas=round(t, 2)) for f, t in parts]))
             print("FILM", base, len(parts), "części", round(sum(t for _, t in parts)), "s", flush=True)
     tpl = open(os.path.join(HERE, "film", "kino_szablon.html"), encoding="utf-8").read()
     ws = [dict(id=w, nazwa=WERSJE[w]) for w in wersje if any(f["wersja"] == w for f in filmy)]
@@ -108,7 +111,9 @@ def main():
         tpl = tpl.replace(k, v)
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(tpl)
     tot = sum(os.path.getsize(f) for f in glob.glob(os.path.join(pl, "*")))
-    print(f"KINO {len(filmy)} filmów, {tot / 1e6:.0f} MB, plików {len(os.listdir(pl))}")
+    brak = [c["src"] for f in filmy for c in f["czesci"] if c["src"].startswith("pliki/")]
+    print(f"KINO {len(filmy)} filmów, {tot / 1e6:.0f} MB, plików {len(os.listdir(pl))}, części bez zasobu: {len(brak)}")
+    json.dump(brak, open(os.path.join(out, "do_wyslania.json"), "w"), indent=0)
 
 
 if __name__ == "__main__":

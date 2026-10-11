@@ -629,6 +629,31 @@ def _cel_pokoju(H, r, pos):
     return (sx, sy)
 
 
+def zasieg_widoku(ruch, margines=2.5, kroki=9, aspekt=16 / 9):
+    """Najmniejszy wycinek panoramy (lon, lat w stopniach) pokrywający kadry 16:9 dla ruchu kamery
+    [[yaw, pitch, hfov] na początku, [..] na końcu] – to samo odwzorowanie co montaż (UjeciePanorama._mapa)."""
+    n = 24
+    t = [i / n for i in range(n + 1)]
+    brzeg = [(u, 0.0) for u in t] + [(1.0, v) for v in t] + [(u, 1.0) for u in t] + [(0.0, v) for v in t]
+    (y0, p0, h0), (y1, p1, h1) = ruch[0], ruch[-1]
+    lo, la = [], []
+    for i in range(kroki):
+        e = i / (kroki - 1)
+        yaw, pitch, hfov = y0 + (y1 - y0) * e, p0 + (p1 - p0) * e, h0 + (h1 - h0) * e
+        tx = math.tan(math.radians(hfov) / 2)
+        ty = tx / aspekt
+        cp, sp = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
+        cq, sq = math.cos(math.radians(yaw)), math.sin(math.radians(yaw))
+        for u, v in brzeg:
+            x, y = (2 * u - 1) * tx, (1 - 2 * v) * ty
+            y2, z2 = y * cp + sp, cp - y * sp
+            x3, z3 = x * cq + z2 * sq, z2 * cq - x * sq
+            lo.append(math.degrees(math.atan2(x3, z3)))
+            la.append(math.degrees(math.atan2(y2, math.hypot(x3, z3))))
+    return ([round(min(lo) - margines, 2), round(max(lo) + margines, 2)],
+            [round(min(la) - margines, 2), round(max(la) + margines, 2)])
+
+
 def plan_spaceru(H, max_stacji=6):
     """Stacje spaceru z perspektywy pierwszej osoby: przed wejściem → wnętrza → ogród → salon → piętro → taras."""
     from silnik.meble import furnish_level
@@ -777,13 +802,12 @@ def plan_spaceru(H, max_stacji=6):
         elif r is not None and (r.top - r.z0) > 4.5:
             pitch = 4.0
         yaw0, yaw1 = d / 2, -d / 2                # dodatni yaw = obrót w prawo (zgodnie z zegarem)
-        span = abs(d) + hfov + 16
-        vf = math.degrees(2 * math.atan(math.tan(math.radians(hfov / 2)) * 9 / 16))
-        lat = vf / 2 + abs(pitch) + 8
         if r is None:
             ruch = [[yaw0, 1.0, hfov], [yaw1, 0.0, hfov * 0.86]]
         else:
             ruch = [[yaw0, pitch, hfov], [yaw1, pitch * 0.5, hfov]]
-        out.append(dict(id=st["id"], room=st["room"], pos=st["pos"], kierunek=mid, lon=[-span / 2, span / 2],
-                        lat=[-lat, lat], ruch=ruch, podpis=st["podpis"]))
+        # panorama tylko tak duża, jak wymagają kadry (czas renderu ∝ liczbie pikseli)
+        lon, lat = zasieg_widoku(ruch)
+        out.append(dict(id=st["id"], room=st["room"], pos=st["pos"], kierunek=mid, lon=lon,
+                        lat=lat, ruch=ruch, podpis=st["podpis"]))
     return out
