@@ -11,7 +11,7 @@ H = House(
         "Parter obchodzi się dookoła bez korytarzy: hol z biblioteką, pralnia ze spiżarnią, herbaciarnia, salon z kuchnią, pokój gościnny i z powrotem wiatrołap.",
         "Salon z kuchnią ma 6,6 m wysokości. Od ogrodu jest cały ze szkła, a od południa wychodzi na patio za murem: częściowo zadaszone, schowane za ścianą wysokości 2,6 m.",
         "Dach parteru po obu stronach szklanego dachu ogrodu to tarasy z balustradą: zachodni przy sypialni, wschodni przy biurze. Najwyższy dach nad modułami piętra jest zielony.",
-        "Na piętrze trzy moduły wokół tarasów: sypialnia ze szklaną ścianą od zachodu, galeria nad ogrodem i biuro przeszklone na pola od północy i na taras od południa.",
+        "Na piętrze moduły wokół tarasów, przechodnie jeden przez drugi: z galerii nad ogrodem (tu wchodzą schody) przez łazienkę do sypialni ze szklaną ścianą od zachodu, a w drugą stronę do biura przeszklonego na pola od północy i na taras od południa.",
     ],
     notes=dict(
         lato="Połowa szklanego dachu zsuwa się nad drugą, ogród staje się otwartym dziedzińcem, a z tarasów zagląda się do niego z góry; patio za murem jest przedłużeniem salonu.",
@@ -34,10 +34,10 @@ H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(0, 9.4, 12.8, 13.8), lev
 H.room("pat", "Patio za murem", "patio", rect(2.0, 13.8, 11.0, 17.6), roof=rect(2.0, 13.8, 11.0, 15.3), enclose="gwall")
 H.stair("spiral", level=0, center=(8.3, 1.8), r=1.0, start=180, sweep=300, n=16)
 # piętro – moduły od północy wokół tarasów
-H.room("syp", "Sypialnia", "sypialnia_glowna", rect(0, 0, 5.2, 3.6), level=1,
+H.room("syp", "Sypialnia", "sypialnia_glowna", rect(0, 0, 4.4, 3.6), level=1,
        ext={"W": "glass", "N": "windows", "taW": "glass_slide", "S": "glass"})
-H.room("laz", "Łazienka", "lazienka", rect(5.2, 0, 7.0, 3.6), level=1, ext={"N": "band_high", "S": "band_high"})
-H.room("gal", "Galeria nad ogrodem", "galeria", rect(7.0, 0, 9.6, 3.6), level=1, ext={"N": "slits", "S": "glass"})
+H.room("laz", "Łazienka", "lazienka", rect(4.4, 0, 6.2, 3.6), level=1, ext={"N": "band_high", "S": "band_high"})
+H.room("gal", "Galeria nad ogrodem", "galeria", rect(6.2, 0, 9.6, 3.6), level=1, ext={"N": "slits", "S": "glass"})
 H.room("biu", "Biuro", "biuro", rect(9.6, 0, 12.8, 3.6), level=1, ext={"N": "glass", "E": "windows", "taE": "glass_slide"})
 H.room("taW", "Taras zachodni", "taras", rect(0, 3.6, 3.6, 9.4), level=1)
 H.room("taE", "Taras wschodni", "taras", rect(9.4, 3.6, 12.8, 9.4), level=1)
@@ -48,8 +48,8 @@ H.connect("hol", "pral", "door")
 H.connect("pral", "her", "door")
 H.connect("her", "sal", "wide")
 H.connect("sal", "gos", "door")
-H.connect("syp", "laz", "door")
-H.connect("syp", "gal", "door")
+H.connect("gal", "laz", "door", at=0.85)
+H.connect("laz", "syp", "door", at=0.85)
 H.connect("gal", "biu", "door")
 H.connect("syp", "taW", "slide")
 H.connect("biu", "taE", "slide")

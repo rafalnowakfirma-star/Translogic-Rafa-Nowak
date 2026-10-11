@@ -209,6 +209,8 @@ def plan_level(house, idx, uid):
                     C.path(geom, "", f'fill="url(#{C.pattern("zwir_grabiony", _room_angle(r))})"')
                 elif kind == "plyty":
                     C.path(geom, "", f'fill="url(#{C.pattern("plyty", _room_angle(r))})"')
+                elif kind == "plyty_jadalnia":
+                    C.path(geom, "", f'fill="url(#{C.pattern("kamien", _room_angle(r))})"')
                 else:
                     C.path(geom, f"g-{kind}")
             lay2 = dict(lay)

@@ -35,7 +35,10 @@ FACADE = {"tynk": "biały tynk", "beton": "beton architektoniczny", "drewno": "d
           "drewno_opal": "drewno opalane", "cegla": "cegła", "cegla_biala": "biała cegła", "kamien": "kamień",
           "corten": "stal corten", "miedz": "miedź", "blacha": "blacha na rąbek", "trawertyn": "trawertyn"}
 VIEWS = [("lotu", "Z lotu ptaka, lato – dach ogrodu otwarty"), ("ogrod", "W ogrodzie pod szklanym dachem"),
-         ("zmierzch", "Zimowy zmierzch – dach zamknięty, światła w domu")]
+         ("zima", "Zima – śnieg na dachach, pod szkłem trwa lato")]
+MORE = [("salon", "Salon z kuchnią"), ("sypialnia", "Sypialnia"), ("biuro", "Biuro"), ("taras", "Taras na dachu parteru"),
+        ("patio", "Patio"), ("zmierzch", "Wieczór – dom świeci od środka")]
+FILM = os.path.join(HERE, "out", "film", "v2")
 
 
 def nice(x, d=1):
@@ -107,33 +110,35 @@ def keyplan(H, size=132):
 
 # ------------------------------------------------------------------ zdjęcia
 def images(pid, dst):
-    try:
-        from PIL import Image
-    except Exception:
-        Image = None
+    """Zdjęcia domu: kadry fotorealistyczne z filmu (out/film/v2/pXX/kadry), a gdy ich brak – stare rendery."""
+    from PIL import Image
     got = {}
-    for v, cap in VIEWS:
-        src = None
-        for d in ("render", "podglad3d"):
-            f = os.path.join(HERE, "out", pid, d, f"{v}.jpg")
-            if os.path.exists(f):
-                src = f
-                break
+    caps = {}
+    kj = os.path.join(FILM, pid, "kadry.json")
+    if os.path.exists(kj):
+        for u in json.load(open(kj, encoding="utf-8")).get("ujecia", []):
+            caps[u["id"]] = " – ".join(x for x in (u.get("podpis"), u.get("podpis2")) if x)
+    for v, cap in VIEWS + MORE:
+        src = os.path.join(FILM, pid, "kadry", f"{v}.png")
+        final = True
+        if not os.path.exists(src):
+            src = None
+            for d in ("render", "podglad3d"):
+                f = os.path.join(HERE, "out", pid, d, f"{v}.jpg")
+                if os.path.exists(f):
+                    src, final = f, d == "render"
+                    break
         if src is None:
             continue
         big, small = os.path.join(dst, f"{v}.jpg"), os.path.join(dst, f"{v}_s.jpg")
-        if Image is None:
-            shutil.copy(src, big)
-            shutil.copy(src, small)
-        else:
-            im = Image.open(src).convert("RGB")
-            w, h = im.size
-            if w > 1600:
-                im = im.resize((1600, int(h * 1600 / w)), Image.LANCZOS)
-            im.save(big, "JPEG", quality=82, optimize=True, progressive=True)
-            sm = im.resize((720, int(im.size[1] * 720 / im.size[0])), Image.LANCZOS)
-            sm.save(small, "JPEG", quality=80, optimize=True, progressive=True)
-        got[v] = (f"{pid}/{v}.jpg", f"{pid}/{v}_s.jpg", cap, src.split(os.sep)[-2] == "render")
+        im = Image.open(src).convert("RGB")
+        w, h = im.size
+        if w > 1600:
+            im = im.resize((1600, int(h * 1600 / w)), Image.LANCZOS)
+        im.save(big, "JPEG", quality=82, optimize=True, progressive=True)
+        sm = im.resize((720, int(im.size[1] * 720 / im.size[0])), Image.LANCZOS)
+        sm.save(small, "JPEG", quality=80, optimize=True, progressive=True)
+        got[v] = (f"{pid}/{v}.jpg", f"{pid}/{v}_s.jpg", caps.get(v, cap), final)
     return got
 
 
@@ -166,7 +171,8 @@ def project(pid):
     for idx, r, a in H.room_areas:
         rooms.append((H.levels[idx].name, r.name, a, r.kind))
     sezon = H.area["sezon"] > 0.5
-    return dict(
+    from silnik.zasady import check
+    return dict(zasady=check(H),
         pid=pid, num=pid.upper(), name=H.name, tagline=H.tagline, concept=H.concept, notes=H.notes,
         area=H.area, rooms=rooms, sheets=sheets, keyplan=keyplan(H), imgs=images(pid, dst),
         roof=(g.roof_type if g else ""), roof_note=ROOF_NOTE.get(g.roof_type, "") if g else "",
@@ -200,6 +206,16 @@ def h_project(p):
                          f'aria-label="Powiększ: {E(cap)}"><img src="{small}" srcset="{small} 720w, {big} 1600w" sizes="{sizes}" '
                          f'alt="{E(p["name"])}: {E(cap)}" loading="lazy" decoding="async"></button><figcaption>{E(cap)}</figcaption></figure>')
         gal = f'<div class="gallery">{"".join(cells)}</div>'
+        more = [v for v, _ in MORE if v in imgs]
+        if more:
+            cells = []
+            for v in more:
+                big, small, cap, final = imgs[v]
+                cells.append(f'<figure class="shot shot-{v}"><button type="button" class="shot-btn" data-full="{big}" '
+                             f'data-cap="{E(p["name"])} · {E(cap)}" aria-label="Powiększ: {E(cap)}"><img src="{small}" '
+                             f'srcset="{small} 720w, {big} 1600w" sizes="(min-width: 821px) 20vw, 50vw" alt="{E(p["name"])}: {E(cap)}" '
+                             f'loading="lazy" decoding="async"></button><figcaption>{E(cap.split(" – ")[0])}</figcaption></figure>')
+            gal += f'<div class="gallery-more">{"".join(cells)}</div>'
     tabs, panes = [], []
     for k, (url, label, svg) in enumerate(p["sheets"]):
         tid = f"{p['pid']}-t{k}"
@@ -214,6 +230,8 @@ def h_project(p):
                    f'<div class="season season-zima"><h4>Zima</h4><p>{E(notes.get("zima", ""))}</p></div></div>')
     tech = f'<p class="tech"><span>Technologia</span>{E(notes["technologia"])}</p>' if notes.get("technologia") else ""
     rows = "".join(f"<tr><td>{E(lv)}</td><td>{E(n)}</td><td class='num'>{nice(ar)} m²</td></tr>" for lv, n, ar, k in p["rooms"])
+    zas = "".join(f'<li class="{"ok" if z["ok"] else "nie"}">{E(z["label"])}</li>' for z in p.get("zasady", []))
+    zas = f'<div class="rules"><h4>Zasady wersji 2</h4><ul>{zas}</ul></div>' if zas else ""
     return f'''
 <section class="house" id="{p['pid']}" aria-labelledby="{p['pid']}-h">
   <header class="house-head">
@@ -230,6 +248,7 @@ def h_project(p):
       <ul class="concept">{concept}</ul>
       {seasons}
       {tech}
+      {zas}
       <div class="actions">
         <button type="button" class="btn btn-3d" data-model="{p['pid']}/model.json" data-name="{E(p['name'])}" data-top="{p['top']:.1f}">Obejrzyj model 3D</button>
       </div>
@@ -252,7 +271,7 @@ def h_project(p):
 def h_card(p):
     imgs = p["imgs"]
     lato = imgs.get("lotu", (None, None))[1]
-    zima = imgs.get("zmierzch", imgs.get("lotu", (None, None)))[1]
+    zima = imgs.get("zima", imgs.get("zmierzch", imgs.get("lotu", (None, None))))[1]
     img = (f'<span class="card-img"><img src="{lato}" data-lato="{lato}" data-zima="{zima}" alt="" loading="lazy" decoding="async"></span>'
            if lato else f'<span class="card-key">{p["keyplan"]}</span>')
     return (f'<li class="card"><a href="#{p["pid"]}">{img}<span class="card-num">{p["num"]}</span>'
@@ -298,6 +317,16 @@ def h_facts():
                    for t, x, u in DACH_FAKTY)
 
 
+def linki():
+    """Odnośniki do filmów (kino) i do pierwszej wersji katalogu – adresy z env (po publikacji)."""
+    out = []
+    if os.environ.get("KINO"):
+        out.append(f'Filmy wszystkich domów do obejrzenia na telewizorze: <a href="{E(os.environ["KINO"])}">kino</a>.')
+    if os.environ.get("ARCHIWUM"):
+        out.append(f'Pierwsza wersja katalogu (sprzed zmian): <a href="{E(os.environ["ARCHIWUM"])}">archiwum</a>.')
+    return " ".join(out)
+
+
 def main():
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
@@ -318,7 +347,7 @@ def main():
     tpl = open(os.path.join(HERE, "strona_szablon.html"), encoding="utf-8").read()
     hero = next((p for p in ps if p["pid"] == HERO), ps[0])
     hl = hero["imgs"].get("lotu", ("", "", "", False))[0]
-    hz = hero["imgs"].get("zmierzch", hero["imgs"].get("lotu", ("", "", "", False)))[0]
+    hz = hero["imgs"].get("zima", hero["imgs"].get("zmierzch", hero["imgs"].get("lotu", ("", "", "", False))))[0]
     areas = [p["area"]["uzytkowa"] for p in ps]
     rep = {
         "{{DRAWING_CSS}}": css,
@@ -333,6 +362,7 @@ def main():
         "{{FACTS}}": h_facts(),
         "{{REFS}}": h_refs(),
         "{{MATS}}": json.dumps(viewer_materials(), separators=(",", ":")),
+        "{{LINKI}}": linki(),
     }
     for k, v in rep.items():
         tpl = tpl.replace(k, v)

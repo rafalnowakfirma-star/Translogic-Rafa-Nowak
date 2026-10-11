@@ -1,102 +1,108 @@
-"""P10 · Monolit – zamknięty kamienny blok z głębokimi wcięciami, w środku staw pod przesuwnym szkłem."""
-from silnik import House, rect
+"""P10 · Monolit (wersja 2) – zamknięty kamienny blok 13 × 15 m, w środku ukryty staw pod przesuwnym szkłem,
+na dachu parteru tarasy za kamiennym murkiem, piętro tylko nad skrzydłem wschodnim."""
+from silnik import House, rect, poly
 
 H = House(
     "p10", "Monolit",
-    "Z zewnątrz zamknięty kamienny blok 20 × 17 m z wąskimi szczelinami okien i głębokimi wcięciami-loggiami. "
-    "W środku wszystko otwiera się na ogród ze stawem-lustrem pod przesuwnym szklanym dachem.",
+    "Zamknięty kamienny blok 13 × 15 m z wąskimi szczelinami okien. W środku staw-lustro pod przesuwnym szklanym dachem, "
+    "którego z zewnątrz nie widać; dach parteru to tarasy za kamiennym murkiem, a piętro to rząd czterech modułów nad skrzydłem wschodnim.",
     style=dict(fasada="kamien", dach="zwir", akcent="stal"),
     concept=[
-        "Z zewnątrz dom jest jednym wyciosanym blokiem z kamienia: okna to wąskie szczeliny, a duże szkło pojawia się tylko w głębokich wcięciach – w loggii biura od zachodu, w dwukondygnacyjnej loggii od wschodu i w patio wciętym w południową ścianę. Tam szkło ma cień i prywatność.",
-        "Północna ściana to gruba ciepła skorupa z pomieszczeń pomocniczych: techniczne, pralnia, wiatrołap, WC, szatnia i schody. To poprawiona wersja pomysłu z korytarzem po obwodzie: bufor jest tylko tam, gdzie jest zimno, i nie zabiera okien pokojom, bo pokoje za nim patrzą na ogród.",
-        "Ogród 7,4 × 6,9 m to płytki staw-lustro z kładką z kamiennych płyt, liliami i jedną brzozą pod przesuwnym szklanym dachem. Od wschodu ogród przechodzi w werandę pod sypialnią, którą zimą zamyka szklana harmonijka, a latem otwiera się przez loggię na krajobraz.",
-        "Biuro od zachodu ma szkło od ogrodu i od loggii głębokiej na 2,6 m; biurko stoi między stawem a cieniem kamiennej niszy.",
-        "Od wejścia idzie się amfiladą: wiatrołap, galeria wzdłuż stawu, potem biblioteka i biuro na zachód albo pracownia i weranda na wschód. Salon z kuchnią ma 6,9 m wysokości, od południa tylko szczeliny, a światło bierze z ogrodu i z patio, które w połowie jest pod dachem; przy patio są sauna i łazienka.",
-        "Piętro to wyłącznie sypialnia nad werandą: przeszklona do wschodniej loggii z kamiennym murkiem i nad szklany dach ogrodu, z przelotową garderobą i łazienką nad pracownią. Schody do niej biegną w północnej skorupie.",
+        "Blok ma 13 × 15 m i 165 m² powierzchni użytkowej, o 84 m² mniej niż w pierwszej wersji. Z zewnątrz są tylko "
+        "szczeliny i wysokie pasma okien, więc stawu w środku nie widać ani z drogi, ani z ogrodu sąsiada.",
+        "Ogród 5,6 × 5,8 m ze stawem-lustrem jest ze wszystkich stron otoczony pokojami: galerią od północy, biblioteką "
+        "i herbaciarnią od zachodu, pracownią i jadalnią od wschodu, wysokim salonem od południa. Żaden z nich nie ma "
+        "naprzeciw szkła na zewnątrz – jedyne duże przeszklenie poza ogrodem wychodzi z salonu na patio w narożniku, "
+        "schowane za murem 2,6 m i w części zadaszone.",
+        "Północna ściana to ciepła skorupa pomieszczeń pomocniczych: techniczne, pralnia, wiatrołap i WC. Wchodzi się przez "
+        "wiatrołap bez widoku na ogród; staw odsłania się dopiero w galerii, z której idzie się amfiladą dookoła stawu.",
+        "Salon ma 6,3 m wysokości i szkło tylko do stawu i do patio; otwiera się bez ściany na niższą kuchnię, "
+        "której dach jest tarasem sypialni od południowego wschodu.",
+        "Schody kręcone stoją w pracowni i prowadzą do biura przeszklonego na pola od wschodu i na taras od zachodu. "
+        "Dalej idzie się przelotowo: biuro, garderoba, sypialnia – a z garderoby do łazienki.",
+        "Dach parteru wokół szklanego dachu stawu to taras północny i zachodni za kamiennym murkiem wysokości 1 m; "
+        "najwyższy dach nad modułami piętra i salonem jest żwirowy, bez tarasu.",
     ],
     notes=dict(
-        lato="Połowa szklanego dachu zsuwa się nad drugą, harmonijka werandy składa się i ogród przewietrza się na przestrzał od wschodniej loggii po patio; głębokie wcięcia dają szkłu cień.",
-        zima="Dach i harmonijka są zamknięte: ogród z werandą to bufor między pokojami a mrozem, a od północy chroni gruba skorupa pomieszczeń pomocniczych; staw oddaje wieczorem ciepło zebrane za dnia.",
-        technologia="Ściany z bloczków keramzytowych na cienką spoinę z okładziną z płyt piaskowca na ruszcie, stropy i dach z prefabrykowanych płyt kanałowych, dach szklany systemowy na stalowej ramie.",
+        lato="Połowa szklanego dachu zsuwa się nad drugą i staw staje się otwartym dziedzińcem; z tarasów za murkiem "
+             "patrzy się na niego z góry, a salon otwiera się na patio za murem.",
+        zima="Dach jest zamknięty, staw z ogrodem to bufor cieplny między pokojami, od północy chroni skorupa "
+             "pomieszczeń pomocniczych, a pełne kamienne ściany z wąskimi szczelinami ograniczają straty ciepła.",
+        technologia="Ściany z bloczków keramzytowych na cienką spoinę z okładziną z płyt piaskowca na ruszcie, murki tarasów "
+                    "z tych samych płyt, stropy i dachy z prefabrykowanych płyt kanałowych, dach szklany systemowy na stalowej ramie.",
     ),
 )
-H.level(0, z=0.0, h=4.2)
-H.level(1, z=4.2, h=3.1)
+H.level(0, z=0.0, h=3.5)
+H.level(1, z=3.5, h=3.1)
 
-# ogród – staw-lustro; ściany ogrodu podciągnięte 0,5 m ponad dach parteru, żeby brzozy mieściły się pod szkłem
-og = H.ogrod("og", "Ogród ze stawem", rect(7.0, 5.6, 14.4, 12.5), levels=1, roof_type="slide", style="woda",
-             seed=4, roof_z=4.95)
-og.height = 4.4
+# ogród – staw-lustro, jednokondygnacyjny, dach szklany tuż nad dachem parteru
+H.ogrod("og", "Ogród ze stawem", rect(3.4, 5.0, 9.0, 10.8), levels=1, roof_type="slide", style="woda", seed=4)
 
-# północna skorupa (pomieszczenia pomocnicze)
-H.room("tech", "Techniczne", "techniczne", rect(0, 0, 3.4, 2.6), ext="solid")
-H.room("pral", "Pralnia", "pralnia", rect(3.4, 0, 7.0, 2.6), ext="slits")
-H.room("wia", "Wiatrołap", "wiatrolap", rect(7.0, 0, 9.8, 2.6), ext="solid")
-H.room("wc", "WC", "wc", rect(9.8, 0, 11.4, 2.6), ext="slits")
-H.room("szat", "Szatnia", "garderoba", rect(11.4, 0, 13.0, 2.6), ext="solid")
-H.room("sch", "Schody", "hol", rect(13.0, 0, 20.4, 2.6), ext="slits", furn=False)
-H.stair("straight", level=0, rect=(14.1, 0.3, 19.9, 1.4), up="E")
+# północna skorupa – pomieszczenia pomocnicze
+H.room("tech", "Techniczne", "techniczne", rect(0, 0, 2.4, 2.4), ext="solid")
+H.room("pral", "Pralnia", "pralnia", rect(2.4, 0, 4.8, 2.4), ext="band_high")
+H.room("wia", "Wiatrołap", "wiatrolap", rect(4.8, 0, 7.4, 2.4), ext="solid")
+H.room("wc", "WC", "wc", rect(7.4, 0, 9.0, 2.4), ext="band_high")
 
-# amfilada od frontu – za skorupą, oknami na staw
-H.room("bib", "Biblioteka", "biblioteka", rect(0, 2.6, 7.0, 5.6), ext="slits")
-H.room("gal", "Galeria", "galeria", rect(7.0, 2.6, 14.4, 5.6))
-H.room("pra", "Pracownia", "pracownia", rect(14.4, 2.6, 20.4, 5.6), ext={"E": "slits", "S": "glass"}, floor="beton")
+# galeria wzdłuż stawu – rozdzielnia domu
+H.room("gal", "Galeria", "galeria", rect(3.4, 2.4, 9.0, 5.0))
 
-# zachód – biuro za głęboką loggią
-H.room("logw", "Loggia biura", "loggia", rect(0, 5.6, 2.6, 12.5), floor="kamien")
-H.room("biu", "Biuro", "biuro", rect(2.6, 5.6, 7.0, 12.5), ext={"W": "glass_slide", "S": "solid"}, garden="glass_slide")
+# zachód – biblioteka i herbaciarnia
+H.room("bib", "Biblioteka", "biblioteka", rect(0, 2.4, 3.4, 6.6), ext="slits")
+H.room("her", "Herbaciarnia", "herbaciarnia", rect(0, 6.6, 3.4, 12.0), ext={"pat": "band_high", "W": "slits"})
 
-# wschód – weranda pod sypialnią i dwukondygnacyjna loggia
-H.room("ver", "Weranda", "loggia", rect(14.4, 5.6, 18.4, 12.5), roof="none", floor="kamien")
-H.room("loge", "Loggia wschodnia", "loggia", rect(18.4, 5.6, 20.4, 12.5), roof="none", floor="kamien", furn=False)
+# wschód – pracownia ze schodami (z wnęką przy stawie), łazienka, jadalnia
+H.room("pra", "Pracownia", "pracownia", poly((9.0, 0), (12.8, 0), (12.8, 5.0), (10.6, 5.0), (10.6, 7.2), (9.0, 7.2)),
+       ext="slits", garden="glass", floor="beton")
+H.room("laz", "Łazienka", "lazienka", rect(10.6, 5.0, 12.8, 7.2), ext="band_high", label_at=(11.95, 5.95))
+H.room("jad", "Jadalnia", "jadalnia", rect(9.0, 7.2, 12.8, 10.8), ext="slits")
+H.stair("spiral", level=0, center=(11.5, 1.5), r=1.0, start=180, sweep=300, n=16)
 
-# południe – sauna i łazienka przy patio, patio wcięte w ścianę, wysoki salon, zimne pomieszczenia przy kuchni
-H.room("sau", "Sauna", "sauna", rect(0, 12.5, 2.6, 15.0), ext={"W": "slits", "E": "solid"})
-H.room("laz2", "Łazienka", "lazienka", rect(0, 15.0, 2.6, 17.4), ext={"W": "slits", "S": "solid", "E": "solid"})
-H.room("pat", "Patio", "patio", rect(2.6, 12.5, 7.0, 17.4), roof=rect(2.6, 12.5, 7.0, 14.9), floor="kamien")
-H.room("sal", "Salon z kuchnią", "salon_kuchnia", rect(7.0, 12.5, 17.4, 17.4), levels=2,
-       ext={"S": "slits", "W": "glass_slide", "N": "glass", "E": "slits"}, kitchen_at="E")
-H.room("win", "Winiarnia", "winiarnia", rect(17.4, 12.5, 20.4, 14.9), ext="solid")
-H.room("spi", "Spiżarnia", "spizarnia", rect(17.4, 14.9, 20.4, 17.4), ext="solid")
+# południe – wysoki salon, niższa kuchnia, patio za murem w narożniku
+H.room("sal", "Salon", "salon", rect(3.4, 10.8, 9.0, 15.0), levels=2,
+       ext={"pat": "glass", "taS": "glass", "S": "slits", "W": "slits", "N": "glass", "E": "slits"})
+H.room("kuch", "Kuchnia", "kuchnia", rect(9.0, 10.8, 12.8, 15.0), ext={"E": "band_high", "S": "slits"}, kitchen_at="E")
+H.room("pat", "Patio", "patio", rect(0, 12.0, 3.4, 15.0), roof=rect(1.9, 12.0, 3.4, 15.0), enclose="gwall",
+       floor="kamien", label_at=(2.65, 14.3))
 
-# piętro – tylko sypialnia nad werandą
-H.room("holg", "Hol górny", "hol", rect(14.4, 0, 20.4, 2.6), level=1, ext={"N": "slits", "E": "slits", "*": "solid"}, furn=False)
-H.room("lazm", "Łazienka", "lazienka", rect(14.4, 2.6, 16.6, 5.6), level=1, ext={"W": "band_high", "*": "solid"})
-H.room("garm", "Garderoba", "garderoba", rect(16.6, 2.6, 20.4, 5.6), level=1, ext={"E": "slits", "*": "solid"})
-H.room("sypm", "Sypialnia", "sypialnia_glowna", rect(14.4, 5.6, 18.4, 12.5), level=1,
-       ext={"W": "glass", "E": "glass_slide", "S": "solid"})
-H.room("logu", "Loggia sypialni", "loggia", rect(18.4, 5.6, 20.4, 12.5), level=1, enclose="low", floor="kamien")
+# piętro – moduły nad skrzydłem wschodnim i tarasy na dachu parteru
+H.room("biu", "Biuro", "biuro", rect(9.0, 0, 12.8, 4.4), level=1,
+       ext={"taN": "glass", "E": "glass", "N": "slits", "W": "solid"})
+H.room("laz2", "Łazienka", "lazienka", rect(9.0, 4.4, 11.2, 6.6), level=1, ext="band_high")
+H.room("gard", "Garderoba", "garderoba", rect(11.2, 4.4, 12.8, 6.6), level=1, ext="band_high")
+H.room("syp", "Sypialnia", "sypialnia_glowna", rect(9.0, 6.6, 12.8, 10.8), level=1,
+       ext={"taS": "glass", "E": "band_high", "W": "band_high"})
+H.room("taN", "Taras północny", "taras", rect(3.4, 2.4, 9.0, 5.0), level=1, enclose="low", floor="plyty")
+H.room("taW", "Taras zachodni", "taras", rect(0, 2.4, 3.4, 12.0), level=1, enclose="low", floor="plyty")
+H.room("taS", "Taras sypialni", "taras", rect(9.0, 10.8, 12.8, 15.0), level=1, enclose="low", floor="plyty")
 
-# połączenia – parter
+# połączenia – parter (amfilada dookoła stawu)
 H.connect("wia", "gal", "wide")
 H.connect("wia", "pral", "door")
 H.connect("pral", "tech", "door")
 H.connect("gal", "wc", "door")
-H.connect("gal", "szat", "door")
-H.connect("gal", "sch", "door")
-H.connect("gal", "bib", "wide")
-H.connect("gal", "pra", "wide")
-H.connect("bib", "biu", "double")
-H.connect("biu", "pat", "door", at=0.2)
-H.connect("pat", "laz2", "door")
-H.connect("laz2", "sau", "door")
-H.connect("pra", "ver", "slide")
-H.connect("og", "ver", "open")
-H.connect("ver", "loge", "fold")
-H.connect("sal", "win", "door")
-H.connect("sal", "spi", "door")
-# piętro
-H.connect("holg", "garm", "door")
-H.connect("garm", "sypm", "door")
-H.connect("sypm", "lazm", "door")
+H.connect("gal", "bib", "double")
+H.connect("gal", "pra", "double")
+H.connect("bib", "her", "door")
+H.connect("her", "sal", "door")
+H.connect("sal", "kuch", "open")
+H.connect("kuch", "jad", "wide")
+H.connect("jad", "pra", "door")
+H.connect("pra", "laz", "door")
+H.connect("sal", "pat", "slide", at=0.15)
+# piętro (moduły przelotowe)
+H.connect("biu", "gard", "door")
+H.connect("gard", "syp", "door")
+H.connect("gard", "laz2", "door")
+H.connect("biu", "taN", "slide")
+H.connect("syp", "taS", "slide")
 
 H.entrance("wia", "N")
-H.path(rect(7.7, -7, 9.1, -0.2))
-H.path(rect(2.6, 17.6, 7.0, 20.6))
-H.tree(-4.0, 9.5, "sosna")
-H.tree(24.5, 13.5, "klon")
-H.tree(23.5, -3.0, "brzoza")
-H.tree(3.0, 24.0, "lipa")
-H.cut("A–A", (10.8, -2.0), (10.8, 20.0))
-H.cut("B–B", (-2.0, 9.0), (23.0, 9.0))
-H.cut("C–C", (16.4, -2.0), (16.4, 20.0))
+H.path(rect(5.4, -6.0, 6.8, -0.2))
+H.tree(-3.8, 6.0, "sosna")
+H.tree(16.8, 13.0, "klon")
+H.tree(16.3, -2.5, "brzoza")
+H.tree(4.0, 19.5, "lipa")
+H.cut("A–A", (6.2, -2.5), (6.2, 17.5))
+H.cut("B–B", (15.5, 8.6), (-2.5, 8.6))
+H.cut("C–C", (11.6, 17.5), (11.6, -2.5))

@@ -185,3 +185,64 @@ def check(H):
 
 def problems(H):
     return [f"{r['label']}: {r['detail']}" if r["detail"] else r["label"] for r in check(H) if not r["ok"]]
+
+
+def nieosiagalne(H):
+    """Pomieszczenia, do których nie da się dojść od wejścia (drzwi z połączeń, przejścia otwarte, schody)."""
+    from shapely.geometry import Point
+    adj = {}
+
+    def link(a, b):
+        adj.setdefault(a, set()).add(b)
+        adj.setdefault(b, set()).add(a)
+    def key(r):
+        return r.parent.key if r.parent is not None else r.key
+    for c in H.connects:
+        if c["kind"] == "open":
+            link(c["a"], c["b"])
+    for L in H.L.values():
+        for run in L["runs"]:
+            if run.other is not None and run.cls in (None, "open", "fold", "columns") and run.length > 0.8:
+                link(key(run.room), key(run.other))
+        for o in L["openings"]:
+            if o.kind in ("door", "slide", "double", "pivot", "wide", "portal", "arch") and o.run.other is not None:
+                link(key(o.run.room), key(o.run.other))
+    for r in H.all_rooms:
+        if r.parent is not None:
+            link(r.key, r.parent.key)
+    for s in H.stairs:
+        try:
+            fp = s.footprint()
+        except Exception:
+            continue
+        p = fp.representative_point() if not fp.is_empty else None
+        if p is None:
+            continue
+        ends = []
+        for lvl in (s.level, s.to_level):
+            best = None
+            for r in H.all_rooms:
+                if r.level <= lvl < r.level + r.levels and r.poly.buffer(0.05).intersects(fp):
+                    a = r.poly.intersection(fp).area
+                    if best is None or a > best[0]:
+                        best = (a, r.parent.key if r.parent is not None else r.key)
+            if best:
+                ends.append(best[1])
+        if len(ends) == 2:
+            link(*ends)
+    start = [e["room"] for e in H.entrances]
+    seen = set(start)
+    todo = list(start)
+    while todo:
+        k = todo.pop()
+        for n in adj.get(k, ()):
+            if n not in seen:
+                seen.add(n)
+                todo.append(n)
+    out = []
+    for r in H.rooms:
+        if r.kind in ("ogrod", "void") or r.parent is not None:
+            continue
+        if r.key not in seen:
+            out.append(r.name)
+    return out

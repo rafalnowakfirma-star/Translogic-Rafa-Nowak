@@ -313,6 +313,8 @@ class House:
 
     # ----------------------------------------------------------------- budowa
     def build(self):
+        for c in self.connects:
+            c["_ok"] = False
         self.all_rooms = list(self.rooms)
         self.warnings = list(getattr(self, "notes_build", []))
         # pustki nad pomieszczeniami wielokondygnacyjnymi
@@ -331,6 +333,9 @@ class House:
             rooms = [r for r in self.all_rooms if r.level == idx]
             if rooms:
                 self.L[idx] = self._build_level(idx, rooms)
+        for c in self.connects:
+            if c["kind"] not in ("open", "railing", "columns", "fold") and not c.get("_ok"):
+                self.warnings.append(f"{c['a']}–{c['b']}: brak wspólnej ściany – połączenie ({c['kind']}) pominięte")
         self._stairs()
         self._slabs()
         self._areas()
@@ -553,6 +558,7 @@ class House:
                         w = c["width"] or 0.9
                         m = run.length * c["at"]
                         add("door", run, m - w / 2, m + w / 2, 0, 2.25, into=c["b"], cls="glass")
+                        c["_ok"] = True
                 continue
             cand = _runs_between(allruns, c["a"], c["b"], self)
             # drzwi tylko między prawdziwymi podłogami (nie w pustkach nad salonem / ogrodem)
@@ -567,6 +573,7 @@ class House:
             m = max(w / 2 + 0.12, min(run.length - w / 2 - 0.12, m))
             into = c["b"]
             add(k, run, m - w / 2, m + w / 2, 0, 2.25 if k not in ("wide", "portal", "arch") else 2.6, into=into)
+            c["_ok"] = True
         # wejścia i wyjścia
         for e in self.entrances + self.exits:
             r = self.get(e["room"])

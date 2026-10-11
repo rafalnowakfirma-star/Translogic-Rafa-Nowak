@@ -109,7 +109,11 @@ def _best_view(space, free, targets, lens, min_d=2.2, block=None, step=0.22, pre
                 md = dsum / wsum
                 if md < min_d:
                     continue
-                score = sc_ * min(1.0, md / 5.0) ** 0.5
+                # głębia kadru: jak daleko widać na wprost (unikamy patrzenia w bliską ścianę)
+                ray = LineString([(x, y), (x + math.cos(aim) * 40, y + math.sin(aim) * 40)])
+                hit = ray.intersection(bnd)
+                depth = 40.0 if hit.is_empty else P.distance(hit)
+                score = sc_ * min(1.6, md / 5.0) ** 0.6 * min(1.5, depth / 4.0) ** 0.5
                 if prefer_wall:
                     score *= 1.0 + 0.3 * max(0.0, 1.0 - bnd.distance(P) / 1.2)
                 if best is None or score > best[0]:
@@ -164,9 +168,9 @@ def ujecie_wnetrza(H, r, kind_cel, lens=17.0, h_eye=1.3, shift=0.06):
     hz = r.top - r.z0
     high = hz > 4.5
     tx, ty = cx + math.cos(aim) * 5, cy + math.sin(aim) * 5
-    eye = h_eye + (0.25 if high else 0.0)
+    eye = h_eye + (0.15 if high else 0.0)
     return dict(loc=(cx, cy, r.z0 + eye), target=(tx, ty, r.z0 + eye), lens=lens,
-                shift_y=shift + (0.14 if high else 0.0), poziom=True, score=round(score, 2), glass=round(gfrac, 2))
+                shift_y=shift + (0.06 if high else 0.0), poziom=True, score=round(score, 2), glass=round(gfrac, 2))
 
 
 def ujecie_ogrodu(H, g, lens=17.0):
@@ -333,6 +337,10 @@ def _sun_az(phi_cam, side=1):
 
 def plan_ujec(H, wersja=2):
     """Lista ujęć filmu dla domu H."""
+    from silnik.meble import furnish_level
+    for idx, L in H.L.items():
+        if L.get("items") is None:
+            L["items"] = furnish_level(H, idx)   # meble potrzebne, żeby kamera nie stanęła w szafie
     U = []
     sides = sorted(_side_scores(H), reverse=True)
     phi_a = sides[0][1]

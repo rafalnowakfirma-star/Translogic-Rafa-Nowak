@@ -160,7 +160,7 @@ def teren(ctx, col, snow=False):
     rnd = random.Random(ctx.seed * 7 + 3)
     n = 2400
     r0, r1, r2 = 150.0, 175.0, 900.0
-    base = [rnd.uniform(4, 14) for _ in range(48)]
+    base = [rnd.uniform(2.5, 8.0) for _ in range(48)]
     for _ in range(2):
         base = [(base[i - 1] + 2 * base[i] + base[(i + 1) % 48]) / 4 for i in range(48)]
     hs = []
@@ -173,24 +173,29 @@ def teren(ctx, col, snow=False):
     crown = [0.0] * n
     j = 0
     while j < n:
-        w = rnd.randint(6, 16)            # szerokość korony w wierzchołkach (~0,4 m każdy)
-        hc = rnd.uniform(2.0, 6.5) * (1.4 if rnd.random() < 0.15 else 1.0)
+        w = rnd.randint(5, 14)            # szerokość korony w wierzchołkach (~0,4 m każdy)
+        hc = rnd.uniform(1.0, 4.0) * (1.6 if rnd.random() < 0.12 else 1.0)
+        sharp = rnd.uniform(0.35, 1.0)    # świerki ostrzejsze, liściaste okrągłe
         for q in range(w):
             u = (q + 0.5) / w * 2 - 1
-            crown[(j + q) % n] = max(crown[(j + q) % n], hc * math.sqrt(max(0.0, 1 - u * u)))
-        j += max(2, int(w * rnd.uniform(0.45, 0.9)))
+            v = max(0.0, 1 - abs(u) ** (1.0 + sharp)) ** (0.5 + 0.5 * sharp)
+            crown[(j + q) % n] = max(crown[(j + q) % n], hc * v + rnd.uniform(-0.15, 0.15))
+        j += max(2, int(w * rnd.uniform(0.35, 0.8)))
     verts, faces = [], []
     for i in range(n):
         a = 2 * math.pi * i / n
         ca, sa = math.cos(a), math.sin(a)
         h = hs[i] + crown[i]
-        verts += [(ca * r0, sa * r0, -0.35), (ca * r1, sa * r1, h), (ca * r2, sa * r2, h * 1.5 + 30)]
+        hb = hs[i] * 0.8
+        verts += [(ca * r0, sa * r0, -0.35), (ca * (r0 + 6), sa * (r0 + 6), hb * 0.55), (ca * r1, sa * r1, h),
+                  (ca * r2, sa * r2, h * 1.5 + 30)]
     for i in range(n):
         j2 = (i + 1) % n
-        for k in range(2):
-            faces.append((i * 3 + k, j2 * 3 + k, j2 * 3 + k + 1, i * 3 + k + 1))
+        for k in range(3):
+            faces.append((i * 4 + k, j2 * 4 + k, j2 * 4 + k + 1, i * 4 + k + 1))
     me = bpy.data.meshes.new("horyzont")
     me.from_pydata(verts, [], faces)
+    me.polygons.foreach_set("use_smooth", [True] * len(me.polygons))
     me.update()
     ob = bpy.data.objects.new("horyzont", me)
     col.objects.link(ob)

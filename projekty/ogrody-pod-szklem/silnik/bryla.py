@@ -436,7 +436,7 @@ def _garden3d(M, house, g, rosliny=True):
     if lay is None:
         lay = garden_layout(g, house.L[g.level], house)
         g._layout = lay
-    z = g.z0 - 0.12
+    z = g.z0 - (0.0 if g.style == "jadalnia" else 0.12)   # ogród-jadalnia w poziomie podłogi
     net = lay["net"]
     floors = lay["floor"]
     water = [geom for kind, geom in floors if kind == "woda"]
@@ -446,7 +446,7 @@ def _garden3d(M, house, g, rosliny=True):
             continue
         gg = geom.difference(wu) if wu is not None else geom
         mat = {"zwir_grabiony": "zwir_grabiony", "plyty": "plyty_ogrod", "trawa_niska": "trawa_ogrod", "mech_runo": "mech",
-               "zwir_jasny": "zwir_ogrod"}.get(kind, "zwir_ogrod")
+               "zwir_jasny": "zwir_ogrod", "plyty_jadalnia": "podloga_kamien"}.get(kind, "zwir_ogrod")
         M.extrude(gg, z - 0.1, z, mat, bottom=False)
     if wu is not None:
         M.extrude(wu, z - 0.45, z - 0.12, "woda", bottom=False)

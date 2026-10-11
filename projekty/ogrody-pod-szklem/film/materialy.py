@@ -462,21 +462,16 @@ def m_prosty(name, c, r=0.6, metal=0.0, coat=0.0, emis=None):
 
 
 def m_las_daleki(name):
-    """Daleki las na horyzoncie: korony drzew jako komórki z cieniem, przymglone (perspektywa powietrzna)."""
+    """Daleki las na horyzoncie: ciemna zieleń z plamami (korony w cieniu), lekko przymglona, bez połysku."""
     m, n, b, _ = _new(name)
     P = _coords(n)
-    vor = n.node("ShaderNodeTexVoronoi", {"Scale": 0.28})
-    n.set(vor.inputs["Vector"], P)
-    big = n.noise(P, 0.01, 3).outputs["Fac"]
-    f = n.math("ADD", n.math("MULTIPLY", n.sep(vor.outputs["Color"])[0], 0.5), n.math("MULTIPLY", big, 0.5))
-    col = n.ramp(f, [(0.0, (0.10, 0.14, 0.09)), (0.5, (0.15, 0.20, 0.12)), (1.0, (0.24, 0.28, 0.16))])
-    shade = n.ramp(vor.outputs["Distance"], [(0.0, (1, 1, 1)), (0.9, (0.45, 0.45, 0.45))])
-    col = n.mixc(1.0, col, shade, blend="MULTIPLY")
-    col = n.mixc(0.38, col, lin((0.58, 0.64, 0.70)))
+    small = n.noise(P, 0.9, 6, 0.7).outputs["Fac"]
+    big = n.noise(P, 0.02, 3).outputs["Fac"]
+    f = n.math("ADD", n.math("MULTIPLY", small, 0.6), n.math("MULTIPLY", big, 0.4))
+    col = n.ramp(f, [(0.25, (0.10, 0.14, 0.07)), (0.5, (0.15, 0.20, 0.09)), (0.75, (0.22, 0.26, 0.12))])
     n.set(b.inputs["Base Color"], col)
-    b.inputs["Roughness"].default_value = 0.95
-    b.inputs["Specular IOR Level"].default_value = 0.15
-    _bump(n, b, n.math("SUBTRACT", 1.0, vor.outputs["Distance"]), 0.6, 0.8)
+    b.inputs["Roughness"].default_value = 1.0
+    b.inputs["Specular IOR Level"].default_value = 0.05
     return m
 
 

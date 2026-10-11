@@ -70,7 +70,10 @@ def main():
         print(f"  L{idx} {r.key:6s} {r.name:28s} {a:6.1f} m²")
     for w in H.warnings:
         print("  UWAGA:", w)
-    from silnik.zasady import check
+    from silnik.zasady import check, nieosiagalne
+    nd = nieosiagalne(H)
+    if nd:
+        print("  UWAGA: od wejścia nie da się dojść do: " + ", ".join(nd))
     for z in check(H):
         print(f"  ZASADA {'OK ' if z['ok'] else 'NIE'}: {z['label']}" + (f" – {z['detail']}" if z["detail"] else ""))
     if not nopng:

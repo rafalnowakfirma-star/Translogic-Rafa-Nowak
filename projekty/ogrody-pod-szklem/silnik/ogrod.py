@@ -7,7 +7,7 @@ from shapely.ops import unary_union, polylabel
 
 from .geom import largest, polygons
 
-STYLES = ("japonski", "oranzeria", "woda", "las", "srodziemnomorski", "tropikalny")
+STYLES = ("japonski", "oranzeria", "woda", "las", "srodziemnomorski", "tropikalny", "jadalnia")
 
 
 class Feature:
@@ -169,6 +169,28 @@ def garden_layout(g, level, house):
                 feats.append(Feature("donica", p[0], p[1], 0.35))
         for ln in paths:
             steps_along(ln, cls="plyta")
+    elif st == "jadalnia":
+        # ogród-jadalnia: kamienna posadzka w poziomie podłogi, stół przy ścianie od jadalni, rośliny w donicach dookoła
+        floor.append(("plyty_jadalnia", net))
+        stol = _miejsce_stolu(g, level, net, inner)
+        if stol is not None:
+            path_zone = path_zone.union(stol["strefa"])
+            stol = {k: v for k, v in stol.items() if k != "strefa"}
+        p = spot(0.75)
+        if p:
+            feats.append(Feature("oliwka" if area < 40 else "palma", p[0], p[1], 0.75, h=3.2))
+        for i in range(3 if area < 35 else 4):
+            p = spot(0.42)
+            if p:
+                feats.append(Feature("cytrus", p[0], p[1], 0.42, h=2.0))
+        for kind_, rr in (("monstera", 0.45), ("donica", 0.35), ("paproc", 0.32), ("donica", 0.32)):
+            p = spot(rr)
+            if p:
+                feats.append(Feature(kind_, p[0], p[1], rr))
+        if g.trees:
+            for t in g.trees:
+                feats.append(Feature(t[0], t[1], t[2], t[3] if len(t) > 3 else 0.8, h=t[4] if len(t) > 4 else 4.0))
+        return dict(floor=floor, paths=paths, features=feats, net=net, stol=stol)
     else:  # tropikalny
         floor.append(("plyty", net))
         pool = inner.buffer(-max(1.0, R * 0.45))
@@ -187,6 +209,37 @@ def garden_layout(g, level, house):
         for t in g.trees:
             feats.append(Feature(t[0], t[1], t[2], t[3] if len(t) > 3 else 0.8, h=t[4] if len(t) > 4 else 4.0))
     return dict(floor=floor, paths=paths, features=feats, net=net)
+
+
+def _miejsce_stolu(g, level, net, inner):
+    """Stół jadalny w ogrodzie: przy najdłuższej szklanej (najlepiej harmonijkowej) ścianie od jadalni / kuchni."""
+    from .meble import dining, round_dining
+    cand = []
+    for run in level["runs"]:
+        if run.room is not g or run.other is None or run.other.outdoor or run.cls not in ("fold", "glass"):
+            continue
+        pri = (2 if run.cls == "fold" else 1) + (1 if run.other.kind in ("jadalnia", "kuchnia", "salon_kuchnia") else 0)
+        cand.append((pri, run.length, run))
+    if not cand:
+        return None
+    cand.sort(key=lambda c: (c[0], c[1]), reverse=True)
+    run = cand[0][2]
+    (ax, ay), (bx, by) = run.pts[0], run.pts[-1]
+    L = math.hypot(bx - ax, by - ay) or 1.0
+    ux, uy = (bx - ax) / L, (by - ay) / L
+    nx, ny = -run.normal[0], -run.normal[1]           # w głąb ogrodu
+    rot = math.degrees(math.atan2(uy, ux))
+    zone_ok = inner.buffer(-0.05)
+    for n, rnd_ in ((8, False), (6, False), (4, False), (4, True)):
+        it = round_dining(r=0.55, n=4) if rnd_ else dining(n)
+        depth = it.d
+        for off in (0.0, 0.6, -0.6, 1.2, -1.2):
+            cx = (ax + bx) / 2 + ux * off + nx * (0.32 + depth / 2)
+            cy = (ay + by) / 2 + uy * off + ny * (0.32 + depth / 2)
+            fp = it.footprint(cx, cy, rot)
+            if zone_ok.contains(fp):
+                return dict(cx=cx, cy=cy, rot=rot, n=n, okragly=rnd_, strefa=fp.buffer(0.25))
+    return None
 
 
 # ------------------------------------------------------------------- rysunek 2D

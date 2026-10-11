@@ -935,6 +935,19 @@ def door_clearance(room, level):
 def furnish_level(house, idx):
     level = house.L[idx]
     out = []
+    # ogród-jadalnia: stół pod szklanym dachem
+    for g in level["rooms"]:
+        if g.kind == "ogrod" and g.parent is None and getattr(g, "style", None) == "jadalnia":
+            lay = getattr(g, "_layout", None)
+            if lay is None:
+                from .ogrod import garden_layout
+                lay = garden_layout(g, level, house)
+                g._layout = lay
+            st = lay.get("stol")
+            if st:
+                it = round_dining(r=0.55, n=4) if st["okragly"] else dining(st["n"])
+                it.cx, it.cy, it.rot, it.z, it.room = st["cx"], st["cy"], st["rot"], g.z0, g
+                out.append(it)
     for r in level["rooms"]:
         if not r.furn or r.parent is not None or r.kind in ("ogrod", "ogrod_void", "void"):
             continue

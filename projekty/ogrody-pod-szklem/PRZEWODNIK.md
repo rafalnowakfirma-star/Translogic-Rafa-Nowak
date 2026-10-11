@@ -201,3 +201,20 @@ Wersje 1 wszystkich domów są w `domy_v1/`.
 Przydatne: `ext={"pat": "glass_slide", "S": "solid", "*": "windows"}` – szkło tylko do patio za murem;
 `H.room("pat", "Patio za murem", "patio", rect(...), roof=rect(...), enclose="gwall")`;
 schody kręcone (`H.stair("spiral", center=(x, y), r=1.0)`) zajmują najmniej miejsca.
+
+## OGRÓD ZIMOWY JAKO CZĘŚĆ JADALNI (domy P17–P20)
+
+Klient: „Zrób też kilka domów, gdzie ogród wewnętrzny zimowy będzie częścią jadalni” – „ale będzie możliwość zamknięcia ogrodu zimowego”.
+
+- Styl ogrodu `style="jadalnia"`: posadzka z płyt kamiennych w poziomie podłogi domu (bez stopnia), stół jadalny
+  (6–8 osób, a gdy brak miejsca – okrągły na 4) stawiany automatycznie w ogrodzie przy najdłuższej szklanej ścianie
+  od kuchni / jadalni, dookoła rośliny w donicach (cytrusy, oliwka lub palma, monstera, paprocie).
+- Ściana między ogrodem a kuchnią (albo salonem z kuchnią) ma być harmonijką: `garden="fold"` w pokoju kuchni.
+  Złożona latem – ogród, kuchnia i jadalnia są jedną przestrzenią; rozłożona – ogród zimowy jest zamknięty
+  (np. w mroźne noce albo gdy dach jest otwarty w deszczowy dzień). Dach ogrodu nadal otwiera się latem.
+- Pokój obok ogrodu nazywaj „Kuchnia” (kind "kuchnia") albo „Salon z kuchnią” (kind "salon"), nie „jadalnia” –
+  stół jest w ogrodzie. Ogród nazwij np. „Ogród zimowy z jadalnią”.
+- Ogród ma być mniejszy od zwykłego ogrodu (stół + rośliny): 24–36 m², najlepiej prostokąt min. 4,5 m szerokości.
+- Wszystkie zasady wersji 2 obowiązują (≤170 m², ogród otoczony domem, brak widoku na wylot, tarasy na niższych
+  dachach, moduły piętra wokół tarasu). Pokój z harmonijką do ogrodu nie może mieć naprzeciw szkła na zewnątrz.
+- `python3 podglad.py pXX` sprawdza też, czy do każdego pokoju da się dojść od wejścia (UWAGA: „nie da się dojść do”).
