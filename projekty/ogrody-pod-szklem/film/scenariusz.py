@@ -30,6 +30,19 @@ def _m2(x):
     return f"{x:.0f} m²"
 
 
+def fakty_domu(H):
+    """Najważniejsze liczby domu: [wartość, opis] – powierzchnia, ogród, tarasy, kondygnacje."""
+    ter = [r for r in H.rooms if r.outdoor and r.level > min(H.L)]
+    fakty = [[_m2(H.area["uzytkowa"]), "powierzchnia użytkowa"], [_m2(H.area["ogrod"]), "ogród pod szkłem"]]
+    if ter:
+        fakty.append([_m2(sum(r.poly.area for r in ter)), "tarasy na dachu"])
+    elif H.area.get("zewn", 0) > 1:
+        fakty.append([_m2(H.area["zewn"]), "tarasy i patio"])
+    nlev = len([i for i in H.L if any(not r.outdoor and r.kind not in ("void", "ogrod_void") for r in H.L[i]["rooms"])])
+    fakty.append([str(nlev), "kondygnacje" if nlev in (2, 3, 4) else ("kondygnacja" if nlev == 1 else "kondygnacji")])
+    return fakty
+
+
 def plany(H, pid, out):
     """Rzuty kondygnacji jako PNG (białe tło) – osobno dla każdej wersji domu."""
     from silnik.rzut import plan_level
@@ -128,14 +141,7 @@ def scenariusz(pid, wersja, out=None):
     sj = os.path.join(out, "spacer", "spacer.json")
     SP = json.load(open(sj, encoding="utf-8")) if os.path.exists(sj) else []
     gs = [r for r in H.rooms if r.kind == "ogrod"]
-    ter = [r for r in H.rooms if r.outdoor and r.level > min(H.L)]
-    fakty = [[_m2(H.area["uzytkowa"]), "powierzchnia użytkowa"], [_m2(H.area["ogrod"]), "ogród pod szkłem"]]
-    if ter:
-        fakty.append([_m2(sum(r.poly.area for r in ter)), "tarasy na dachu"])
-    elif H.area.get("zewn", 0) > 1:
-        fakty.append([_m2(H.area["zewn"]), "tarasy i patio"])
-    nlev = len([i for i in H.L if any(not r.outdoor and r.kind not in ("void", "ogrod_void") for r in H.L[i]["rooms"])])
-    fakty.append([str(nlev), "kondygnacje" if nlev in (2, 3, 4) else ("kondygnacja" if nlev == 1 else "kondygnacji")])
+    fakty = fakty_domu(H)
     sh = []
 
     def lek(key, start=0.6):
