@@ -68,7 +68,7 @@ def _best_view(space, free, targets, lens, min_d=2.2, block=None, step=0.22, pre
     half = _hfov(lens) / 2 * 0.88
     nx = max(1, int((maxx - minx) / step))
     ny = max(1, int((maxy - miny) / step))
-    bnd = space.exterior
+    bnd = space.boundary            # także MultiPolygon (rozłączne tarasy) i dziury (ogród w pierścieniu)
     sp = space.buffer(0.08)
     tot_glass = sum(t[2] for t in targets if t[3] == "szklo") or 1.0
     best = None
