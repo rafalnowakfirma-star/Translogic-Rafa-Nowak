@@ -186,7 +186,7 @@ def scenariusz(pid, wersja, out=None):
     add(dict(typ="koniec", tlo=tz, czas=7.0), "koniec", 0.8)
     sb = dict(pid=pid, wersja=wersja, numer=pid.upper(), nazwa=H.name, tagline=H.tagline,
               seria=f"Ogrody pod szkłem · wersja {wersja}", fakty=fakty, napisy_koncowe=NAPISY,
-              ujecia=sh, muzyka=True, muzyka_glosnosc=-2, wyjscie=f"ogrody_v{wersja}_{pid}.mp4")
+              ujecia=sh, muzyka=True, muzyka_glosnosc=-2, web=False, wyjscie=f"ogrody_v{wersja}_{pid}.mp4")
     fn = os.path.join(out, "film.json")
     json.dump(sb, open(fn, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return fn
