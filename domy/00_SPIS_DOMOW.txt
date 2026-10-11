@@ -18,7 +18,7 @@ WERSJA 2 (aktualna)
   P09  Pawilony                168 m²   film 2:33             wersja_2/P09_Pawilony
   P10  Monolit                 165 m²   film 2:43             wersja_2/P10_Monolit
   P11  Półksiężyc              163 m²   film 2:43             wersja_2/P11_Polksiezyc
-  P12  Oktagon                 168 m²   film w przygotowaniu  wersja_2/P12_Oktagon
+  P12  Oktagon                 168 m²   film 2:49             wersja_2/P12_Oktagon
   P13  Kubik                   168 m²   film w przygotowaniu  wersja_2/P13_Kubik
   P14  Zygzak                  163 m²   film w przygotowaniu  wersja_2/P14_Zygzak
   P15  Wachlarz                164 m²   film w przygotowaniu  wersja_2/P15_Wachlarz
