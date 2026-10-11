@@ -43,9 +43,10 @@ def bl(ctx, p):
     return ctx.to_bl(p[0], p[1], p[2])
 
 
-def auto_ekspozycja(sc, cel=0.18, bias=0.0, tmp="/tmp", chron=True):
+def auto_ekspozycja(sc, cel=0.18, bias=0.0, tmp="/tmp", chron=True, zapas=0.0, maks=3.0):
     """Pomiar światła małym renderem (EXR liniowy, odszumiony) – ekspozycja tak, by średnia logarytmiczna jasność
-    (bez najjaśniejszych okien i nieba) wypadła w szarości `cel`."""
+    (bez najjaśniejszych okien i nieba) wypadła w szarości `cel`.
+    zapas – o ile EV wolno prześwietlić najjaśniejsze 5% (niebo, okna), żeby ciemna fasada / wnętrze nie wyszły czarne."""
     r = sc.render
     keep = (r.resolution_x, r.resolution_y, sc.cycles.samples, r.image_settings.file_format, r.filepath,
             sc.cycles.use_adaptive_sampling)
@@ -67,8 +68,8 @@ def auto_ekspozycja(sc, cel=0.18, bias=0.0, tmp="/tmp", chron=True):
     Yc = np.clip(Y, 1e-4, None)
     p50, p95 = float(np.percentile(Yc, 50)), float(np.percentile(Yc, 95))
     # jak fotograf: średnie tony do szarości, ale jasne (oświetlone słońcem) płaszczyzny nie mogą się przepalić
-    ev = min(math.log2(cel / p50), math.log2(0.85 / p95)) if chron else math.log2(cel / p50)
-    ev = max(-2.5, min(3.0, ev + bias))
+    ev = min(math.log2(cel / p50), math.log2(0.85 / p95) + zapas) if chron else math.log2(cel / p50)
+    ev = max(-2.5, min(maks, ev + bias))
     (r.resolution_x, r.resolution_y, sc.cycles.samples, r.image_settings.file_format, r.filepath,
      sc.cycles.use_adaptive_sampling) = keep
     sc.view_settings.exposure = ev
@@ -188,7 +189,8 @@ def panoramy(S, stations, P, sdir, od_nowa=False):
         r = pokoje.get(st["room"])
         inside = r is not None and not r.outdoor          # taras liczy się jako „na dworze”
         scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P.get("pnoise", P["noise"]), persistent=True)
-        ev = ev_zmierzone = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0)
+        # spacer: jak fotograf wnętrz – ekspozycja na pokój / fasadę, okna i niebo mogą się lekko przepalić (AgX łagodnie)
+        ev = ev_zmierzone = auto_ekspozycja(sc, 0.19 if inside else 0.18, 0.0, zapas=1.0 if inside else 1.5, maks=4.5)
         if prev_ev is not None and prev_inside == inside:
             # między pokojami oko adaptuje się, ale bez skoków; wejście z dworu do środka (i wyjście) – pełna ekspozycja
             ev = max(prev_ev - 2.0, min(prev_ev + 2.0, ev))
