@@ -41,6 +41,8 @@ a.btn{color:var(--ink);text-decoration:none}
 .marka p{margin:.45rem 0 0;color:var(--ink-2);max-width:62ch}
 .top .akcje{display:flex;flex-wrap:wrap;gap:.6rem}
 .podpowiedz{font:400 .8rem/1.5 var(--f-mono);color:var(--ink-3);margin:0 0 1.2rem}
+.sekcje{display:flex;flex-wrap:wrap;gap:.6rem;margin:-.4rem 0 1.2rem}
+.sekcje .btn[aria-current="page"]{background:var(--panel-2);border-color:var(--brass);color:var(--brass)}
 .podpowiedz kbd{font:inherit;border:1px solid var(--line);border-radius:4px;padding:0 .35em;color:var(--ink-2)}
 .polka{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,14.5rem),1fr));gap:1.3rem}
 .kafel{display:grid;gap:.5rem;text-align:left;border-radius:var(--r);padding:.45rem;min-width:0}
@@ -127,6 +129,7 @@ a.btn{color:var(--ink);text-decoration:none}
       <button class="btn" type="button" data-nav id="sPelny">Pełny ekran</button>
     </div>
   </header>
+  <nav class="sekcje" id="sSekcje" aria-label="Części kolekcji" hidden></nav>
   <p class="podpowiedz">Pilot: <kbd>◀ ▲ ▼ ▶</kbd> wybór · <kbd>OK</kbd> otwórz · <kbd>Wstecz</kbd> powrót · w filmie <kbd>OK</kbd> pauza, <kbd>◀ ▶</kbd> 10 s</p>
   <section class="polka" id="polka" aria-label="Domy"></section>
   <p class="stopka">Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany. Lektor: syntezator mowy Piper
@@ -208,7 +211,18 @@ function el(tag, cls, txt){ const e = document.createElement(tag); if (cls) e.cl
 /* ---------------------------------------------------------------- start */
 function start(){
   const nf = DOMY.filter(d => d.film).length;
-  $("sOpis").textContent = INFO.nazwa_wersji + " · " + ile(DOMY.length, "dom", "domy", "domów") + " wokół prywatnego ogrodu pod "
+  const sk = $("sSekcje");
+  if (INFO.sekcje && INFO.sekcje.length) {
+    sk.hidden = false;
+    for (const x of INFO.sekcje) {
+      let e;
+      if (x.biezaca) { e = el("span", "btn", x.nazwa); e.setAttribute("aria-current", "page"); }
+      else { e = el("a", "btn", x.nazwa); e.href = x.url; e.target = "_blank"; e.rel = "noopener"; e.setAttribute("data-nav", ""); }
+      sk.appendChild(e);
+    }
+  }
+  $("sOpis").textContent = INFO.nazwa_wersji + " · " + (INFO.zakres ? "domy " + INFO.zakres : ile(DOMY.length, "dom", "domy", "domów"))
+    + " wokół prywatnego ogrodu pod "
     + "otwieranym szklanym dachem · " + (nf ? ile(nf, "film", "filmy", "filmów") + " z lektorem i spacerem po domu" : "filmy w przygotowaniu")
     + (nf && nf < DOMY.length ? " (kolejne dochodzą)" : "") + ".";
   $("sWszystkie").disabled = !nf;

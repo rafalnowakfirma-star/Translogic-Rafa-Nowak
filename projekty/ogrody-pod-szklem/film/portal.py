@@ -6,6 +6,10 @@
           części filmów → kino/pliki/*.mp4 (wysyłane do zasobów strony; mapa nazwa → url w kino/zasoby.json)
           portal/do_wyslania.json – części filmów, których jeszcze nie ma w zasobach (film pokazany jako „w przygotowaniu”)
 
+  python3 film/portal.py --wersja 2 --domy p01-p10 --publiczny --out tv/v2a --tytul "…" --sekcje sekcje.json
+        → strona do udostępnienia publicznie (bez logowania, np. przeglądarka telewizora): filmy 720p jako pliki strony
+          (pliki/filmy/*.mp4 ≤ 14 MB; strona mieści do 256 MB, stąd podział domów na sekcje)
+
 Zdjęcia: kadry z filmu (out/film/v<w>/<dom>/kadry), widoki ze spaceru (panoramy), a gdy domu jeszcze nie wyrenderowano –
 podglądy 3D tej samej wersji projektu.
 """
@@ -107,6 +111,20 @@ def rzuty(H, pid, film_dir, dst, rel):
     return out
 
 
+def wybor_domow(spec, pids):
+    """"p01-p10" albo "p01,p03" → lista z pids."""
+    if not spec:
+        return pids
+    out = []
+    for cz in spec.split(","):
+        if "-" in cz:
+            a, b = cz.split("-")
+            out += [p for p in pids if a <= p <= b]
+        else:
+            out += [p for p in pids if p == cz]
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--wersja", type=int, default=2)
@@ -114,6 +132,11 @@ def main():
     ap.add_argument("--zasoby", default=os.path.join(HERE, "kino", "zasoby.json"))
     ap.add_argument("--czesci", default=os.path.join(HERE, "kino", "pliki"), help="katalog części filmów")
     ap.add_argument("--linki", default=None, help='JSON: [{"nazwa": …, "url": …}] – odnośniki w nagłówku')
+    ap.add_argument("--domy", default=None, help="np. p01-p10 lub p01,p02")
+    ap.add_argument("--publiczny", action="store_true", help="filmy 720p jako pliki strony (bez zasobów, bez logowania)")
+    ap.add_argument("--tytul", default=None)
+    ap.add_argument("--sekcje", default=None, help='plik JSON: [{"nazwa": …, "url": …, "id": …}] – menu stron')
+    ap.add_argument("--sekcja", default=None, help="id bieżącej sekcji z --sekcje")
     a = ap.parse_args()
     w = a.wersja
     out = a.out if os.path.isabs(a.out) else os.path.join(HERE, a.out)
@@ -121,6 +144,7 @@ def main():
     zasoby = json.load(open(a.zasoby, encoding="utf-8")) if os.path.exists(a.zasoby) else {}
     kat = "domy" if w == 2 else "domy_v1"
     pids = sorted({os.path.basename(f)[:3] for f in glob.glob(os.path.join(HERE, kat, "p[0-9][0-9]_*.py"))} - {"p99"})
+    pids = wybor_domow(a.domy, pids)
     domy, do_wyslania, pliki = [], [], []
     for pid in pids:
         H = load(pid, kat).build()
@@ -141,7 +165,13 @@ def main():
         nar = json.load(open(nj, encoding="utf-8")) if os.path.exists(nj) else {}
         film = None
         mp4 = os.path.join(film_dir, f"ogrody_v{w}_{pid}.mp4")
-        if os.path.exists(mp4):
+        if os.path.exists(mp4) and a.publiczny:
+            from film.kino import wersja_tv
+            parts = wersja_tv(mp4, os.path.join(out, "pliki", "filmy"), f"v{w}_{pid}")
+            film = dict(czas=round(sum(t for _, t in parts), 1),
+                        czesci=[dict(src=f"pliki/filmy/{f}", czas=round(t, 2)) for f, t in parts])
+            pliki += [f"pliki/filmy/{f}" for f, _ in parts]
+        elif os.path.exists(mp4):
             parts = czesci(mp4, a.czesci, f"v{w}_{pid}")
             brak = [f for f, _ in parts if f not in zasoby]
             if brak:
@@ -160,9 +190,13 @@ def main():
     linki = json.loads(a.linki) if a.linki else []
     tpl = open(os.path.join(HERE, "film", "portal_szablon.html"), encoding="utf-8").read()
     n_film = sum(1 for d in domy if d["film"])
-    info = dict(wersja=w, nazwa_wersji=NAZWY_WERSJI.get(w, f"Wersja {w}"), liczba=len(domy), filmy=n_film, linki=linki)
+    sekcje = json.load(open(a.sekcje, encoding="utf-8")) if a.sekcje and os.path.exists(a.sekcje) else []
+    for sk in sekcje:
+        sk["biezaca"] = sk.get("id") == a.sekcja
+    info = dict(wersja=w, nazwa_wersji=NAZWY_WERSJI.get(w, f"Wersja {w}"), liczba=len(domy), filmy=n_film, linki=linki,
+                sekcje=sekcje, zakres=(f"{domy[0]['numer']}–{domy[-1]['numer']}" if a.domy and domy else ""))
     rep = {
-        "{{TYTUL}}": "Ogrody pod szkłem TV" if w == 2 else "Ogrody pod szkłem TV · wersja 1",
+        "{{TYTUL}}": a.tytul or ("Ogrody pod szkłem TV" if w == 2 else "Ogrody pod szkłem TV · wersja 1"),
         "{{DOMY}}": json.dumps(domy, ensure_ascii=False).replace("</", "<\\/"),
         "{{INFO}}": json.dumps(info, ensure_ascii=False).replace("</", "<\\/"),
     }

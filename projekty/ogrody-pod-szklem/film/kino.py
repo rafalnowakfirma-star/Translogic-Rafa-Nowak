@@ -59,9 +59,33 @@ def czesci_kopia(src, dst_dir, base, limit_mb=18.5):
     subprocess.run(cmd + [os.path.join(dst_dir, f"{base}_%02d.mp4")], check=True)
     out = []
     for f in sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4"))):
-        if os.path.getsize(f) / 1e6 > 19.8:
+        if os.path.getsize(f) / 1e6 > max(19.8, limit_mb + 1.3):
             return None                         # wyjątkowo gęsty fragment – lepiej przekodować
         out.append((os.path.basename(f), czas(f)))
+    return out
+
+
+def wersja_tv(src, dst_dir, base, vbit=1150e3, abit="80k", limit_mb=13.5):
+    """Lżejsza wersja filmu do stron publicznych (720p, ~1,2 Mb/s, 2 przebiegi) pocięta na części ≤ limit_mb
+    (pliki strony mogą mieć do 15 MB). Gotowe części nowsze niż film – bez zmian."""
+    os.makedirs(dst_dir, exist_ok=True)
+    done = sorted(glob.glob(os.path.join(dst_dir, f"{base}_*.mp4")))
+    if done and all(os.path.getmtime(f) > os.path.getmtime(src) for f in done):
+        return [(os.path.basename(f), czas(f)) for f in done]
+    tmp = os.path.join(dst_dir, f"_{base}_720p.mp4")
+    log = os.path.join(dst_dir, f"_{base}_2pass")
+    v = ["-vf", "scale=1280:720:flags=lanczos", "-c:v", "libx264", "-preset", "slow", "-b:v", str(int(vbit)),
+         "-maxrate", str(int(vbit * 1.5)), "-bufsize", str(int(vbit * 3)), "-g", "50", "-keyint_min", "25",
+         "-pix_fmt", "yuv420p", "-profile:v", "high", "-level:v", "3.1", "-passlogfile", log]
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", src] + v + ["-pass", "1", "-an", "-f", "mp4", os.devnull], check=True)
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", src] + v + ["-pass", "2", "-c:a", "aac", "-b:a", abit,
+                                                                    "-movflags", "+faststart", tmp], check=True)
+    out = czesci_kopia(tmp, dst_dir, base, limit_mb=limit_mb)
+    for f in glob.glob(log + "*") + [tmp]:
+        if os.path.exists(f):
+            os.remove(f)
+    if out is None or any(os.path.getsize(os.path.join(dst_dir, f)) > 14.9e6 for f, _ in out):
+        raise SystemExit(f"{base}: część wersji TV za duża")
     return out
 
 
