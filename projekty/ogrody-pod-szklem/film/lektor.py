@@ -122,7 +122,7 @@ def asr(plik):
     if _asr is None:
         _asr = sherpa_onnx.OfflineRecognizer.from_whisper(
             encoder=f"{ASR}/small-encoder.int8.onnx", decoder=f"{ASR}/small-decoder.int8.onnx",
-            tokens=f"{ASR}/small-tokens.txt", language="pl", task="transcribe", num_threads=4)
+            tokens=f"{ASR}/small-tokens.txt", language="pl", task="transcribe", num_threads=2)
     s, sr = sf.read(plik, dtype="float32")
     if sr != 16000:
         n = int(len(s) * 16000 / sr)

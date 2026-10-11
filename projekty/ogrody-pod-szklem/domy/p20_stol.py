@@ -59,17 +59,17 @@ canopy = rect(PX1, D, PX2, D + 1.4)
 
 H = House(
     "p20", "Stół pod niebem",
-    "Dom na planie trapezu: 15,4 m od południa, 10,2 m od północy. W środku ogród zimowy w kształcie trapezu, "
+    "Dom na planie trapezu: 15,8 m od południa, 10,6 m od północy, 159 m². W środku ogród zimowy w kształcie trapezu, "
     "w którym stoi stół jadalny pod harmonijkowym szklanym dachem; kuchnia otwiera się na niego szklaną harmonijką, "
     "a kiedy trzeba, harmonijka zamyka ogród zimowy.",
     style=dict(fasada="corten", dach="sedum", akcent="dab"),
     concept=[
-        "Plan jest trapezem: 15,4 m na południu, 10,2 m na północy, boki pochylone o 12°. Ogród zimowy z jadalnią powtarza ten kształt w środku domu (3,7 m od północy, 5,7 m od południa, 26 m²) i każdą krawędzią dotyka pokoju, a od zewnątrz dom ma tylko okna i szczeliny, więc ogrodu nie widać.",
+        "Plan jest trapezem: 15,8 m na południu, 10,6 m na północy, 12,8 m głębokości, boki pochylone o 12°. Ogród zimowy z jadalnią powtarza ten kształt w środku domu (3,7 m od północy, 5,7 m od południa, 26 m²) i każdą krawędzią dotyka pokoju, a od zewnątrz dom z cortenu ma tylko okna i szczeliny, więc ogrodu nie widać.",
         "Stół na 8 osób stoi w ogrodzie przy szklanej harmonijce kuchni na szerokim, południowym boku. Latem harmonijka jest złożona i kuchnia, stół i rośliny w donicach są jedną przestrzenią; w mroźne noce albo gdy dach jest otwarty w deszczu, rozkłada się ją i ogród zimowy jest zamknięty – wchodzi się wtedy drzwiami w harmonijce albo z salonu i biblioteki.",
         "Dach ogrodu to szklana harmonijka: latem południowa połowa składa się nad północną, węższą, i stół stoi pod gołym niebem, a rośliny zostają pod szkłem.",
         "Salon ma 6,6 m wysokości i zajmuje narożnik południowo-zachodni: szkło do ogrodu na dwóch ścianach narożnika, szkło na patio za murem 2,6 m od południa, a na zewnątrz od zachodu tylko okna, więc przez salon nie widać ogrodu na wylot.",
         "Wejście jest od wąskiego, północnego końca: wiatrołap z WC, hol ze schodami kręconymi i pralnia ze spiżarnią nie mają szkła do ogrodu. Parter obchodzi się dookoła bez korytarzy: wiatrołap, biblioteka, salon, kuchnia, herbaciarnia, pracownia, hol.",
-        "Dachy parteru po bokach szklanego dachu to tarasy: zachodni nad biblioteką przy sypialni i południowy nad kuchnią, herbaciarnią i końcem pracowni przy biurze. Na piętrze moduły przelotowe wokół tarasów: sypialnia ze szklaną ścianą od zachodu, galeria ze schodami nad holem, łazienka i biuro przeszklone na wschód i na taras; najwyższy dach nad nimi jest zielony.",
+        "Dachy parteru po bokach szklanego dachu to tarasy: zachodni nad biblioteką (13 m²) przy sypialni i południowy nad kuchnią, herbaciarnią i końcem pracowni (36 m²) przy biurze. Na piętrze cztery moduły wokół tarasów, przechodnie bez korytarza: z galerii ze schodami nad holem wchodzi się do sypialni ze szklaną ścianą od zachodu, do łazienki i do biura przeszklonego na wschód, na szklany dach ogrodu i na taras; najwyższy dach nad modułami jest zielony. Razem dom ma 159 m².",
     ],
     notes=dict(
         lato="Południowa połowa szklanego dachu składa się nad północną, harmonijka kuchni jest złożona i jada się przy stole pod niebem; z tarasów na dachu biblioteki i kuchni zagląda się do ogrodu z góry, a salon otwiera się na patio za murem.",

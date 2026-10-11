@@ -839,12 +839,13 @@ class MB:
             v.co.z = za if v.co.z < (z0 + z1) / 2 else zb
         ex = bmesh.ops.extrude_face_region(bm, geom=[front])
         nv = [g for g in ex["geom"] if isinstance(g, bmesh.types.BMVert)]
-        nf = [g for g in ex["geom"] if isinstance(g, bmesh.types.BMFace)]
         bmesh.ops.translate(bm, vec=(0.0, depth, 0.0), verts=nv)
-        allf = [f for f in fs if f.is_valid] + ring + nf
+        if front.is_valid:                      # oryginalna ściana zostaje w otworze – usuwamy ją
+            bmesh.ops.delete(bm, geom=[front], context="FACES_ONLY")
+        cav = list({f for v in nv for f in v.link_faces})
+        allf = _island(cav)
         bmesh.ops.recalc_face_normals(bm, faces=allf)
-        self.tag(ring, key)
-        self.tag(nf, key_in)
+        self.tag(cav, key_in)
         return allf
 
     def prism(self, pts, z0, z1, key, r=0.0, seg=2, smooth=False, top=None, cap=(True, True)):
@@ -1644,10 +1645,9 @@ def _kominek(B):
             x = -fw * 0.34 + k * fw * 0.085 + r.uniform(-0.02, 0.02)
             hh = (0.30 - 0.2 * abs(k - 4) / 4) * r.uniform(0.8, 1.15)
             _flame(mb, x, y0 + 0.19 + r.uniform(-0.04, 0.04), fz0 + 0.05, hh, r)
-        li = B.light((0, y0 - 0.12, fz0 + 0.2), 90.0, size=0.15, temp=1900.0, name="ogien")
+        li = B.light((0, y0 - 0.25, fz0 + 0.2), 90.0, size=0.2, temp=1900.0, name="ogien")
+        li.visible_glossy = False          # bez odbicia źródła w szybie
         B.flicker(li, 0.35)
-        li2 = B.light((0, y0 + 0.2, fz0 + 0.25), 30.0, size=0.08, temp=1800.0, name="ogien_wnetrze")
-        B.flicker(li2, 0.4)
     B.mesh(mb, "kominek")
 
 

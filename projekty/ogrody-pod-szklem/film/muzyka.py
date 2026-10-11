@@ -401,7 +401,7 @@ def ogranicznik(x, prog_db=-1.0, sr=SR, blok_ms=2.0, zwolnienie_ms=80.0):
 
 
 def miksuj(sciezka, czas, muzyka=None, klipy=(), glosnosc_db=0.0, lektor_lufs=-16.0, duck_db=-12.0,
-           atak=0.3, zwolnienie=0.8, wycisz_koniec=0.0, seed=0):
+           atak=0.3, zwolnienie=0.8, wycisz_koniec=0.0, seed=0, slady=None):
     """Miks końcowy 48 kHz stereo: muzyka (tablica 2×N lub None) przyciszana pod lektorem + klipy lektora.
 
     klipy: [(chwila_startu_s, próbki mono 48 kHz)].  Każdy klip: górnoprzepust 80 Hz, normalizacja do −16 LUFS;
@@ -437,6 +437,9 @@ def miksuj(sciezka, czas, muzyka=None, klipy=(), glosnosc_db=0.0, lektor_lufs=-1
     glos = ogranicznik(glos, -1.5)[0]
     mus_d = mus * 10 ** (duck_db * env / 20)                         # ducking w dB – płynnie
     mix = ogranicznik(mus_d + glos[None, :], -1.0)
+    if slady:                                                        # ślady do kontroli (testy)
+        np.save(slady + "_glos.npy", glos.astype(np.float32))
+        np.save(slady + "_muzyka.npy", mus.astype(np.float32))
     zapisz_wav(sciezka, mix, np.random.default_rng(seed))
     # kontrola: przesterowanie, głośność, przewaga lektora nad muzyką w czasie mowy (ważenie K)
     x, sr = wczytaj_wav(sciezka)

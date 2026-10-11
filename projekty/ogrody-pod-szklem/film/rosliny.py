@@ -96,11 +96,7 @@ def _noise(rng, w, h, cells, octaves=3):
     return np.clip(out / tot, 0, 1)
 
 
-def _saw(x):
-    return 2.0 * np.abs(x - np.floor(x + 0.5))   # trójkąt 0..1
-
-
-def _serrate(pts, period, amp, closed=True):
+def _serrate(pts, period, amp):
     """Ząbkowanie brzegu: przesunięcie punktów obrysu wzdłuż normalnej piłą o okresie `period`."""
     d = np.roll(pts, -1, 0) - np.roll(pts, 1, 0)
     n = np.stack([d[:, 1], -d[:, 0]], 1)
@@ -248,13 +244,6 @@ def _down(rgb, a, W, H):
     im = Image.fromarray((rgb * 255).astype(np.uint8), "RGB").resize((W, H), Image.LANCZOS)
     al = Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8), "L").resize((W, H), Image.LANCZOS)
     im.putalpha(al)
-    return im
-
-
-def _rgba_img(rgb, a):
-    Image, _, _ = _pil()
-    im = Image.fromarray((np.clip(rgb, 0, 1) * 255).astype(np.uint8), "RGB")
-    im.putalpha(Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8), "L"))
     return im
 
 
@@ -807,7 +796,7 @@ def _frames(P):
     return T, N, B
 
 
-def _tubes(G, P, R, sides, mat="kora", lobes=None, kofs=None, h0=1.0, cap=False):
+def _tubes(G, P, R, sides, mat="kora", lobes=None, kofs=None, h0=1.0):
     """Rurki wzdłuż gałęzi: P (M, n+1, 3), R (M, n+1). lobes(θ, i) → mnożnik promienia (pień)."""
     M, n1, _ = P.shape
     if M == 0:
@@ -1200,7 +1189,7 @@ LEAF_SH = {
 
 def _mat_leaf(ctx, atlas, sh_key):
     """Liść: tekstura z alfą, zmienność koloru na liść (atrybut rnd) i na drzewo, przeświecanie, jaśniejszy spód."""
-    key = "mat:lisc:" + atlas
+    key = "rosliny:mat:lisc:" + atlas
     if key in ctx.cache:
         return ctx.cache[key]
     hv, sv, vv, tr, under, rough, mul = LEAF_SH.get(sh_key, LEAF_SH["lipa"])
@@ -1244,11 +1233,11 @@ def _mat_leaf(ctx, atlas, sh_key):
 
 # kora: (kolor płytek, kolor szczelin, kolor gałązek, skala wokół, skala wzdłuż, siła rys, wypukłość, szorstkość)
 BARK = {
-    "lipa": ((0.34, 0.31, 0.27), (0.12, 0.10, 0.08), (0.33, 0.26, 0.20), 30.0, 3.0, 0.6, 1.0, 0.85),
+    "lipa": ((0.36, 0.31, 0.26), (0.12, 0.10, 0.08), (0.33, 0.26, 0.20), 30.0, 3.0, 0.6, 1.0, 0.85),
     "klon_zielony": ((0.36, 0.33, 0.29), (0.13, 0.11, 0.09), (0.36, 0.30, 0.22), 26.0, 3.5, 0.55, 0.9, 0.85),
     "klon": ((0.40, 0.36, 0.33), (0.27, 0.24, 0.21), (0.42, 0.20, 0.15), 30.0, 2.0, 0.2, 0.3, 0.7),
     "oliwka": ((0.47, 0.45, 0.40), (0.14, 0.13, 0.11), (0.45, 0.43, 0.36), 16.0, 3.0, 0.7, 1.4, 0.9),
-    "sosna": ((0.34, 0.28, 0.24), (0.10, 0.08, 0.07), (0.62, 0.38, 0.22), 9.0, 2.2, 0.7, 1.3, 0.9),
+    "sosna": ((0.40, 0.31, 0.25), (0.10, 0.08, 0.07), (0.62, 0.38, 0.22), 15.0, 2.4, 0.7, 1.3, 0.9),
     "cytrus": ((0.40, 0.38, 0.32), (0.26, 0.24, 0.21), (0.35, 0.40, 0.25), 30.0, 3.0, 0.2, 0.25, 0.75),
     "bukszpan": ((0.42, 0.37, 0.30), (0.22, 0.19, 0.15), (0.40, 0.36, 0.26), 9.0, 2.0, 0.3, 0.3, 0.8),
     "palma": ((0.47, 0.43, 0.37), (0.20, 0.18, 0.15), (0.40, 0.33, 0.24), 4.0, 1.0, 0.0, 0.8, 0.85),
@@ -1257,7 +1246,7 @@ BARK = {
 
 
 def _mat_bark(ctx, sp):
-    key = "mat:kora:" + sp
+    key = "rosliny:mat:kora:" + sp
     if key in ctx.cache:
         return ctx.cache[key]
     m = _new_mat("kora_" + sp)
@@ -1283,7 +1272,7 @@ def _mat_bark(ctx, sp):
         sep = N.n("ShaderNodeSeparateXYZ", Vector=tc.outputs["Object"])
         nb = N.n("ShaderNodeTexNoise", Vector=vec, Scale=3.0, Detail=4.0)
         zb = N.math("ADD", sep.outputs["Z"], N.math("MULTIPLY", nb.outputs["Fac"], 0.5))
-        base = N.n("ShaderNodeMapRange", Value=zb, **{"From Min": 0.55, "From Max": 1.05, "To Min": 1.0, "To Max": 0.0}).outputs[0]
+        base = N.n("ShaderNodeMapRange", Value=zb, **{"From Min": 0.8, "From Max": 1.5, "To Min": 1.0, "To Max": 0.0}).outputs[0]
         vor = N.n("ShaderNodeTexVoronoi", Vector=N.n("ShaderNodeMapping", Vector=vec, Scale=(9.0, 9.0, 2.5)).outputs[0], _feature="DISTANCE_TO_EDGE")
         crack = N.ramp(vor.outputs["Distance"], [(0.0, (0, 0, 0, 1)), (0.06, (1, 1, 1, 1))])
         basec = N.mix(crack, _lin((0.05, 0.045, 0.04)), _lin((0.26, 0.25, 0.23)))
@@ -1338,7 +1327,7 @@ def _mat_bark(ctx, sp):
 
 def _mat_simple(ctx, name):
     """Materiały proste: owoce, donice, ziemia, kamień, mech, kwiaty, trawa, liście palmy."""
-    key = "mat:" + name
+    key = "rosliny:mat:" + name
     if key in ctx.cache:
         return ctx.cache[key]
     m = _new_mat(name)
@@ -1647,9 +1636,9 @@ def _skeleton(P, h, r, env, rng, lvls):
     return levels
 
 
-def _trunk_lobes(P, h0):
+def _trunk_lobes(P, h0, rng):
     amp, flare, tw = P["lobes"], P["flare"], P["twist"]
-    ph = np.random.default_rng(7).uniform(0, 2 * math.pi, 4)
+    ph = rng.uniform(0, 2 * math.pi, 4)
 
     def f(th, Pp):
         z = np.maximum(Pp[:, :, 2:3], 0.0)
@@ -1835,7 +1824,7 @@ def _build_tree(kind, h, r, lod, season, var):
         Pp = lv.P.copy()
         Pp[:, :, 2] += z0
         kofs = rng.uniform(0, 50, (lv.M, 3))
-        lob = _trunk_lobes(P, hh) if li == 0 else None
+        lob = _trunk_lobes(P, hh, rng) if li == 0 else None
         R = np.maximum(lv.R, P["rtip"] * 0.8)
         if far and li == 2:
             R = R * 1.4          # z daleka cienkie gałązki znikają – lekko pogrubione
@@ -2473,7 +2462,7 @@ def _variant(kind, h, r, lod, season, var, ctx):
     hb, ab, h0, r0 = _bucket(h, r)
     deciduous_bare = season == "zima" and kind in DECID
     skey = "zima" if deciduous_bare else "lato"
-    key = ("drzewo", kind, lod, skey, hb, ab, var)
+    key = ("rosliny", "drzewo", kind, lod, skey, hb, ab, var)
     if key in ctx.cache:
         return ctx.cache[key]
     gk = key
@@ -2498,8 +2487,9 @@ def _variant(kind, h, r, lod, season, var, ctx):
 def tree(kind, X, Y, Z, h, r, seed, ctx, lod="blisko"):
     """Drzewo gatunku kind w (X, Y, Z) – korona mieści się w promieniu r i wysokości h. Zwraca [obiekt]."""
     import bpy
-    kind = {"drzewo": "lipa", "klon_czerwony": "klon"}.get(kind, kind)
+    kind = {"drzewo": "lipa", "klon_czerwony": "klon", "klon_palmowy": "klon"}.get(kind, kind)
     if kind not in KINDS_TREE and kind != "krzew":
+        print(f"rosliny.tree: nieznany gatunek {kind!r} – stawiam lipę", file=sys.stderr)
         kind = "lipa"
     rnd = random.Random(seed * 7919 + 13)
     var = rnd.randrange(3)
@@ -2521,7 +2511,7 @@ def _plant_mesh(kind, r, var, season, ctx):
     rb = int(round(math.log(max(r, 0.03)) / math.log(1.18)))
     r0 = 1.18 ** rb
     sk = season if kind in ("trawa", "lawenda") else "lato"
-    key = ("roslina", kind, rb, var, sk)
+    key = ("rosliny", "roslina", kind, rb, var, sk)
     if key in ctx.cache:
         return ctx.cache[key]
     A = _GEO_CACHE.get(key)
@@ -2547,6 +2537,7 @@ def plant(kind, X, Y, Z, r, seed, ctx, rot=0.0):
     if kind == "cytrus":
         return tree("cytrus", X, Y, Z, 2.2 * max(0.8, min(1.3, (r / 0.45) ** 0.5)), max(0.35, r), seed, ctx)
     if kind not in PLANTS:
+        print(f"rosliny.plant: nieznana roślina {kind!r} – stawiam paproć", file=sys.stderr)
         kind = "paproc"
     rnd = random.Random(seed * 7919 + 101)
     var = rnd.randrange(3)
@@ -2668,7 +2659,7 @@ def lawn_tufts(poly_xy, density, seed, ctx, z=0.0, height=0.12):
         c = c[shapely.contains_xy(poly, c[:, 0], c[:, 1])]
         pts = np.concatenate([pts, c])
     pts = pts[:n]
-    key = ("kepki", round(height, 3), ctx.season)
+    key = ("rosliny", "kepki", round(height, 3), ctx.season)
     coll = ctx.cache.get(key)
     if coll is None:
         coll = bpy.data.collections.new(f"kepki_trawy_{height:.2f}")
@@ -2686,7 +2677,7 @@ def lawn_tufts(poly_xy, density, seed, ctx, z=0.0, height=0.12):
     me.vertices.foreach_set("co", V.ravel())
     me.update()
     ob = bpy.data.objects.new("kepki_trawy", me)
-    ng = ctx.cache.get("gn_kepki")
+    ng = ctx.cache.get("rosliny:gn_kepki")
     if ng is None:
         ng = bpy.data.node_groups.new("kepki_trawy", "GeometryNodeTree")
         ng.interface.new_socket("Geometry", in_out="INPUT", socket_type="NodeSocketGeometry")
@@ -2723,7 +2714,7 @@ def lawn_tufts(poly_xy, density, seed, ctx, z=0.0, height=0.12):
         L.new(e2r.outputs[0], iop.inputs["Rotation"])
         L.new(rs.outputs[1], iop.inputs["Scale"])
         L.new(iop.outputs[0], go.inputs[0])
-        ctx.cache["gn_kepki"] = ng
+        ctx.cache["rosliny:gn_kepki"] = ng
     mod = ob.modifiers.new("kepki", "NODES")
     mod.node_group = ng
     ident = [it.identifier for it in ng.interface.items_tree if getattr(it, "in_out", "") == "INPUT"][1]

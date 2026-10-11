@@ -24,12 +24,12 @@ H.ogrod("og", "Ogród zimowy z jadalnią", rect(XW, YN, XE, YS), levels=1, roof_
         label_at=(6.5, 4.47))
 
 # ---------------------------------------------------------------- parter
-H.room("wc", "WC", "wc", rect(0, 2.2, 1.6, YN), ext="band_high")
+H.room("wc", "WC", "wc", rect(0, 2.2, 1.6, YN), ext="band_high", label_at=(1.0, 3.5))
 H.room("wia", "Wiatrołap", "wiatrolap", poly((0, 0), (XW, 0), (XW, YN), (1.6, YN), (1.6, 2.2), (0, 2.2)),
        ext={"N": "slits", "W": "solid"})
-H.room("bib", "Biblioteka", "biblioteka", rect(XW, 0, XE, YN), ext="band_high", garden="glass")
+H.room("bib", "Biblioteka", "biblioteka", rect(XW, 0, XE, YN), ext="band_high", garden="glass", label_at=(7.05, 3.25))
 H.stair("spiral", level=0, center=(4.8, 2.7), r=1.0, start=330, sweep=300, n=16)
-H.room("spi", "Spiżarnia", "spizarnia", rect(XE, 0, XS, YK), ext="band_high")
+H.room("spi", "Spiżarnia", "spizarnia", rect(XE, 0, XS, YK), ext="band_high", label_at=(10.2, 3.95))
 H.room("pral", "Pralnia", "pralnia", rect(XS, 0, XX, YK), ext={"N": "band_high", "E": "windows_sq"})
 H.room("gos", "Pokój gościnny", "gosc", rect(0, YN, XW, YS), ext={"W": "windows", "pat": "glass_slide"}, garden="windows")
 H.room("kuch", "Kuchnia", "kuchnia", rect(XE, YK, XX, YS), ext="band_high", garden="fold", kitchen_at="N")
@@ -38,11 +38,11 @@ H.room("sal", "Salon", "salon", rect(XW, YS, XX, YY), levels=2,
 H.room("pat", "Patio za murem", "patio", rect(0, YS, XW, YY), roof=rect(2.2, YS, XW, YY), enclose="gwall")
 
 H.connect("wia", "bib", "door", at=0.2)
-H.connect("wia", "wc", "door")
+H.connect("wc", "wia", "door", at=0.8)
 H.connect("wia", "gos", "door")
-H.connect("bib", "spi", "door", at=0.8)
+H.connect("spi", "bib", "door", at=0.8)
 H.connect("spi", "kuch", "door")
-H.connect("kuch", "pral", "door")
+H.connect("pral", "kuch", "door", at=0.2)
 H.connect("kuch", "sal", "wide", at=0.7)
 H.entrance("wia", "N", at=0.6)
 H.exit("pral", "E", kind="door", width=0.9)
@@ -58,14 +58,14 @@ H.room("taE", "Taras wschodni", "taras", rect(XE, YN, XX, YS), level=1)
 
 H.connect("hol", "biu", "door", at=0.2)
 H.connect("hol", "gar", "door", at=0.9)
-H.connect("gar", "laz", "door")
+H.connect("gar", "laz", "slide", width=0.9)
 H.connect("gar", "syp", "door", at=0.9)
 H.connect("biu", "taW", "slide")
 H.connect("syp", "taE", "slide")
 
 # ---------------------------------------------------------------- teren
-H.path(rect(1.6, -6.0, 3.0, -0.2))
-H.path(rect(XX + 0.2, 1.2, XX + 1.4, 2.6))
+H.path(rect(1.5, -6.0, 2.8, -0.2))
+H.path(rect(XX + 0.2, 1.65, XX + 1.4, 2.95))
 H.tree(-4.0, 6.5, "brzoza")
 H.tree(17.5, 12.0, "lipa")
 H.tree(17.0, -2.5, "klon")

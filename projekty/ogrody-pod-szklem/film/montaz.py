@@ -1476,7 +1476,7 @@ def montuj(sb, katalog=None, podglad=False, web=None, watki=3, klatki=None):
     if isinstance(muz, str) and muz:
         wav = sciezka(muz, katalog)
     elif muz:
-        wav = os.path.join(m.cache, "muzyka_%s.wav" % sb.get("pid", "film"))
+        wav = os.path.join(m.cache, "muzyka_%s.wav" % os.path.splitext(os.path.basename(m.wyjscie))[0])
         seed = int(sb.get("muzyka_seed", zlib.crc32(str(sb.get("pid", "")).encode()) % 1000))
         proc_muz = subprocess.Popen(
             [sys.executable, os.path.join(TU, "muzyka.py"), "%.4f" % czas, wav, "--seed", str(seed), "--json",
@@ -1486,9 +1486,10 @@ def montuj(sb, katalog=None, podglad=False, web=None, watki=3, klatki=None):
     m.przygotuj()
 
     # kodery: główny + (równolegle) web z limitem przepływności
-    tmp_v = os.path.join(m.cache, "wideo_glowne.mp4")
-    tmp_w = os.path.join(m.cache, "wideo_web.mp4")
-    log_path = os.path.join(m.cache, "ffmpeg.log")
+    rdzen = os.path.splitext(os.path.basename(m.wyjscie))[0]
+    tmp_v = os.path.join(m.cache, "wideo_%s.mp4" % rdzen)
+    tmp_w = os.path.join(m.cache, "wideo_%s_web.mp4" % rdzen)
+    log_path = os.path.join(m.cache, "ffmpeg_%s.log" % rdzen)
     log = open(log_path, "wb")
     if podglad:
         opcje = ["-preset", "veryfast", "-crf", "23", "-profile:v", "high", "-g", "50"]
@@ -1574,7 +1575,7 @@ def montuj(sb, katalog=None, podglad=False, web=None, watki=3, klatki=None):
     info_mix = None
     if klipy or abs(glosnosc) > 1e-6 or (isinstance(muz, str) and muz):
         mus = wczytaj_audio(wav, kanaly=2) if wav else None
-        wav = os.path.join(m.cache, "audio_%s.wav" % sb.get("pid", "film"))
+        wav = os.path.join(m.cache, "audio_%s.wav" % os.path.splitext(os.path.basename(m.wyjscie))[0])
         info_mix = muzyka.miksuj(wav, czas, muzyka=mus, klipy=klipy, glosnosc_db=glosnosc,
                                  wycisz_koniec=3.0 if isinstance(muz, str) and muz else 0.0)
 
