@@ -9,27 +9,27 @@ YN, YS, YY = 5.4, 10.8, 13.2       # północna i południowa krawędź ogrodu, 
 
 H = House(
     "p19", "Pomarańczarnia",
-    "Trawertynowa willa 12,8 × 13,2 m na planie litery L domkniętej w prostokąt: od północy i zachodu wysokie skrzydła, "
-    "od wschodu i południa niskie skrzydła gospodarcze. W środku ogród zimowy z jadalnią – stół wśród drzewek "
-    "pomarańczowych pod dachem z obrotowych szklanych lamel, oddzielony od kuchni szklaną harmonijką.",
+    "Trawertynowa willa o powierzchni 165 m² na planie litery L domkniętej w prostokąt 12,8 × 13,2 m: od północy "
+    "i zachodu wysokie skrzydła, od wschodu i południa niskie skrzydła gospodarcze. W środku ogród zimowy z jadalnią – "
+    "stół wśród drzewek pomarańczowych pod dachem z obrotowych szklanych lamel, oddzielony od kuchni szklaną harmonijką.",
     style=dict(fasada="trawertyn", dach="sedum", akcent="dab"),
     concept=[
-        "Dom ma 165 m² powierzchni użytkowej. Wysokie L od północy i zachodu – moduły piętra i dwukondygnacyjny salon – "
-        "osłania ogród od wiatru, a niskie skrzydła od wschodu i południa wpuszczają nad sobą do ogrodu poranne "
-        "i południowe słońce, którego potrzebują drzewka pomarańczowe.",
-        "Ogród 6,0 × 5,4 m jest jadalnią: kamienna posadzka w poziomie podłogi, stół na osiem osób przy kuchni, po jego "
-        "bokach dwa drzewka pomarańczowe, a od południa rząd trzech kolejnych i oliwka.",
-        "Kuchnię od ogrodu oddziela szklana harmonijka szerokości 6 m. Złożona łączy kuchnię i jadalnię w jedną "
-        "przestrzeń, rozłożona zamyka ogród zimowy – w mroźne noce albo gdy przy uchylonych lamelach pada deszcz.",
-        "Dach ogrodu to szklane lamele na wysokości dachu parteru: zamknięte dają szczelny szklany strop, uchylone "
+        "Wysokie L od północy i zachodu – moduły piętra i dwukondygnacyjny salon – osłania ogród od wiatru, a niskie "
+        "skrzydła gospodarcze od wschodu i południa wpuszczają nad sobą poranne i południowe słońce, którego potrzebują "
+        "drzewka pomarańczowe.",
+        "Ogród 6,0 × 5,4 m jest jadalnią ze stołem na osiem osób wśród pięciu drzewek pomarańczowych i oliwki, a od kuchni "
+        "oddziela go szklana harmonijka szerokości 6 m: złożona łączy kuchnię i jadalnię w jedną przestrzeń, rozłożona "
+        "zamyka ogród zimowy w mroźne noce albo w deszcz przy uchylonych lamelach.",
+        "Dach ogrodu to obrotowe szklane lamele na wysokości dachu parteru: zamknięte dają szczelny strop, uchylone "
         "wietrzą ogród, a ustawione pionowo zamieniają go w otwarty dziedziniec.",
-        "Wchodzi się od północy przez wiatrołap do holu ze schodami kręconymi i WC; ogrodu stąd nie widać. Parter "
-        "obchodzi się dookoła ogrodu bez korytarzy: hol, kuchnia, pralnia, pracownia, winiarnia, salon. Salon ma "
-        "6,3 m wysokości i szkło tylko do ogrodu i na patio za murem wysokości 2,6 m, z pergolą wzdłuż szyby; "
-        "pozostałe pokoje mają od zewnątrz wysokie pasma okien, szczeliny albo pełne ściany, więc ogrodu nie widać na wylot.",
-        "Dachy niskich skrzydeł to trzy tarasy za trawertynowym murkiem, które obiegają szklany dach z trzech stron. "
-        "Na piętrze moduły przechodzą jeden w drugi: z galerii przy schodach do biura przeszklonego na zachód i na taras "
-        "oraz do sypialni ze szklaną ścianą przesuwną na taras, a z niej do łazienki. Najwyższy dach jest zielony.",
+        "Od północy wchodzi się przez wiatrołap do holu ze schodami kręconymi i WC, a parter obchodzi się dookoła ogrodu "
+        "bez korytarzy: hol, kuchnia, pralnia, pracownia, winiarnia i salon.",
+        "Salon ma 6,3 m wysokości i szkło tylko do ogrodu i na patio za murem wysokości 2,6 m z pergolą wzdłuż szyby, "
+        "a pozostałe pokoje przy ogrodzie mają od zewnątrz tylko okna, wysokie pasma albo pełne ściany, więc ogrodu nie "
+        "widać na wylot ani od wejścia.",
+        "Dachy niskich skrzydeł to trzy tarasy za trawertynowym murkiem wokół szklanego dachu, a na piętrze moduły "
+        "przechodzą jeden w drugi: z galerii przy schodach do biura przeszklonego na zachód i na taras oraz do sypialni "
+        "ze szklaną ścianą przesuwną na taras i dalej do łazienki; najwyższy dach jest zielony.",
     ],
     notes=dict(
         lato="Lamele stoją pionowo, harmonijka jest złożona i kuchnia z ogrodem-jadalnią tworzy jedno wnętrze pod "

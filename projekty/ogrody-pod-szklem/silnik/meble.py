@@ -73,7 +73,8 @@ def rug(w=3.0, d=2.2):
 
 
 def dining(n=6, w=None, d=1.0):
-    per = max(1, n // 2)
+    ends = n % 2 == 1 or n >= 8          # krzesła u szczytów stołu liczą się do n
+    per = max(1, (n - (2 if ends else 0)) // 2)
     w = w or max(1.4, per * 0.65 + 0.3)
     s = [r_(-w / 2, -d / 2, w, d, 0.05, W)]
     parts = [("box", 0, 0, 0.72, w, d, 0.04, "drewno_mebel"), ("box", 0, 0, 0, 0.16, d * 0.6, 0.72, "drewno_mebel")]
@@ -83,9 +84,10 @@ def dining(n=6, w=None, d=1.0):
             y = sy * (d / 2 + 0.22)
             s.append(r_(x - 0.21, y - 0.2, 0.42, 0.4, 0.07, F))
             parts.append(("box", x, y, 0, 0.42, 0.4, 0.46, "tkanina"))
-    if n % 2 == 1 or n >= 8:
+    if ends:
         for sx in (-1, 1):
             s.append(r_(sx * (w / 2 + 0.22) - 0.2, -0.21, 0.4, 0.42, 0.07, F))
+            parts.append(("box", sx * (w / 2 + 0.22), 0, 0, 0.4, 0.42, 0.46, "tkanina"))
     return Item("stol", w + 0.9, d + 0.9, s, parts, 0.75)
 
 
