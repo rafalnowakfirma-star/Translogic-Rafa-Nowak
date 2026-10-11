@@ -13,6 +13,7 @@ import time
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BPY = "/home/user/tools/bpyenv/bin/python"
+TTS = "/home/user/tools/ttsenv/bin/python"
 
 
 def log(msg, fn):
@@ -46,6 +47,13 @@ def main():
                 if r.returncode != 0:
                     log(f"v{w} {pid}: BŁĄD renderu (kod {r.returncode})", main_log)
                     continue
+            # lektor: nagrania z tekstu narracji (gdy tekst nowszy niż nagrania)
+            nj = os.path.join(HERE, "film", "narracja", f"v{w}", f"{pid}.json")
+            lj = os.path.join(out, "lektor", "lektor.json")
+            if os.path.exists(nj) and (not os.path.exists(lj) or os.path.getmtime(lj) < os.path.getmtime(nj)):
+                with open(os.path.join(logdir, f"v{w}_{pid}_lektor.log"), "a") as lf:
+                    subprocess.run([TTS, os.path.join(HERE, "film", "lektor.py"), pid, "--wersja", str(w)],
+                                   cwd=HERE, stdout=lf, stderr=subprocess.STDOUT)
             if a.bez_montazu:
                 log(f"v{w} {pid}: rendery gotowe w {time.time() - t0:.0f} s", main_log)
                 continue

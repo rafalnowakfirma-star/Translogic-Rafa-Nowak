@@ -16,6 +16,9 @@ wysoki salon z kuchnią połączony z patio, sypialnię ze szklaną ścianą zew
 | `generuj.py`, `strona_szablon.html` | składanie strony-katalogu w `strona/` |
 | `dane/inspiracje.py` | inspiracje i fakty o otwieranych dachach (ze źródłami) |
 | `strona/` | gotowa strona: `index.html`, rysunki, modele 3D, zdjęcia |
+| `domy_v1/` | pierwsza wersja 16 domów (sprzed zmian klienta) – filmy powstają dla obu wersji |
+| `film/` | filmy prezentacyjne: scena fotorealistyczna (materiały, meble, rośliny, teren), kamery, panoramy spaceru, lektor, montaż |
+| `film/narracja/` | teksty lektora dla każdego domu (wersja 1 i 2) i szkielety z faktami |
 
 Opublikowana strona (prywatna, do udostępnienia z menu „Share”): https://claude.ai/artifact/2nZooA7H2jdujE3Ec2JgLe
 
@@ -25,6 +28,15 @@ Opublikowana strona (prywatna, do udostępnienia z menu „Share”): https://cl
 python3 podglad.py p04                      # rysunki jednego domu → out/p04/
 /home/user/tools/bpyenv/bin/python render_blender.py p04 --views lotu,ogrod,zmierzch --q final
 python3 generuj.py                          # strona → strona/index.html
+```
+
+Filmy (po `python3 film/zasoby.py` – pobranie modeli mebli, tekstur, HDRI, fontów i głosu lektora):
+
+```bash
+/home/user/tools/bpyenv/bin/python film/render.py p01 --wersja 2 --q final   # kadry, animacja dachu, panoramy spaceru
+/home/user/tools/ttsenv/bin/python film/lektor.py p01 --wersja 2             # nagrania lektora z film/narracja/v2/p01.json
+python3 film/scenariusz.py p01 --wersja 2 --montuj                          # scenariusz i montaż → out/film/v2/p01/*.mp4
+python3 film/kolejka.py                                                     # wszystkie domy po kolei
 ```
 
 Rysunki i modele są koncepcyjne: wymiary i powierzchnie są orientacyjne, to nie jest projekt budowlany.

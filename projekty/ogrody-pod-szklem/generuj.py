@@ -109,11 +109,35 @@ def keyplan(H, size=132):
 
 
 # ------------------------------------------------------------------ zdjęcia
-def images(pid, dst):
-    """Zdjęcia domu: kadry fotorealistyczne z filmu (out/film/v2/pXX/kadry), a gdy ich brak – stare rendery."""
+def _ze_spaceru(pid, H):
+    """Kadry wnętrz wycięte z panoram spaceru (gdy nie ma osobnych renderów): id ujęcia → PIL.Image."""
+    sj = os.path.join(FILM, pid, "spacer", "spacer.json")
+    if H is None or not os.path.exists(sj):
+        return {}
+    from film.spacer import kadr_stacji
+    rooms = {r.key: r for r in H.rooms}
+    out = {}
+    for st in json.load(open(sj, encoding="utf-8")):
+        r = rooms.get(st.get("room"))
+        if r is None:
+            continue
+        v = ("ogrod" if r.kind == "ogrod" else "salon" if r.kind in ("salon_kuchnia", "salon", "kuchnia", "jadalnia")
+             else "sypialnia" if r.kind in ("sypialnia_glowna", "sypialnia") else "biuro" if r.kind == "biuro"
+             else "taras" if r.outdoor else None)
+        if v and v not in out:
+            try:
+                out[v] = (kadr_stacji(st, os.path.join(FILM, pid), 1600, 1000, 0.5), r.name)
+            except Exception as e:
+                print("spacer", pid, v, e)
+    return out
+
+
+def images(pid, dst, H=None):
+    """Zdjęcia domu: kadry fotorealistyczne z filmu (out/film/v2/pXX/kadry, panoramy spaceru), a gdy ich brak – stare rendery."""
     from PIL import Image
     got = {}
     caps = {}
+    pano = _ze_spaceru(pid, H)
     kj = os.path.join(FILM, pid, "kadry.json")
     if os.path.exists(kj):
         for u in json.load(open(kj, encoding="utf-8")).get("ujecia", []):
@@ -121,7 +145,10 @@ def images(pid, dst):
     for v, cap in VIEWS + MORE:
         src = os.path.join(FILM, pid, "kadry", f"{v}.png")
         final = True
-        if not os.path.exists(src):
+        if not os.path.exists(src) and v in pano:
+            src = pano[v][0]
+            caps.setdefault(v, pano[v][1])
+        elif not os.path.exists(src):
             src = None
             for d in ("render", "podglad3d"):
                 f = os.path.join(HERE, "out", pid, d, f"{v}.jpg")
@@ -131,7 +158,7 @@ def images(pid, dst):
         if src is None:
             continue
         big, small = os.path.join(dst, f"{v}.jpg"), os.path.join(dst, f"{v}_s.jpg")
-        im = Image.open(src).convert("RGB")
+        im = src if isinstance(src, Image.Image) else Image.open(src).convert("RGB")
         w, h = im.size
         if w > 1600:
             im = im.resize((1600, int(h * 1600 / w)), Image.LANCZOS)
@@ -174,7 +201,7 @@ def project(pid):
     from silnik.zasady import check
     return dict(zasady=check(H),
         pid=pid, num=pid.upper(), name=H.name, tagline=H.tagline, concept=H.concept, notes=H.notes,
-        area=H.area, rooms=rooms, sheets=sheets, keyplan=keyplan(H), imgs=images(pid, dst),
+        area=H.area, rooms=rooms, sheets=sheets, keyplan=keyplan(H), imgs=images(pid, dst, H),
         roof=(g.roof_type if g else ""), roof_note=ROOF_NOTE.get(g.roof_type, "") if g else "",
         garden=GARDEN.get(g.style, g.style) if g else "", facade=FACADE.get(H.style.get("fasada"), H.style.get("fasada")),
         levels=nlev, top=top, sezon=sezon, bbox=H.bbox,
