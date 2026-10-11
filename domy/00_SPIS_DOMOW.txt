@@ -20,7 +20,7 @@ WERSJA 2 (aktualna)
   P11  Półksiężyc              163 m²   film 2:43             wersja_2/P11_Polksiezyc
   P12  Oktagon                 168 m²   film 2:49             wersja_2/P12_Oktagon
   P13  Kubik                   168 m²   film 2:33             wersja_2/P13_Kubik
-  P14  Zygzak                  163 m²   film w przygotowaniu  wersja_2/P14_Zygzak
+  P14  Zygzak                  163 m²   film 2:34             wersja_2/P14_Zygzak
   P15  Wachlarz                164 m²   film w przygotowaniu  wersja_2/P15_Wachlarz
   P16  Owal                    167 m²   film w przygotowaniu  wersja_2/P16_Owal
   P17  Refektarz               164 m²   film w przygotowaniu  wersja_2/P17_Refektarz
