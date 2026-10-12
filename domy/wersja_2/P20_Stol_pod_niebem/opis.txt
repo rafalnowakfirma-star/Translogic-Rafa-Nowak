@@ -20,6 +20,6 @@ Minusy:
 
 Dom rozszerza się ku południowi, z dziesięciu do prawie szesnastu metrów, i ma sto pięćdziesiąt dziewięć metrów kwadratowych, z zapasem do limitu. Ogród powtarza kształt trapezu, a po bokach szklanego dachu leżą dwa tarasy. Parter to pętla pokoi wokół ogrodu, bez korytarzy: biblioteka, salon, kuchnia, herbaciarnia, pracownia i hol. Na piętrze sypialnia, galeria, łazienka i biuro to cztery moduły przy dwóch tarasach.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 341 188 zł, deweloperski 1 698 377 zł, pod klucz 2 007 661 zł (12 656 zł/m²); z projektem, nadzorem i rezerwą 2 360 810 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 329 788 zł, deweloperski 1 686 977 zł, pod klucz 1 996 261 zł (12 584 zł/m²); z projektem, nadzorem i rezerwą 2 347 700 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:34

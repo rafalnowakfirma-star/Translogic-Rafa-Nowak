@@ -19,7 +19,7 @@ Minusy:
 
 Prostokąt z trawertynu ma w środku owalną szklaną kopułę. Dom ma dwieście pięćdziesiąt dwa metry kwadratowe, a ogród ponad osiemdziesiąt. Niskie skrzydło od północy i zachodu zazębia się z wysokim od wschodu i południa. Pokoje wypełniają pas między prostą elewacją a krzywym szkłem ogrodu, więc każdy ma inny kształt. Od wejścia biegną dwie amfilady: do biblioteki i biura oraz przez pracownię i salę muzyczną do salonu. Na piętrze jest jedna sypialnia.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 3 019 059 zł, deweloperski 3 409 013 zł, pod klucz 3 830 950 zł (15 203 zł/m²); z projektem, nadzorem i rezerwą 4 457 592 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 984 835 zł, deweloperski 3 374 789 zł, pod klucz 3 796 726 zł (15 067 zł/m²); z projektem, nadzorem i rezerwą 4 418 235 zł. Szczegóły: kosztorys.txt.
 
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

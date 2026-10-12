@@ -20,6 +20,6 @@ Minusy:
 
 Bok trójkąta ma ponad dwadzieścia metrów, a cały dom sto sześćdziesiąt metrów kwadratowych. W środku leży sześciokątny ogród. Dachy dwóch niskich skrzydeł są tarasami, a nad trzecim stoi ciąg modułów piętra. Na parterze pokoje idą jeden za drugim dookoła ogrodu: hol, biblioteka, pokój gościnny, herbaciarnia, salon i pralnia. Schody kręcone stoją w bibliotece. Na piętrze moduły tworzą jeden ciąg, od biura przez galerię do sypialni.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 312 990 zł, deweloperski 1 623 783 zł, pod klucz 1 963 905 zł (12 256 zł/m²); z projektem, nadzorem i rezerwą 2 310 491 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 303 578 zł, deweloperski 1 614 371 zł, pod klucz 1 954 493 zł (12 198 zł/m²); z projektem, nadzorem i rezerwą 2 299 667 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:35

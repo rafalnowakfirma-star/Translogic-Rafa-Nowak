@@ -20,6 +20,6 @@ Minusy:
 
 Dom ma sto sześćdziesiąt cztery metry kwadratowe, poniżej limitu klienta. Pokoje parteru otaczają ogród, nad nim stoi szklana piramida, a po jej bokach dach parteru jest tarasami. Od północy stoją moduły piętra. Na parterze idzie się dookoła ogrodu bez korytarzy: biblioteka, spiżarnia, kuchnia i salon, a przy wejściu pokój gościnny. Piętro to jeden rząd między tarasami: biuro, hol, garderoba z łazienką i sypialnia.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 281 900 zł, deweloperski 1 633 105 zł, pod klucz 1 948 166 zł (11 876 zł/m²); z projektem, nadzorem i rezerwą 2 292 391 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 271 503 zł, deweloperski 1 622 708 zł, pod klucz 1 937 769 zł (11 813 zł/m²); z projektem, nadzorem i rezerwą 2 280 434 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:38

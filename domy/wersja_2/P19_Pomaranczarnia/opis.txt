@@ -20,6 +20,6 @@ Minusy:
 
 Dom ma sto sześćdziesiąt pięć metrów kwadratowych, pięć poniżej limitu. Od północy i zachodu stoją wysokie skrzydła, od wschodu i południa niskie, które wpuszczają do ogrodu słońce. Na ich dachach leżą trzy tarasy. Na parterze obchodzi się ogród dookoła bez korytarzy: hol, kuchnia, pralnia, pracownia, winiarnia i salon. Na piętrze galeria, biuro, sypialnia i łazienka przechodzą jedno w drugie przy tarasie.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 460 148 zł, deweloperski 1 776 954 zł, pod klucz 2 095 028 zł (12 728 zł/m²); z projektem, nadzorem i rezerwą 2 461 282 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 434 065 zł, deweloperski 1 750 871 zł, pod klucz 2 068 945 zł (12 569 zł/m²); z projektem, nadzorem i rezerwą 2 431 287 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:38

@@ -1,0 +1,56 @@
+﻿KOSZTORYS SZACUNKOWY – P21 Kaskada (wersja 2)
+Powierzchnia użytkowa 172 m², ogród pod szkłem 36 m², tarasy 24 m²
+Ceny brutto (VAT 8%), poziom cen: 2026, średnia krajowa, średni standard; dokładność ±15–20%.
+
+STAN SUROWY ZAMKNIĘTY
+  Fundamenty i płyta parteru (bez ogrodu i patio)                   114.9 m²   ×     760 =      87 309 zł
+  Piwnica: wykop, płyta, ściany, hydroizolacja, drenaż, strop        45.9 m²   ×   2 800 =     128 464 zł
+  Ściany zewnętrzne z ociepleniem i tynkiem                         222.9 m²   ×     520 =     115 882 zł
+  Ściany działowe                                                   102.7 m²   ×     160 =      16 435 zł
+  Stropy żelbetowe                                                   65.0 m²   ×     520 =      33 814 zł
+  Dachy płaskie (konstrukcja, ocieplenie, hydroizolacja)             91.0 m²   ×     950 =      86 488 zł
+  Dach zielony (sedum)                                               91.0 m²   ×     330 =      30 043 zł
+  Okna aluminiowe 3-szybowe                                          53.6 m²   ×   1 500 =      80 325 zł
+  Przeszklenia stałe (fasady słupowo-ryglowe)                        37.1 m²   ×   2 300 =      85 215 zł
+  Drzwi przesuwne HS                                                 17.2 m²   ×   2 900 =      49 851 zł
+  Drzwi wejściowe obrotowe (pivot)                                    1.0 szt. ×  18 000 =      18 000 zł
+  Dach ogrodu: przesuwny dach szklany z napędem                      38.7 m²   ×   9 500 =     367 718 zł
+  razem                                                                                      1 099 544 zł
+
+STAN DEWELOPERSKI
+  Tynki wewnętrzne, wylewki, izolacje podłóg                        172.3 m²   ×     270 =      46 530 zł
+  Instalacja elektryczna                                            172.3 m²   ×     280 =      48 253 zł
+  Instalacje wodno-kanalizacyjne                                    172.3 m²   ×     150 =      25 850 zł
+  Ogrzewanie podłogowe                                              190.3 m²   ×     300 =      57 076 zł
+  Pompa ciepła powietrze–woda                                         1.0 kpl. ×  42 000 =      42 000 zł
+  Wentylacja z rekuperacją                                            1.0 kpl. ×  28 000 =      28 000 zł
+  Schody kręcone stalowe                                              1.0 kpl. ×  18 000 =      18 000 zł
+  Schody kręcone stalowe                                              1.0 kpl. ×  18 000 =      18 000 zł
+  Tarasy na stropie (ocieplenie, hydroizolacja, deska)               23.8 m²   ×     900 =      21 456 zł
+  Balustrady szklane                                                 23.0 mb   ×   1 900 =      43 700 zł
+  razem                                                                                        348 865 zł
+
+POD KLUCZ
+  Wykończenie wnętrz (podłogi, malowanie, sufity)                   172.3 m²   ×   1 050 =     180 950 zł
+  Drzwi wewnętrzne                                                    7.0 szt. ×   1 800 =      12 600 zł
+  Łazienki                                                            1.0 kpl. ×  32 000 =      32 000 zł
+  WC                                                                  2.0 kpl. ×  12 000 =      24 000 zł
+  Kuchnia (zabudowa i AGD)                                            1.0 kpl. ×  50 000 =      50 000 zł
+  Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)           35.8 m²   ×     600 =      21 504 zł
+  Jacuzzi w ogrodzie (wpuszczane w grunt, obudowa, technika)          1.0 kpl. ×  45 000 =      45 000 zł
+  Wodospad na ścianie ogrodu (kamień, niecka, pompa)                  1.0 kpl. ×  25 000 =      25 000 zł
+  Sala kinowa: wyciszenie, ekran, projektor, nagłośnienie             1.0 kpl. ×  30 000 =      30 000 zł
+  razem                                                                                        421 054 zł
+
+KOSZTY DODATKOWE
+  Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
+  Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 280 419 =     280 419 zł
+  razem                                                                                        332 419 zł
+
+Stan surowy zamknięty:   1 099 544 zł  (6 380 zł/m²)
+Stan deweloperski:       1 448 409 zł  (8 405 zł/m²)
+Pod klucz:               1 869 463 zł  (10 848 zł/m²)
+Razem z kosztami dodatkowymi: 2 201 882 zł
+
+Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.

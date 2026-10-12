@@ -3,7 +3,7 @@ Powierzchnia użytkowa 167 m², ogród pod szkłem 34 m², tarasy 41 m²
 Ceny brutto (VAT 8%), poziom cen: 2026, średnia krajowa, średni standard; dokładność ±15–20%.
 
 STAN SUROWY ZAMKNIĘTY
-  Fundamenty i płyta parteru (bez ogrodu)                           177.2 m²   ×     760 =     134 672 zł
+  Fundamenty i płyta parteru (bez ogrodu i patio)                   143.0 m²   ×     760 =     108 680 zł
   Ściany zewnętrzne z ociepleniem i tynkiem                         309.1 m²   ×     520 =     160 740 zł
   Ściany działowe                                                   106.6 m²   ×     160 =      17 062 zł
   Stropy żelbetowe                                                   83.2 m²   ×     520 =      43 278 zł
@@ -15,7 +15,7 @@ STAN SUROWY ZAMKNIĘTY
   Drzwi wejściowe obrotowe (pivot)                                    1.0 szt. ×  18 000 =      18 000 zł
   Drzwi zewnętrzne boczne / gospodarcze                               1.0 szt. ×   5 500 =       5 500 zł
   Dach ogrodu: przesuwny dach szklany z napędem                      36.3 m²   ×   9 500 =     345 146 zł
-  razem                                                                                      1 319 437 zł
+  razem                                                                                      1 293 445 zł
 
 STAN DEWELOPERSKI
   Tynki wewnętrzne, wylewki, izolacje podłóg                        167.3 m²   ×     270 =      45 173 zł
@@ -41,12 +41,12 @@ POD KLUCZ
 KOSZTY DODATKOWE
   Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
   Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
-  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 295 054 =     295 054 zł
-  razem                                                                                        347 054 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 291 156 =     291 156 zł
+  razem                                                                                        343 156 zł
 
-Stan surowy zamknięty:   1 319 437 zł  (7 886 zł/m²)
-Stan deweloperski:       1 674 774 zł  (10 010 zł/m²)
-Pod klucz:               1 967 029 zł  (11 757 zł/m²)
-Razem z kosztami dodatkowymi: 2 314 083 zł
+Stan surowy zamknięty:   1 293 445 zł  (7 731 zł/m²)
+Stan deweloperski:       1 648 782 zł  (9 855 zł/m²)
+Pod klucz:               1 941 037 zł  (11 602 zł/m²)
+Razem z kosztami dodatkowymi: 2 284 193 zł
 
 Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.

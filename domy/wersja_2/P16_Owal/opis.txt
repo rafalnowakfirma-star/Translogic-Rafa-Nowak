@@ -19,6 +19,6 @@ Minusy:
 
 Na planie prostokąta na przemian stoją dwie bryły piętrowe i dwa niskie skrzydła, a dachy skrzydeł są tarasami. Dom ma sto sześćdziesiąt siedem metrów kwadratowych razem z piętrem. Pośrodku błyszczy szklana kopuła ogrodu. Parter obiega ogród w pętli bez korytarzy, a najwyższe są salon i kuchnia. Na piętrze biuro, galeria ze schodami kręconymi i sypialnia łączą się drzwiami. Tarasy leżą na niższych dachach, tak jak chciał klient.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 630 947 zł, deweloperski 1 993 710 zł, pod klucz 2 308 073 zł (13 780 zł/m²); z projektem, nadzorem i rezerwą 2 706 284 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 612 099 zł, deweloperski 1 974 862 zł, pod klucz 2 289 225 zł (13 667 zł/m²); z projektem, nadzorem i rezerwą 2 684 609 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:34

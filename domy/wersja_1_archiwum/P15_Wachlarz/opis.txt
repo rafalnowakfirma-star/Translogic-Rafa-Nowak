@@ -19,7 +19,7 @@ Minusy:
 
 Z góry widać wachlarz z siedmiu piór, które rozchodzą się od półokrągłego ogrodu ku krajobrazowi. Dom ma dwieście pięćdziesiąt metrów kwadratowych. Bryła faluje: wysokie pióra przeplatają się z niskimi, o zielonych dachach. Ogród działa jak hol, więc korytarzy nie ma. Na parterze są pokoje dzienne, biuro i pokój gościnny, a łazienka gości jest w bloku wejściowym. Piętro zajmuje tylko apartament właścicieli.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 413 204 zł, deweloperski 2 782 247 zł, pod klucz 3 228 278 zł (12 898 zł/m²); z projektem, nadzorem i rezerwą 3 764 520 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 2 403 892 zł, deweloperski 2 772 935 zł, pod klucz 3 218 966 zł (12 861 zł/m²); z projektem, nadzorem i rezerwą 3 753 811 zł. Szczegóły: kosztorys.txt.
 
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

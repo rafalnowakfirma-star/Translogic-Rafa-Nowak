@@ -19,6 +19,6 @@ Minusy:
 
 Z góry widać, jak bryła rośnie wokół ogrodu. Skrzydła od południa i wschodu mają jedną kondygnację, zachodnie dwie, a narożnik północno-zachodni trzy. Dom ma sto sześćdziesiąt pięć metrów kwadratowych, a niższe dachy są tarasami. Z holu parter rozchodzi się w dwie strony, bez korytarzy. Jedna droga wiedzie przez galerię do herbaciarni, druga przez salon do pokoju gościnnego. Na piętrze jest jedna sypialnia z łazienką, a schody kręcone prowadzą wyżej, do biura.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 380 028 zł, deweloperski 1 853 206 zł, pod klucz 2 156 530 zł (13 041 zł/m²); z projektem, nadzorem i rezerwą 2 532 010 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 346 922 zł, deweloperski 1 820 100 zł, pod klucz 2 123 424 zł (12 841 zł/m²); z projektem, nadzorem i rezerwą 2 493 938 zł. Szczegóły: kosztorys.txt.
 
 Film: 2:45
