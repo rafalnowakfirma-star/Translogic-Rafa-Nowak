@@ -42,7 +42,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | Dom | Powierzchnia | Film |
 |---|---|---|
 | P01 Krużganek | 279 m² | [pobierz (2:30)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P01_Kruzganek/P01_Kruzganek_film.mp4) |
-| P02 Wieża | 254 m² | w przygotowaniu |
+| P02 Wieża | 254 m² | [pobierz (2:42)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P02_Wieza/P02_Wieza_film.mp4) |
 | P03 Pierścień | 211 m² | w przygotowaniu |
 | P04 Plaster miodu | 243 m² | w przygotowaniu |
 | P05 Wiatrak | 251 m² | w przygotowaniu |
