@@ -189,6 +189,8 @@ def ujecie_ogrodu(H, g, lens=17.0):
     for f in feats:
         if f.t in ("klon", "brzoza", "oliwka", "sosna", "palma", "cytrus", "latarnia", "fontanna", "misa"):
             targets.append((f.x, f.y, 2.5, "mebel"))
+        elif f.t in ("wodospad", "jacuzzi", "zielona_sciana"):        # ogród z wodospadem: kadr na wodospad i jacuzzi
+            targets.append((f.x, f.y, {"wodospad": 9.0, "jacuzzi": 4.0, "zielona_sciana": 2.0}[f.t], "mebel"))
     best = _best_view(space.buffer(0.3), free, targets, lens, min_d=1.8, prefer_wall=True)
     if best is None:
         c = space.centroid
