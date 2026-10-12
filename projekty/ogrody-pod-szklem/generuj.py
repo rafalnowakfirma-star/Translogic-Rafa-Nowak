@@ -203,7 +203,9 @@ def project(pid):
         rooms.append((H.levels[idx].name, r.name, a, r.kind))
     sezon = H.area["sezon"] > 0.5
     from silnik.zasady import check
-    return dict(zasady=check(H),
+    from kosztorys import kosztorys
+    k = kosztorys(H)
+    return dict(zasady=check(H), koszt=k["narastajaco"]["PK"], koszt_razem=k["narastajaco"]["RAZEM"],
         pid=pid, num=pid.upper(), name=H.name, tagline=H.tagline, concept=H.concept, notes=H.notes,
         area=H.area, rooms=rooms, sheets=sheets, keyplan=keyplan(H), imgs=images(pid, dst, H),
         roof=(g.roof_type if g else ""), roof_note=ROOF_NOTE.get(g.roof_type, "") if g else "",
@@ -222,7 +224,8 @@ def h_project(p):
     if a["zewn"] > 0.5:
         stats.append(("Patio i tarasy", f"{nice(a['zewn'])} m²"))
     stats += [("Kondygnacje", str(p["levels"])), ("Wymiary", f"{nice(p['size'][0])} × {nice(p['size'][1])} m"),
-              ("Dach ogrodu", ROOF_SHORT.get(p["roof"], p["roof"])), ("Ogród", p["garden"]), ("Elewacja", p["facade"])]
+              ("Dach ogrodu", ROOF_SHORT.get(p["roof"], p["roof"])), ("Ogród", p["garden"]), ("Elewacja", p["facade"]),
+              ("Koszt pod klucz (szacunek)", f"{nice(p['koszt'] / 1e6, 2)} mln zł")]
     st = "".join(f"<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>" for k, v in stats)
     imgs = p["imgs"]
     gal = ""
@@ -321,11 +324,13 @@ def h_compare(ps):
                     f"<td data-v='{a['sezon'] + a['zewn']:.1f}'>{patio}</td>"
                     f"<td class='num' data-v='{p['levels']}'>{p['levels']}</td>"
                     f"<td class='num' data-v='{p['top']:.1f}'>{nice(p['top'])}</td>"
-                    f"<td>{E(ROOF_SHORT.get(p['roof'], p['roof']))}</td><td>{E(p['garden'])}</td><td>{E(p['facade'])}</td></tr>")
+                    f"<td>{E(ROOF_SHORT.get(p['roof'], p['roof']))}</td><td>{E(p['garden'])}</td><td>{E(p['facade'])}</td>"
+                    f"<td class='num' data-v='{p['koszt'] / 1e6:.3f}'>{nice(p['koszt'] / 1e6, 2)}</td></tr>")
     return ("<div class='table-wrap'><table class='compare'><thead><tr>"
             "<th data-sort='t'>Dom</th><th data-sort='n' class='num'>Pow. użytkowa [m²]</th><th data-sort='n' class='num'>Ogród [m²]</th>"
             "<th data-sort='n'>Patio</th><th data-sort='n' class='num'>Kondygnacje</th><th data-sort='n' class='num'>Wysokość [m]</th>"
             "<th data-sort='t'>Dach ogrodu</th><th data-sort='t'>Styl ogrodu</th><th data-sort='t'>Elewacja</th>"
+            "<th data-sort='n' class='num'>Pod klucz [mln zł]</th>"
             f"</tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
 
 
@@ -353,6 +358,9 @@ def linki():
     out = []
     if os.environ.get("KINO"):
         out.append(f'Filmy wszystkich domów do obejrzenia na telewizorze: <a href="{E(os.environ["KINO"])}">kino</a>.')
+    if os.environ.get("KOSZTORYS"):
+        out.append(f'Kosztorys wszystkich domów (stan surowy, deweloperski, pod klucz): '
+                   f'<a href="{E(os.environ["KOSZTORYS"])}">kosztorys</a>.')
     if os.environ.get("ARCHIWUM"):
         out.append(f'Pierwsza wersja katalogu (sprzed zmian): <a href="{E(os.environ["ARCHIWUM"])}">archiwum</a>.')
     return " ".join(out)

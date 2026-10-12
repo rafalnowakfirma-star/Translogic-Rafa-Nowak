@@ -39,7 +39,7 @@ Archiwum pierwszej wersji katalogu (16 domów sprzed zmian klienta; kopia strony
 ```bash
 python3 podglad.py p04                      # rysunki jednego domu → out/p04/
 /home/user/tools/bpyenv/bin/python render_blender.py p04 --views lotu,ogrod,zmierzch --q final
-python3 generuj.py                          # strona → strona/index.html
+KINO=… ARCHIWUM=… KOSZTORYS=… python3 generuj.py   # strona → strona/index.html (adresy: portal TV, archiwum v1, kosztorys)
 ```
 
 Filmy (po `python3 film/zasoby.py` – pobranie modeli mebli, tekstur, HDRI, fontów i głosu lektora):
