@@ -48,6 +48,7 @@ H = House(
     ),
 )
 H.max_area = 180.0          # zamówienie: do 180 m² razem z piwnicą
+H.dach_dzien = 0.0          # kadry i spacer: ogród pod zamkniętym szklanym dachem, jak na zdjęciu klienta (animacja pokazuje otwieranie)
 
 H.level(-1, z=-3.0, h=3.0)
 H.level(0, z=0.0, h=3.4)

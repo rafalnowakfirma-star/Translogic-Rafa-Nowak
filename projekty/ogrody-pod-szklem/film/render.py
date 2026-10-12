@@ -124,7 +124,7 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
         ox, oy = (minx + maxx) / 2, (miny + maxy) / 2
         cams = [((u["cam"]["loc"][0] - ox, -(u["cam"]["loc"][1] - oy)), (u["cam"]["target"][0] - ox, -(u["cam"]["target"][1] - oy)))
                 for u in grp]
-        S = scena.zbuduj(H, wariant, pora, snieg=snieg, dach_t=1.0 if sname == "dzien" else None, kamery=cams,
+        S = scena.zbuduj(H, wariant, pora, snieg=snieg, dach_t=getattr(H, "dach_dzien", 1.0) if sname == "dzien" else None, kamery=cams,
                          seed=seed, az=grp[0]["sun"])
         sc, ctx = S["sc"], S["ctx"]
         czasy[f"budowa_{sname}"] = round(time.time() - t0, 1)
@@ -146,6 +146,7 @@ def render_domu(pid, wersja, q, ujecia=None, out=None, od_nowa=False, anim=True,
         if want_anim:
             u = next(u for u in grp if u["id"] == "dach")
             czasy["anim"] = animacja_dachu(S, u, P, adir)
+            scena.ustaw_dach(S, getattr(H, "dach_dzien", 1.0))   # spacer w stanie dachu jak w kadrach dnia
         if sname == "dzien" and spacer and not sp_done:
             czasy["spacer"] = panoramy(S, kamery.plan_spaceru(H), P, os.path.join(out, "spacer"), od_nowa)
         del lock
