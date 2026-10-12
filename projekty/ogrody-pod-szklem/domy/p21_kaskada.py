@@ -140,11 +140,11 @@ H.spacer = [
     ("og", "og", 14.45, 4.45, 1.55, (-65, 20), "Ogród zimowy"),
     ("sal", "sal", 7.25, 6.85, 1.55, (-125, -35), "Salon"),
     ("kuch", "kuch", 7.3, 2.85, 1.55, (-110, -10), "Kuchnia"),
-    ("hol1", "hol1", 7.1, 5.7, 1.55, (-85, 0), "Schody i hol piętra"),
-    ("dzieci", "dzieci", 4.0, 1.95, 1.5, (-120, 45), "Pokój dziecięcy"),
+    ("hol1", "hol1", 5.75, 4.05, 1.55, (-100, 40), "Schody i hol piętra"),
+    ("dzieci", "dzieci", 4.0, 1.95, 1.5, (-115, 75), "Pokój dziecięcy"),
     ("wc1", "wc1", 6.85, 3.05, 1.5, (-10, 70), "WC na piętrze"),
-    ("tar", "tar", 3.1, 6.85, 1.6, (115, 205), "Taras nad salonem"),
-    ("kor1", "kor1", 9.0, 6.6, 1.55, (-40, 60), "Korytarz piętra"),
+    ("tar", "tar", 3.1, 6.85, 1.6, (150, 235), "Taras nad salonem"),
+    ("kor1", "kor1", 9.0, 6.6, 1.55, (20, 85), "Korytarz piętra"),
     ("hol2", "hol2", 18.0, 6.7, 1.55, (-10, 85), "Hol wieży"),
     ("biu1", "biu1", 19.25, 5.15, 1.5, (-78, -18), "Biuro 1"),
     ("biu2", "biu2", 20.45, 5.15, 1.5, (-30, 45), "Biuro 2"),
@@ -152,10 +152,10 @@ H.spacer = [
     ("laz", "laz", 19.05, 4.3, 1.55, (45, 190), "Łazienka"),
     ("gard", "gard", 23.45, 1.35, 1.55, (30, 110), "Garderoba"),
     ("wc", "wc", 21.0, 5.3, 1.5, (-20, 30), "WC dla gości"),
-    ("holp", "holp", 20.4, 6.45, 1.55, (-100, 50), "Piwnica – hol"),
+    ("holp", "holp", 20.4, 6.45, 1.55, (50, 150), "Piwnica – hol"),
     ("kino", "kino", 22.3, 2.55, 1.5, (-118, -62), "Sala kinowa"),
     ("tech", "tech", 18.7, 6.55, 1.55, (0, -75), "Pomieszczenie techniczne"),
-    ("patio", "patio", 9.6, 11.1, 1.6, (-70, 60), "Patio z grillem"),
+    ("patio", "patio", 9.6, 11.1, 1.6, (-20, 75), "Patio z grillem"),
 ]
 
 # ---------------------------------------------------------------- wyposażenie i wykończenie (dobrane ręcznie)

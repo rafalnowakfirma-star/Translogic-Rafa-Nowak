@@ -752,7 +752,7 @@ def plan_spaceru_pelny(H):
         hfov = 100.0 if small else 90.0
         pitch = 6.0 if (r is not None and r.kind == "ogrod") else (3.0 if r is None or r.outdoor else 0.0)
         if small:
-            pitch = -6.0
+            pitch = -14.0                     # WC, garderoba, technika: kamera lekko w dół, na wyposażenie
         out.append(dict(id=sid, room=room, pos=(x, y, z), kierunek=90.0, lon=[-180.0, 180.0], lat=list(LAT_PELNA),
                         ruch=[[float(b0), pitch, hfov], [float(b1), pitch * 0.6, hfov]], podpis=podpis,
                         ppd=10 if small else None, pelna=True))
