@@ -46,6 +46,6 @@ WERSJA 1 (archiwum – przed zmianami)
   P13  Kubik                   174 m²   film 2:34             wersja_1_archiwum/P13_Kubik
   P14  Zygzak                  257 m²   film 2:31             wersja_1_archiwum/P14_Zygzak
   P15  Wachlarz                250 m²   film 2:34             wersja_1_archiwum/P15_Wachlarz
-  P16  Owal                    252 m²   film w przygotowaniu  wersja_1_archiwum/P16_Owal
+  P16  Owal                    252 m²   film 2:31             wersja_1_archiwum/P16_Owal
 
 Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.
