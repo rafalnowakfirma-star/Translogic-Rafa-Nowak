@@ -153,7 +153,7 @@ H.spacer = [
     ("gard", "gard", 23.45, 1.35, 1.55, (-100, -10), "Garderoba"),
     ("wc", "wc", 21.0, 5.3, 1.5, (-25, 35), "WC dla gości"),
     ("holp", "holp", 20.4, 6.45, 1.55, (-15, 70), "Piwnica – hol"),
-    ("kino", "kino", 22.1, 4.35, 1.4, (-105, -70), "Sala kinowa"),
+    ("kino", "kino", 22.3, 2.55, 1.5, (-118, -62), "Sala kinowa"),
     ("tech", "tech", 18.7, 6.55, 1.55, (-55, -125), "Pomieszczenie techniczne"),
     ("patio", "patio", 9.6, 11.1, 1.6, (-30, 45), "Patio z grillem"),
 ]
