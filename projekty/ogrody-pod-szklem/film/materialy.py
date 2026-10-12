@@ -555,7 +555,30 @@ RECIPES = {
     "snieg": lambda k: m_snieg(k),
     "las_daleki": lambda k: m_las_daleki(k),
     "lampa": lambda k: m_prosty(k, (1.0, 0.95, 0.85), 0.5, emis=((1.0, 0.82, 0.6), 6.0)),
+    # wnętrza: lamele, farby, płytki, posadzki
+    "lamele": lambda k: m_deski(k, (0.62, 0.45, 0.29), 0.07, 0.04, 0.0, True, 0.5),
+    "listwa": lambda k: m_prosty(k, (0.88, 0.87, 0.84), 0.45),
+    "drzwi_wew": lambda k: m_prosty(k, (0.86, 0.85, 0.82), 0.32),
+    "panel_akustyczny": lambda k: m_deski(k, (0.30, 0.21, 0.14), 0.06, 0.04, 0.014, True, 0.62),
+    "podloga_plytki": lambda k: m_bloki(k, (0.58, 0.56, 0.53), 0.04, 1.2, 0.6, 0.004, 0.36,
+                                        mortar_c=(0.42, 0.40, 0.38), offset=0.0, bands=True),
+    "podloga_wykladzina": lambda k: m_tynk(k, (0.16, 0.155, 0.16), 0.02, 1.0, 0.35),
+    "plytki_kamien": lambda k: m_bloki(k, (0.84, 0.82, 0.78), 0.045, 0.6, 1.2, 0.0035, 0.24,
+                                       mortar_c=(0.62, 0.60, 0.57), offset=0.0, bands=True),
+    "plytki_zielone": lambda k: m_bloki(k, (0.15, 0.31, 0.26), 0.12, 0.30, 0.075, 0.003, 0.08,
+                                        mortar_c=(0.80, 0.80, 0.77), offset=0.5),
+    "plytki_terazzo": lambda k: m_bloki(k, (0.87, 0.85, 0.81), 0.03, 0.6, 0.6, 0.003, 0.3,
+                                        mortar_c=(0.66, 0.64, 0.61), offset=0.0, pores=True),
 }
+# farby ścienne (mat, delikatna faktura wałka)
+FARBY = {
+    "bialy": (0.90, 0.90, 0.88), "cieply_bialy": (0.89, 0.87, 0.82), "greige": (0.76, 0.72, 0.66),
+    "zielen": (0.23, 0.31, 0.27), "glina": (0.72, 0.56, 0.45), "szalwia": (0.62, 0.66, 0.58),
+    "szalwia_jasna": (0.78, 0.80, 0.74), "granat": (0.17, 0.21, 0.29), "mieta": (0.74, 0.85, 0.79),
+    "brzoskwinia": (0.93, 0.76, 0.64), "grafit": (0.11, 0.11, 0.12),
+}
+for _k, _c in FARBY.items():
+    RECIPES["farba_" + _k] = (lambda c: (lambda k: m_tynk(k, c, 0.008, 0.88, 0.025)))(_c)
 
 
 def material(name, ctx):

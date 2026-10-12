@@ -1,0 +1,266 @@
+<title>Kaskada 360°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/*PANNELLUM_CSS*/
+/* Układ: panorama na całą wysokość + panel boczny z rzutem kondygnacji (na telefonie pod panoramą).
+   Ciemny motyw celowo: zdjęcia wnętrz ogląda się jak w galerii (ten sam styl co strona TV kolekcji). */
+:root{
+  color-scheme:dark;
+  --bg:#0b100e; --panel:#131a17; --panel-2:#1a231f; --line:#26322d;
+  --ink:#eef0ea; --ink-2:#b2bdb6; --ink-3:#7f8d86;
+  --brass:#c9a96e; --brass-ink:#15100a; --leaf:#93c28b;
+  --room:#202b26; --room-line:#3a4a43; --garden:#24402c; --deck:#3b3022;
+  --scrim:rgba(6,9,8,.78);
+  --f-disp:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:6px;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:auto minmax(0,1fr);height:100%}
+.bar{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.brand{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);white-space:nowrap}
+.room{font-family:var(--f-disp);font-stretch:112%;font-weight:700;font-size:1.25rem;margin:0;min-width:0;flex:1 1 200px;text-wrap:balance}
+.nav{display:flex;align-items:center;gap:8px}
+.count{font-family:var(--f-mono);font-size:.78rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:4.5em;text-align:center}
+.btn{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:7px 12px;cursor:pointer;line-height:1.2}
+.btn:hover{border-color:var(--brass)}
+.btn[aria-pressed="true"]{background:var(--brass);color:var(--brass-ink);border-color:var(--brass)}
+.stage{position:relative;min-height:0;background:#000}
+#pano{position:absolute;inset:0}
+.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--scrim);color:var(--ink-2);font-size:.82rem;padding:6px 12px;border-radius:999px;pointer-events:none;transition:opacity .6s;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis}
+.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:14px;padding:14px 16px 24px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.82rem;cursor:pointer;color:var(--ink-2)}
+.tab[aria-selected="true"]{border-color:var(--brass);color:var(--ink);background:var(--panel-2)}
+.plan{width:100%;height:auto;display:block;background:var(--bg);border:1px solid var(--line);border-radius:var(--r)}
+.plan .wn{fill:var(--room);stroke:var(--room-line);stroke-width:.04}
+.plan .ogrod{fill:var(--garden);stroke:var(--room-line);stroke-width:.04}
+.plan .zewn{fill:var(--deck);stroke:var(--room-line);stroke-width:.04}
+.plan text{fill:var(--ink-3);font-family:var(--f-body);font-size:.36px;text-anchor:middle;pointer-events:none}
+.plan .pt{fill:var(--leaf);stroke:var(--bg);stroke-width:.06;cursor:pointer}
+.plan .pt:hover{fill:var(--ink)}
+.plan .cur{fill:var(--brass)}
+.plan .cone{fill:var(--brass);opacity:.28;pointer-events:none}
+.card h2{font-family:var(--f-disp);font-stretch:108%;font-size:1.05rem;margin:0 0 2px}
+.card .meta{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;color:var(--brass);text-transform:uppercase}
+.card p{margin:8px 0 0;color:var(--ink-2);max-width:62ch}
+.lbl{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.it{display:flex;flex-direction:column;gap:4px;background:none;border:1px solid transparent;border-radius:var(--r);padding:4px;cursor:pointer;text-align:left}
+.it img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;display:block;background:var(--panel-2)}
+.it span{font-size:.8rem;color:var(--ink-2);line-height:1.25}
+.it:hover{border-color:var(--line)}
+.it[aria-current="true"]{border-color:var(--brass)}
+.it[aria-current="true"] span{color:var(--ink)}
+/* przejścia w panoramie */
+.hs{width:0;height:0}
+.hs .go{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;background:var(--scrim);border:1px solid rgba(201,169,110,.55);color:var(--ink);border-radius:999px;padding:5px 11px 5px 7px;font-family:var(--f-body);font-size:.82rem;white-space:nowrap;cursor:pointer;transition:background .2s}
+.hs .go:hover{background:var(--brass);color:var(--brass-ink)}
+.hs .go i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--brass);color:var(--brass-ink);font-style:normal;font-weight:700;font-size:.8rem}
+.pnlm-container{background:#000;font-family:var(--f-body)}
+.pnlm-controls{background:var(--panel);border-color:var(--line)}
+.pnlm-load-box{background:var(--scrim);font-family:var(--f-body)}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(260px,58%) minmax(0,1fr)}
+  .side{border-left:0;border-top:1px solid var(--line)}
+  .room{font-size:1.05rem}
+}
+@media (prefers-reduced-motion:reduce){.hint{transition:none}}
+</style>
+<!--PANNELLUM_JS-->
+
+<div class="app">
+  <header class="bar">
+    <span class="brand" id="brand">P21 · Kaskada</span>
+    <h1 class="room" id="room">Spacer po domu</h1>
+    <div class="nav">
+      <button class="btn" id="prev" type="button" aria-label="Poprzednie pomieszczenie">←</button>
+      <span class="count" id="count">1 / 1</span>
+      <button class="btn" id="next" type="button" aria-label="Następne pomieszczenie">→</button>
+      <button class="btn" id="rot" type="button" aria-pressed="false">Obrót</button>
+    </div>
+  </header>
+  <main class="stage">
+    <div id="pano"></div>
+    <div class="hint" id="hint">Przeciągnij, aby się rozejrzeć · kliknij strzałkę, aby przejść dalej</div>
+  </main>
+  <aside class="side">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <svg class="plan" id="plan" role="img" aria-label="Rzut kondygnacji z punktami zwiedzania"></svg>
+    <div class="card"><div class="meta" id="meta"></div><h2 id="cname"></h2><p id="cdesc"></p></div>
+    <p class="lbl">Wszystkie pomieszczenia</p>
+    <div class="list" id="list"></div>
+  </aside>
+</div>
+
+<script>
+const D = /*DANE*/null;
+const S = D.stacje, byId = Object.fromEntries(S.map((s, i) => [s.id, Object.assign(s, {i})]));
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+let cur = S[0].id, lvl = S[0].poziom, viewer = null;
+$("brand").textContent = D.pid + " · " + D.nazwa;
+document.title = D.nazwa + " 360°";
+
+function hotspot(div, a) {
+  div.classList.add("hs");
+  const b = document.createElement("span");
+  b.className = "go";
+  const i = document.createElement("i");
+  i.textContent = a.up ? "↑" : a.down ? "↓" : "›";
+  const t = document.createElement("span");
+  t.textContent = a.label;
+  b.append(i, t);
+  div.appendChild(b);
+}
+
+const scenes = {};
+for (const s of S) {
+  scenes[s.id] = {
+    type: "equirectangular", panorama: s.obraz, haov: s.haov, vaov: s.vaov, vOffset: s.voff,
+    yaw: s.yaw, pitch: 0, hfov: 100, minHfov: 45, maxHfov: 115, northOffset: 0,
+    hotSpots: s.przejscia.map(h => ({
+      pitch: h.pitch, yaw: h.yaw, type: "scene", sceneId: h.do, targetYaw: "sameAzimuth",
+      cssClass: "hs", createTooltipFunc: hotspot,
+      createTooltipArgs: {label: h.opis, up: h.opis.startsWith("Schody w górę"), down: h.opis.startsWith("Schody w dół")}
+    }))
+  };
+}
+
+function start() {
+  const h = (location.hash || "").slice(1);
+  if (byId[h]) { cur = h; lvl = byId[h].poziom; }
+  viewer = pannellum.viewer("pano", {
+    default: {firstScene: cur, sceneFadeDuration: 700, autoLoad: true, showZoomCtrl: true, showFullscreenCtrl: true,
+              compass: false, friction: 0.18, keyboardZoom: true},
+    scenes
+  });
+  viewer.on("scenechange", id => { cur = id; lvl = byId[id].poziom; ui(); });
+  viewer.on("mousedown", () => { $("hint").style.opacity = 0; });
+  viewer.on("touchstart", () => { $("hint").style.opacity = 0; });
+  ui();
+  tick();
+}
+
+function go(id) {
+  if (!byId[id] || id === cur) return;
+  viewer.loadScene(id, 0, byId[id].yaw, 100);
+}
+
+function ui() {
+  const s = byId[cur];
+  $("room").textContent = s.nazwa;
+  $("count").textContent = (s.i + 1) + " / " + S.length;
+  $("cname").textContent = s.nazwa;
+  $("meta").textContent = (D.plany[String(s.poziom)] ? D.plany[String(s.poziom)].nazwa : "") +
+    (s.m2 ? " · " + String(s.m2).replace(".", ",") + " m²" : s.room ? "" : " · na zewnątrz");
+  $("cdesc").textContent = s.opis || "";
+  try { history.replaceState(null, "", "#" + s.id); } catch (e) {}
+  tabs(); plan(); list();
+}
+
+function tabs() {
+  const t = $("tabs");
+  t.textContent = "";
+  for (const k of Object.keys(D.plany).sort((a, b) => a - b)) {
+    const b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(Number(k) === lvl));
+    b.textContent = D.plany[k].nazwa;
+    b.onclick = () => { lvl = Number(k); tabs(); plan(); };
+    t.appendChild(b);
+  }
+}
+
+let coneEl = null;
+function plan() {
+  const svg = $("plan"), [x0, y0, x1, y1] = D.bbox;
+  svg.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+  svg.textContent = "";
+  const P = D.plany[String(lvl)];
+  for (const r of P.pokoje) {
+    const p = document.createElementNS(NS, "polygon");
+    p.setAttribute("points", r.pts.map(q => q.join(",")).join(" "));
+    p.setAttribute("class", r.rodzaj);
+    svg.appendChild(p);
+  }
+  for (const r of P.pokoje) {
+    const t = document.createElementNS(NS, "text");
+    t.setAttribute("x", r.c[0]); t.setAttribute("y", r.c[1] + 0.55);
+    t.textContent = r.nazwa.length > 18 ? r.nazwa.slice(0, 17) + "…" : r.nazwa;
+    svg.appendChild(t);
+  }
+  coneEl = document.createElementNS(NS, "path");
+  coneEl.setAttribute("class", "cone");
+  svg.appendChild(coneEl);
+  for (const s of S.filter(s => s.poziom === lvl)) {
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("cx", s.x); c.setAttribute("cy", s.y); c.setAttribute("r", s.id === cur ? 0.42 : 0.32);
+    c.setAttribute("class", "pt" + (s.id === cur ? " cur" : ""));
+    c.setAttribute("tabindex", "0");
+    const tt = document.createElementNS(NS, "title"); tt.textContent = s.nazwa; c.appendChild(tt);
+    c.addEventListener("click", () => go(s.id));
+    c.addEventListener("keydown", e => { if (e.key === "Enter") go(s.id); });
+    svg.appendChild(c);
+  }
+}
+
+function cone() {
+  const s = byId[cur];
+  if (!coneEl || !viewer || s.poziom !== lvl) { if (coneEl) coneEl.setAttribute("d", ""); return; }
+  let yaw = 0, hf = 100;
+  try { yaw = viewer.getYaw(); hf = viewer.getHfov(); } catch (e) { return; }
+  const R = 2.6, a0 = (yaw - hf / 2) * Math.PI / 180, a1 = (yaw + hf / 2) * Math.PI / 180;
+  const p = a => [s.x + R * Math.sin(a), s.y - R * Math.cos(a)];
+  const [ax, ay] = p(a0), [bx, by] = p(a1);
+  coneEl.setAttribute("d", `M${s.x},${s.y} L${ax},${ay} A${R},${R} 0 0 1 ${bx},${by} Z`);
+}
+let last = 0;
+function tick(t) {
+  if (!t || t - last > 90) { cone(); last = t || 0; }
+  requestAnimationFrame(tick);
+}
+
+function list() {
+  const L = $("list");
+  if (!L.childElementCount) {
+    for (const s of S) {
+      const b = document.createElement("button");
+      b.className = "it"; b.type = "button"; b.dataset.id = s.id;
+      const im = document.createElement("img"); im.src = s.mini; im.alt = ""; im.loading = "lazy";
+      const sp = document.createElement("span"); sp.textContent = s.nazwa;
+      b.append(im, sp);
+      b.onclick = () => go(s.id);
+      L.appendChild(b);
+    }
+  }
+  for (const b of L.children) b.setAttribute("aria-current", String(b.dataset.id === cur));
+}
+
+$("prev").onclick = () => go(S[(byId[cur].i - 1 + S.length) % S.length].id);
+$("next").onclick = () => go(S[(byId[cur].i + 1) % S.length].id);
+$("rot").onclick = e => {
+  const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  e.currentTarget.setAttribute("aria-pressed", String(on));
+  if (on) viewer.startAutoRotate(-4); else viewer.stopAutoRotate();
+};
+document.addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("input,textarea")) return;
+  if (e.key === "n" || e.key === "PageDown") $("next").click();
+  if (e.key === "p" || e.key === "PageUp") $("prev").click();
+});
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (byId[h] && h !== cur) go(h); });
+
+if (window.pannellum) start();
+else window.addEventListener("load", () => {
+  if (window.pannellum) start();
+  else $("hint").textContent = "Nie udało się wczytać przeglądarki panoram – odśwież stronę.";
+});
+</script>

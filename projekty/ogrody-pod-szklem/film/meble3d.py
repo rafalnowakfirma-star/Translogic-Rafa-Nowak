@@ -51,6 +51,7 @@ KSIAZKI = [(0.55, 0.16, 0.13), (0.14, 0.22, 0.38), (0.20, 0.35, 0.27), (0.80, 0.
            (0.76, 0.56, 0.24), (0.47, 0.50, 0.53), (0.66, 0.36, 0.25), (0.32, 0.25, 0.36), (0.40, 0.30, 0.22),
            (0.30, 0.42, 0.50), (0.60, 0.20, 0.25), (0.86, 0.66, 0.50), (0.20, 0.28, 0.24), (0.62, 0.58, 0.50),
            (0.24, 0.20, 0.17), (0.72, 0.30, 0.18), (0.50, 0.55, 0.40)]
+KOLORY_PROSTE = ("tk_akcent0", "tk_akcent1", "tk_akcent2")
 KAMIONKA = [(0.62, 0.58, 0.52), (0.30, 0.30, 0.30), (0.80, 0.76, 0.68), (0.57, 0.38, 0.28), (0.48, 0.53, 0.48)]
 
 
@@ -101,6 +102,9 @@ def _styl(ctx):
             mata=r.choice([(0.50, 0.57, 0.49), (0.45, 0.32, 0.40), (0.28, 0.29, 0.31), (0.64, 0.52, 0.42)]),
             ogrod=r.choice([(0.84, 0.81, 0.74), (0.58, 0.58, 0.56), (0.38, 0.42, 0.40)]),
         )
+        ov = getattr(getattr(ctx, "house", None), "styl_wnetrz", None)
+        if ov:
+            s.update(ov)                  # dom zamówiony: styl wnętrz wybrany przez projektanta
         ctx.cache["m3d_styl"] = s
     return s
 
@@ -664,6 +668,9 @@ def _make_mat(ctx, key):
         "filc": ((0.43, 0.46, 0.44), dict(sheen=0.2, weave=400.0, bump=0.1, mel=0.05)),
         "plotno": ((0.88, 0.86, 0.80), dict(sheen=0.05, weave=160.0, bump=0.2, mel=0.02)),
         "tk_kolor": (s["sofa2"], dict(sheen=0.5)),
+        "tk_sofa": (s["sofa"], dict(sheen=0.45, weave=120.0, bump=0.3, mel=0.04)),
+        "posciel_dz": ((0.95, 0.86, 0.62), dict(rough=0.95, sheen=0.25, weave=170.0, bump=0.12, mel=0.03)),
+        "koc_dz": ((0.48, 0.70, 0.78), dict(weave=24.0, bump=0.55, sheen=0.3, mel=0.05)),
     }
     if b in fab:
         col, kw = fab[b]
@@ -706,6 +713,8 @@ def _make_mat(ctx, key):
     if b == "dywan":
         c1, c2 = DYWAN[s["dywan"]]
         return _mk_rug(nm, c1, c2, s["wzor"], float(a[0]), float(a[1]))
+    if b == "dywan_dz":
+        return _mk_rug(nm, (0.55, 0.75, 0.80), (0.96, 0.84, 0.50), "pasy", float(a[0]), float(a[1]))
     if b == "obraz":
         return _mk_painting(nm, f"{ctx.seed}:{a[0] if a else 0}")
     if b == "ekran":
@@ -1478,6 +1487,9 @@ def _plant_model(B, x, y, z, height, yaw=0.0, pot=True):
 # ------------------------------------------------------------------ salon
 def _sofa(B):
     it = B.it
+    if B.st.get("sofa_ksztalt") == "prosta":          # dom bez łuków: sofa o prostej bryle
+        from .wyposazenie import _sofa_prosta
+        return _sofa_prosta(B)
     parts, (mn, mx) = _glb(B.ctx, "GlamVelvetSofa.glb")
     W0, D0 = mx.x - mn.x, mx.y - mn.y
     sx, sy = min(1.4, it.w / W0), min(1.12, it.d / D0)
@@ -1588,7 +1600,8 @@ def _dywan(B):
     it = B.it
     w, d = it.w, it.d
     mb = MB()
-    mb.rbox(-w / 2, -d / 2, 0.0, w / 2, d / 2, 0.012, f"dywan:{w:.2f}:{d:.2f}", rc=0.03, r=0.004, seg=2)
+    key = "dywan_dz" if getattr(it, "wariant", None) == "dziecko" else "dywan"
+    mb.rbox(-w / 2, -d / 2, 0.0, w / 2, d / 2, 0.012, f"{key}:{w:.2f}:{d:.2f}", rc=0.03, r=0.004, seg=2)
     B.mesh(mb, "dywan")
 
 
@@ -1874,12 +1887,14 @@ def _lozko(B):
     zt = fz + 0.22
     # kołdra z odwinięciem
     yh = yb - 0.58
-    _drape(mb, "posciel", -bw / 2 + 0.012, bw / 2 - 0.012, -L / 2 + 0.015, yh, zt + 0.03, fz + 0.07, r=0.07, th=0.035,
+    dz = getattr(it, "wariant", None) == "dziecko"
+    kp, kk = ("posciel_dz", "koc_dz") if dz else ("posciel", "koc")
+    _drape(mb, kp, -bw / 2 + 0.012, bw / 2 - 0.012, -L / 2 + 0.015, yh, zt + 0.03, fz + 0.07, r=0.07, th=0.035,
            wr=0.016, seed=r.uniform(0, 50), nf=34, puff=0.035)
-    mb.soft(bw / 2 - 0.02, 0.17, 0.035, "posciel", M=T(0, yh - 0.14, zt + 0.085), e1=0.45, e2=0.1, nu=48, nv=10,
+    mb.soft(bw / 2 - 0.02, 0.17, 0.035, kp, M=T(0, yh - 0.14, zt + 0.085), e1=0.45, e2=0.1, nu=48, nv=10,
             wr=0.008, seed=r.uniform(0, 9), puff=0.01)
     # koc w nogach
-    _drape(mb, "koc", -bw / 2 + 0.006, bw / 2 - 0.006, -L / 2 + 0.16, -L / 2 + 0.64, zt + 0.085, zt - 0.12, r=0.05,
+    _drape(mb, kk, -bw / 2 + 0.006, bw / 2 - 0.006, -L / 2 + 0.16, -L / 2 + 0.64, zt + 0.085, zt - 0.12, r=0.05,
            th=0.016, foot=False, nf=30, wr=0.012, seed=r.uniform(0, 50))
     # poduszki
     npl = 2 if bw > 1.25 else 1
@@ -2282,7 +2297,7 @@ def _blat(B):
         dd = p[5]
         yb = d / 2
         mb.box(-w / 2, yb - 0.012, zt, w / 2, yb, z0, top, r=0.002)       # panel za blatem
-        if st["gorne"] == "szafki" or B.rk == "pralnia":
+        if (getattr(it, "opcje", None) or {}).get("gorne", st["gorne"]) == "szafki" or B.rk == "pralnia":
             mb.box(-w / 2, yb - dd + 0.02, z0, w / 2, yb, z1, "lak_front", r=0.002)
             nn = max(1, int(round(w / 0.6)))
             plan2 = ["d"] * nn
@@ -2513,12 +2528,26 @@ def _biurko(B):
         places = [(0.0, -D / 4, 0.0), (0.0, D / 4, 180.0)]
     else:
         places = [(0.0, (y0 + y1) / 2, 0.0)]
+    dz = getattr(it, "wariant", None) == "dziecko" or B.rk == "pokoj"
     for k, (px, py, yaw) in enumerate(places):
         sub = MB()
-        _monitor(sub, 0.0, 0.10, zt, 0.6 if w > 1.3 else 0.5)
-        sub.rbox(-0.22, -0.16, zt, 0.22, -0.03, zt + 0.012, "aluminium", rc=0.008, r=0.002)
-        sub.rbox(-0.21, -0.153, zt + 0.012, 0.21, -0.037, zt + 0.016, "plastik_szary", rc=0.006, r=0.001)
-        sub.soft(0.03, 0.055, 0.016, "plastik_czarny", M=T(0.33, -0.1, zt + 0.012), e1=0.5, e2=0.5, nu=16, nv=8)
+        if dz:      # biurko dziecka: zeszyty, kubek z kredkami, globus zamiast monitora
+            for j, key in enumerate(("tk_akcent0", "tk_akcent2", "tk_akcent1")):
+                sub.box(-0.25 + j * 0.02, -0.12 - j * 0.03, zt + j * 0.008, 0.0 + j * 0.02, 0.08 - j * 0.03, zt + 0.008 + j * 0.008,
+                        key, r=0.002)
+            sub.cyl(0.25, 0.12, zt, zt + 0.1, 0.035, "ceramika", n=18)
+            for j in range(6):
+                a = j * math.pi / 3
+                sub.tube([(0.25 + 0.015 * math.cos(a), 0.12 + 0.015 * math.sin(a), zt + 0.02),
+                          (0.25 + 0.03 * math.cos(a), 0.12 + 0.03 * math.sin(a), zt + 0.17)], 0.004, KOLORY_PROSTE[j % 3], n=6)
+            sub.cyl(0.0, 0.18, zt, zt + 0.02, 0.06, "drewno_z", n=18)
+            sub.tube([(0.0, 0.18, zt + 0.02), (0.0, 0.18, zt + 0.16)], 0.006, "akcent", n=8)
+            sub.sphere(0.0, 0.18, zt + 0.26, 0.11, "tk_akcent1", n=24)
+        else:
+            _monitor(sub, 0.0, 0.10, zt, 0.6 if w > 1.3 else 0.5)
+            sub.rbox(-0.22, -0.16, zt, 0.22, -0.03, zt + 0.012, "aluminium", rc=0.008, r=0.002)
+            sub.rbox(-0.21, -0.153, zt + 0.012, 0.21, -0.037, zt + 0.016, "plastik_szary", rc=0.006, r=0.001)
+            sub.soft(0.03, 0.055, 0.016, "plastik_czarny", M=T(0.33, -0.1, zt + 0.012), e1=0.5, e2=0.5, nu=16, nv=8)
         if k == 0:
             _book_stack(sub, r, -w / 2 + 0.25, -0.05, zt, 2, big=False)
             _plant_small(sub, r, w / 2 - 0.18, 0.15, zt, 0.07, 0.11)
@@ -2541,6 +2570,16 @@ def _biurko(B):
             yy = y0 - 0.12
             yy = max(yy, -it.d / 2 + 0.34)
             yaw = 180.0
+        if dz:
+            ch = MB()
+            ch.box(-0.2, -0.2, 0.42, 0.2, 0.2, 0.45, "lak_bialy", r=0.01)
+            ch.box(-0.2, 0.17, 0.45, 0.2, 0.2, 0.78, "tk_akcent2", r=0.01)
+            for sx in (-1, 1):
+                for sy in (-1, 1):
+                    ch.box(sx * 0.17 - 0.015, sy * 0.17 - 0.015, 0.0, sx * 0.17 + 0.015, sy * 0.17 + 0.015, 0.42, "buk", r=0.004)
+            ch.xf(list(ch.bm.faces), T(x, yy, 0) @ R("Z", yaw + r.uniform(-10, 10)))
+            B.mesh(ch, "krzeslo_dziecka")
+            continue
         B.inst(("krzeslo_biurowe",), _office_chair_mesh, T(x, yy, 0) @ R("Z", yaw + r.uniform(-14, 14)), "krzeslo_biurowe")
     B.mesh(mb, "biurko")
 
@@ -3346,6 +3385,13 @@ BUILDERS = {
     "lawa": _lawa, "piec": _piec, "mata": _mata, "wino": _wino, "cokol": _cokol, "donica": _donica, "auto": _auto,
     "stolek": _stolek, "rower": _rower, "ekran": _ekran,
 }
+
+
+try:                                   # wyposażenie wnętrz rozstawiane ręcznie (zabudowa AGD, obrazy, kino…)
+    from .wyposazenie import BUILDERS as _WYP
+    BUILDERS.update(_WYP)
+except Exception as _e:                # pragma: no cover
+    print("meble3d: brak modułu wyposażenia:", _e)
 
 
 def build_items(items, ctx):

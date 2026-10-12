@@ -1780,7 +1780,7 @@ def _disc(G, r, z, sides, mat, center=(0, 0), bump=0.0, rng=None, rings=3):
 
 
 
-def _build_tree(kind, h, r, lod, season, var):
+def _build_tree(kind, h, r, lod, season, var, grunt=False):
     """Geometria jednego wariantu drzewa (w układzie lokalnym, nasada w (0,0,0))."""
     far = lod == "daleko"
     P = _params(kind, h)
@@ -1788,8 +1788,8 @@ def _build_tree(kind, h, r, lod, season, var):
     G = Geo()
     winter = season == "zima" and kind in DECID
     z0 = 0.0
-    if kind == "cytrus":
-        z0 = _pot(G, r, rng, h)            # donica, drzewko rośnie z ziemi w donicy
+    if kind == "cytrus" and not grunt:
+        z0 = _pot(G, r, rng, h)            # donica, drzewko rośnie z ziemi w donicy (grunt=True – posadzone w ogrodzie)
     elif kind == "krzew":
         z0 = 0.0
     single = (h <= P["single_h"]) and not far
@@ -2457,19 +2457,19 @@ def _bucket(h, r):
     return hb, ab, h0, h0 * 1.22 ** ab
 
 
-def _variant(kind, h, r, lod, season, var, ctx):
+def _variant(kind, h, r, lod, season, var, ctx, grunt=False):
     """Siatka wariantu (z ctx.cache) i jej zasięg (promień, wysokość)."""
     hb, ab, h0, r0 = _bucket(h, r)
     deciduous_bare = season == "zima" and kind in DECID
     skey = "zima" if deciduous_bare else "lato"
-    key = ("rosliny", "drzewo", kind, lod, skey, hb, ab, var)
+    key = ("rosliny", "drzewo", kind, lod, skey, hb, ab, var) + (("grunt",) if grunt else ())
     if key in ctx.cache:
         return ctx.cache[key]
     gk = key
     A = _GEO_CACHE.get(gk)
     if A is None:
         _ensure_textures()
-        G = _build_palm(h0, r0, lod, var) if kind == "palma" else _build_tree(kind, h0, r0, lod, skey, var)
+        G = _build_palm(h0, r0, lod, var) if kind == "palma" else _build_tree(kind, h0, r0, lod, skey, var, grunt)
         A = G.arrays()
         A["mats"] = list(G.mats)
         _GEO_CACHE[gk] = A
@@ -2484,7 +2484,7 @@ def _variant(kind, h, r, lod, season, var, ctx):
     return out
 
 
-def tree(kind, X, Y, Z, h, r, seed, ctx, lod="blisko"):
+def tree(kind, X, Y, Z, h, r, seed, ctx, lod="blisko", grunt=False):
     """Drzewo gatunku kind w (X, Y, Z) – korona mieści się w promieniu r i wysokości h. Zwraca [obiekt]."""
     import bpy
     kind = {"drzewo": "lipa", "klon_czerwony": "klon", "klon_palmowy": "klon"}.get(kind, kind)
@@ -2493,7 +2493,7 @@ def tree(kind, X, Y, Z, h, r, seed, ctx, lod="blisko"):
         kind = "lipa"
     rnd = random.Random(seed * 7919 + 13)
     var = rnd.randrange(3)
-    me, rho, zt, nf, ntri = _variant(kind, h, r, lod, ctx.season, var, ctx)
+    me, rho, zt, nf, ntri = _variant(kind, h, r, lod, ctx.season, var, ctx, grunt)
     ob = bpy.data.objects.new(f"{kind}_{seed}", me)
     ob.location = (X, Y, Z)
     ob.rotation_euler = (0, 0, rnd.uniform(0, 2 * math.pi))

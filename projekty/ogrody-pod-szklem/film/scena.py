@@ -148,13 +148,23 @@ def detale(H, ctx, col, snieg=False):
 
 
 # --------------------------------------------------------------- teren i horyzont
-def teren(ctx, col, snow=False):
-    bpy.ops.mesh.primitive_circle_add(vertices=128, radius=420, fill_type="NGON", location=(0, 0, -0.31))
-    g = bpy.context.object
-    for c in g.users_collection:
-        c.objects.unlink(g)
-    col.objects.link(g)
-    g.name = "teren"
+def teren(ctx, col, snow=False, piwnica=None):
+    if piwnica is not None and not piwnica.is_empty:
+        # piwnica: w terenie otwór nad jej obrysem (inaczej trawa przecina piwnicę widoczną przez schody)
+        from shapely.geometry import Point
+        M = Mesh()
+        disc = Point(ctx.ox, ctx.oy).buffer(420, 32).difference(piwnica.buffer(0.02, join_style="mitre"))
+        M.extrude(disc, -0.32, -0.31, "teren", bottom=False)
+        me = mesh_from_tris("teren", M.g[("base", "teren")], ctx)
+        g = bpy.data.objects.new("teren", me)
+        col.objects.link(g)
+    else:
+        bpy.ops.mesh.primitive_circle_add(vertices=128, radius=420, fill_type="NGON", location=(0, 0, -0.31))
+        g = bpy.context.object
+        for c in g.users_collection:
+            c.objects.unlink(g)
+        col.objects.link(g)
+        g.name = "teren"
     g.data.materials.append(material("snieg" if snow else "trawa", ctx))
     # daleki las na horyzoncie: sylweta z pojedynczych koron drzew na łagodnych wzgórzach
     rnd = random.Random(ctx.seed * 7 + 3)
@@ -357,7 +367,7 @@ def _rosliny(H, ctx, col):
                 h = max(1.6, min(ft.kw.get("h", 3.5), hmax))
                 rosliny.tree(ft.t, X, Y, Z, h, max(0.6, min(ft.r, hmax * 0.4)), sd, gctx)
             elif ft.t == "cytrus":
-                rosliny.tree("cytrus", X, Y, Z, 2.2, 0.6, sd, gctx)
+                rosliny.tree("cytrus", X, Y, Z, 2.4 if ft.kw.get("grunt") else 2.2, 0.6, sd, gctx, grunt=ft.kw.get("grunt", False))
             else:
                 Zp = Z - 0.11 if ft.t == "lilia" else Z
                 rosliny.plant(ft.t, X, Y, Zp, ft.r, sd, gctx, rot=getattr(ft, "rot", 0.0) or 0.0)
@@ -409,18 +419,21 @@ def zbuduj(H, wariant="lato", pora="dzien", snieg=False, dach_t=None, kamery=(),
         mctx = Ctx(ox, oy, mc, seed=seed, dusk=ctx.dusk, season=ctx.season, house=H)
         mctx.cache = ctx.cache
         meble3d.build_items(items, mctx)
+    from . import wnetrza
+    wnetrza.wykonczenia(H, ctx, _col("wnetrza"))
     vc = _col("rosliny")
     vctx = Ctx(ox, oy, vc, seed=seed, dusk=ctx.dusk, season=ctx.season, house=H)
     vctx.cache = ctx.cache
     _rosliny(H, vctx, vc)
     _treeline(H, vctx, vc, kamery)
     detale(H, ctx, _col("detale"), snieg)
-    teren(ctx, _col("teren"), snow=snieg)
+    teren(ctx, _col("teren"), snow=snieg, piwnica=getattr(H, "piwnica", None))
     sun = niebo(sc, pora, az=az)
     if pora == "zmierzch":
         swiatla_wieczor(H, Mh, ctx, _col("swiatla"))
     elif pora == "dzien":
-        swiatla_wieczor(H, Mh, ctx, _col("swiatla"), skala=0.6, drzewa=False)
+        # dom zamówiony z wnętrzami do zwiedzania: światła zapalone jak na zdjęciach nieruchomości
+        swiatla_wieczor(H, Mh, ctx, _col("swiatla"), skala=getattr(H, "swiatla_dzien", 0.6), drzewa=False)
     S = dict(H=H, ctx=ctx, Mh=Mh, sc=sc, obs=obs, sun=sun,
              ruch={k: o for k, o in obs.items() if k[0] == "ruch"})
     return S

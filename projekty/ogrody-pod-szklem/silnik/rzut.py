@@ -131,7 +131,7 @@ def _pattern(pid, kind, a):
 
 FLOOR_PATTERN = {"drewno": "drewno", "drewno_ciemne": "drewno_ciemne", "deska": "deska", "kamien": "kamien",
                  "trawertyn": "trawertyn", "plyty": "plyty", "terakota": "terakota", "cegla": "cegla", "tatami": "tatami",
-                 "beton": "beton"}
+                 "beton": "beton", "plytki_lazienka": "kamien", "dywan": "beton"}
 
 
 def _room_angle(r):
@@ -266,6 +266,15 @@ def plan_level(house, idx, uid):
             for i in range(n):
                 p = run.point_at(run.length * i / (n - 1))
                 C.path(Point(p).buffer(0.13, cap_style="square"), "w-ext")
+        elif run.cls == "lamele":
+            # ściana z lameli: rząd pionowych listew (co 12 cm), przerwa na przejście
+            gaps = [(run.line.project(Point(o.a)), run.line.project(Point(o.b))) for o in L["openings"]
+                    if o.run is run and o.cls == "lamele"]
+            s_ = 0.06
+            while s_ < run.length - 0.03:
+                if not any(min(g) - 0.02 <= s_ <= max(g) + 0.02 for g in gaps):
+                    C.path(Point(run.point_at(s_)).buffer(0.03, cap_style="square"), "w-ext")
+                s_ += 0.12
     for o in L["openings"]:
         _opening_svg(C, o, house)
     # pustki – krzyż i podpis

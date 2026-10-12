@@ -32,7 +32,7 @@ Q = {
     # docelowa: 1080p; próbki dobrane testami (z odszumianiem OIDN 24–48 próbek ≈ 96 wizualnie, 2–3× szybciej);
     # panoramy spaceru 14 px/° (kadr 78° ma ~20 px/° w środku – lekkie zmiękczenie, ale 2× krótszy render)
     "final": dict(res=(1920, 1080), spp=(32, 48), noise=0.05, ares=(1920, 1080), aspp=32, aframes=40, ppd=14, pspp=24,
-                  pnoise=0.06),
+                  pnoise=0.06, ppd_pelna=12),
 }
 SCENY = {"dzien": ("lato", "dzien", False), "zmierzch": ("zima", "zmierzch", False), "zima": ("zima", "zima", True)}
 INTERIOR = ("ogrod", "salon", "sypialnia", "biuro")
@@ -239,8 +239,9 @@ def panoramy(S, stations, P, sdir, od_nowa=False):
         co.location = bl(ctx, st["pos"])
         co.rotation_euler = (math.radians(90), 0, math.radians(st["kierunek"] - 90))
         sc.camera = co
-        W = int(round((st["lon"][1] - st["lon"][0]) * P["ppd"] / 2)) * 2
-        Hh = int(round((st["lat"][1] - st["lat"][0]) * P["ppd"] / 2)) * 2
+        ppd = P["ppd"] if not st.get("pelna") else (st.get("ppd") or P.get("ppd_pelna", P["ppd"]))
+        W = int(round((st["lon"][1] - st["lon"][0]) * ppd / 2)) * 2
+        Hh = int(round((st["lat"][1] - st["lat"][0]) * ppd / 2)) * 2
         r = pokoje.get(st["room"])
         inside = r is not None and not r.outdoor          # taras liczy się jako „na dworze”
         scena.ustaw_render(sc, (W, Hh), P["pspp"], 0.0, noise=P.get("pnoise", P["noise"]), persistent=True)

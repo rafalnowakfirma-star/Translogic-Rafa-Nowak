@@ -23,7 +23,7 @@ DIR_KEYS = set(DIRS)
 
 # grubości ścian [m]
 THICK = {"ext": 0.40, "int": 0.12, "glass": 0.12, "fold": 0.12, "gwall": 0.30,
-         "railing": 0.05, "low": 0.25, "columns": 0.0}
+         "railing": 0.05, "low": 0.25, "columns": 0.0, "lamele": 0.06}
 SLAB = 0.30
 
 OUTDOOR = {"patio", "patio_sezonowe", "taras", "loggia"}
@@ -283,8 +283,9 @@ class House:
         self.rooms.append(g)
         return g
 
-    def connect(self, a, b, kind="door", at=0.5, width=None):
-        self.connects.append(dict(a=a, b=b, kind=kind, at=at, width=width))
+    def connect(self, a, b, kind="door", at=0.5, width=None, near=None):
+        """near=(x, y) – drzwi na wspólnej ścianie najbliżej tego punktu (środek drzwi w rzucie punktu na ścianę)."""
+        self.connects.append(dict(a=a, b=b, kind=kind, at=at, width=width, near=near))
 
     def entrance(self, room, direction, at=0.5, width=1.1, kind="pivot"):
         self.entrances.append(dict(room=room, dir=direction, at=at, width=width, kind=kind))
@@ -294,6 +295,10 @@ class House:
 
     def window(self, room, direction, at=0.5, width=1.2, sill=0.9, head=2.4, kind="win"):
         self.windows.append(dict(room=room, dir=direction, at=at, width=width, sill=sill, head=head, kind=kind))
+
+    def meble(self, key, items):
+        """Wyposażenie pokoju rozstawione ręcznie (zamiast automatycznego): [(rodzaj, x, y, front, {parametry}), …]."""
+        self.get(key).meble = list(items)
 
     def stair(self, kind, level=0, to_level=None, **p):
         s = Stair(kind, level, level + 1 if to_level is None else to_level, **p)
@@ -439,6 +444,8 @@ class House:
                 return "railing", "railing", EA
             if k == "columns":
                 return "columns", "columns", EA
+            if k == "lamele":
+                return "lamele", "lamele", EA      # ściana z pionowych lameli od podłogi do sufitu, z przejściem
             if indoor(A) and indoor(B):
                 return "int", "wall", EA
             # połączenia z ogrodem / zewnętrzem – ściana wg specyfikacji pomieszczenia
@@ -570,6 +577,18 @@ class House:
                         add("door", run, m - w / 2, m + w / 2, 0, 2.25, into=c["b"], cls="glass")
                         c["_ok"] = True
                 continue
+            if k == "lamele":
+                cand = _runs_between(allruns, c["a"], c["b"], self)
+                if cand:
+                    run = max(cand, key=lambda r: r.length)
+                    w = c["width"] or 1.2
+                    m = run.length * c["at"] if c["at"] <= 1 else c["at"]
+                    if c.get("near") is not None:
+                        m = run.line.project(Point(c["near"]))
+                    m = max(w / 2 + 0.12, min(run.length - w / 2 - 0.12, m))
+                    add("arch", run, m - w / 2, m + w / 2, 0, 2.6, into=c["b"], cls="lamele")
+                    c["_ok"] = True
+                continue
             cand = _runs_between(allruns, c["a"], c["b"], self)
             # drzwi tylko między prawdziwymi podłogami (nie w pustkach nad salonem / ogrodem)
             cand = [r for r in cand if r.cls is not None and r.room.kind not in ("void", "ogrod_void")
@@ -577,9 +596,14 @@ class House:
             if not cand:
                 continue
             run = max(cand, key=lambda r: r.length)
+            if c.get("near") is not None:
+                pn = Point(c["near"])
+                run = min(cand, key=lambda r: r.line.distance(pn))
             w = c["width"] or DOOR_W.get(k, 0.9)
             w = min(w, run.length - 0.3)
             m = run.length * c["at"] if c["at"] <= 1 else c["at"]
+            if c.get("near") is not None:
+                m = run.line.project(Point(c["near"]))
             m = max(w / 2 + 0.12, min(run.length - w / 2 - 0.12, m))
             into = c["b"]
             add(k, run, m - w / 2, m + w / 2, 0, 2.25 if k not in ("wide", "portal", "arch") else 2.6, into=into)
@@ -670,6 +694,8 @@ class House:
             if idx == self.ground or idx < self.ground:
                 # parter: płyta na gruncie (nad piwnicą – strop piwnicy, rysowany tak samo); piwnica: płyta denna
                 base = _u([r.poly for r in floor_rooms + terr]) if floor_rooms else Polygon()
+                for fp, s in L.get("voids", []):
+                    base = base.difference(fp)            # zejście do piwnicy: otwór w płycie parteru
                 L["base"] = base
             else:
                 fl = _u([r.poly for r in floor_rooms + terr]) if floor_rooms + terr else Polygon()
@@ -696,7 +722,7 @@ class House:
         self.piwnica = _u(under) if under else Polygon()
 
     def _areas(self):
-        self.area = {"uzytkowa": 0.0, "ogrod": 0.0, "zewn": 0.0, "sezon": 0.0}
+        self.area = {"uzytkowa": 0.0, "ogrod": 0.0, "zewn": 0.0, "sezon": 0.0, "piwnica": 0.0}
         self.room_areas = []
         for idx, L in self.L.items():
             for r in L["rooms"]:
@@ -713,7 +739,8 @@ class House:
                     # minus otwory schodowe nad pokojem
                     for fp, s in L.get("voids", []):
                         a -= r.net.intersection(fp).area if r.net is not None else 0
-                    self.area["uzytkowa"] += a
+                    # piwnica nie wlicza się do powierzchni użytkowej (podawana osobno)
+                    self.area["piwnica" if idx < self.ground else "uzytkowa"] += a
                 self.room_areas.append((idx, r, a))
         minx, miny, maxx, maxy = self.footprint.bounds
         self.bbox = (minx, miny, maxx, maxy)
@@ -860,6 +887,8 @@ def _cls_of(spec):
         return "gwall"
     if spec == "columns":
         return "columns"
+    if spec == "lamele":
+        return "lamele"
     return None
 
 

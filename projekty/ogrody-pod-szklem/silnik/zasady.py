@@ -63,8 +63,10 @@ def check(H):
     res = []
     base = H.ground
     a = H.area["uzytkowa"]
-    lim = getattr(H, "max_area", MAX_AREA)          # dom zamówiony z innym limitem (np. P21: 180 m² z piwnicą)
-    res.append(dict(key="area", label=f"{a:.0f} m² użytkowe (limit {lim:.0f} m²)".replace(".", ","),
+    lim = getattr(H, "max_area", MAX_AREA)          # dom zamówiony z innym limitem (np. P21: 180 m² bez piwnicy)
+    pw = H.area.get("piwnica", 0.0)
+    extra = f", piwnica {pw:.0f} m² poza limitem" if pw > 0.5 else ""
+    res.append(dict(key="area", label=f"{a:.0f} m² użytkowe (limit {lim:.0f} m²{extra})".replace(".", ","),
                     ok=a <= lim + 0.05, detail="" if a <= lim + 0.05 else f"za dużo o {a - lim:.1f} m²"))
 
     # 1. ogród otoczony pokojami
@@ -183,6 +185,12 @@ def check(H):
     ok4 = len(around) >= 2
     res.append(dict(key="modules", label="moduły piętra wokół tarasu", ok=ok4,
                     detail="" if ok4 else f"przy tarasie stoi {len(around)} pomieszczeń piętra (potrzeba co najmniej 2)"))
+    # dom zamówiony indywidualnie: klient świadomie odstępuje od niektórych zasad kolekcji
+    for r in res:
+        why = getattr(H, "wyjatki", {}).get(r["key"])
+        if why and not r["ok"]:
+            r["ok"] = True
+            r["detail"] = "wyjątek na życzenie klienta: " + why
     return res
 
 

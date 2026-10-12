@@ -1,30 +1,45 @@
 {
- "tytul": "Kaskada. Dom zamówiony indywidualnie: w środku ogród zimowy z wodospadem, zielonymi ścianami i jacuzzi pod przesuwnym szklanym dachem.",
- "lotu": "Dom ma sto siedemdziesiąt dwa metry kwadratowe razem z piwnicą. Dwa skrzydła obejmują ogród zimowy: od zachodu salon z kuchnią, od wschodu sypialnia, a nad nią wieża z biurami. Z ulicy widać tylko pełną ścianę.",
- "dach": "Szklany dach ogrodu rozsuwa się na lato i wodospad szumi pod gołym niebem.",
+ "tytul": "Kaskada. Dom zamówiony indywidualnie: długi ogród zimowy z wodospadem i jacuzzi, a wokół niego kuchnia, salon, sypialnia, pokój dziecięcy, dwa biura i kino.",
+ "lotu": "Dom ma sto osiemdziesiąt metrów kwadratowych powierzchni użytkowej, a piwnica z kinem jest liczona osobno. Ogród ciągnie się wzdłuż długiej ściany, między dwoma segmentami domu. Nad sypialnią stoi wieża z biurami.",
+ "dach": "Szklany dach ogrodu rozsuwa się na lato, a zimą zamyka się nad wodospadem i jacuzzi.",
  "spacer": {
-  "przed": "Stoimy przed wejściem we wschodnim skrzydle. Od drogi dom pokazuje tylko białe ściany i wysokie okna, a ogród z wodospadem jest schowany w środku.",
-  "s1_hol": "Hol jest szeroki, z toaletą dla gości. Kręcone schody prowadzą w dół do sali kinowej w piwnicy, a w górę do dwóch biur w wieży.",
-  "s2_og": "Z korytarza wychodzimy na drewniany pomost z sofą. Przed nami wodospad spływa po ciemnym łupku do jacuzzi w turkusowej mozaice, po bokach rosną zielone ściany, a dookoła mech, kwiaty i drzewko cytryny.",
-  "s3_sal": "Salon z kuchnią stoi przy samym ogrodzie, za szklaną ścianą z drzwiami przesuwnymi. Z kuchni widać wodospad, a płyty z trawertynu prowadzą przez mech na pomost.",
-  "s4_syp": "Sypialnia ma szkło od ogrodu od podłogi do pół metra pod sufitem. Obok jest łazienka, do której wchodzi się tylko z sypialni, z tym samym widokiem na zieleń.",
-  "s5_biu1": "Na piętrze są dwa biura obok siebie, oddzielone ścianą, każde z osobnym wejściem z holu. Przez szkło patrzy się na dach ogrodu i wodospad.",
-  "s6_tar": "Z drugiego biura wychodzimy na otwarty taras na dachu korytarza. Wieczorem siedzi się tu nad szklanym dachem, pod którym paruje jacuzzi."
+  "przed": "Wchodzimy od wschodu. Z drogi widać tylko jasne ściany i okna, ogród jest schowany w środku domu.",
+  "hol": "Hol z szafą i ławką na buty. Tu są schody do wieży i do piwnicy, a w głębi drzwi do sypialni i WC dla gości.",
+  "kor": "Korytarz łączy oba segmenty domu. Z jednej strony jest szklana ściana do ogrodu, z drugiej obrazy i wyjście na patio.",
+  "og": "Ogród zimowy jak na zdjęciu: wodospad spływa po ciemnym łupku do jacuzzi w turkusowej mozaice. Po bokach rosną zielone ściany, dookoła jest mech, lawenda i drzewko cytryny posadzone w ziemi.",
+  "sal": "Salon ma zieloną ścianę z telewizorem i prostą sofę. Schody na piętro biegną wzdłuż ściany z dębowych lameli, a przez szkło widać ogród.",
+  "kuch": "Kuchnia ma osiem metrów długości. Jest w niej zabudowa z lodówką i piekarnikiem, wyspa z hokerami i stół dla sześciu osób przy oknie do ogrodu. Od salonu oddziela ją ściana z lameli z przejściem.",
+  "hol1": "Na górze schody kończą się przy szklanej balustradzie. Stąd wchodzimy do pokoju dziecięcego, do toalety i na taras nad salonem.",
+  "dzieci": "Pokój dziecięcy ma miętowe ściany, łóżko, biurko pod oknem, regał z koszami na zabawki i namiot do zabawy.",
+  "wc1": "Na piętrze jest tylko toaleta, bez łazienki.",
+  "tar": "Taras nad salonem ma leżaki i stolik. Z góry widać szklany dach ogrodu i wieżę z biurami.",
+  "kor1": "Korytarz piętra biegnie wzdłuż całego domu i łączy oba segmenty. Przez szkło widać dach ogrodu.",
+  "hol2": "Hol wieży, tu kończą się drugie schody. Obok są wejścia do dwóch osobnych biur.",
+  "biu1": "Pierwsze biuro ma biurko przy szybie od podłogi do pół metra pod sufitem, z widokiem na ogród.",
+  "biu2": "Drugie biuro jest oddzielone ścianą i ma własne wejście. Jest w nim biurko pod oknem, regał i sofa.",
+  "syp": "Sypialnia ma granatową ścianę za łóżkiem i szybę od strony ogrodu. Obok jest garderoba i łazienka.",
+  "laz": "Do łazienki wchodzi się tylko z sypialni. Jest wanna wolnostojąca przy szybie od ogrodu, prysznic i płytki z zieloną ścianą.",
+  "gard": "Garderoba z szafami na dwóch ścianach.",
+  "wc": "Przy holu jest osobne WC dla gości.",
+  "holp": "Schodami z holu schodzimy do piwnicy. Piwnica nie wlicza się do powierzchni użytkowej.",
+  "kino": "Sala kinowa ma dwa rzędy foteli, duży ekran z projektorem, głośniki i panele akustyczne na ścianach.",
+  "tech": "W pomieszczeniu technicznym stoi pompa ciepła, zasobnik wody i pralka z suszarką.",
+  "patio": "Na patio przy salonie stoi kuchnia ogrodowa z grillem, stół, sofa i leżaki."
  },
- "rzuty": "Parter to dwa skrzydła i łączący je szklany korytarz: salon z kuchnią od zachodu, sypialnia z łazienką i hol od wschodu. Piętro w wieży to dwa biura i toaleta, a w piwnicy pod schodami są sala kinowa i pomieszczenie techniczne.",
- "zmierzch": "Wieczorem świeci taśma pod pomostem i półka wodospadu, a jacuzzi lśni turkusem. Od ulicy widać tylko kilka jasnych okien.",
- "zima": "Zimą dach jest zamknięty, mech zostaje zielony, cytryna owocuje, a jacuzzi paruje pod szkłem. Taras na dachu przykrywa śnieg.",
+ "rzuty": "Na parterze z jednej strony jest kuchnia i salon, z drugiej sypialnia z łazienką i hol, a między nimi ogród i korytarz. Na piętrze jest pokój dziecięcy, korytarz przez cały dom i dwa biura w wieży, a w piwnicy kino.",
+ "zmierzch": "Wieczorem świeci półka wodospadu i jacuzzi, a z ulicy widać tylko kilka jasnych okien.",
+ "zima": "Zimą dach jest zamknięty, w ogrodzie zostaje zieleń, a jacuzzi paruje pod szkłem.",
  "zalety": [
-  "Wodospad i jacuzzi jak na zdjęciu",
-  "Zielone ściany i prawdziwy ogród",
-  "Dwa osobne biura w wieży",
-  "Sala kinowa w piwnicy"
+  "Ogród z wodospadem i jacuzzi wzdłuż domu",
+  "Długa kuchnia za ścianą z lameli",
+  "Dwa osobne biura i pokój dziecięcy",
+  "Kino w piwnicy poza metrażem"
  ],
  "wady": [
-  "Taras dostępny tylko przez biuro",
+  "Do łazienki tylko przez sypialnię",
   "Piwnica i wodospad podnoszą koszt",
-  "Ogród z wodą wymaga dobrej wentylacji"
+  "Ogród z wodą wymaga wentylacji"
  ],
- "zalety_wady": "Kaskada ma wodospad z łupka, zielone ściany i jacuzzi w ogrodzie, którego nikt nie widzi, dwa osobne biura w wieży i kino w piwnicy. Minusy: na taras wychodzi się przez drugie biuro, piwnica i wodospad podnoszą koszt, a woda i zielone ściany pod szkłem wymagają wentylacji i nawadniania.",
+ "zalety_wady": "Kaskada ma długi ogród z wodospadem i jacuzzi, kuchnię za ścianą z lameli, pokój dziecięcy, dwa osobne biura i kino w piwnicy. Minusy: do łazienki wchodzi się tylko przez sypialnię, piwnica i wodospad podnoszą koszt, a woda pod szkłem wymaga dobrej wentylacji.",
  "koniec": "Kaskada: woda, zieleń i cisza w środku domu."
 }

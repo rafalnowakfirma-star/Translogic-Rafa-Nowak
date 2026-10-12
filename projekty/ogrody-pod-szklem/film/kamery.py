@@ -736,9 +736,35 @@ def zasieg_widoku(ruch, margines=2.5, kroki=9, aspekt=16 / 9):
             [round(min(la) - margines, 2), round(max(la) + margines, 2)])
 
 
+LAT_PELNA = (-62.0, 72.0)     # panoramy 360°: bez samej podłogi pod stopami i sufitu nad głową
+
+
+def plan_spaceru_pelny(H):
+    """Spacer po każdym pomieszczeniu (H.spacer): pełne panoramy 360° z punktów wybranych w projekcie.
+    Środek panoramy (lon 0) = północ; ruch kamery w filmie: kierunki od północy zgodnie z ruchem wskazówek zegara."""
+    out = []
+    for sid, room, x, y, zeye, (b0, b1), podpis in H.spacer:
+        r = H.get(room) if room else None
+        z = (r.z0 if r is not None else -0.3) + zeye
+        small = r is not None and r.net is not None and r.net.area < 8.0
+        hfov = 100.0 if small else 90.0
+        pitch = 6.0 if (r is not None and r.kind == "ogrod") else (3.0 if r is None or r.outdoor else 0.0)
+        if small:
+            pitch = -6.0
+        out.append(dict(id=sid, room=room, pos=(x, y, z), kierunek=90.0, lon=[-180.0, 180.0], lat=list(LAT_PELNA),
+                        ruch=[[float(b0), pitch, hfov], [float(b1), pitch * 0.6, hfov]], podpis=podpis,
+                        ppd=10 if small else None, pelna=True))
+    return out
+
+
 def plan_spaceru(H, max_stacji=6):
     """Stacje spaceru z perspektywy pierwszej osoby: przed wejściem → wnętrza → ogród → salon → piętro → taras."""
     from silnik.meble import furnish_level
+    if getattr(H, "spacer", None):
+        for idx, L in H.L.items():
+            if L.get("items") is None:
+                L["items"] = furnish_level(H, idx)
+        return plan_spaceru_pelny(H)
     for idx, L in H.L.items():
         if L.get("items") is None:
             L["items"] = furnish_level(H, idx)

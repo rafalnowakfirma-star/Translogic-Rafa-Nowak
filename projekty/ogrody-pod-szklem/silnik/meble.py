@@ -305,6 +305,125 @@ def wine_rack(w=2.0):
     return Item("wino", w, 0.4, s, [("box", 0, 0, 0, w, 0.4, 2.2, "regal")], 2.2)
 
 
+# --------------------------------------------------------------- wyposażenie na zamówienie (rozstawiane ręcznie)
+def tall_unit(w=1.2, d=0.62, h=2.3):
+    """Zabudowa wysoka: lodówka w zabudowie + słupek z piekarnikiem i mikrofalą."""
+    s = [r_(-w / 2, -d / 2, w, d, 0.0, "fu-c"), ("l", 0, -d / 2, 0, d / 2, D), ("l", -w / 2, d / 2 - 0.03, w / 2, d / 2 - 0.03, D)]
+    return Item("zabudowa", w, d, s, [("box", 0, 0, 0, w, d, h, "kuchnia")], h)
+
+
+def sideboard(w=1.6, d=0.45, h=0.78):
+    """Komoda / konsola z dekoracjami na blacie."""
+    s = [r_(-w / 2, -d / 2, w, d, 0.0, W), ("l", -w / 2, d / 2 - 0.03, w / 2, d / 2 - 0.03, D)]
+    return Item("komoda", w, d, s, [("box", 0, 0, 0, w, d, h, "drewno_mebel")], h)
+
+
+def wall_art(w=1.0, h=0.7, zc=1.55, seed=0):
+    """Obraz na ścianie (środek na wysokości zc)."""
+    it = Item("obraz", w, 0.05, [("l", -w / 2, 0.0, w / 2, 0.0, D)], [("box", 0, 0, zc - h / 2, w, 0.04, h, "czarny_lak")], zc + h / 2)
+    it.art = dict(h=h, zc=zc, seed=seed)
+    return it
+
+
+def mirror(w=0.8, h=1.0, zc=1.45):
+    it = Item("lustro", w, 0.04, [("l", -w / 2, 0.0, w / 2, 0.0, "fu-bath")], [("box", 0, 0, zc - h / 2, w, 0.03, h, "szklo_mebel")], zc + h / 2)
+    it.art = dict(h=h, zc=zc)
+    return it
+
+
+def curtain(w=2.0, d=0.12):
+    """Zasłona od sufitu do podłogi (zmarszczona), przy oknie."""
+    s = [("l", -w / 2, 0.0, w / 2, 0.0, T)]
+    return Item("zaslona", w, d, s, [("box", 0, 0, 0, w, d, 2.6, "tkanina")], 2.6)
+
+
+def low_shelf(w=1.2, d=0.36, h=0.9):
+    """Niski regał z koszami na zabawki."""
+    s = [r_(-w / 2, -d / 2, w, d, 0.0, W)]
+    for i in range(int(w / 0.33)):
+        s.append(r_(-w / 2 + 0.04 + i * 0.33, -d / 2 + 0.05, 0.26, d - 0.1, 0.03, "fu-b" + str(1 + i % 3)))
+    return Item("regal_niski", w, d, s, [("box", 0, 0, 0, w, d, h, "drewno_mebel")], h)
+
+
+def play_tent(s_=1.1):
+    s = [r_(-s_ / 2, -s_ / 2, s_, s_, 0.0, T), ("l", -s_ / 2, 0, s_ / 2, 0, F)]
+    return Item("namiot", s_, s_, s, [("box", 0, 0, 0, s_, s_, 1.5, "tkanina")], 1.5)
+
+
+def beanbag(r=0.4):
+    return Item("pufa", 2 * r, 2 * r, [r_(-r, -r, 2 * r, 2 * r, r * 0.8, F)], [("box", 0, 0, 0, 2 * r, 2 * r, 0.6, "tkanina")], 0.6)
+
+
+def floor_lamp(r=0.2):
+    return Item("lampa", 2 * r, 2 * r, [("c", 0, 0, r, "fu-lamp")], [("cyl", 0, 0, 0, r, 1.6, "rama_mebel")], 1.6)
+
+
+def bbq(w=2.4, d=0.7):
+    """Kuchnia ogrodowa: murowany blok z grillem gazowym pod pokrywą i blatem roboczym."""
+    s = [r_(-w / 2, -d / 2, w, d, 0.0, "fu-stone"), r_(-0.35, -d / 2 + 0.08, 0.7, d - 0.16, 0.04, D)]
+    return Item("grill", w, d, s, [("box", 0, 0, 0, w, d, 0.92, "kamien_mebel")], 1.2)
+
+
+def cinema_seats(n=3, d=1.0):
+    """Rząd foteli kinowych z podłokietnikami."""
+    w = n * 0.82 + 0.16
+    s = [r_(-w / 2, -d / 2, w, d, 0.08, F)]
+    for i in range(n):
+        s.append(r_(-w / 2 + 0.08 + i * 0.82 + 0.06, -d / 2 + 0.25, 0.7, d - 0.32, 0.06, T))
+    return Item("fotele_kino", w, d, s, [("box", 0, 0, 0, w, d, 0.95, "tkanina_ciemna")], 0.95)
+
+
+def speaker(w=0.26, d=0.32, h=1.05):
+    return Item("glosnik", w, d, [r_(-w / 2, -d / 2, w, d, 0.0, D)], [("box", 0, 0, 0, w, d, h, "czarny_lak")], h)
+
+
+def projector():
+    return Item("projektor", 0.4, 0.32, [r_(-0.2, -0.16, 0.4, 0.32, 0.03, D)], [("box", 0, 0, 2.3, 0.4, 0.32, 0.14, "czarny_lak")], 2.4)
+
+
+def coat_rack(w=1.4, d=0.4):
+    """Garderoba w holu: listwa z wieszakami, ławka z poduszką i półką na buty."""
+    s = [r_(-w / 2, -d / 2, w, d, 0.0, W)]
+    return Item("wieszak", w, d, s, [("box", 0, 0, 0, w, d, 0.45, "drewno_mebel")], 1.9)
+
+
+FACTORY = {
+    "sofa": sofa, "fotel": armchair, "stolik": coffee_table, "stolik_okragly": round_coffee, "dywan": rug,
+    "stol": dining, "lozko": bed, "szafa": wardrobe, "regal": shelves, "blat": counter, "wyspa": island,
+    "biurko": desk, "wanna": bathtub, "prysznic": shower, "wc": wc, "umywalki": basins, "pralka": washer,
+    "lezak": lounger, "donica": planter, "lawka": bench, "rtv": tv_unit, "zbiornik": tank, "ekran": None,
+    "zabudowa": tall_unit, "komoda": sideboard, "obraz": wall_art, "lustro": mirror, "zaslona": curtain,
+    "regal_niski": low_shelf, "namiot": play_tent, "pufa": beanbag, "lampa": floor_lamp, "grill": bbq,
+    "fotele_kino": cinema_seats, "glosnik": speaker, "projektor": projector, "wieszak": coat_rack,
+    "wino": wine_rack,
+    "pompa": lambda w=0.8, d=0.6: Item("pompa", w, d, [r_(-w / 2, -d / 2, w, d, 0.03, D)],
+                                       [("box", 0, 0, 0, w, d, 1.0, "ceramika")], 1.0),
+}
+FACING = {"S": 0.0, "N": 180.0, "E": -90.0, "W": 90.0}
+
+
+def _screen(w=3.2):
+    return Item("ekran", w, 0.2, [r_(-w / 2, -0.1, w, 0.2, 0.0, D)], [("box", 0, 0, 0.6, w, 0.1, 1.6, "czarny_lak")], 2.2)
+
+
+def custom_items(room):
+    """Meble rozstawione ręcznie w projekcie domu: H.meble(klucz, [(rodzaj, x, y, front, {parametry}), …]).
+    front – kierunek, w który zwrócony jest przód mebla (N/S/E/W albo kąt), x, y – środek mebla na planie."""
+    out = []
+    for spec in room.meble:
+        kind, x, y, face = spec[:4]
+        kw = dict(spec[4]) if len(spec) > 4 else {}
+        extra = {k: kw.pop(k) for k in ("wariant", "dz", "opcje") if k in kw}
+        it = _screen(**kw) if kind == "ekran" else FACTORY[kind](**kw)
+        it.cx, it.cy = x, y
+        it.rot = FACING[face] if isinstance(face, str) else float(face)
+        it.wariant = extra.get("wariant")
+        it.opcje = extra.get("opcje") or {}
+        it.dz = extra.get("dz", 0.0)
+        out.append(it)
+    return out
+
+
 # --------------------------------------------------------------- rozmieszczanie
 class Placer:
     def __init__(self, room, net, segs, blocked):
@@ -973,6 +1092,12 @@ def furnish_level(house, idx):
                 out.append(ct)
     for r in level["rooms"]:
         if not r.furn or r.parent is not None or r.kind in ("ogrod", "ogrod_void", "void"):
+            continue
+        if getattr(r, "meble", None) is not None:
+            for it in custom_items(r):
+                it.z = r.z0 + it.dz
+                it.room = r
+                out.append(it)
             continue
         segs = wall_segments(r, level)
         P = Placer(r, r.net, segs, door_clearance(r, level))

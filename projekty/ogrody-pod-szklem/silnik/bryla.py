@@ -18,7 +18,8 @@ FACADE = {"tynk": "tynk", "beton": "beton", "drewno": "drewno", "drewno_opal": "
           "trawertyn": "trawertyn"}
 FLOOR_MAT = {"drewno": "podloga_drewno", "drewno_ciemne": "podloga_ciemna", "deska": "deck", "kamien": "podloga_kamien",
              "trawertyn": "podloga_kamien", "plyty": "podloga_kamien", "terakota": "podloga_terakota", "cegla": "podloga_terakota",
-             "tatami": "podloga_tatami", "beton": "podloga_beton"}
+             "tatami": "podloga_tatami", "beton": "podloga_beton", "plytki_lazienka": "podloga_plytki",
+             "dywan": "podloga_wykladzina"}
 
 
 class Mesh:
@@ -181,7 +182,10 @@ def build_mesh(house, meble=True, rosliny=True, ludzie=True, dach_t=None):
             M.poly_flat(net, r.z0 + 0.004, FLOOR_MAT.get(r.floor, "podloga_drewno"))
             # sufit / panel światła
             lp = (r.net or r.poly).buffer(-0.8)
-            if not lp.is_empty and lp.area > 1.5 and r.kind not in ("garderoba", "spizarnia", "techniczne"):
+            if (lp.is_empty or lp.area <= 1.5) and getattr(house, "swiatla_dzien", None):
+                lp = (r.net or r.poly).buffer(-0.3)       # wąskie pomieszczenia (hol, korytarz, WC): oczka wzdłuż osi
+            if not lp.is_empty and lp.area > 0.3 and (r.kind not in ("garderoba", "spizarnia", "techniczne")
+                                                      or getattr(house, "swiatla_dzien", None)):
                 M.lights.append((largest(lp), r.top - 0.02, r.kind))
         # meble
         items = L.get("items")
@@ -335,6 +339,8 @@ def _openings3d(M, house, L, fac):
             _pane(M, o.a, o.b, zf + 0.02, zf + o.head, mullion=1.4)
         elif o.kind in ("door", "pivot", "double") and ext:
             M.seg_box(o.a, o.b, 0.06, zf, zf + o.head, "drzwi")
+        elif o.kind == "door" and o.cls == "int" and getattr(house, "drzwi_wew", False):
+            _door_leaf(M, house, o)
     # przeszklenia ciągłe
     for run in L["walls"]:
         if run.cls in ("glass", "fold"):
@@ -348,6 +354,114 @@ def _openings3d(M, house, L, fac):
             for i in range(n):
                 p = run.point_at(run.length * i / (n - 1))
                 M.box(p[0], p[1], run.z0, 0.25, 0.25, run.z1 - run.z0, 0, fac)
+        elif run.cls == "lamele":
+            _lamele(M, run, L)
+    _balustrady(M, house, L)
+
+
+def _lamele(M, run, L):
+    """Ściana z dębowych lameli 4 × 6 cm co 12 cm od podłogi do sufitu, z przejściem (otwór „arch”)."""
+    from shapely.geometry import Point
+    gaps = [(run.line.project(Point(o.a)), run.line.project(Point(o.b))) for o in L["openings"]
+            if o.run is run and o.cls == "lamele"]
+    z0, z1 = run.z0, run.z1 - SLAB
+    (ax, ay), (bx, by) = run.pts[0], run.pts[-1]
+    Ln = math.hypot(bx - ax, by - ay)
+    ux, uy = (bx - ax) / Ln, (by - ay) / Ln
+    s_ = 0.06
+    while s_ < run.length - 0.03:
+        if not any(min(g) - 0.03 <= s_ <= max(g) + 0.03 for g in gaps):
+            p = run.point_at(s_)
+            q1 = (p[0] - ux * 0.02, p[1] - uy * 0.02)
+            q2 = (p[0] + ux * 0.02, p[1] + uy * 0.02)
+            M.seg_box(q1, q2, 0.06, z0, z1, "lamele")
+        s_ += 0.12
+    # listwa przypodłogowa i sufitowa łącząca lamele (poza przejściem)
+    cuts = sorted(gaps)
+    s0 = 0.0
+    for g0, g1 in cuts + [(run.length, run.length)]:
+        a_, b_ = s0, min(g0, g1)
+        if b_ - a_ > 0.1:
+            pa, pb = run.point_at(a_), run.point_at(b_)
+            M.seg_box(pa, pb, 0.07, z1 - 0.04, z1, "lamele")
+            M.seg_box(pa, pb, 0.07, z0, z0 + 0.03, "lamele")
+        s0 = max(g0, g1)
+
+
+def _balustrady(M, house, L):
+    """Szklane balustrady wokół otworów schodowych na piętrach (bez krawędzi wejścia na schody i przy ścianach)."""
+    from shapely.geometry import LineString, Point
+    idx = L["level"].idx
+    wall = L.get("wall_union")
+    for fp, s in L.get("voids", []):
+        if s.kind == "spiral":
+            continue
+        x1, y1, x2, y2 = s.p["rect"]
+        up = s.p.get("up", "E")
+        z = house.levels[idx].z
+        # krawędź, na którą wychodzi się ze schodów (górny koniec biegu)
+        if s.kind == "U":
+            arr = {"S": (x1, y1, x2, y1), "N": (x1, y2, x2, y2), "E": (x1, y1, x1, y2), "W": (x2, y1, x2, y2)}[up]
+        else:
+            arr = {"N": (x1, y1, x2, y1), "S": (x1, y2, x2, y2), "E": (x2, y1, x2, y2), "W": (x1, y1, x1, y2)}[up]
+        edges = [((x1, y1), (x2, y1)), ((x2, y1), (x2, y2)), ((x2, y2), (x1, y2)), ((x1, y2), (x1, y1))]
+        for a, b in edges:
+            if {a, b} == {(arr[0], arr[1]), (arr[2], arr[3])}:
+                if s.kind != "U":
+                    continue
+                # schody U: wyjście tylko nad drugim biegiem – nad pierwszym balustrada
+                mid = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+                first = (a, mid) if up in ("S", "N") and a[0] < b[0] or up in ("E", "W") and a[1] < b[1] else (mid, b)
+                a, b = first
+            ln = LineString([a, b])
+            if wall is not None and not wall.is_empty and ln.buffer(0.02).difference(wall.buffer(0.08)).area < 0.01:
+                continue                                  # przy ścianie – bez balustrady
+            M.seg_box(a, b, 0.02, z + 0.05, z + 1.0, "szklo")
+            M.seg_box(a, b, 0.05, z + 1.0, z + 1.05, "rama")
+
+
+def _door_leaf(M, house, o, ang=78.0):
+    """Drzwi wewnętrzne: ościeżnica z opaskami po obu stronach i skrzydło uchylone do pomieszczenia „into”."""
+    (ax, ay), (bx, by) = o.a, o.b
+    Lw = math.hypot(bx - ax, by - ay)
+    if Lw < 0.5:
+        return
+    ux, uy = (bx - ax) / Lw, (by - ay) / Lw
+    nx, ny = o.run.normal                       # na zewnątrz pokoju run.room
+    zf, zh = o.z_floor, o.z_floor + o.head
+    t = o.t
+    eff = house._effective(o.run.room).key
+    sgn = -1.0 if o.into == eff else 1.0       # skrzydło otwiera się do pokoju „into”
+    # ościeżnica: węgarki i nadproże (biała), opaski 6 cm na obu licach
+    for p in (o.a, o.b):
+        M.seg_box((p[0] - nx * (t / 2 + 0.012), p[1] - ny * (t / 2 + 0.012)),
+                  (p[0] + nx * (t / 2 + 0.012), p[1] + ny * (t / 2 + 0.012)), 0.025, zf, zh, "listwa")
+    for side in (-1, 1):
+        off = side * (t / 2 + 0.006)
+        q1 = (ax - ux * 0.06 + nx * off, ay - uy * 0.06 + ny * off)
+        q2 = (bx + ux * 0.06 + nx * off, by + uy * 0.06 + ny * off)
+        M.seg_box(q1, q2, 0.012, zh, zh + 0.06, "listwa")
+        for p, s_ in ((o.a, -1), (o.b, 1)):
+            M.seg_box((p[0] + ux * s_ * 0.0 + nx * off, p[1] + uy * s_ * 0.0 + ny * off),
+                      (p[0] + ux * s_ * 0.06 + nx * off, p[1] + uy * s_ * 0.06 + ny * off), 0.012, zf, zh + 0.06, "listwa")
+    # skrzydło na zawiasie (o.hinge), lico przy licu ściany od strony otwierania
+    hx, hy = (ax, ay) if o.hinge == "a" else (bx, by)
+    dx, dy = (ux, uy) if o.hinge == "a" else (-ux, -uy)
+    hx += dx * 0.03 + sgn * nx * (t / 2)
+    hy += dy * 0.03 + sgn * ny * (t / 2)
+    a = math.radians(ang)
+    ex = dx * math.cos(a) + sgn * nx * math.sin(a)
+    ey = dy * math.cos(a) + sgn * ny * math.sin(a)
+    wl = Lw - 0.06
+    tip = (hx + ex * wl, hy + ey * wl)
+    M.seg_box((hx, hy), tip, 0.04, zf + 0.008, zh - 0.008, "drzwi_wew")
+    # klamki po obu stronach przy wolnej krawędzi
+    px, py = hx + ex * (wl - 0.07), hy + ey * (wl - 0.07)
+    qx, qy = -ey, ex
+    for s_ in (-1, 1):
+        c = (px + qx * s_ * 0.045, py + qy * s_ * 0.045)
+        M.seg_box((c[0] - ex * 0.06, c[1] - ey * 0.06), (c[0] + ex * 0.06 * 0, c[1] + ey * 0.0), 0.018,
+                  zf + 1.02, zf + 1.04, "rama")
 
 
 def _pane(M, a, b, z0, z1, mullion=1.6):
