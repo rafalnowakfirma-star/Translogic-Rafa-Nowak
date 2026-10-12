@@ -36,7 +36,7 @@ WERSJA 1 (archiwum – przed zmianami)
   P04  Plaster miodu           243 m²   film 2:36             wersja_1_archiwum/P04_Plaster_miodu
   P05  Wiatrak                 251 m²   film 2:37             wersja_1_archiwum/P05_Wiatrak
   P06  Dwa pasma               248 m²   film 2:33             wersja_1_archiwum/P06_Dwa_pasma
-  P07  Ślimak                  250 m²   film w przygotowaniu  wersja_1_archiwum/P07_Slimak
+  P07  Ślimak                  250 m²   film 2:40             wersja_1_archiwum/P07_Slimak
   P08  Trójkąt                 249 m²   film w przygotowaniu  wersja_1_archiwum/P08_Trojkat
   P09  Pawilony                240 m²   film w przygotowaniu  wersja_1_archiwum/P09_Pawilony
   P10  Monolit                 249 m²   film w przygotowaniu  wersja_1_archiwum/P10_Monolit
