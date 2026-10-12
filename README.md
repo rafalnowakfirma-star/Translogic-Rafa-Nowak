@@ -32,7 +32,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P14 Zygzak | 163 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P14_Zygzak/P14_Zygzak_film.mp4) |
 | P15 Wachlarz | 164 m² | [pobierz (2:31)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P15_Wachlarz/P15_Wachlarz_film.mp4) |
 | P16 Owal | 167 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P16_Owal/P16_Owal_film.mp4) |
-| P17 Refektarz | 164 m² | w przygotowaniu |
+| P17 Refektarz | 164 m² | [pobierz (2:38)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P17_Refektarz/P17_Refektarz_film.mp4) |
 | P18 Szklarnia | 160 m² | w przygotowaniu |
 | P19 Pomarańczarnia | 165 m² | w przygotowaniu |
 | P20 Stół pod niebem | 159 m² | w przygotowaniu |
