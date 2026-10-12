@@ -33,15 +33,15 @@ def _r(v, n=2):
     return round(float(v), n)
 
 
-def zwiedzanie(pid, wersja=2, lokalnie=False, szer=4096):
+def zwiedzanie(pid, wersja=2, lokalnie=False, szer=4096, src=None, out=None):
     H = load(pid, "domy" if wersja == 2 else "domy_v1").build()
-    src = os.path.join(HERE, "out", "film", f"v{wersja}", pid)
+    src = src or os.path.join(HERE, "out", "film", f"v{wersja}", pid)
     SP = json.load(open(os.path.join(src, "spacer", "spacer.json"), encoding="utf-8"))
     nar = {}
     nj = os.path.join(HERE, "film", "narracja", f"v{wersja}", f"{pid}.json")
     if os.path.exists(nj):
         nar = json.load(open(nj, encoding="utf-8")).get("spacer", {})
-    out = os.path.join(HERE, "out", "zwiedzanie", pid)
+    out = out or os.path.join(HERE, "out", "zwiedzanie", pid)
     for d in ("pano", "mini"):
         os.makedirs(os.path.join(out, d), exist_ok=True)
     rooms = {r.key: r for r in H.rooms}
@@ -139,6 +139,13 @@ def zwiedzanie(pid, wersja=2, lokalnie=False, szer=4096):
         skrypt = f'<script src="{PANNELLUM}"></script>'
     html = (tpl.replace("/*PANNELLUM_CSS*/", css).replace("<!--PANNELLUM_JS-->", skrypt)
             .replace("/*DANE*/null", json.dumps(dane, ensure_ascii=False)))
+    if lokalnie:
+        # wersja do otwarcia bez serwisu artefaktów: ten sam szkielet strony, który artefakt dokłada przy publikacji
+        html = ('<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" '
+                'content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;'
+                'padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}body{margin:0;font:14px system-ui,'
+                'sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>' + html +
+                '</body></html>')
     fn = os.path.join(out, "index_lokalnie.html" if lokalnie else "index.html")
     open(fn, "w", encoding="utf-8").write(html)
     return fn

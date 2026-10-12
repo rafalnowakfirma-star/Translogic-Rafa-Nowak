@@ -57,6 +57,7 @@ H = House(
 H.max_area = 180.0          # zamówienie: do 180 m² powierzchni użytkowej (piwnica poza limitem)
 H.dach_dzien = 0.0          # kadry i spacer: ogród pod zamkniętym szklanym dachem, jak na zdjęciu klienta
 H.swiatla_dzien = 1.3       # spacer i panoramy: zapalone oczka w sufitach (jasne wnętrza jak na zdjęciach nieruchomości)
+H.kamera_lotu = (-78.0, 44.0)  # z lotu ptaka od północy, wysoko: szklany dach ogrodu między segmentami
 H.drzwi_wew = True          # skrzydła drzwi wewnętrznych w modelu 3D (uchylone do pomieszczeń)
 H.wyjatki = {
     "private": "otwarte patio przy salonie – z patio widać ogród przez salon, jak w zwykłym domu",

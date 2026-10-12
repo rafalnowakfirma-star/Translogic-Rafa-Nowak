@@ -23,7 +23,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
 *{box-sizing:border-box}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-.app{display:grid;grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:auto minmax(0,1fr);height:100%}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 420px;grid-template-rows:auto minmax(0,1fr);height:100%}
 .bar{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
 .brand{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);white-space:nowrap}
 .room{font-family:var(--f-disp);font-stretch:112%;font-weight:700;font-size:1.25rem;margin:0;min-width:0;flex:1 1 200px;text-wrap:balance}
@@ -34,8 +34,9 @@ button{font:inherit;color:inherit}
 .btn[aria-pressed="true"]{background:var(--brass);color:var(--brass-ink);border-color:var(--brass)}
 .stage{position:relative;min-height:0;background:#000}
 #pano{position:absolute;inset:0}
-.hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--scrim);color:var(--ink-2);font-size:.82rem;padding:6px 12px;border-radius:999px;pointer-events:none;transition:opacity .6s;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis}
-.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:14px;padding:14px 16px 24px}
+.hint{position:absolute;left:16px;right:16px;bottom:16px;margin:0 auto;width:fit-content;max-width:calc(100% - 32px);background:var(--scrim);color:var(--ink-2);font-size:.82rem;padding:6px 12px;border-radius:14px;pointer-events:none;transition:opacity .6s;text-align:center}
+.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;overflow-x:hidden;min-height:0;min-width:0;display:flex;flex-direction:column;gap:14px;padding:14px 16px 24px}
+.side>*{min-width:0;flex:none}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tab{background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.82rem;cursor:pointer;color:var(--ink-2)}
 .tab[aria-selected="true"]{border-color:var(--brass);color:var(--ink);background:var(--panel-2)}
@@ -43,7 +44,7 @@ button{font:inherit;color:inherit}
 .plan .wn{fill:var(--room);stroke:var(--room-line);stroke-width:.04}
 .plan .ogrod{fill:var(--garden);stroke:var(--room-line);stroke-width:.04}
 .plan .zewn{fill:var(--deck);stroke:var(--room-line);stroke-width:.04}
-.plan text{fill:var(--ink-3);font-family:var(--f-body);font-size:.36px;text-anchor:middle;pointer-events:none}
+.plan text{fill:var(--ink-2);font-family:var(--f-body);font-size:.55px;text-anchor:middle;pointer-events:none}
 .plan .pt{fill:var(--leaf);stroke:var(--bg);stroke-width:.06;cursor:pointer}
 .plan .pt:hover{fill:var(--ink)}
 .plan .cur{fill:var(--brass)}

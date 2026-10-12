@@ -417,6 +417,8 @@ def plan_ujec(H, wersja=2):
     # lot ptaka: ukos 3/4 względem najlepszej strony
     phi_a += math.radians(25)
     el = math.radians(36)
+    if getattr(H, "kamera_lotu", None):          # dom zamówiony: kąt dobrany ręcznie (azymut w układzie planu, elewacja)
+        phi_a, el = (math.radians(v) for v in H.kamera_lotu)
     d, loc, tgt = _fit_distance(H, phi_a, el, 35.0, fill=0.9)
     gs = [r for r in H.all_rooms if r.kind == "ogrod"]
     area = H.area["uzytkowa"]
