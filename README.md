@@ -35,7 +35,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P17 Refektarz | 164 m² | [pobierz (2:38)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P17_Refektarz/P17_Refektarz_film.mp4) |
 | P18 Szklarnia | 160 m² | [pobierz (2:33)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P18_Szklarnia/P18_Szklarnia_film.mp4) |
 | P19 Pomarańczarnia | 165 m² | [pobierz (2:38)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P19_Pomaranczarnia/P19_Pomaranczarnia_film.mp4) |
-| P20 Stół pod niebem | 159 m² | w przygotowaniu |
+| P20 Stół pod niebem | 159 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_2/P20_Stol_pod_niebem/P20_Stol_pod_niebem_film.mp4) |
 
 ## Wersja 1 – archiwum (przed zmianami)
 

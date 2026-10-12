@@ -26,7 +26,7 @@ WERSJA 2 (aktualna)
   P17  Refektarz               164 m²   film 2:38             wersja_2/P17_Refektarz
   P18  Szklarnia               160 m²   film 2:33             wersja_2/P18_Szklarnia
   P19  Pomarańczarnia          165 m²   film 2:38             wersja_2/P19_Pomaranczarnia
-  P20  Stół pod niebem         159 m²   film w przygotowaniu  wersja_2/P20_Stol_pod_niebem
+  P20  Stół pod niebem         159 m²   film 2:34             wersja_2/P20_Stol_pod_niebem
 
 WERSJA 1 (archiwum – przed zmianami)
 
