@@ -51,7 +51,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P08 Trójkąt | 249 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P08_Trojkat/P08_Trojkat_film.mp4) |
 | P09 Pawilony | 240 m² | [pobierz (2:29)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P09_Pawilony/P09_Pawilony_film.mp4) |
 | P10 Monolit | 249 m² | [pobierz (2:47)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P10_Monolit/P10_Monolit_film.mp4) |
-| P11 Półksiężyc | 239 m² | w przygotowaniu |
+| P11 Półksiężyc | 239 m² | [pobierz (2:45)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P11_Polksiezyc/P11_Polksiezyc_film.mp4) |
 | P12 Oktagon | 236 m² | w przygotowaniu |
 | P13 Kubik | 174 m² | w przygotowaniu |
 | P14 Zygzak | 257 m² | w przygotowaniu |
