@@ -55,7 +55,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P11 Półksiężyc | 239 m² | [pobierz (2:45)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P11_Polksiezyc/P11_Polksiezyc_film.mp4) |
 | P12 Oktagon | 236 m² | [pobierz (2:48)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P12_Oktagon/P12_Oktagon_film.mp4) |
 | P13 Kubik | 174 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P13_Kubik/P13_Kubik_film.mp4) |
-| P14 Zygzak | 257 m² | w przygotowaniu |
+| P14 Zygzak | 257 m² | [pobierz (2:31)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P14_Zygzak/P14_Zygzak_film.mp4) |
 | P15 Wachlarz | 250 m² | w przygotowaniu |
 | P16 Owal | 252 m² | w przygotowaniu |
 
