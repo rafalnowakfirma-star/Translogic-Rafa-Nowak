@@ -449,6 +449,23 @@ def m_wodospad(name):
     return m
 
 
+def m_woda_basen(name):
+    """Przejrzysta woda jacuzzi: widać mozaikę pod spodem, drobne zmarszczki."""
+    m, n, b, _ = _new(name)
+    P = _coords(n)
+    px, py, pz = n.sep(P)
+    vec = n.xyz(n.math("DIVIDE", px, 1.4), n.math("DIVIDE", py, 1.4))
+    nm = n.img(zasob("tekstury/waternormals.jpg"), vec, non_color=True)
+    nmap = n.node("ShaderNodeNormalMap", {"Strength": 0.18})
+    n.set(nmap.inputs["Color"], nm.outputs["Color"])
+    n.set(b.inputs["Normal"], nmap.outputs["Normal"])
+    b.inputs["Base Color"].default_value = lin((0.80, 0.97, 0.94))
+    b.inputs["Roughness"].default_value = 0.02
+    b.inputs["IOR"].default_value = 1.33
+    b.inputs["Transmission Weight"].default_value = 1.0
+    return m
+
+
 def m_snieg(name):
     m, n, b, _ = _new(name)
     P = _coords(n)
@@ -515,6 +532,10 @@ RECIPES = {
     "szklo_mebel": lambda k: m_szklo(k, (0.95, 0.98, 0.97)),
     "woda": lambda k: m_woda(k),
     "wodospad": lambda k: m_wodospad(k),
+    "woda_basen": lambda k: m_woda_basen(k),
+    "lupek": lambda k: m_bloki(k, (0.19, 0.19, 0.20), 0.14, 0.55, 0.12, 0.004, 0.8, mortar_c=(0.07, 0.07, 0.075)),
+    "mozaika": lambda k: m_bloki(k, (0.16, 0.62, 0.58), 0.18, 0.05, 0.05, 0.0018, 0.22, mortar_c=(0.78, 0.82, 0.8), offset=0.0),
+    "zielona_sciana": lambda k: m_prosty(k, (0.07, 0.13, 0.05), 0.95),
     "podloga_drewno": lambda k: m_parkiet(k),
     "podloga_ciemna": lambda k: m_parkiet(k, (0.62, 0.45, 0.32), 0.62, 0.8),
     "podloga_kamien": lambda k: m_bloki(k, (0.80, 0.78, 0.74), 0.03, 1.2, 0.6, 0.0015, 0.32, mortar_c=(0.66, 0.64, 0.6), offset=0.0),

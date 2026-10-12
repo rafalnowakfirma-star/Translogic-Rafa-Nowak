@@ -192,86 +192,107 @@ def garden_layout(g, level, house):
                 feats.append(Feature(t[0], t[1], t[2], t[3] if len(t) > 3 else 0.8, h=t[4] if len(t) > 4 else 4.0))
         return dict(floor=floor, paths=paths, features=feats, net=net, stol=stol)
     elif st == "jacuzzi":
-        # prawdziwy ogród: runo z mchu, rabaty kwiatów, jedno drzewko owocowe, jacuzzi w kamiennej obudowie
-        # i wodospad na pełnej ścianie zewnętrznej (woda spływa po kamieniu do niecki u stóp ściany)
-        floor.append(("mech_runo", net))
+        # wg zdjęcia klienta: wodospad z ciemnego łupka wpada do jacuzzi w turkusowej mozaice, po bokach zielone ściany,
+        # od strony korytarza drewniany pomost z sofą; reszta to prawdziwy ogród – mech, kwiaty, drzewko owocowe
         wall = _sciana_wodospadu(g, level)
-        basin = None
+        jac, deck = None, Polygon()
         if wall is not None:
             (ax, ay), (bx, by), nx, ny = wall
             L = math.hypot(bx - ax, by - ay)
-            w = min(2.6, L - 1.2)
-            mx, my = (ax + bx) / 2, (ay + by) / 2
             ux, uy = (bx - ax) / L, (by - ay) / L
-            rot = math.degrees(math.atan2(uy, ux))
-            d = 0.72                                                        # głębokość niecki od lica ściany
-            feats.append(Feature("wodospad", mx + nx * (0.2 + d / 2), my + ny * (0.2 + d / 2), w / 2, rot=rot,
-                                 w=w, d=d, h=2.9, ux=ux, uy=uy, nx=nx, ny=ny))
-            basin = Polygon([(mx - ux * w / 2 + nx * 0.2, my - uy * w / 2 + ny * 0.2),
-                             (mx + ux * w / 2 + nx * 0.2, my + uy * w / 2 + ny * 0.2),
-                             (mx + ux * w / 2 + nx * (0.2 + d), my + uy * w / 2 + ny * (0.2 + d)),
-                             (mx - ux * w / 2 + nx * (0.2 + d), my - uy * w / 2 + ny * (0.2 + d))])
-            feats[-1].kw["basin"] = basin
-            path_zone = path_zone.union(basin.buffer(0.25))
-            for sgn in (-1, 1):                                             # paprocie i kamienie po bokach niecki
-                px, py = mx + ux * sgn * (w / 2 + 0.45) + nx * 0.95, my + uy * sgn * (w / 2 + 0.45) + ny * 0.95
-                if inner.buffer(-0.3).contains(Point(px, py)):
-                    feats.append(Feature("paproc", px, py, 0.38))
-        # jacuzzi: z dala od niecki wodospadu i od przejść spod drzwi, raczej w głębi ogrodu
-        rj = 1.0 if area > 28 else 0.85
-        best = None
-        zone = inner.buffer(-rj - 0.35)
-        door_lines = unary_union(paths) if paths else None
-        if not zone.is_empty:
+            mx, my = (ax + bx) / 2, (ay + by) / 2
+            f0 = 0.2                                                        # lico ściany zewnętrznej od osi
+
+            def P_(s_, t_):
+                return (mx + ux * s_ + nx * (f0 + t_), my + uy * s_ + ny * (f0 + t_))
+
+            wj, dj = min(2.3, L - 2.6), 1.9                                 # jacuzzi mniejsze od basenu
+            jac = Polygon([P_(-wj / 2, 0), P_(wj / 2, 0), P_(wj / 2, dj), P_(-wj / 2, dj)]).intersection(net)
+            c = jac.centroid
+            feats.append(Feature("jacuzzi", c.x, c.y, max(wj, dj) / 2 + 0.15, poly=jac, rect=True))
+            ww, hl, h = min(1.7, wj - 0.4), 2.15, 2.95                      # wodospad: szerokość, półka-wylewka, góra okładziny
+            wx, wy = P_(0, 0.08)
+            feats.append(Feature("wodospad", wx, wy, ww / 2, w=ww, h=h, hl=hl, ux=ux, uy=uy, nx=nx, ny=ny, basin=None, f0=f0))
+            for sgn in (-1, 1):                                             # zielone ściany po bokach wodospadu
+                s1, s2 = sgn * (ww / 2 + 0.28), sgn * (L / 2 - 0.32)
+                if abs(s2 - s1) < 0.6:
+                    continue
+                a_, b_ = P_(min(s1, s2), 0.0), P_(max(s1, s2), 0.0)
+                cx_, cy_ = (a_[0] + b_[0]) / 2, (a_[1] + b_[1]) / 2
+                feats.append(Feature("zielona_sciana", cx_, cy_, abs(s2 - s1) / 2, a=a_, b=b_, h=2.95, nx=nx, ny=ny))
+            # pomost od przeciwległej strony ogrodu (2,3 m) i obramowanie jacuzzi
+            proj = [((x - mx) * nx + (y - my) * ny) for x, y in net.exterior.coords]
+            far = max(proj)
+            far_cut = far - 2.3
+            big = 50.0
+            half = Polygon([(mx + nx * far_cut - ux * big, my + ny * far_cut - uy * big),
+                            (mx + nx * far_cut + ux * big, my + ny * far_cut + uy * big),
+                            (mx + nx * (far + 5) + ux * big, my + ny * (far + 5) + uy * big),
+                            (mx + nx * (far + 5) - ux * big, my + ny * (far + 5) - uy * big)])
+            deck = net.intersection(half).union(jac.buffer(0.45, join_style="mitre").intersection(net)).difference(jac)
+            deck = deck.buffer(0)
+            # sofa na pomoście przodem do wodospadu, stolik przed nią
+            rot = math.degrees(math.atan2(-nx, ny))
+            sx, sy = mx + nx * (far - 0.62), my + ny * (far - 0.62)
+            tx, ty = mx + nx * (far - 1.75), my + ny * (far - 1.75)
+            lounge = dict(sofa=(sx, sy, rot, min(2.8, L - 1.6)), stolik=(tx, ty, rot))
+            # taśma LED pod krawędzią pomostu (linia granicy pomostu z mchem)
+            edge = deck.boundary.intersection(net.buffer(-0.12))
+            feats.append(Feature("led", c.x, c.y, 0.1, geom=edge))
+        else:
+            lounge = None
+        moss = net.difference(deck).difference(jac.buffer(0.02) if jac is not None else Polygon()).buffer(0)
+        floor.append(("mech_runo", moss))
+        if not deck.is_empty:
+            floor.append(("deska_ogrod", deck))
+        busy = deck.union(jac if jac is not None else Polygon()).buffer(0.25)
+
+        def miejsce(rad, extra=Polygon(), prefer=None, tries=400):
+            zone = moss.buffer(-rad - 0.1).difference(busy).difference(extra)
+            zone = zone.difference(unary_union([Point(f.x, f.y).buffer(f.r + rad + 0.2) for f in feats
+                                                if f.t not in ("led", "zielona_sciana", "wodospad")]) if feats else Polygon())
+            if zone.is_empty:
+                return None
+            best = None
             minx, miny, maxx, maxy = zone.bounds
-            for i in range(16):
-                for j in range(16):
-                    p = Point(minx + (maxx - minx) * (i + 0.5) / 16, miny + (maxy - miny) * (j + 0.5) / 16)
-                    if not zone.contains(p):
-                        continue
-                    db = basin.distance(p) if basin is not None else 9.0
-                    if db < rj + 0.45:
-                        continue
-                    dd = min(1.6, min((d_.distance(p) for d_ in doors), default=9.0))   # nie zastawiaj drzwi
-                    sc = 1.2 * dd + 0.35 * min(db, 3.0) - 0.15 * p.distance(hub)
-                    if best is None or sc > best[0]:
-                        best = (sc, p)
-        if best is not None:
-            pj = best[1]
-            feats.append(Feature("jacuzzi", pj.x, pj.y, rj + 0.3, rj=rj))
-            for ln in paths:                                                # ścieżka z płyt od drzwi do jacuzzi
-                d0 = Point(ln.coords[0])
-                steps_along(_odcinek(d0, pj, rj + 0.4), cls="plyta")
-        # drzewko owocowe w gruncie (cytryna – owoce przez cały rok pod szkłem): w narożniku z dala od jacuzzi, niecki i drzwi
-        zt = inner.buffer(-0.7)
-        bt = None
-        if not zt.is_empty:
-            minx, miny, maxx, maxy = zt.bounds
-            for i in range(14):
-                for j in range(14):
-                    p = Point(minx + (maxx - minx) * (i + 0.5) / 14, miny + (maxy - miny) * (j + 0.5) / 14)
-                    if not zt.contains(p):
-                        continue
-                    dj = min((math.hypot(f.x - p.x, f.y - p.y) - f.r for f in feats if f.t in ("jacuzzi", "wodospad")), default=9.0)
-                    if dj < 0.85 or (basin is not None and basin.distance(p) < 0.9):
-                        continue
-                    dd = min((d_.distance(p) for d_ in doors), default=9.0)
-                    if dd < 1.0:
-                        continue
-                    sc = min(dj, 2.0) + 0.5 * min(dd, 2.5)
-                    if bt is None or sc > bt[0]:
-                        bt = (sc, p)
-        if bt is not None:
-            feats.append(Feature("cytrus", bt[1].x, bt[1].y, 0.75, h=2.6, grunt=True))
-        # rabaty kwiatów (lawenda, byliny) i kilka paproci
-        for i in range(9 if area > 30 else 7):
-            p = spot(0.3)
+            for _ in range(tries):
+                p = Point(rnd.uniform(minx, maxx), rnd.uniform(miny, maxy))
+                if not zone.contains(p):
+                    continue
+                sc = rnd.random() if prefer is None else prefer(p)
+                if best is None or sc > best[0]:
+                    best = (sc, p)
+            return (best[1].x, best[1].y) if best else None
+
+        door_zone = unary_union([d_.buffer(0.75) for d_ in doors]) if doors else Polygon()
+        # płyty-stopnie z trawertynu od drzwi (poza pomostem) do pomostu
+        for d_ in doors:
+            if deck.is_empty or deck.buffer(0.1).contains(d_):
+                continue
+            q = deck.exterior.interpolate(deck.exterior.project(d_)) if deck.geom_type == "Polygon" else deck.centroid
+            ln = LineString([(d_.x, d_.y), (q.x, q.y)])
+            n_ = max(1, int(ln.length / 0.75))
+            for k in range(n_):
+                pt = ln.interpolate((k + 0.5) / n_, normalized=True)
+                ang = math.degrees(math.atan2(q.y - d_.y, q.x - d_.x)) + 90
+                feats.append(Feature("krok", pt.x, pt.y, 0.3, rot=ang, cls="plyta", prost=True))
+        # drzewko owocowe (cytryna w gruncie) – w mchu, z dala od drzwi i jacuzzi
+        pref = lambda q: min(q.distance(busy), 1.5) + 0.4 * min(min((d_.distance(q) for d_ in doors), default=3.0), 3.0)  # noqa: E731
+        p = miejsce(0.45, door_zone, prefer=pref) or miejsce(0.32, door_zone, prefer=pref) or miejsce(0.32, prefer=pref)
+        if p:
+            feats.append(Feature("cytrus", p[0], p[1], 0.75, h=2.6, grunt=True))
+        for i in range(8 if area > 30 else 6):                             # kwiaty w mchu
+            p = miejsce(0.28, door_zone)
             if p:
-                feats.append(Feature("lawenda", p[0], p[1], 0.3))
-        for i in range(2):
-            p = spot(0.35)
-            if p:
-                feats.append(Feature("paproc", p[0], p[1], 0.35))
+                feats.append(Feature("lawenda", p[0], p[1], 0.28))
+        for f in [f for f in feats if f.t == "zielona_sciana"]:          # paprocie u stóp zielonych ścian
+            px, py = f.x + f.kw["nx"] * 0.55, f.y + f.kw["ny"] * 0.55
+            if moss.contains(Point(px, py)):
+                feats.append(Feature("paproc", px, py, 0.36))
+        if g.trees:
+            for t in g.trees:
+                feats.append(Feature(t[0], t[1], t[2], t[3] if len(t) > 3 else 0.8, h=t[4] if len(t) > 4 else 4.0))
+        return dict(floor=floor, paths=paths, features=feats, net=net, salon=lounge)
     else:  # tropikalny
         floor.append(("plyty", net))
         pool = inner.buffer(-max(1.0, R * 0.45))
@@ -380,7 +401,9 @@ def svg_garden(lay, P, f):
             out.append(f'<ellipse cx="{f(x)}" cy="{f(y)}" rx="{f(r)}" ry="{f(r * 0.75)}" class="g-kamien" transform="rotate({ft.rot:.0f} {f(x)} {f(y)})"/>')
         elif t == "krok":
             cls = "g-plyta" if ft.kw.get("cls") == "plyta" else "g-krok"
-            if cls == "g-plyta":
+            if ft.kw.get("prost"):
+                out.append(f'<rect x="{f(x - 0.45 * s)}" y="{f(y - 0.27 * s)}" width="{f(0.9 * s)}" height="{f(0.54 * s)}" class="g-plyta" transform="rotate({ft.rot:.0f} {f(x)} {f(y)})"/>')
+            elif cls == "g-plyta":
                 out.append(f'<rect x="{f(x - r)}" y="{f(y - r * 0.6)}" width="{f(2 * r)}" height="{f(1.2 * r)}" rx="2" class="{cls}" transform="rotate({ft.rot:.0f} {f(x)} {f(y)})"/>')
             else:
                 out.append(f'<ellipse cx="{f(x)}" cy="{f(y)}" rx="{f(r)}" ry="{f(r * 0.72)}" class="{cls}" transform="rotate({ft.rot:.0f} {f(x)} {f(y)})"/>')
@@ -394,10 +417,32 @@ def svg_garden(lay, P, f):
         elif t == "fontanna":
             out.append(f'<circle cx="{f(x)}" cy="{f(y)}" r="{f(r)}" class="g-obrzeze"/><circle cx="{f(x)}" cy="{f(y)}" r="{f(r - 0.15 * s)}" class="g-woda"/>'
                        f'<circle cx="{f(x)}" cy="{f(y)}" r="{f(0.12 * s)}" class="g-obrzeze"/>')
+        elif t == "jacuzzi" and ft.kw.get("rect"):
+            poly(ft.kw["poly"].buffer(0.15, join_style="mitre").difference(ft.kw["poly"]), "g-obrzeze")
+            poly(ft.kw["poly"], "g-mozaika")
+        elif t == "zielona_sciana":
+            ln = LineString([ft.kw["a"], ft.kw["b"]])
+            band = Polygon([ft.kw["a"], ft.kw["b"], (ft.kw["b"][0] + ft.kw["nx"] * 0.35, ft.kw["b"][1] + ft.kw["ny"] * 0.35),
+                            (ft.kw["a"][0] + ft.kw["nx"] * 0.35, ft.kw["a"][1] + ft.kw["ny"] * 0.35)])
+            poly(band, "g-zielen")
+            k = max(2, int(ln.length / 0.4))
+            for i in range(k):
+                q = ln.interpolate((i + 0.5) / k, normalized=True)
+                x2, y2 = P(q.x + ft.kw["nx"] * 0.18, q.y + ft.kw["ny"] * 0.18)
+                out.append(f'<circle cx="{f(x2)}" cy="{f(y2)}" r="{f(0.2 * s)}" class="g-paproc"/>')
+        elif t == "led":
+            pass
         elif t == "jacuzzi":
             rj = ft.kw.get("rj", 1.0) * s
             out.append(f'<circle cx="{f(x)}" cy="{f(y)}" r="{f(r)}" class="g-obrzeze"/><circle cx="{f(x)}" cy="{f(y)}" r="{f(rj)}" class="g-woda"/>'
                        f'<circle cx="{f(x)}" cy="{f(y)}" r="{f(rj * 0.62)}" class="g-linia" fill="none"/>')
+        elif t == "wodospad" and ft.kw.get("basin") is None:
+            k = ft.kw
+            w2, ux_, uy_, nx_, ny_ = k["w"] / 2 + 0.15, k["ux"], k["uy"], k["nx"], k["ny"]
+            cx_, cy_ = ft.x - nx_ * 0.08, ft.y - ny_ * 0.08
+            pts = [(cx_ - ux_ * w2, cy_ - uy_ * w2), (cx_ + ux_ * w2, cy_ + uy_ * w2),
+                   (cx_ + ux_ * w2 + nx_ * 0.32, cy_ + uy_ * w2 + ny_ * 0.32), (cx_ - ux_ * w2 + nx_ * 0.32, cy_ - uy_ * w2 + ny_ * 0.32)]
+            poly(Polygon(pts), "g-lupek")
         elif t == "wodospad":
             b = ft.kw.get("basin")
             if b is not None:

@@ -953,6 +953,24 @@ def furnish_level(house, idx):
                 it = round_dining(r=0.55, n=4) if st["okragly"] else dining(st["n"])
                 it.cx, it.cy, it.rot, it.z, it.room = st["cx"], st["cy"], st["rot"], g.z0, g
                 out.append(it)
+    # ogród z jacuzzi: sofa i stolik na pomoście przodem do wodospadu
+    for g in level["rooms"]:
+        if g.kind == "ogrod" and g.parent is None and getattr(g, "style", None) == "jacuzzi":
+            lay = getattr(g, "_layout", None)
+            if lay is None:
+                from .ogrod import garden_layout
+                lay = garden_layout(g, level, house)
+                g._layout = lay
+            sl = lay.get("salon")
+            if sl:
+                sx, sy, rot, w = sl["sofa"]
+                it = sofa(w, 0.95)
+                it.cx, it.cy, it.rot, it.z, it.room = sx, sy, rot, g.z0 + 0.03, g
+                out.append(it)
+                tx, ty, trot = sl["stolik"]
+                ct = coffee_table(1.2, 0.6)
+                ct.cx, ct.cy, ct.rot, ct.z, ct.room = tx, ty, trot, g.z0 + 0.03, g
+                out.append(ct)
     for r in level["rooms"]:
         if not r.furn or r.parent is not None or r.kind in ("ogrod", "ogrod_void", "void"):
             continue

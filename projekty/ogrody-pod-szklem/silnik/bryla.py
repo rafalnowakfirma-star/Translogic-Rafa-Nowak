@@ -446,7 +446,10 @@ def _garden3d(M, house, g, rosliny=True):
             continue
         gg = geom.difference(wu) if wu is not None else geom
         mat = {"zwir_grabiony": "zwir_grabiony", "plyty": "plyty_ogrod", "trawa_niska": "trawa_ogrod", "mech_runo": "mech",
-               "zwir_jasny": "zwir_ogrod", "plyty_jadalnia": "podloga_kamien"}.get(kind, "zwir_ogrod")
+               "zwir_jasny": "zwir_ogrod", "plyty_jadalnia": "podloga_kamien", "deska_ogrod": "deck"}.get(kind, "zwir_ogrod")
+        if kind == "deska_ogrod":                          # pomost 15 cm nad mchem (w poziomie podłogi domu)
+            M.extrude(gg, z - 0.1, z + 0.15, mat, bottom=False)
+            continue
         M.extrude(gg, z - 0.1, z, mat, bottom=False)
     if wu is not None:
         M.extrude(wu, z - 0.45, z - 0.12, "woda", bottom=False)
@@ -475,6 +478,31 @@ def _garden3d(M, house, g, rosliny=True):
                 M.cyl(x, y, z, 0.38, 0.55, "donica", n=14)
                 M.cyl(x, y, z + 0.55, 0.04, 0.7, "pien", n=6)
                 M.sphere(x, y, z + 1.6, 0.6, "lisc_cytrus", sz=0.85, seed=sd, jitter=0.15)
+        elif t == "jacuzzi" and ft.kw.get("rect"):
+            # jacuzzi prostokątne w turkusowej mozaice, obramowanie z trawertynu w poziomie pomostu, lustro wody 7 cm niżej
+            pj = ft.kw["poly"]
+            M.extrude(pj.buffer(0.15, join_style="mitre").difference(pj), z - 0.1, z + 0.15, "trawertyn")
+            M.extrude(pj.difference(pj.buffer(-0.06, join_style="mitre")), z - 0.85, z + 0.15, "mozaika")
+            M.extrude(pj, z - 0.9, z - 0.85, "mozaika")
+            inner_ = pj.buffer(-0.06, join_style="mitre")
+            M.extrude(Polygon([(c[0], c[1]) for c in inner_.exterior.coords]).difference(inner_.buffer(-0.45, join_style="mitre")),
+                      z - 0.85, z - 0.45, "mozaika")                         # ławka-siedzisko dookoła
+            M.extrude(inner_, z + 0.04, z + 0.08, "woda_basen", bottom=False)
+        elif t == "zielona_sciana":
+            k = ft.kw
+            M.seg_box(k["a"], k["b"], 0.1, z, z + k["h"], "zielona_sciana")
+            if rosliny:
+                ln = LineString([k["a"], k["b"]])
+                nrow = max(2, int(ln.length / 0.45))
+                for i in range(nrow):
+                    q = ln.interpolate((i + 0.5) / nrow, normalized=True)
+                    for hz in (0.5, 1.1, 1.7, 2.3):
+                        M.sphere(q.x + k["nx"] * 0.14, q.y + k["ny"] * 0.14, z + hz, 0.26, "lisc_zielony",
+                                 sx=1.0, sy=0.6, sz=0.85, seed=sd + i * 7 + int(hz * 10), jitter=0.25)
+        elif t == "led":
+            for ln in ([ft.kw["geom"]] if ft.kw["geom"].geom_type == "LineString" else list(getattr(ft.kw["geom"], "geoms", []))):
+                if ln.length > 0.3:
+                    M.extrude(ln.buffer(0.012, cap_style="flat"), z + 0.07, z + 0.1, "lampa")
         elif t == "jacuzzi":
             # misa wpuszczona w grunt: kamienna obudowa 0,3 m nad runem, lustro wody tuż pod krawędzią
             rj = ft.kw.get("rj", 1.0)
@@ -482,6 +510,17 @@ def _garden3d(M, house, g, rosliny=True):
             M.extrude(ring, z - 0.05, z + 0.3, "kamien_ogrod")
             M.cyl(x, y, z - 0.6, rj, 0.82, "woda", n=32)
             M.cyl(x, y, z - 0.6, rj * 0.55, 0.42, "kamien_ogrod", n=20)     # siedzisko w środku (widać pod wodą)
+        elif t == "wodospad" and ft.kw.get("basin") is None:
+            # wg zdjęcia: okładzina z ciemnego łupka, półka-wylewka z taśmą LED, tafla wody spada prosto do jacuzzi
+            k = ft.kw
+            w, h, hl = k["w"], k["h"], k["hl"]
+            ux, uy, nx, ny = k["ux"], k["uy"], k["nx"], k["ny"]
+            cx, cy = x - nx * 0.08, y - ny * 0.08                              # lico ściany
+            rot = math.degrees(math.atan2(uy, ux))
+            M.box(cx + nx * 0.07, cy + ny * 0.07, z - 0.85, w + 0.3, 0.14, h + 0.85, rot, "lupek")
+            M.box(cx + nx * 0.29, cy + ny * 0.29, z + hl, w, 0.32, 0.1, rot, "lupek")
+            M.box(cx + nx * 0.29, cy + ny * 0.29, z + hl - 0.025, w - 0.1, 0.3, 0.025, rot, "lampa")
+            M.box(cx + nx * 0.44, cy + ny * 0.44, z + 0.04, w - 0.12, 0.025, hl - 0.04, rot, "wodospad")
         elif t == "wodospad":
             # wodospad na pełnej ścianie: kamienna okładzina, półka-wylewka, tafla spływającej wody i niecka u dołu
             k = ft.kw

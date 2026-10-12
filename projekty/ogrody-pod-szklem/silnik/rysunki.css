@@ -75,7 +75,8 @@ svg.drw text{font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif}
 .fu-pot{fill:var(--r-pot)} .fu-fruit{fill:var(--r-fruit)} .fu-stone{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.6}
 .fu-mat{fill:var(--r-lav);opacity:.55} .fu-wine{fill:#7B2C3B} .fu-car{fill:var(--r-c);stroke:var(--r-ink2);stroke-width:.8}
 /* ogród */
-.g-woda{fill:var(--r-water)} .g-trawa_niska{fill:var(--r-grass)} .g-mech_runo{fill:var(--r-moss);opacity:.75} .g-zwir_jasny{fill:var(--r-gravel)}
+.g-woda{fill:var(--r-water)} .g-mozaika{fill:#5fc4b6;stroke:#2f8d82;stroke-width:.8} .g-deska_ogrod{fill:#a07450;opacity:.9}
+.g-lupek{fill:#3a3c40;stroke:#1f2023;stroke-width:.7} .g-zielen{fill:#2f5a28;opacity:.85} .g-trawa_niska{fill:var(--r-grass)} .g-mech_runo{fill:var(--r-moss);opacity:.75} .g-zwir_jasny{fill:var(--r-gravel)}
 .g-mech{fill:var(--r-moss)} .g-krag{fill:var(--r-gravel);stroke:var(--r-rake);stroke-width:.8} .g-kamien{fill:var(--r-stone-g);stroke:var(--r-ink2);stroke-width:.7}
 .g-krok{fill:var(--r-stone-g);stroke:var(--r-ink3);stroke-width:.5} .g-plyta{fill:var(--r-slab);stroke:var(--r-ink3);stroke-width:.5}
 .g-cien{fill:var(--r-shadow)} .g-klon{fill:var(--r-maple);opacity:.88} .g-brzoza{fill:var(--r-birch);opacity:.9} .g-oliwka{fill:var(--r-olive);opacity:.92}

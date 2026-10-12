@@ -335,6 +335,18 @@ def _rosliny(H, ctx, col):
             continue
         z = g.z0 - 0.12
         for ft in lay["features"]:
+            if ft.t == "zielona_sciana":
+                # ściana zielona: monstery i paprocie w siatce na panelu, od podłogi po 2,7 m
+                from shapely.geometry import LineString as _LS
+                ln = _LS([ft.kw["a"], ft.kw["b"]])
+                ncol = max(2, int(ln.length / 0.5))
+                for i in range(ncol):
+                    q = ln.interpolate((i + 0.5) / ncol, normalized=True)
+                    for jz, hz in enumerate((0.15, 0.7, 1.25, 1.8, 2.35)):
+                        kind = "monstera" if (i + jz) % 3 == 0 else "paproc"
+                        X, Y, Z = ctx.to_bl(q.x + ft.kw["nx"] * 0.2, q.y + ft.kw["ny"] * 0.2, z + 0.12 + hz)
+                        rosliny.plant(kind, X, Y, Z, 0.34 if kind == "paproc" else 0.4, int(q.x * 97 + q.y * 31 + hz * 13), gctx)
+                continue
             if ft.t not in ROSLINY:
                 continue
             sd = int(ft.x * 100 + ft.y * 10)

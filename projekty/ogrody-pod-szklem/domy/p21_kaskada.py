@@ -15,15 +15,19 @@ SC = (16.2, 5.9)   # schody kręcone: piwnica – parter – piętro w jednym tr
 
 H = House(
     "p21", "Kaskada",
-    "Dom zamówiony indywidualnie: ogród zimowy z wodospadem spływającym po pełnej ścianie zewnętrznej, jacuzzi, mchem i drzewkiem cytryny, "
+    "Dom zamówiony indywidualnie: ogród zimowy jak na zdjęciu klienta – wodospad z łupka między zielonymi ścianami wpada do jacuzzi, obok pomost z sofą, mech i drzewko cytryny, "
     "po drugiej stronie szklany korytarz łączący dwa skrzydła. Przy ogrodzie salon z kuchnią, sypialnia z łazienką, w wieży dwa biura, "
     "pod spodem piwnica z salą kinową, a na dachu otwarty taras.",
     style=dict(fasada="tynk", dach="sedum", akcent="dab"),
     concept=[
         "Ogród zimowy 5,6 × 6,4 m leży między dwoma skrzydłami domu. Od północy zamyka go pełna ściana zewnętrzna bez okien, "
         "po której spływa wodospad do kamiennej niecki, a od południa szklany korytarz łączący oba skrzydła – z ulicy ogrodu nie widać.",
-        "Zamiast basenu jest jacuzzi wpuszczone w grunt w kamiennej obudowie, a cała reszta to prawdziwy ogród: miękkie runo z mchu, "
-        "rabaty kwiatów, paprocie przy wodospadzie i jedno drzewko owocowe – cytryna, która pod szkłem owocuje przez cały rok.",
+        "Jak na zdjęciu klienta: wodospad spływa z podświetlonej półki po ścianie z ciemnego łupka, a po obu jego stronach "
+        "rosną zielone ściany z monster i paproci. Woda wpada wprost do jacuzzi w turkusowej mozaice – mniejszego od basenu ze zdjęcia – "
+        "obramowanego trawertynem i drewnianym pomostem.",
+        "Od strony korytarza leży drewniany pomost z dużą sofą i stolikiem, przodem do wodospadu, z taśmą LED pod krawędzią. "
+        "Reszta to prawdziwy ogród: miękkie runo z mchu, kwiaty, paprocie i jedno drzewko owocowe – cytryna, która pod szkłem "
+        "owocuje przez cały rok; od salonu do pomostu prowadzą płyty z trawertynu.",
         "Dach ogrodu jest przesuwny: latem rozsuwa się nad całym ogrodem, zimą zamyka i ogród zbiera ciepło słońca.",
         "Salon z kuchnią (zachodnie skrzydło) przylega do ogrodu szklaną ścianą z drzwiami przesuwnymi, kuchnia stoi od północy.",
         "We wschodnim skrzydle sypialnia i łazienka mają szkło od ogrodu od podłogi do 50 cm pod sufitem – górny pas ściany jest pełny. "
@@ -34,7 +38,7 @@ H = House(
         "Z drugiego biura wychodzi się na otwarty taras na dachu korytarza i holu, z widokiem na szklany dach ogrodu.",
     ],
     notes=dict(
-        lato="Szklany dach ogrodu jest rozsunięty, wodospad szumi pod gołym niebem, a z salonu i korytarza wychodzi się prosto do jacuzzi. "
+        lato="Szklany dach ogrodu jest rozsunięty, wodospad szumi pod gołym niebem, a z korytarza wychodzi się na pomost z sofą i do jacuzzi. "
              "Wieczorem siedzi się na otwartym tarasie nad korytarzem.",
         zima="Dach jest zamknięty, w ogrodzie zostaje zielony mech i owocująca cytryna, a jacuzzi paruje pod szkłem; "
              "pełna ściana z wodospadem chroni ogród od północy, a kino w piwnicy czeka na długie wieczory.",

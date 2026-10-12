@@ -9,6 +9,7 @@ Etapy: SSZ – stan surowy zamknięty, DEW – stan deweloperski (dopłata do SS
 Poza kosztorysem: działka, przyłącza do sieci, ogrodzenie i zagospodarowanie działki, meble ruchome.
 """
 import argparse
+import math
 import glob
 import json
 import os
@@ -66,6 +67,8 @@ CENY = {
     "wodospad": 25000,         # zł/kpl: ściana wodna – okładzina kamienna, niecka, pompa, hydroizolacja
     "piwnica": 2800,           # zł/m² piwnicy (w osiach ścian): wykop, płyta denna, ściany, hydroizolacja, drenaż, strop
     "kino": 30000,             # zł/kpl: wyciszenie akustyczne, ekran, projektor, nagłośnienie
+    "pomost": 650,             # zł/m² pomostu drewnianego w ogrodzie (legary, deska, oświetlenie LED)
+    "zielona_sciana": 1800,    # zł/m² ściany zielonej (system kieszeni, nawadnianie, rośliny)
     # koszty dodatkowe
     "projekt": 40000,          # projekt indywidualny z branżami + adaptacja + pozwolenia
     "kierownik": 12000,        # kierownik budowy + geodeta
@@ -141,6 +144,9 @@ ZRODLA = [
      [(_KB, "https://kb.pl/ogrody/wyposazenie-ogrodu/ile-kosztuje-jacuzzi-ogrodowe-zobacz-ceny-jacuzzi-zewnetrznego/")],
      "samo jacuzzi 15–40 tys., + obudowa i podłączenie"),
     ("Wodospad / ściana wodna", "kpl.", "wodospad", [], "szacunek bez cennika – okładzina kamienna, niecka, pompa"),
+    ("Zielona ściana", "m²", "zielona_sciana", [], "szacunek bez cennika – system kieszeni z nawadnianiem kroplowym"),
+    ("Pomost drewniany w ogrodzie", "m²", "pomost", [(_KB, "https://kb.pl/ogrody/budowa-tarasu/ile-kosztuje-taras-kompozytowy-aktualne-ceny-budowy/")],
+     "taras z deski 400–800 + taśma LED"),
     ("Sala kinowa (wyciszenie, ekran, projektor, dźwięk)", "kpl.", "kino", [], "szacunek – średnia klasa sprzętu"),
     ("Projekt indywidualny z branżami", "kpl.", "projekt", [("Rankomat", "https://rankomat.pl/nieruchomosci/ile-kosztuje-projekt-domu")], "25–65 tys."),
     ("Kierownik budowy, geodeta", "kpl.", "kierownik", [("Oferteo", "https://www.oferteo.pl/kierownicy-budowy")], "kierownik śr. 7,7 tys. netto"),
@@ -171,6 +177,9 @@ def ilosci(H):
     q["kino"] = sum(1 for r in H.rooms if r.kind == "kino")
     q["jacuzzi"] = sum(1 for g in gs for f in (getattr(g, "_layout", None) or _uklad(H, g))["features"] if f.t == "jacuzzi")
     q["wodospad"] = sum(1 for g in gs for f in (getattr(g, "_layout", None) or _uklad(H, g))["features"] if f.t == "wodospad")
+    q["pomost"] = sum(geom.area for g in gs for k, geom in (getattr(g, "_layout", None) or _uklad(H, g))["floor"] if k == "deska_ogrod")
+    q["zielona_sciana"] = sum(math.hypot(f.kw["b"][0] - f.kw["a"][0], f.kw["b"][1] - f.kw["a"][1]) * f.kw["h"]
+                              for g in gs for f in (getattr(g, "_layout", None) or _uklad(H, g))["features"] if f.t == "zielona_sciana")
     for li, L in H.L.items():
         if li < H.ground:
             continue                       # piwnica – w cenie piwnicy za m²
@@ -278,7 +287,9 @@ def kosztorys(H):
     dodaj("PK", "Kuchnia (zabudowa i AGD)", q["kuchnie"], "kpl.", C["kuchnia"])
     dodaj("PK", "Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)", q["ogrod_rzut"], "m²", C["ogrod_zielen"])
     dodaj("PK", "Jacuzzi w ogrodzie (wpuszczane w grunt, obudowa, technika)", q["jacuzzi"], "kpl.", C["jacuzzi"])
-    dodaj("PK", "Wodospad na ścianie ogrodu (kamień, niecka, pompa)", q["wodospad"], "kpl.", C["wodospad"])
+    dodaj("PK", "Wodospad na ścianie ogrodu (kamień, pompa, oświetlenie)", q["wodospad"], "kpl.", C["wodospad"])
+    dodaj("PK", "Zielone ściany przy wodospadzie (system, nawadnianie, rośliny)", q["zielona_sciana"], "m²", C["zielona_sciana"])
+    dodaj("PK", "Pomost drewniany w ogrodzie z oświetleniem LED", q["pomost"], "m²", C["pomost"])
     dodaj("PK", "Sala kinowa: wyciszenie, ekran, projektor, nagłośnienie", q["kino"], "kpl.", C["kino"])
     if q["ogrod_styl"] in C["ogrod_styl"]:
         dodaj("PK", {"woda": "Ogród: woda (oczko / basen, filtracja)", "tropikalny": "Ogród: zamgławianie i nawilżanie",
