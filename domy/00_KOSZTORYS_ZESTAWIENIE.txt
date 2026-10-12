@@ -25,7 +25,7 @@ WERSJA 2 (aktualna)
   P18 Szklarnia                160 m²    1,35   1,73   2,04   2,40     12 761
   P19 Pomarańczarnia           165 m²    1,43   1,75   2,07   2,43     12 569
   P20 Stół pod niebem          159 m²    1,33   1,69   2,00   2,35     12 584
-  P21 Kaskada                  172 m²    1,10   1,45   1,87   2,20     10 848
+  P21 Kaskada                  172 m²    1,10   1,45   1,89   2,23     10 989
 
 WERSJA 1 (archiwum – przed zmianami)
 

@@ -56,7 +56,7 @@ Filmy kolejnych domów dochodzą na bieżąco – lista poniżej pokazuje, któr
 | P12 Oktagon | 236 m² | [pobierz (2:48)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P12_Oktagon/P12_Oktagon_film.mp4) |
 | P13 Kubik | 174 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P13_Kubik/P13_Kubik_film.mp4) |
 | P14 Zygzak | 257 m² | [pobierz (2:31)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P14_Zygzak/P14_Zygzak_film.mp4) |
-| P15 Wachlarz | 250 m² | w przygotowaniu |
+| P15 Wachlarz | 250 m² | [pobierz (2:34)](https://github.com/rafalnowakfirma-star/Translogic-Rafa-Nowak/raw/ogrody-pendrive/domy/wersja_1_archiwum/P15_Wachlarz/P15_Wachlarz_film.mp4) |
 | P16 Owal | 252 m² | w przygotowaniu |
 
 Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.

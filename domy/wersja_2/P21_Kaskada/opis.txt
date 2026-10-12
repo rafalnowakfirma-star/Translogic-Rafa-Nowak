@@ -1,5 +1,5 @@
 ﻿P21 Kaskada
-Dom zamówiony indywidualnie: ogród zimowy z wodospadem spływającym po pełnej ścianie zewnętrznej, jacuzzi, mchem i drzewkiem cytryny, po drugiej stronie szklany korytarz łączący dwa skrzydła. Przy ogrodzie salon z kuchnią, sypialnia z łazienką, w wieży dwa biura, pod spodem piwnica z salą kinową, a na dachu otwarty taras.
+Dom zamówiony indywidualnie: ogród zimowy jak na zdjęciu klienta – wodospad z łupka między zielonymi ścianami wpada do jacuzzi, obok pomost z sofą, mech i drzewko cytryny, po drugiej stronie szklany korytarz łączący dwa skrzydła. Przy ogrodzie salon z kuchnią, sypialnia z łazienką, w wieży dwa biura, pod spodem piwnica z salą kinową, a na dachu otwarty taras.
 
 172 m² – powierzchnia użytkowa
 33 m² – ogród pod szkłem
@@ -7,8 +7,8 @@ Dom zamówiony indywidualnie: ogród zimowy z wodospadem spływającym po pełne
 3 – kondygnacje
 
 Zalety:
-  + Wodospad i jacuzzi w prywatnym ogrodzie
-  + Prawdziwy ogród z mchem i cytryną
+  + Wodospad i jacuzzi jak na zdjęciu
+  + Zielone ściany i prawdziwy ogród
   + Dwa osobne biura w wieży
   + Sala kinowa w piwnicy
 
@@ -19,7 +19,7 @@ Minusy:
 
 Dom ma sto siedemdziesiąt dwa metry kwadratowe razem z piwnicą. Dwa skrzydła obejmują ogród zimowy: od zachodu salon z kuchnią, od wschodu sypialnia, a nad nią wieża z biurami. Z ulicy widać tylko pełną ścianę. Parter to dwa skrzydła i łączący je szklany korytarz: salon z kuchnią od zachodu, sypialnia z łazienką i hol od wschodu. Piętro w wieży to dwa biura i toaleta, a w piwnicy pod schodami są sala kinowa i pomieszczenie techniczne.
 
-Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 099 544 zł, deweloperski 1 448 409 zł, pod klucz 1 869 463 zł (10 848 zł/m²); z projektem, nadzorem i rezerwą 2 201 882 zł. Szczegóły: kosztorys.txt.
+Koszt budowy (szacunek, poziom cen: 2026, średnia krajowa): stan surowy zamknięty 1 099 544 zł, deweloperski 1 448 409 zł, pod klucz 1 893 831 zł (10 989 zł/m²); z projektem, nadzorem i rezerwą 2 229 906 zł. Szczegóły: kosztorys.txt.
 
 Film: w przygotowaniu
 Zdjęcia: podglądy 3D (rendery fotorealistyczne w przygotowaniu).

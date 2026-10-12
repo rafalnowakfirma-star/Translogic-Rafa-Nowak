@@ -38,19 +38,21 @@ POD KLUCZ
   Kuchnia (zabudowa i AGD)                                            1.0 kpl. ×  50 000 =      50 000 zł
   Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)           35.8 m²   ×     600 =      21 504 zł
   Jacuzzi w ogrodzie (wpuszczane w grunt, obudowa, technika)          1.0 kpl. ×  45 000 =      45 000 zł
-  Wodospad na ścianie ogrodu (kamień, niecka, pompa)                  1.0 kpl. ×  25 000 =      25 000 zł
+  Wodospad na ścianie ogrodu (kamień, pompa, oświetlenie)             1.0 kpl. ×  25 000 =      25 000 zł
+  Zielone ściany przy wodospadzie (system, nawadnianie, rośliny)      8.0 m²   ×   1 800 =      14 337 zł
+  Pomost drewniany w ogrodzie z oświetleniem LED                     15.4 m²   ×     650 =      10 031 zł
   Sala kinowa: wyciszenie, ekran, projektor, nagłośnienie             1.0 kpl. ×  30 000 =      30 000 zł
-  razem                                                                                        421 054 zł
+  razem                                                                                        445 422 zł
 
 KOSZTY DODATKOWE
   Projekt, adaptacja, pozwolenia                                      1.0 kpl. ×  40 000 =      40 000 zł
   Kierownik budowy, geodeta                                           1.0 kpl. ×  12 000 =      12 000 zł
-  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 280 419 =     280 419 zł
-  razem                                                                                        332 419 zł
+  Rezerwa na nieprzewidziane (15%)                                    1.0 kpl. × 284 075 =     284 075 zł
+  razem                                                                                        336 075 zł
 
 Stan surowy zamknięty:   1 099 544 zł  (6 380 zł/m²)
 Stan deweloperski:       1 448 409 zł  (8 405 zł/m²)
-Pod klucz:               1 869 463 zł  (10 848 zł/m²)
-Razem z kosztami dodatkowymi: 2 201 882 zł
+Pod klucz:               1 893 831 zł  (10 989 zł/m²)
+Razem z kosztami dodatkowymi: 2 229 906 zł
 
 Poza kosztorysem: działka, przyłącza, ogrodzenie i zagospodarowanie działki, meble ruchome.
