@@ -17,7 +17,7 @@ from PIL import Image, ImageFilter  # noqa: E402
 from podglad import load, shot  # noqa: E402
 from film.kamery import DACH, STYL  # noqa: E402
 
-POZIOM = {0: "Rzut parteru", 1: "Rzut piętra", 2: "Rzut drugiego piętra", 3: "Rzut wieży"}
+POZIOM = {0: "Rzut parteru", 1: "Rzut piętra", 2: "Rzut drugiego piętra", 3: "Rzut wieży", -1: "Rzut piwnicy"}
 NAPISY = [
     "Wizualizacje koncepcyjne – wymiary orientacyjne, to nie jest projekt budowlany.",
     "Lektor: syntezator mowy Piper (głos pl_PL gosia), sherpa-onnx.",
