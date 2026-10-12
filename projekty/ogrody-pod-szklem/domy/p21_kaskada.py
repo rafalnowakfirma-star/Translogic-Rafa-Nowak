@@ -143,7 +143,7 @@ H.spacer = [
     ("hol1", "hol1", 5.75, 4.05, 1.55, (-100, 40), "Schody i hol piętra"),
     ("dzieci", "dzieci", 4.0, 1.95, 1.5, (-115, 75), "Pokój dziecięcy"),
     ("wc1", "wc1", 6.85, 3.05, 1.5, (-10, 70), "WC na piętrze"),
-    ("tar", "tar", 3.1, 6.85, 1.6, (150, 235), "Taras nad salonem"),
+    ("tar", "tar", 3.1, 6.85, 1.6, (-120, -35), "Taras nad salonem", dict(pitch=-14.0)),
     ("kor1", "kor1", 9.0, 6.6, 1.55, (20, 85), "Korytarz piętra"),
     ("hol2", "hol2", 18.0, 6.7, 1.55, (-10, 85), "Hol wieży"),
     ("biu1", "biu1", 19.25, 5.15, 1.5, (-78, -18), "Biuro 1"),
@@ -155,7 +155,7 @@ H.spacer = [
     ("holp", "holp", 20.4, 6.45, 1.55, (50, 150), "Piwnica – hol"),
     ("kino", "kino", 22.3, 2.55, 1.5, (-118, -62), "Sala kinowa"),
     ("tech", "tech", 18.7, 6.55, 1.55, (0, -75), "Pomieszczenie techniczne"),
-    ("patio", "patio", 9.6, 11.1, 1.6, (-20, 75), "Patio z grillem"),
+    ("patio", "patio", 9.6, 11.1, 1.6, (-60, 70), "Patio z grillem", dict(pitch=-12.0)),
 ]
 
 # ---------------------------------------------------------------- wyposażenie i wykończenie (dobrane ręcznie)

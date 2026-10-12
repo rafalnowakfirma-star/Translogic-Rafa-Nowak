@@ -745,7 +745,8 @@ def plan_spaceru_pelny(H):
     """Spacer po każdym pomieszczeniu (H.spacer): pełne panoramy 360° z punktów wybranych w projekcie.
     Środek panoramy (lon 0) = północ; ruch kamery w filmie: kierunki od północy zgodnie z ruchem wskazówek zegara."""
     out = []
-    for sid, room, x, y, zeye, (b0, b1), podpis in H.spacer:
+    for sid, room, x, y, zeye, (b0, b1), podpis, *opcje in H.spacer:
+        opcje = opcje[0] if opcje else {}
         r = H.get(room) if room else None
         z = (r.z0 if r is not None else -0.3) + zeye
         small = r is not None and r.net is not None and r.net.area < 8.0
@@ -753,6 +754,8 @@ def plan_spaceru_pelny(H):
         pitch = 6.0 if (r is not None and r.kind == "ogrod") else (3.0 if r is None or r.outdoor else 0.0)
         if small:
             pitch = -14.0                     # WC, garderoba, technika: kamera lekko w dół, na wyposażenie
+        pitch = opcje.get("pitch", pitch)
+        hfov = opcje.get("hfov", hfov)
         out.append(dict(id=sid, room=room, pos=(x, y, z), kierunek=90.0, lon=[-180.0, 180.0], lat=list(LAT_PELNA),
                         ruch=[[float(b0), pitch, hfov], [float(b1), pitch * 0.6, hfov]], podpis=podpis,
                         ppd=10 if small else None, pelna=True))
