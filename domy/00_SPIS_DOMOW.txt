@@ -32,7 +32,7 @@ WERSJA 1 (archiwum – przed zmianami)
 
   P01  Krużganek               279 m²   film 2:30             wersja_1_archiwum/P01_Kruzganek
   P02  Wieża                   254 m²   film 2:42             wersja_1_archiwum/P02_Wieza
-  P03  Pierścień               211 m²   film w przygotowaniu  wersja_1_archiwum/P03_Pierscien
+  P03  Pierścień               211 m²   film 2:26             wersja_1_archiwum/P03_Pierscien
   P04  Plaster miodu           243 m²   film w przygotowaniu  wersja_1_archiwum/P04_Plaster_miodu
   P05  Wiatrak                 251 m²   film w przygotowaniu  wersja_1_archiwum/P05_Wiatrak
   P06  Dwa pasma               248 m²   film w przygotowaniu  wersja_1_archiwum/P06_Dwa_pasma
