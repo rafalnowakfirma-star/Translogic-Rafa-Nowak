@@ -76,11 +76,11 @@ def viewer_materials():
 
 # ------------------------------------------------------------------ rzut-sygnet (mały plan bryły)
 def keyplan(H, size=132):
-    rooms0 = [r for r in H.all_rooms if r.level == min(H.L) and r.parent is None]
+    rooms0 = [r for r in H.all_rooms if r.level == H.ground and r.parent is None]
     base = unary_union([r.poly for r in rooms0 if r.kind not in ("ogrod",) and not r.outdoor])
     outdoor = unary_union([r.poly for r in rooms0 if r.outdoor]) if any(r.outdoor for r in rooms0) else None
     garden = unary_union([r.poly for r in H.rooms if r.kind == "ogrod"])
-    upper = [r.poly for r in H.all_rooms if r.level > min(H.L) and r.kind not in ("void", "ogrod_void") and not r.outdoor]
+    upper = [r.poly for r in H.all_rooms if r.level > H.ground and r.kind not in ("void", "ogrod_void") and not r.outdoor]
     up = unary_union(upper) if upper else None
     allg = unary_union([g for g in (base, outdoor, garden, up) if g is not None and not g.is_empty])
     minx, miny, maxx, maxy = allg.bounds

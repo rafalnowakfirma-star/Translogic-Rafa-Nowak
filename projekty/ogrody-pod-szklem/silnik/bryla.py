@@ -153,7 +153,7 @@ def build_mesh(house, meble=True, rosliny=True, ludzie=True, dach_t=None):
     dach_t (0 zamknięty … 1 otwarty) – ruchome części szklanego dachu w stanie pośrednim, wariant "ruch"."""
     M = Mesh()
     fac = FACADE.get(house.style.get("fasada", "tynk"), "tynk")
-    base_idx = min(house.L)
+    base_idx = house.ground
     # teren
     minx, miny, maxx, maxy = house.bbox
     M.extrude(house.footprint.buffer(0.25, join_style="mitre"), -0.32, 0.0, "beton_cokol", top=False)
@@ -468,9 +468,34 @@ def _garden3d(M, house, g, rosliny=True):
             hmax = g.roof_z - z - 0.45
             _tree3d(M, t, x, y, z, max(1.6, min(ft.kw.get("h", 3.5), hmax)), max(0.6, min(ft.r, hmax * 0.4)), seed=sd)
         elif t == "cytrus":
-            M.cyl(x, y, z, 0.38, 0.55, "donica", n=14)
-            M.cyl(x, y, z + 0.55, 0.04, 0.7, "pien", n=6)
-            M.sphere(x, y, z + 1.6, 0.6, "lisc_cytrus", sz=0.85, seed=sd, jitter=0.15)
+            if ft.kw.get("grunt"):                         # drzewko posadzone w gruncie, bez donicy
+                M.cyl(x, y, z, 0.05, 1.2, "pien", n=6)
+                M.sphere(x, y, z + 1.85, 0.75, "lisc_cytrus", sz=0.85, seed=sd, jitter=0.15)
+            else:
+                M.cyl(x, y, z, 0.38, 0.55, "donica", n=14)
+                M.cyl(x, y, z + 0.55, 0.04, 0.7, "pien", n=6)
+                M.sphere(x, y, z + 1.6, 0.6, "lisc_cytrus", sz=0.85, seed=sd, jitter=0.15)
+        elif t == "jacuzzi":
+            # misa wpuszczona w grunt: kamienna obudowa 0,3 m nad runem, lustro wody tuż pod krawędzią
+            rj = ft.kw.get("rj", 1.0)
+            ring = Point(x, y).buffer(ft.r, 16).difference(Point(x, y).buffer(rj, 16))
+            M.extrude(ring, z - 0.05, z + 0.3, "kamien_ogrod")
+            M.cyl(x, y, z - 0.6, rj, 0.82, "woda", n=32)
+            M.cyl(x, y, z - 0.6, rj * 0.55, 0.42, "kamien_ogrod", n=20)     # siedzisko w środku (widać pod wodą)
+        elif t == "wodospad":
+            # wodospad na pełnej ścianie: kamienna okładzina, półka-wylewka, tafla spływającej wody i niecka u dołu
+            k = ft.kw
+            w, d, h = k["w"], k["d"], k["h"]
+            ux, uy, nx, ny = k["ux"], k["uy"], k["nx"], k["ny"]
+            cx, cy = x - nx * (d / 2), y - ny * (d / 2)                     # lico ściany (0,2 m od osi)
+            rot = math.degrees(math.atan2(uy, ux))
+            M.box(cx + nx * 0.07, cy + ny * 0.07, z, w + 0.8, 0.14, h + 0.12, rot, "kamien_ogrod")
+            M.box(cx + nx * 0.27, cy + ny * 0.27, z + h - 0.12, w, 0.4, 0.12, rot, "kamien_ogrod")
+            M.box(cx + nx * 0.42, cy + ny * 0.42, z - 0.1, w - 0.1, 0.03, h - 0.02, rot, "wodospad")
+            b = k.get("basin")
+            if b is not None:
+                M.extrude(b, z - 0.4, z - 0.06, "woda", bottom=False)
+                M.extrude(b.buffer(0.14, join_style="mitre").difference(b), z - 0.06, z + 0.22, "kamien_ogrod")
         elif t == "latarnia":
             M.box(x, y, z, 0.4, 0.4, 0.15, 0, "kamien_ogrod")
             M.cyl(x, y, z + 0.15, 0.1, 0.55, "kamien_ogrod", n=8)
@@ -580,7 +605,7 @@ def _people(M, house):
                     pts.append((p.x, p.y, g.z0 - 0.12))
                     break
     for r in house.all_rooms:
-        if r.outdoor and r.parent is None and r.level == min(house.L):
+        if r.outdoor and r.parent is None and r.level == house.ground:
             p = r.poly.representative_point()
             pts.append((p.x + 0.6, p.y + 0.4, r.z0))
             break

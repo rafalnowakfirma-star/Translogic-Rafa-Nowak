@@ -171,7 +171,7 @@ def plan_level(house, idx, uid):
             C.path(s_["shape"], "pl-path")
     _site_trees(C, house)
     # dachy niższych poziomów widoczne z góry
-    if idx > min(house.L):
+    if idx > house.ground:
         for z, poly, fin, li in house.roofs:
             if li < idx:
                 C.path(poly, "", f'fill="url(#{C.pattern(fin if fin in ("sedum", "zwir") else "zwir")})" class="pl-roofbelow"')
@@ -182,7 +182,7 @@ def plan_level(house, idx, uid):
                 C.path(poly, "pl-roofpatio")
         # tarasy niższych pięter widziane z góry
         for r in house.all_rooms:
-            if r.outdoor and r.parent is None and min(house.L) < r.level < idx:
+            if r.outdoor and r.parent is None and house.ground < r.level < idx:
                 C.path(r.poly, "", f'fill="url(#{C.pattern("deska", _room_angle(r))})" class="pl-roofbelow"')
                 C.path(r.poly, "pl-roofedge")
         # ogrody z poziomu 0 widziane z góry
@@ -193,7 +193,7 @@ def plan_level(house, idx, uid):
         if r.kind == "void":
             C.path(r.net, "pl-void")
             continue
-        if r.outdoor and r.level == min(house.L) and r.kind == "taras":
+        if r.outdoor and r.level == house.ground and r.kind == "taras":
             C.path(r.net, "", f'fill="url(#{C.pattern("deska", _room_angle(r))})"')
             continue
         pat = FLOOR_PATTERN.get(r.floor, "drewno")
@@ -293,7 +293,7 @@ def plan_level(house, idx, uid):
     # dach szklany – obrys lub widok z góry
     for g in [r for r in house.all_rooms if r.kind == "ogrod"]:
         top_idx = g.level + g.levels - 1
-        if top_idx == idx and idx > min(house.L):
+        if top_idx == idx and idx > house.ground:
             C.path(g.poly, "pl-glassroof")
         elif idx > top_idx:
             _glass_roof_svg(C, g, label=False)
@@ -715,7 +715,7 @@ def plan_roof(house, uid):
     _site_trees(C, house)
     # tarasy na gruncie
     for r in house.all_rooms:
-        if r.outdoor and r.level == min(house.L) and r.roof == "none":
+        if r.outdoor and r.level == house.ground and r.roof == "none":
             C.path(r.poly, "", f'fill="url(#{C.pattern("deska", _room_angle(r))})"')
     # dachy od najniższego
     for z, poly, fin, li in sorted(house.roofs, key=lambda t: t[0]):
@@ -728,7 +728,7 @@ def plan_roof(house, uid):
         c = poly.representative_point()
         C.text(c.x, c.y, f"+{z:.2f}".replace(".", ","), "t-lvl")
     for r in house.all_rooms:
-        if r.outdoor and r.level > min(house.L):
+        if r.outdoor and r.level > house.ground:
             C.path(r.poly, "", f'fill="url(#{C.pattern("deska", _room_angle(r))})"')
             C.path(r.poly, "pl-parapet")
             p = r.poly.representative_point()

@@ -1,0 +1,21 @@
+{
+ "tytul": "Kaskada. Dom zamówiony indywidualnie, z ogrodem zimowym, wodospadem na ścianie i jacuzzi pod przesuwnym szklanym dachem.",
+ "lotu": "Dom ma sto siedemdziesiąt dwa metry kwadratowe razem z piwnicą. Dwa skrzydła obejmują ogród zimowy: od zachodu salon z kuchnią, od wschodu sypialnia, a nad nią wieża z biurami. Z ulicy widać tylko pełną ścianę.",
+ "dach": "Szklany dach ogrodu rozsuwa się na lato i wodospad szumi pod gołym niebem.",
+ "spacer": {
+  "przed": "Stoimy przed wejściem we wschodnim skrzydle. Od drogi dom pokazuje tylko białe ściany i wysokie okna, a ogród z wodospadem jest schowany w środku.",
+  "s1_hol": "Hol jest szeroki, z toaletą dla gości. Kręcone schody prowadzą w dół do sali kinowej w piwnicy, a w górę do dwóch biur w wieży.",
+  "s2_og": "Z korytarza wchodzimy do ogrodu zimowego. Po pełnej ścianie spływa wodospad do kamiennej niecki, w środku jest jacuzzi, a dookoła miękki mech, kwiaty i drzewko cytryny.",
+  "s3_sal": "Salon z kuchnią stoi przy samym ogrodzie, za szklaną ścianą z drzwiami przesuwnymi. Kuchnia jest od północy, stół i sofa patrzą prosto na wodospad.",
+  "s4_syp": "Sypialnia ma szkło od ogrodu od podłogi do pół metra pod sufitem. Obok jest łazienka, do której wchodzi się tylko z sypialni, z tym samym widokiem na zieleń.",
+  "s5_biu1": "Na piętrze są dwa biura obok siebie, oddzielone ścianą, każde z osobnym wejściem z holu. Przez szkło patrzy się na dach ogrodu i wodospad.",
+  "s6_tar": "Z drugiego biura wychodzimy na otwarty taras na dachu korytarza. Wieczorem siedzi się tu nad szklanym dachem, pod którym paruje jacuzzi."
+ },
+ "rzuty": "Parter to dwa skrzydła i łączący je szklany korytarz: salon z kuchnią od zachodu, sypialnia z łazienką i hol od wschodu. Piętro w wieży to dwa biura i toaleta, a w piwnicy pod schodami są sala kinowa i pomieszczenie techniczne.",
+ "zmierzch": "Wieczorem podświetlony wodospad lśni pod szklanym dachem, a od ulicy dom pokazuje tylko kilka jasnych okien.",
+ "zima": "Zimą dach jest zamknięty, mech zostaje zielony, cytryna owocuje, a jacuzzi paruje pod szkłem. Taras na dachu przykrywa śnieg.",
+ "zalety": ["Wodospad i jacuzzi w prywatnym ogrodzie", "Prawdziwy ogród z mchem i cytryną", "Dwa osobne biura w wieży", "Sala kinowa w piwnicy"],
+ "wady": ["Taras dostępny tylko przez biuro", "Piwnica i wodospad podnoszą koszt", "Ogród z wodą wymaga dobrej wentylacji"],
+ "zalety_wady": "Kaskada ma wodospad i jacuzzi w ogrodzie, którego nikt nie widzi, dwa osobne biura w wieży i kino w piwnicy. Minusy: na taras wychodzi się przez drugie biuro, piwnica i wodospad podnoszą koszt, a woda pod szkłem wymaga wentylacji i osuszania, gdy dach jest zamknięty.",
+ "koniec": "Kaskada: woda, zieleń i cisza w środku domu."
+}

@@ -62,6 +62,10 @@ CENY = {
     "kuchnia": 50000,          # zł/kpl (zabudowa na wymiar + AGD + montaż)
     "ogrod_zielen": 600,       # zł/m² ogrodu: podłoże, drenaż, nawadnianie, rośliny, nawierzchnie
     "ogrod_styl": {"woda": 25000, "tropikalny": 16000, "jadalnia": 12000},   # dopłaty: woda, mgła, posadzka
+    "jacuzzi": 45000,          # zł/kpl: jacuzzi wpuszczane w grunt z obudową, technologią i podłączeniem
+    "wodospad": 25000,         # zł/kpl: ściana wodna – okładzina kamienna, niecka, pompa, hydroizolacja
+    "piwnica": 2800,           # zł/m² piwnicy (w osiach ścian): wykop, płyta denna, ściany, hydroizolacja, drenaż, strop
+    "kino": 30000,             # zł/kpl: wyciszenie akustyczne, ekran, projektor, nagłośnienie
     # koszty dodatkowe
     "projekt": 40000,          # projekt indywidualny z branżami + adaptacja + pozwolenia
     "kierownik": 12000,        # kierownik budowy + geodeta
@@ -130,6 +134,14 @@ ZRODLA = [
     ("Woda w ogrodzie (oczko z filtracją)", "kpl.", ("ogrod_styl", "woda"),
      [("Murator", "https://muratordom.pl/ogrod/wyposazenie-ogrodu/koszt-budowy-oczka-wodnego-2026-ceny-materialow-i-robocizny-aa-3qqw-KjCw-Rfz1.html")],
      "5–25 tys."),
+    ("Piwnica (wykop, ściany, płyta, izolacje, strop)", "m²", "piwnica",
+     [("Murator", "https://muratordom.pl/budowa/piwnica/koszt-budowy-piwnicy-2026-ile-zaplacisz-za-podpiwniczenie-domu-jednorodzinnego-aa-whER-8BZi-fBKZ.html")],
+     "szacunek; podpiwniczenie podnosi koszt domu nawet o 1/3, mocno zależy od wód gruntowych"),
+    ("Jacuzzi wpuszczane w grunt", "kpl.", "jacuzzi",
+     [(_KB, "https://kb.pl/ogrody/wyposazenie-ogrodu/ile-kosztuje-jacuzzi-ogrodowe-zobacz-ceny-jacuzzi-zewnetrznego/")],
+     "samo jacuzzi 15–40 tys., + obudowa i podłączenie"),
+    ("Wodospad / ściana wodna", "kpl.", "wodospad", [], "szacunek bez cennika – okładzina kamienna, niecka, pompa"),
+    ("Sala kinowa (wyciszenie, ekran, projektor, dźwięk)", "kpl.", "kino", [], "szacunek – średnia klasa sprzętu"),
     ("Projekt indywidualny z branżami", "kpl.", "projekt", [("Rankomat", "https://rankomat.pl/nieruchomosci/ile-kosztuje-projekt-domu")], "25–65 tys."),
     ("Kierownik budowy, geodeta", "kpl.", "kierownik", [("Oferteo", "https://www.oferteo.pl/kierownicy-budowy")], "kierownik śr. 7,7 tys. netto"),
     ("Rezerwa", "%", "rezerwa", [(_KB, "https://kb.pl/aktualnosci/budowa-domu/niespodziewane-wydatki-przy-budowie-domu/")],
@@ -152,10 +164,16 @@ def ilosci(H):
     q["ogrod_rzut"] = sum(g.poly.area for g in gs)
     q["dach_ogrodu"] = gs[0].roof_type if gs else None
     q["ogrod_styl"] = gs[0].style if gs else None
-    base = min(H.L)
+    base = H.ground
     q.update(sciana_zewn=0.0, okna=0.0, fasada=0.0, hs=0.0, harmonijka=0.0, dzialowe=0.0, balustrada=0.0,
              drzwi_wej=0, drzwi_pivot=0, drzwi_wewn=0)
-    for L in H.L.values():
+    q["piwnica"] = H.piwnica.area if getattr(H, "piwnica", None) is not None else 0.0
+    q["kino"] = sum(1 for r in H.rooms if r.kind == "kino")
+    q["jacuzzi"] = sum(1 for g in gs for f in (getattr(g, "_layout", None) or _uklad(H, g))["features"] if f.t == "jacuzzi")
+    q["wodospad"] = sum(1 for g in gs for f in (getattr(g, "_layout", None) or _uklad(H, g))["features"] if f.t == "wodospad")
+    for li, L in H.L.items():
+        if li < H.ground:
+            continue                       # piwnica – w cenie piwnicy za m²
         otw_zewn = 0.0
         for o in L["openings"]:
             a = o.width * max(0.3, (o.head or 2.2) - (o.sill or 0.0))
@@ -204,6 +222,12 @@ def ilosci(H):
     return q
 
 
+def _uklad(H, g):
+    from silnik.ogrod import garden_layout
+    g._layout = garden_layout(g, H.L[g.level], H)
+    return g._layout
+
+
 def kosztorys(H):
     q = ilosci(H)
     C = CENY
@@ -215,7 +239,8 @@ def kosztorys(H):
                             szklo=szklo))
 
     el = q["elewacja"]
-    dodaj("SSZ", "Fundamenty i płyta parteru (bez ogrodu)", q["rzut"] - q["ogrod_rzut"], "m²", C["fundament"])
+    dodaj("SSZ", "Fundamenty i płyta parteru (bez ogrodu i patio)", q["rzut"] - q["ogrod_rzut"] - q["patio"], "m²", C["fundament"])
+    dodaj("SSZ", "Piwnica: wykop, płyta, ściany, hydroizolacja, drenaż, strop", q["piwnica"], "m²", C["piwnica"])
     dodaj("SSZ", "Ściany zewnętrzne z ociepleniem i tynkiem", q["sciana_zewn"], "m²", C["sciana_zewn"])
     dodaj("SSZ", f"Elewacja: {ELEWACJA_NAZWA.get(el, el)} (dopłata do tynku)", q["sciana_zewn"], "m²", C["elewacja"].get(el, 0))
     dodaj("SSZ", "Ściany działowe", q["dzialowe"], "m²", C["sciana_dzialowa"])
@@ -252,6 +277,9 @@ def kosztorys(H):
         dodaj("PK", {"lazienka": "Łazienki", "wc": "WC", "sauna": "Sauna"}[k], n, "kpl.", C[k])
     dodaj("PK", "Kuchnia (zabudowa i AGD)", q["kuchnie"], "kpl.", C["kuchnia"])
     dodaj("PK", "Ogród wewnętrzny (podłoże, drenaż, nawadnianie, rośliny)", q["ogrod_rzut"], "m²", C["ogrod_zielen"])
+    dodaj("PK", "Jacuzzi w ogrodzie (wpuszczane w grunt, obudowa, technika)", q["jacuzzi"], "kpl.", C["jacuzzi"])
+    dodaj("PK", "Wodospad na ścianie ogrodu (kamień, niecka, pompa)", q["wodospad"], "kpl.", C["wodospad"])
+    dodaj("PK", "Sala kinowa: wyciszenie, ekran, projektor, nagłośnienie", q["kino"], "kpl.", C["kino"])
     if q["ogrod_styl"] in C["ogrod_styl"]:
         dodaj("PK", {"woda": "Ogród: woda (oczko / basen, filtracja)", "tropikalny": "Ogród: zamgławianie i nawilżanie",
                      "jadalnia": "Ogród-jadalnia: posadzka kamienna, oświetlenie"}[q["ogrod_styl"]], 1, "kpl.",

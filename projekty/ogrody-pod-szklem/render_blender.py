@@ -62,6 +62,7 @@ M = {
     "plyty_ogrod": dict(c=(0.77, 0.74, 0.68), r=0.7, var=0.06, ns=2),
     "mech": dict(c=(0.24, 0.37, 0.12), r=0.95, var=0.15, ns=8),
     "kamien_ogrod": dict(c=(0.42, 0.41, 0.39), r=0.8, var=0.12, ns=4),
+    "wodospad": dict(c=(0.80, 0.90, 0.94), r=0.15, var=0.08, ns=30),
     "lisc_klon": dict(c=(0.62, 0.13, 0.05), r=0.7, var=0.18, ns=10, leaf=True),
     "lisc_zielony": dict(c=(0.18, 0.33, 0.09), r=0.7, var=0.15, ns=10, leaf=True),
     "lisc": dict(c=(0.20, 0.35, 0.11), r=0.7, var=0.15, ns=10, leaf=True),

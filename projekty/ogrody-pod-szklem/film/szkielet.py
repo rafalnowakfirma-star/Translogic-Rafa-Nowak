@@ -42,7 +42,7 @@ def _m(x):
 
 def fakty(H, wersja):
     gs = [r for r in H.rooms if r.kind == "ogrod"]
-    base = min(H.L)
+    base = H.ground
     ter = [r for r in H.rooms if r.outdoor and r.level > base]
     pat = [r for r in H.rooms if r.outdoor and r.level == base]
     out = [f"# {H.pid.upper()} · {H.name} (wersja {wersja})", "", f"Hasło: {H.tagline}", ""]

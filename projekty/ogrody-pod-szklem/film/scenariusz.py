@@ -32,7 +32,7 @@ def _m2(x):
 
 def fakty_domu(H):
     """Najważniejsze liczby domu: [wartość, opis] – powierzchnia, ogród, tarasy, kondygnacje."""
-    ter = [r for r in H.rooms if r.outdoor and r.level > min(H.L)]
+    ter = [r for r in H.rooms if r.outdoor and r.level > H.ground]
     fakty = [[_m2(H.area["uzytkowa"]), "powierzchnia użytkowa"], [_m2(H.area["ogrod"]), "ogród pod szkłem"]]
     if ter:
         fakty.append([_m2(sum(r.poly.area for r in ter)), "tarasy na dachu"])

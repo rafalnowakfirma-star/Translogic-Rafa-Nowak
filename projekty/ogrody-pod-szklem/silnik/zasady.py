@@ -23,7 +23,7 @@ def _exterior(r):
     """Sąsiad, przez którego można patrzeć z zewnątrz: brak sąsiada albo otwarte patio/taras bez muru."""
     if r is None:
         return True
-    return r.outdoor and r.level == min(r.house.L) and r.enclose not in WALLED
+    return r.outdoor and r.level == r.house.ground and r.enclose not in WALLED
 
 
 def _segments(run, ops):
@@ -61,10 +61,11 @@ def _space(H, room, level_rooms):
 def check(H):
     """Lista wyników: dict(key, label, ok, detail)."""
     res = []
-    base = min(H.L)
+    base = H.ground
     a = H.area["uzytkowa"]
-    res.append(dict(key="area", label=f"{a:.0f} m² użytkowe (limit {MAX_AREA:.0f} m²)".replace(".", ","),
-                    ok=a <= MAX_AREA + 0.05, detail="" if a <= MAX_AREA + 0.05 else f"za dużo o {a - MAX_AREA:.1f} m²"))
+    lim = getattr(H, "max_area", MAX_AREA)          # dom zamówiony z innym limitem (np. P21: 180 m² z piwnicą)
+    res.append(dict(key="area", label=f"{a:.0f} m² użytkowe (limit {lim:.0f} m²)".replace(".", ","),
+                    ok=a <= lim + 0.05, detail="" if a <= lim + 0.05 else f"za dużo o {a - lim:.1f} m²"))
 
     # 1. ogród otoczony pokojami
     bad = []
@@ -80,6 +81,8 @@ def check(H):
                     continue
                 o = run.other
                 if li == base:
+                    if o is None and run.cls == "ext" and run.spec in ("solid", "wall"):
+                        continue                    # pełna ściana zewnętrzna bez okien (np. z wodospadem) – ogród zasłonięty
                     if not _indoor(o) and not (o is not None and o.outdoor and o.enclose in WALLED):
                         bad.append(f"{run.length:.1f} m krawędzi ogrodu na parterze graniczy z "
                                    + ("zewnętrzem" if o is None else f"„{o.name}”"))

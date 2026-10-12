@@ -384,13 +384,13 @@ def _side_scores(H):
             for run in L["walls"]:
                 if run.cls in GLASS and (run.other is None or run.other.outdoor):
                     nx, ny = run.normal
-                    s += run.length * max(0.0, nx * dx + ny * dy) * (1.3 if idx > min(H.L) else 1.0)
+                    s += run.length * max(0.0, nx * dx + ny * dy) * (1.3 if idx > H.ground else 1.0)
         for r in H.all_rooms:
             if r.outdoor and r.parent is None:
                 c = r.poly.centroid
                 v = (c.x - cx, c.y - cy)
                 Lv = math.hypot(*v) or 1.0
-                s += 0.25 * r.poly.area * max(0.0, (v[0] * dx + v[1] * dy) / Lv) * (1.6 if r.level > min(H.L) else 1.0)
+                s += 0.25 * r.poly.area * max(0.0, (v[0] * dx + v[1] * dy) / Lv) * (1.6 if r.level > H.ground else 1.0)
         out.append((s, phi))
     return out
 
@@ -458,7 +458,7 @@ def plan_ujec(H, wersja=2):
         if c:
             U.append(dict(id="biuro", scena="dzien", sun=sun, cam=c, podpis=r.name,
                           podpis2="przeszklone z dwóch stron", ruch="zoom_in", fokus=(0.5, 0.5), ekspo=0.7))
-    ter = [r for r in H.rooms if r.outdoor and r.level > min(H.L)]
+    ter = [r for r in H.rooms if r.outdoor and r.level > H.ground]
     if ter:
         t = max(ter, key=lambda r: r.poly.area)
         c = ujecie_tarasu(H, t)
@@ -467,7 +467,7 @@ def plan_ujec(H, wersja=2):
             U.append(dict(id="taras", scena="dzien", sun=sun, cam=c, podpis="Taras na dachu parteru",
                           podpis2=f"tarasy razem {_num(tot)} m² · przy modułach piętra", ruch="pan_prawo",
                           fokus=(0.5, 0.5), ekspo=0.1))
-    pat = [r for r in H.rooms if r.outdoor and r.level == min(H.L) and r.kind in ("patio", "patio_sezonowe")]
+    pat = [r for r in H.rooms if r.outdoor and r.level == H.ground and r.kind in ("patio", "patio_sezonowe")]
     if pat:
         p = max(pat, key=lambda r: r.poly.area)
         c = ujecie_patio(H, p)
@@ -745,7 +745,7 @@ def plan_spaceru(H, max_stacji=6):
     if not H.entrances:
         return []
     start = H.entrances[0]["room"]
-    base = min(H.L)
+    base = H.ground
     # drzwi wejściowe
     L0 = H.L[base]
     door = None

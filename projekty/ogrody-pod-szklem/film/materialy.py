@@ -433,6 +433,22 @@ def m_woda(name):
     return m
 
 
+def m_wodospad(name):
+    """Tafla wody spływającej po kamieniu: smugi wydłużone w pionie, jasna piana, częściowa przejrzystość."""
+    m, n, b, _ = _new(name)
+    P = _coords(n)
+    px, py, pz = n.sep(P)
+    vec = n.xyz(n.math("MULTIPLY", px, 9.0), n.math("MULTIPLY", py, 9.0), n.math("MULTIPLY", pz, 0.6))
+    nz = n.noise(vec, 2.5, 6.0, 0.62).outputs["Fac"]
+    smugi = n.ramp(nz, [(0.35, (0.36, 0.48, 0.50)), (0.62, (0.80, 0.88, 0.90)), (0.78, (0.97, 0.98, 0.98))])
+    n.set(b.inputs["Base Color"], smugi)
+    n.set(b.inputs["Roughness"], n.math("ADD", 0.04, n.math("MULTIPLY", nz, 0.25)))
+    b.inputs["Transmission Weight"].default_value = 0.45
+    b.inputs["IOR"].default_value = 1.33
+    b.inputs["Coat Weight"].default_value = 0.6
+    return m
+
+
 def m_snieg(name):
     m, n, b, _ = _new(name)
     P = _coords(n)
@@ -498,6 +514,7 @@ RECIPES = {
     "szklo": lambda k: m_szklo(k),
     "szklo_mebel": lambda k: m_szklo(k, (0.95, 0.98, 0.97)),
     "woda": lambda k: m_woda(k),
+    "wodospad": lambda k: m_wodospad(k),
     "podloga_drewno": lambda k: m_parkiet(k),
     "podloga_ciemna": lambda k: m_parkiet(k, (0.62, 0.45, 0.32), 0.62, 0.8),
     "podloga_kamien": lambda k: m_bloki(k, (0.80, 0.78, 0.74), 0.03, 1.2, 0.6, 0.0015, 0.32, mortar_c=(0.66, 0.64, 0.6), offset=0.0),

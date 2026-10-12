@@ -52,6 +52,7 @@ WIN = {
     "slits": (0.45, 0.1, 2.6, 1.4),
     "band": (None, 1.0, 2.2, None),
     "band_high": (None, 1.8, 2.45, None),
+    "glass_50": (None, 0.0, -0.5, None),     # szyba od podłogi do 50 cm pod sufitem (pełny pas u góry)
 }
 DOOR_W = {"door": 0.9, "double": 1.6, "slide": 1.4, "wide": 2.0, "arch": 1.2, "portal": 3.0, "pivot": 1.2}
 
@@ -260,6 +261,11 @@ class House:
         self.site = []          # elementy terenu: ścieżki, tarasy na gruncie, drzewa
         self.cuts = []          # przekroje: (nazwa, (x1,y1), (x2,y2))
         self.built = False
+
+    @property
+    def ground(self):
+        """Indeks poziomu parteru (poziom 0; piwnica ma indeks -1 i leży pod nim)."""
+        return 0 if 0 in self.levels else min(self.levels)
 
     # ------------------------------------------------------------- definicja
     def level(self, idx, z, h=3.3, name=None):
@@ -519,7 +525,7 @@ class House:
                         if run.other is not None and run.other.kind in ("ogrod", "ogrod_void") and not run.owner.garden_door:
                             continue
                         # piętro: drzwi tylko na taras/patio albo do ogrodu, nie w powietrze ani z pustki
-                        if run.other is None and idx > min(self.levels):
+                        if run.other is None and idx != self.ground:
                             continue
                         if run.room.kind == "void" or (run.other is not None and run.other.kind == "void"):
                             continue
@@ -535,10 +541,14 @@ class House:
                 continue
             if sp in WIN:
                 w, sill, head, spacing = WIN[sp]
+                if head < 0:   # nadproże liczone od sufitu pomieszczenia
+                    own = run.owner if run.owner is not None else run.room
+                    head = min(run.z1 - SLAB, own.top) - own.z0 + head
                 L = run.length
-                if w is None:  # wstęga
+                if w is None:  # wstęga (przeszklenie do 50 cm pod sufitem – węższe słupki przy narożnikach)
+                    m = 0.3 if sp == "glass_50" else 0.5
                     if L >= 1.8:
-                        add("band", run, 0.5, L - 0.5, sill, head)
+                        add("band", run, m, L - m, sill, head)
                     continue
                 if L < w + 0.6:
                     continue
@@ -657,7 +667,8 @@ class House:
             indoor = [r for r in L["rooms"] if not r.outdoor and r.kind not in ("ogrod", "ogrod_void")]
             floor_rooms = [r for r in indoor if r.kind != "void"]
             terr = [r for r in L["rooms"] if r.outdoor]
-            if idx == idxs[0]:
+            if idx == self.ground or idx < self.ground:
+                # parter: płyta na gruncie (nad piwnicą – strop piwnicy, rysowany tak samo); piwnica: płyta denna
                 base = _u([r.poly for r in floor_rooms + terr]) if floor_rooms else Polygon()
                 L["base"] = base
             else:
@@ -680,7 +691,9 @@ class House:
             for r in terr:
                 if isinstance(r.roof, Polygon):
                     self.patio_roofs.append((r, r.roof))
-        self.footprint = _u([r.poly for r in self.all_rooms if r.level == idxs[0]])
+        self.footprint = _u([r.poly for r in self.all_rooms if r.level == self.ground])
+        under = [r.poly for r in self.all_rooms if r.level < self.ground and r.kind not in ("void",)]
+        self.piwnica = _u(under) if under else Polygon()
 
     def _areas(self):
         self.area = {"uzytkowa": 0.0, "ogrod": 0.0, "zewn": 0.0, "sezon": 0.0}
@@ -833,7 +846,7 @@ def _merge_runs(room, seg):
 
 
 def _cls_of(spec):
-    if spec in ("solid", "windows", "windows_sq", "slits", "band", "band_high", "wall"):
+    if spec in ("solid", "windows", "windows_sq", "slits", "band", "band_high", "wall", "glass_50"):
         return "ext"
     if spec in ("glass", "glass_slide"):
         return "glass"

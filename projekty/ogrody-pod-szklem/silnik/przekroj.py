@@ -87,7 +87,7 @@ def section(house, name, a, b, uid):
                 '<line x1="0" y1="0" x2="0" y2="9" style="stroke:var(--r-ink3);stroke-width:.7"/></pattern></defs>')
     C.rect(-1.5, -1.2, Ltot + 1.5, -0.3, "s-ground")
     C.line((-1.5, -0.3), (Ltot + 1.5, -0.3), "s-line")
-    base_idx = min(house.L)
+    base_idx = house.ground
     # elementy ogrodu za linią cięcia (sylwetki)
     for r in house.all_rooms:
         if r.kind != "ogrod":
