@@ -112,7 +112,7 @@ Czas: ok. 5–6 minut · Ujęcia: U01–U38 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: Cisza. Tylko tykanie stygnącego metalu.]`
 
-*(Obraz: przez okno mostka: obca, rdzawoczerwona gwiazda. Na jej tle planeta: złote, brunatne i bordowe pustynie, rdzawe wyżyny, nad częścią globu fioletowe burze.)*
+*(Obraz: przez okno mostka: obca, jasna gwiazda, podobna do Słońca, o lekko błękitnawym świetle. Na jej tle planeta: złote, brunatne i bordowe pustynie, rdzawe wyżyny, nad częścią globu fioletowe burze pyłowe. W oddali dwa księżyce: mniejszy i większy.)*
 
 **KOMPUTER:** *(już spokojnie)* Trafienie z zewnątrz. *(pauza)* Źródło... nieustalone.
 
@@ -334,7 +334,7 @@ Czas: ok. 5–6 minut · Ujęcia: U01–U38 (polecenia do obrazu i ruchu: `odc-0
 `[DŹWIĘK: Cisza kosmosu. Tylko bardzo niski, ciepły szum.]`
 `[MUZYKA: Powolny, ogromny akord, jakby otwierał się nowy świat.]`
 
-*(Obraz: planeta z kosmosu. Ogromne pustynie lśniącego złotego, brunatnego i bordowoczerwonego piasku, rdzawe i brązowe wyżyny skalne, nad częścią globu wirują fioletowe burze. W tle przygasłe, rdzawe słońce. Jedna po drugiej, w różnych miejscach i nie w tym samym czasie, w atmosferę wchodzą jedenaście małych, jasnych punktów: dziesięć kapsuł i kapsuła serwisowa. Z tej odległości wyglądają jak meteoryty.)*
+*(Obraz: planeta z kosmosu. Ogromne pustynie lśniącego złotego, brunatnego i bordowoczerwonego piasku, rdzawe i brązowe wyżyny skalne, nad częścią globu wirują fioletowe burze pyłowe. Atmosfera jest rzadka, ledwo widoczna na krawędzi globu. Planetę oświetla jasna gwiazda, podobna do Słońca, z lekko błękitnym odcieniem. W oddali dwa księżyce: mniejszy i większy, w różnej odległości od planety. Jedna po drugiej, w różnych miejscach i nie w tym samym czasie, w atmosferę wchodzą jedenaście małych, jasnych punktów: dziesięć kapsuł i kapsuła serwisowa. Z tej odległości wyglądają jak meteoryty.)*
 
 **LEKTOR:** Z czterdziestu siedmiu osób przeżyło dziesięć. *(pauza)* Dziewięć z nich jeszcze o tym nie wie.
 
@@ -348,7 +348,7 @@ Czas: ok. 5–6 minut · Ujęcia: U01–U38 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: Wiatr. Wysoko, cienko. Potem narastający świst spadającego przedmiotu.]`
 
-*(Obraz: widok z powietrza, wysoko w atmosferze. Ognista łuna już zgasła. Daleko w dole, nad pustynią, widać zarys jednej kapsuły: osmolonej do czarności po wejściu w atmosferę, lekko dymiącej. Spada.)*
+*(Obraz: widok z powietrza, wysoko w atmosferze. Atmosfera jest rzadka, więc niebo ma ciemny granat przechodzący w czerń, a gwiazdy widać nawet za dnia. Nad horyzontem dwa księżyce. Ognista łuna już zgasła. Daleko w dole, nad pustynią, widać zarys jednej kapsuły: osmolonej do czarności po wejściu w atmosferę, lekko dymiącej. Spada.)*
 
 **▶ U35**
 
@@ -374,7 +374,7 @@ Czas: ok. 5–6 minut · Ujęcia: U01–U38 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: Długi, szorstki szum przesuwającego się metalu po piasku, coraz wolniejszy. Potem cisza. Wiatr. Tykanie stygnącego metalu. Syk piasku osypującego się na gorący kadłub.]`
 
-*(Obraz: kapsuła sunie po piasku, ryjąc długą bruzdę, zwalnia i staje. Opada pył. Z czarnego kadłuba unosi się cienki dym. Wokół pustka.)*
+*(Obraz: kapsuła sunie po piasku, ryjąc długą bruzdę, zwalnia i staje. Opada pył. Z czarnego kadłuba unosi się cienki dym. Wokół pustka. Jasna, błękitnawa gwiazda rzuca ostre, wyraźne cienie. Na ciemnym niebie gwiazdy i dwa księżyce.)*
 
 `[MUZYKA: Cięcie.]`
 

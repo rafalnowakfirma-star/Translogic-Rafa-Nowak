@@ -90,6 +90,16 @@ Mapy sprzed 2,7 mln lat, fala dziobowa, pierścień odłamków, sabotaż, ładun
 
 ---
 
+## Planeta
+
+- **Powierzchnia:** pustynie lśniącego złotego, brunatnego i bordowoczerwonego piasku, falujące wzniesienia, rdzawe i brązowe skały, puste równiny.
+- **Atmosfera: rzadka.** Niebo jest ciemnogranatowe, w zenicie prawie czarne, a **gwiazdy widać nawet w dzień**. W rzadkim powietrzu światło mało się rozprasza, więc cienie są ostre i wyraźne (tak jest też na Marsie). Mimo to nad częścią globu wirują fioletowe burze pyłowe.
+- **Gwiazda:** jasna, podobna do Słońca, z lekko błękitnym odcieniem. W astronomii to gwiazda typu F, odrobinę gorętsza od naszego Słońca, więc jej światło jest bielsze i chłodniejsze w barwie.
+- **Dwa księżyce:** mniejszy i większy, w różnej odległości od planety. Widoczne z kosmosu i z powierzchni.
+- **Rzadka atmosfera a lądowanie:** rzadkie powietrze słabo hamuje kapsuły. Dlatego silniki antyimpaktowe są konieczne, a i tak kapsuła uderza w piasek z impetem.
+
+---
+
 ## Dlaczego przeżywa tylko dziesięcioro
 
 1. Fala cząstek wtórnych **stapia zamki wyrzutowe pierścienia A**. 37 kapsuł nie może się odłączyć.
@@ -155,6 +165,6 @@ a woman in her late thirties, athletic build, head shaved for hibernation with s
 
 - **Imiona:** wymyślone, pasujące do 2211 (ludzkość wymieszana językowo, imiona-hybrydy). Przygotuję propozycje, kiedy zechcesz.
 - **Ładunek:** co wiezie Horyzont? (np. zarodki kolonii, maszyny terraformujące albo coś tajnego, zob. wariant E)
-- **Planeta:** ustalony wygląd: z kosmosu pustynie złote, brunatne i bordowoczerwone, rdzawe i brązowe skały, fioletowe burze nad częścią globu, przygasłe rdzawe słońce. Do decyzji: atmosfera, grawitacja, życie.
+- **Planeta:** wygląd ustalony (zob. rozdział „Planeta”). Do decyzji: grawitacja, temperatura, życie.
 - **Źródło impulsu:** do rozgryzienia przez ocalonych w kolejnych odcinkach.
 - **Twarz w pierścieniu A:** kogo inżynierka zostawia za szronem w scenie 6? To może być najsilniejsza rana bohaterki.
