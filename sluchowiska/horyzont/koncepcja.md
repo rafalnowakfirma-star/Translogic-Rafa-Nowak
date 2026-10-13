@@ -40,6 +40,12 @@ Fantastyka, ale zbudowana na prawdziwych teoriach. Dzięki temu widz czuje, że 
 
 **7. Hibernacja z oddychaniem płynem.** W kapsułach płuca wypełnia natlenowany płyn (perfluorowęglowodór; prawdziwe badania nad oddychaniem cieczą). Płyn chroni też ciało przed przeciążeniem. Przebudzenie oznacza wykrztuszanie go z płuc.
 
+**8. Cząstki, których nie da się zobaczyć ani namierzyć.** W 1991 roku detektor w USA zarejestrował cząstkę z kosmosu o energii rzuconego kamienia, skupionej w jednym protonie (nazwano ją „Oh-My-God”). W 2021 roku japoński detektor złapał podobną, „Amaterasu”. Przyleciała z kierunku Pustki Lokalnej, gdzie nie ma niczego, co mogłoby ją wystrzelić. Jej źródło do dziś pozostaje zagadką. Takie cząstki lecą prawie z prędkością światła, a pola magnetyczne galaktyki zakrzywiają ich tor. Dlatego **nie da się ustalić, skąd przyleciały**.
+
+**9. Dżety relatywistyczne.** Niektóre gwiazdy neutronowe, magnetary i czarne dziury wyrzucają z biegunów wąskie strumienie materii rozpędzonej niemal do prędkości światła. Część z nich się chwieje i omiata przestrzeń jak promień latarni morskiej (np. prawdziwy układ SS 433 w naszej Galaktyce).
+
+**10. Pole siłowe.** Osłona z pola magnetycznego i plazmy, która odchyla naładowane cząstki. To prawdziwy pomysł, badany jako ochrona przed promieniowaniem dla misji na Marsa. Na pył i zwykłe promieniowanie wystarcza. Na cząstkę o energii z punktu 8 nie wystarcza nic.
+
 ---
 
 ## Statek „Horyzont”
@@ -51,6 +57,7 @@ Fantastyka, ale zbudowana na prawdziwych teoriach. Dzięki temu widz czuje, że 
   - **Pierścień B:** 10 kapsuł
 - **Radiatory:** gigantyczne, cienkie panele jak skrzydła, przy rufie. Normalnie ciemne. Przy przegrzaniu żarzą się na czerwono, potem pomarańczowo, potem biało.
 - **Reaktor:** kulisty, opancerzony, w środku pułapka antymaterii.
+- **Pole siłowe:** ledwo widoczna, mieniąca się powłoka wokół całego statku; odbija pył i promieniowanie.
 - **Pierścienie krzywiznowe:** dwa ogromne, cienkie pierścienie wokół kręgosłupa, świecące niebieskim światłem plazmy, gdy napęd pracuje.
 - **Silniki fuzyjne na rufie:** długi, jasnoniebieski strumień plazmy.
 - **Kapsuła serwisowa:** kanciasta, większa od kapsuł ratunkowych. Wiezie narzędzia, materiały, drukarkę 3D, zapasy, moduł nawigacyjny i kopię komputera pokładowego.
@@ -60,41 +67,30 @@ Spokojna, precyzyjna sztuczna inteligencja statku. Mówi w rodzaju żeńskim (�
 
 ---
 
-## Przyczyna awarii: propozycje
+## Przyczyna awarii: impuls ★ wybrana
 
-Ostatecznie zawodzi chłodzenie: radiatory zostają zniszczone, reaktor nie może oddać ciepła, magnesy pułapki antymaterii się nagrzewają i grozi eksplozja. Pytanie brzmi: **co zniszczyło radiatory?**
+**Co się dzieje:** w 11. roku podróży, bez żadnego ostrzeżenia, w statek uderza **impuls**: cienki jak włos strumień cząstek o niewyobrażalnej energii, lecący z prędkością 99,99999999999999999999% prędkości światła.
 
-### A. Stara mapa i ślepa bańka ★ rekomendowana
-Horyzont leci na ślepo, według map sprzed 2,7 mln lat. Na trasie znajduje się układ gwiezdny, którego na mapie nie ma, bo przez ten czas przesunął się w to miejsce. Grawitacja gwiazdy rozrywa bańkę i statek zostaje gwałtownie wyrzucony z nadświetlnej. Naraz uwalnia się fala dziobowa, czyli jedenaście lat zgarniętych cząstek. Błysk i fala pływowa zrywają radiatory i skręcają kręgosłup statku.
-- **Dlaczego dobra:** w całości oparta na prawdziwej fizyce. Nikt nie zawinił; zawiodła sama natura wszechświata. Do tego wyjaśnia, skąd nagle nieznana planeta.
+1. Impuls **przebija pole siłowe** jak igła bańkę mydlaną.
+2. Przechodzi przez kadłub **tuż obok reaktora**, na wylot. Trwa to 40 mikrosekund.
+3. **Przecina główny obieg chłodzenia.** Chłodziwo ucieka w próżnię i zamarza w chmurę kryształów. Odrzut wprawia statek w powolny obrót.
+4. **Stapia mechanizm awaryjnego zrzutu antymaterii**, który był dwa metry od toru impulsu.
+5. Bańka napędu traci stabilność i statek **zostaje wyrzucony z nadświetlnej**.
+6. Za impulsem przez cały statek przechodzi **fala cząstek wtórnych** (jak lawina: każde zderzenie wybija kolejne cząstki). Pękają lampy, a **zamki wyrzutowe pierścienia A topią się**.
+7. Bez chłodzenia reaktor się nagrzewa, magnesy pułapki antymaterii zbliżają się do temperatury krytycznej i zostaje **19 minut**.
 
-### B. Fala dziobowa bez winowajcy
-Bańka miała regularnie, po trochu „spuszczać” zgarnięte cząstki, ale czujnik od lat podawał złe dane. Przy planowym wyhamowaniu uwalnia się jedenaście lat cząstek naraz. Część fali odbija się od gęstego obłoku pyłu i uderza w statek.
-- **Dla kogo:** jeśli wolisz katastrofę „technologiczną”, z błędu urządzenia.
+**Dlaczego statek tego nie widział:** impuls leciał prawie tak szybko jak światło, więc nie ma światła, które mogłoby go wyprzedzić i ostrzec. Uderzenie i jego obraz przychodzą w tej samej chwili.
 
-### C. Pierścień okruchów
-Wyjście z nadświetlnej przebiega normalnie, ale tuż przy niewidocznym na mapach pierścieniu okruchów skalnych. W kilka sekund tysiące odłamków lecących z prędkością kilkudziesięciu km/s szatkują radiatory.
-- **Dla kogo:** najprostsza i najbardziej „realistyczna” wersja, z widowiskowym deszczem odłamków.
+**Skąd przyleciał:** w odcinku 1 nikt tego nie wyjaśnia. Komputer mówi tylko: „Źródło nieustalone”. Ocaleni będą to rozgryzać w kolejnych odcinkach (trop: dżet relatywistyczny gwiazdy).
 
-### D. Sabotaż
-Ktoś przed startem albo podczas podróży zmienił oprogramowanie: zablokował awaryjny zrzut antymaterii i przestawił zawory chłodzenia. Katastrofa tylko wygląda na przypadek.
-- **Dla kogo:** świetny motor na później. Jeśli sabotażysta jest wśród dziesięciorga ocalonych, rodzi się nieufność i konflikt w grupie.
-
-### E. Ładunek, który się obudził
-Jeden z kontenerów zawiera coś, o czym załoga nie wiedziała: egzotyczną materię albo organizm. Po wyjściu z nadświetlnej zaczyna wysysać i oddawać energię, zakłóca pole magnetyczne, a radiatory pękają od skoków temperatury.
-- **Dla kogo:** więcej fantastyki i tajemnica ładunku na cały sezon.
-
-### F. Planeta, której nie ma
-Statek wyrywa z nadświetlnej grawitacja planety, której w tym miejscu nie widać ani w mapach, ani w aktualnych pomiarach. Pojawia się dopiero po wyjściu z bańki, jakby czekała.
-- **Dla kogo:** najbardziej fantastyczna. Planeta staje się tajemnicą serii (czy jest naturalna?).
-
-**Moja rada:** w pierwszym odcinku pokazać przyczynę **A**: widzowie dostają spójną naukowo katastrofę. **D** albo **F** można potajemnie zasiać jako prawdę odkrywaną w kolejnych odcinkach, np. komputer w kapsule serwisowej odnajdzie w dziennikach dowód, że trasę ktoś zmienił. Scenariusz odcinka 1 jest napisany według wariantu **A**. Zmiana wymaga przepisania tylko sceny 2.
+### Inne warianty (w zapasie)
+Mapy sprzed 2,7 mln lat, fala dziobowa, pierścień odłamków, sabotaż, ładunek, który się obudził, planeta, której nie było. Można do nich wrócić jako do wątków pobocznych; zwłaszcza sabotaż da się połączyć z impulsem.
 
 ---
 
 ## Dlaczego przeżywa tylko dziesięcioro
 
-1. Fala uderzeniowa **skręca szyny wyrzutowe pierścienia A**. 37 kapsuł nie może się odłączyć.
+1. Fala cząstek wtórnych **stapia zamki wyrzutowe pierścienia A**. 37 kapsuł nie może się odłączyć.
 2. Kapsuły pierścienia B są sprawne, ale **sterowanie wyrzutem jest spalone**. Każdą trzeba zwolnić ręczną dźwignią.
 3. Wybudzenie z hibernacji trwa normalnie 40 minut. Do eksplozji jest 19.
 4. Komputer ma energię na **jedno szybkie, ryzykowne wybudzenie**: budzi inżynierkę z kapsuły B-10.
@@ -158,4 +154,5 @@ a woman in her late thirties, athletic build, head shaved for hibernation with s
 - **Imiona:** wymyślone, pasujące do 2211 (ludzkość wymieszana językowo, imiona-hybrydy). Przygotuję propozycje, kiedy zechcesz.
 - **Ładunek:** co wiezie Horyzont? (np. zarodki kolonii, maszyny terraformujące albo coś tajnego, zob. wariant E)
 - **Planeta:** jak bardzo wroga? (atmosfera, grawitacja, życie)
+- **Źródło impulsu:** do rozgryzienia przez ocalonych w kolejnych odcinkach.
 - **Twarz w pierścieniu A:** kogo inżynierka zostawia za szronem w scenie 6? To może być najsilniejsza rana bohaterki.

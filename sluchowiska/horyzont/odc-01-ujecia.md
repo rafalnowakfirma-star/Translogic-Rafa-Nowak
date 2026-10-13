@@ -92,17 +92,17 @@ Close tracking view along the spine of the HORIZON, a 4-kilometer-long cargo hau
 Camera glides slowly along the spine past the containers toward the rotating ring, sense of huge scale. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
-### U04 · 5 s · Stare światło
-- **Kadr:** Odległa galaktyka przed dziobem statku. Spokój, ale niepokojący.
-- **Dźwięk:** Lektor: „Mapy o tym nie wiedzą.”
+### U04 · 6 s · Pole siłowe
+- **Kadr:** Statek otoczony mieniącą się powłoką pola siłowego, które odbija drobiny pyłu.
+- **Dźwięk:** Lektor: „...rachunek się zgadzał.”
 
 **OBRAZ**
 ```
-View from behind the command module of the HORIZON cargo ship toward a distant spiral galaxy glowing ahead in the black void, the bow lit faintly by blue warp light. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+The HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust, wrapped in a faint, shimmering, almost invisible force field shell, tiny specks of interstellar dust and ice flaring into sparks as they bounce off the field, deep black space. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-Slow push toward the distant galaxy, almost imperceptible. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+Tiny sparks flare across the force field as particles bounce off it, the field ripples softly, slow push in. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
 ## SCENA 1 — CISZA
@@ -135,97 +135,97 @@ Very slow push in toward her face, tiny bubbles rising in the liquid. Realistic 
 
 ## SCENA 2 — ŚCIANA
 
-### U07 · 5 s · Wykres
-- **Kadr:** Pusty mostek, ekran grawimetru, linia nagle skacze.
-- **Dźwięk:** Sygnał, potem fałszywy sygnał. Komputer: „Odchylenie grawitacyjne...”
+### U07 · 3 s · TZAK!
+- **Kadr:** Z czerni, znikąd, cienka jak włos fioletowobiała linia uderza w pole siłowe statku.
+- **Dźwięk:** Suchy trzask, skowyt czujników. ✶ TZAK!
 
 **OBRAZ**
 ```
-Empty dark bridge of a spaceship, chairs unoccupied, a large screen showing a flat green gravimetric line that suddenly spikes sharply, amber warning light starting to blink. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+The HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust, wrapped in a faint shimmering force field, suddenly struck from the black void by a hair-thin, perfectly straight violet-white beam of light hitting the field near the middle of the ship, a bright flash at the impact point. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-Static camera; the line on the screen spikes upward, warning light starts blinking, slight push in. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+A hair-thin violet-white beam appears instantly out of nowhere and strikes the force field, blinding flash at the point of impact, camera jolts. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
-### U08 · 4 s · Skowyt
-- **Kadr:** Pierścienie krzywiznowe świecą coraz jaśniej, migoczą niestabilnie.
-- **Dźwięk:** Komputer: „Awaryjne wyjście z napędu za trzy... dwa...”
+### U08 · 4 s · Przebicie
+- **Kadr:** Promień przebija pole i kadłub tuż obok kuli reaktora; fontanna stopionego metalu.
+- **Dźwięk:** Syk parującego metalu, jęk konstrukcji.
 
 **OBRAZ**
 ```
-Close view of the huge warp ring of the HORIZON cargo ship, its blue plasma glow flickering unstably and becoming blindingly bright, arcs of energy crawling along the ring. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Close-up of the armored hull next to the huge spherical reactor of a giant cargo spaceship, a hair-thin violet-white beam piercing straight through the hull, the entry point glowing white-hot, a fountain of molten metal droplets spraying into space, the shimmering force field torn around the beam. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-The ring flickers and surges brighter, energy arcs crawl, camera shakes slightly. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+The beam punches through, molten metal sprays outward in glowing droplets, the hull around the hole glows white then orange, field flickers. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
 ### U09 · 4 s · WHUMMM
-- **Kadr:** Gwiazdy wskakują na miejsca, przed dziobem oślepiający stożek światła.
-- **Dźwięk:** Głuchy, ogromny huk. ✶ WHUMMM
+- **Kadr:** Bańka pęka: gwiazdy wskakują na miejsca, przed dziobem rozbłysk.
+- **Dźwięk:** Komputer: „Naruszenie kadłuba... Awaryjne wyjście z napędu.” ✶ WHUMMM
 
 **OBRAZ**
 ```
-The HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust violently dropping out of warp: the bent starlight snapping back into normal stars, a blinding cone of white-blue radiation bursting forward from the bow like a giant shotgun blast of light. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+The HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust violently dropping out of warp: the bent starlight snapping back into normal stars, the warp bubble collapsing, a cone of white-blue light bursting forward from the bow. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
 Sudden violent burst of light from the bow, stars snap into place, strong camera shake, flash fills the frame. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
-### U10 · 5 s · Radiatory
-- **Kadr:** Fala przechodzi przez kręgosłup, radiatory odrywają się, chłodziwo zamarza w kryształy.
-- **Dźwięk:** Zgrzyt metalu przez konstrukcję. ✶ KRRRRAAAK
+### U10 · 5 s · Chłodziwo
+- **Kadr:** Z dziury przy reaktorze tryska chłodziwo i zamarza w kryształy; statek zaczyna się obracać.
+- **Dźwięk:** Przeciągły syk, jęk metalu.
 
 **OBRAZ**
 ```
-The long truss spine of a giant cargo spaceship twisting under a tidal shock wave, its enormous wing-like radiator panels tearing off and spinning away into space, sparks, ruptured pipes spraying coolant that instantly freezes into clouds of glittering crystals. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+A giant cargo spaceship in deep space with a small glowing hole in its hull next to the spherical reactor, a powerful jet of coolant spraying out of the hole and instantly freezing into a long glittering cloud of ice crystals, the whole 4-kilometer ship beginning to slowly rotate from the thrust. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-Radiator panels rip away and tumble slowly into the void, coolant sprays and freezes into sparkling clouds, debris drifts toward the camera. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+Coolant sprays out and freezes into a sparkling cloud, the ship slowly begins to turn, crystals drift toward the camera. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
-### U11 · 4 s · Szyny
-- **Kadr:** Hala hibernacyjna się trzęsie; szyny pierścienia A wyginają się.
-- **Dźwięk:** Wstrząs, dzwonienie metalu, syk.
+### U11 · 4 s · Kaskada
+- **Kadr:** Fala cząstek: lampy pękają po kolei, zamki wyrzutowe pierścienia A topią się.
+- **Dźwięk:** Seria trzasków, pękające lampy. ✶ TRZ-TRZ-TRZ-TRZ
 
 **OBRAZ**
 ```
-Inside a cold cyan hibernation bay, white cryo-pods shaking violently in their cradles, close-up of thick metal launch rails bending and warping like wire, sparks and frost dust falling. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Inside a cold cyan hibernation bay, a cascade of exploding ceiling lights racing down the length of the bay with bursts of sparks, close-up of heavy metal launch locks on the pod cradles glowing orange and dripping molten metal. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-Strong shaking, the rails bend with a jolt, sparks fall, camera shake. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+Lights burst one after another down the bay like a wave, sparks rain down, the locks glow and drip molten metal, camera shake. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
 ### U12 · 6 s · Nieznany układ
 - **Kadr:** Przez okno mostka: rdzawa gwiazda i ciemna planeta w fioletowych burzach.
-- **Dźwięk:** Cisza, tykanie stygnącego metalu. ▣ Układ nieoznaczony na mapach.
+- **Dźwięk:** Komputer: „Trafienie z zewnątrz. Źródło... nieustalone.” ▣ Układ nieoznaczony na mapach.
 
 **OBRAZ**
 ```
-View through a cracked bridge window of a spaceship: a huge rust-red star and, in front of it, a dark alien planet wrapped in swirling violet storms with lightning flashes, debris drifting past the window. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+View through a cracked bridge window of a slowly rotating spaceship: a huge rust-red star and, in front of it, a dark alien planet wrapped in swirling violet storms with lightning flashes, frozen coolant crystals drifting past the window. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-Slow drift of debris past the window, lightning flickers in the planet's clouds, very slow push in. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+The view slowly rotates as the ship turns, crystals drift past the window, lightning flickers in the planet's clouds. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
 ## SCENA 3 — CIEPŁO
 
 ### U13 · 5 s · Żar
-- **Kadr:** Kikuty radiatorów żarzą się ciemnoczerwono.
-- **Dźwięk:** Pulsujący alarm. Komputer: „Utrata siedemdziesięciu ośmiu procent radiatorów...”
+- **Kadr:** Kadłub wokół dziury przy reaktorze żarzy się czerwono, sączy się zamarzające chłodziwo.
+- **Dźwięk:** Pulsujący alarm. Komputer: „Impuls przeciął główny obieg chłodzenia...”
 
 **OBRAZ**
 ```
-Close view of the torn stumps of giant thermal radiator panels on a damaged spaceship, glowing dark cherry red with heat against black space, twisted metal, drifting debris. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Close view of the armored hull around a small punctured hole next to the spherical reactor of a damaged spaceship, the metal around it glowing dark cherry red with heat, thin streams of coolant still leaking out and freezing into crystals, black space behind. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-The glow slowly intensifies from dark red toward orange, heat shimmer, debris drifting. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+The red glow slowly intensifies toward orange, heat shimmer, frozen crystals drift away. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```
 
 ### U14 · 6 s · Reaktor
@@ -409,7 +409,7 @@ Quick yank of the lever, the pod disappears down the rail. (Wygeneruj 3–4 wari
 
 **OBRAZ**
 ```
-Exterior view of the rotating hibernation ring of a giant damaged cargo spaceship, small white escape pods shooting out one after another like seeds, each with a tiny thruster flame, a larger boxy service pod launching separately, glowing red-hot radiator stumps in the background. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Exterior view of the rotating hibernation ring of a giant damaged cargo spaceship, small white escape pods shooting out one after another like seeds, each with a tiny thruster flame, a larger boxy service pod launching separately, the glowing red-hot reactor section in the background. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
@@ -450,7 +450,7 @@ She steps into the pod, the glass lid closes over her, her hand hits a button in
 
 **OBRAZ**
 ```
-Distant view of the HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust, heavily damaged, its torn radiator stumps glowing white-hot, the center of the ship erupting in a blinding pure white sphere of annihilation light that engulfs the whole 4-kilometer ship, tiny escape pods flying away in the foreground. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Distant view of the HORIZON, a 4-kilometer-long cargo hauler spacecraft built along a narrow central truss spine: a compact armored command module at the front, a slowly rotating ring-shaped hibernation module behind it, hundreds of stacked rectangular cargo containers along the spine, two huge thin glowing blue rings around the spine that generate the warp field, enormous wing-like thermal radiator panels near the rear, a spherical armored reactor, and a cluster of fusion engines at the very back emitting long bright blue plasma exhaust, heavily damaged and slowly rotating, the hull around its reactor glowing white-hot, the center of the ship erupting in a blinding pure white sphere of annihilation light that engulfs the whole 4-kilometer ship, tiny escape pods flying away in the foreground. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```

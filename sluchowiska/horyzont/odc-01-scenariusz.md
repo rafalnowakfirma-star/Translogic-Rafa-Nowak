@@ -31,7 +31,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **▶ U02**
 
-**LEKTOR:** Ta potęga ma swoją cenę. W bańce zagiętej przestrzeni statek jest ślepy. Nie widzi, co ma przed sobą. Leci według map.
+**LEKTOR:** Ta potęga ma swoją cenę. W bańce zagiętej przestrzeni statek jest ślepy. Nie widzi, co ma przed sobą. Chroni go tylko pole siłowe... i rachunek prawdopodobieństwa.
 
 **▶ U03**
 
@@ -39,11 +39,11 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **▶ U04**
 
-**LEKTOR:** Mapy, według których leci „Horyzont”, narysowano ze światła, które wyruszyło z tamtych gwiazd, kiedy nasi przodkowie po raz pierwszy wzięli do ręki kamień. *(pauza)* Przez dwa miliony lat gwiazdy zdążyły się przesunąć.
+**LEKTOR:** Przez jedenaście lat pole siłowe odbiło biliony cząstek. Pył, okruchy lodu, promieniowanie. *(pauza)* Według obliczeń cząstka, której pole nie zdoła zatrzymać, trafia w statek raz na dziesięć tysięcy lat.
 
 *(długa pauza)*
 
-**LEKTOR:** Mapy o tym nie wiedzą.
+**LEKTOR:** Przez jedenaście lat rachunek się zgadzał.
 
 `[MUZYKA: Ton urywa się.]`
 
@@ -69,49 +69,52 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 ---
 
-## SCENA 2 — ŚCIANA
+## SCENA 2 — IMPULS
 
 **▶ U07**
 
-`[DŹWIĘK: Miękki sygnał. Potem drugi, fałszywy, o pół tonu za nisko.]`
+`[DŹWIĘK: Szum pierścieni. Spokój. Pip... ... pip.]`
 
-*(Obraz: pusty mostek. Na ekranie wykres grawimetru, płaska linia nagle skacze.)*
+*(Obraz z zewnątrz: Horyzont w bańce, otoczony ledwo widoczną, mieniącą się powłoką pola siłowego. Nagle z czerni, znikąd, cienka jak włos fioletowobiała linia światła uderza w pole. Bez ostrzeżenia.)*
 
-**KOMPUTER:** Odchylenie grawitacyjne na kursie. *(pauza)* Źródło nieznane. Masa... *(pauza)* masa gwiazdowa.
-
-**KOMPUTER:** Na mapach w tym miejscu nie ma żadnego obiektu.
+`[DŹWIĘK: Jeden suchy, ostry trzask, jakby pękła cała przestrzeń naraz. Natychmiast potem skowyt wszystkich czujników jednocześnie.]`
+`✶ ONOMATOPEJA: TZAK!`
 
 **▶ U08**
 
-**KOMPUTER:** *(bez zmiany tonu, szybciej)* Bańka traci stabilność. Awaryjne wyjście z napędu za trzy... dwa...
+*(Obraz: zbliżenie. Promień przebija pole siłowe jak igła bańkę mydlaną i przechodzi przez kadłub tuż obok kuli reaktora. Wlot rozżarzony do białości, fontanna stopionego metalu, po drugiej stronie statku wylot.)*
 
-`[DŹWIĘK: Szum pierścieni wznosi się w wysoki skowyt.]`
+`[DŹWIĘK: Syk parującego metalu. Głęboki jęk konstrukcji.]`
 
 **▶ U09**
+
+**KOMPUTER:** *(pierwszy raz szybciej niż zwykle)* Naruszenie kadłuba. Bańka traci stabilność. Awaryjne wyjście z napędu.
 
 `[DŹWIĘK: Głuchy, ogromny huk, jakby świat zatrzasnął się jak drzwi.]`
 `✶ ONOMATOPEJA: WHUMMM`
 
-*(Obraz: z zewnątrz. Zniekształcone gwiazdy wokół statku nagle „wskakują” na swoje miejsca. Przed dziobem wybucha oślepiający stożek białoniebieskiego światła: fala dziobowa, jedenaście lat zgarniętych cząstek uwolnionych w jednej sekundzie.)*
+*(Obraz: z zewnątrz. Zniekształcone gwiazdy wokół statku nagle „wskakują” na swoje miejsca. Bańka pęka, przed dziobem rozbłyska stożek białoniebieskiego światła.)*
 
 **▶ U10**
 
-`[DŹWIĘK: Zgrzyt metalu przeniesiony przez konstrukcję: jęk, trzask, długie rozdzieranie.]`
-`✶ ONOMATOPEJA: KRRRRAAAK`
+`[DŹWIĘK: Przeciągły syk uciekającego chłodziwa. Metal jęczy. Statek zaczyna powoli się obracać.]`
 
-*(Obraz: fala pływowa przechodzi przez czterokilometrowy kręgosłup jak przez linę. Ogromne radiatory odrywają się i wirują w pustkę. Z rozerwanych przewodów tryska chłodziwo i zamarza w chmury lśniących kryształów.)*
+*(Obraz: z dziury w kadłubie przy reaktorze tryska strumień chłodziwa. W próżni natychmiast zamarza w chmurę lśniących kryształów. Odrzut powoli wprawia czterokilometrowy statek w obrót.)*
 
 **▶ U11**
 
-`[DŹWIĘK: W hali hibernacyjnej: wstrząs, dzwonienie metalu, syk.]`
+`[DŹWIĘK: Seria trzasków wzdłuż całego statku, jakby ktoś przeciągnął palcem po klawiszach. Pękające lampy.]`
+`✶ ONOMATOPEJA: TRZ-TRZ-TRZ-TRZ`
 
-*(Obraz: hala hibernacyjna. Kapsuły szarpią się w uchwytach. Zbliżenie: szyny wyrzutowe pierścienia A wyginają się jak drut.)*
+*(Obraz: hala hibernacyjna. Fala cząstek wtórnych przechodzi przez statek: lampy pękają po kolei, sypią się iskry. Zbliżenie: zamki wyrzutowe pierścienia A żarzą się i spływają stopionym metalem.)*
 
 **▶ U12**
 
 `[DŹWIĘK: Cisza. Tylko tykanie stygnącego metalu.]`
 
 *(Obraz: przez okno mostka: obca, rdzawoczerwona gwiazda. Na jej tle ciemna planeta owinięta fioletowymi burzami.)*
+
+**KOMPUTER:** *(już spokojnie)* Trafienie z zewnątrz. *(pauza)* Źródło... nieustalone.
 
 `▣ PODPIS: Układ gwiezdny nieoznaczony na mapach.`
 
@@ -123,9 +126,9 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: Niski, pulsujący alarm. Nie krzyczy; brzęczy jak owad w głowie.]`
 
-*(Obraz: kikuty radiatorów żarzą się ciemnoczerwonym światłem.)*
+*(Obraz: kadłub wokół dziury przy reaktorze żarzy się ciemnoczerwono. Z wylotu wciąż sączy się zamarzające chłodziwo.)*
 
-**KOMPUTER:** Utrata siedemdziesięciu ośmiu procent radiatorów. Nie mogę oddać ciepła.
+**KOMPUTER:** Impuls przeciął główny obieg chłodzenia. Chłodziwo uchodzi w próżnię. Radiatory są puste. Nie mogę oddać ciepła.
 
 **▶ U14**
 
@@ -133,7 +136,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **KOMPUTER:** Magnesy pułapki antymaterii nagrzewają się. Gdy przekroczą temperaturę krytyczną, stracą nadprzewodnictwo. Pole zniknie. *(pauza)* Pułapka się otworzy.
 
-**KOMPUTER:** Awaryjny zrzut pułapki: zablokowany. Kręgosłup statku jest skręcony.
+**KOMPUTER:** Awaryjny zrzut pułapki: zablokowany. Impuls przeszedł dwa metry od mechanizmu i go stopił.
 
 **KOMPUTER:** Czas do utraty pułapki: dziewiętnaście minut.
 
@@ -206,7 +209,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **INŻYNIERKA:** To zrzuć pułapkę ręcznie!
 
-**KOMPUTER:** Mechanizm zrzutu jest zgnieciony razem z kręgosłupem. Policzyłam dziewięćset wariantów. *(pauza)* Ten reaktor wybuchnie.
+**KOMPUTER:** Mechanizm zrzutu jest stopiony w jedną bryłę. Policzyłam dziewięćset wariantów. *(pauza)* Ten reaktor wybuchnie.
 
 `[DŹWIĘK: Cisza. Tylko alarm.]`
 
@@ -216,7 +219,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **INŻYNIERKA:** *(bardzo cicho)* ...Kapsuły.
 
-**KOMPUTER:** Pierścień A: szyny wyrzutowe zdeformowane. Trzydzieści siedem kapsuł nie może się odłączyć. *(pauza)* Pierścień B: dziesięć kapsuł sprawnych. Sterowanie spalone. Trzeba zwolnić każdą ręcznie.
+**KOMPUTER:** Pierścień A: zamki wyrzutowe stopione przez falę cząstek. Trzydzieści siedem kapsuł nie może się odłączyć. *(pauza)* Pierścień B: dziesięć kapsuł sprawnych. Sterowanie spalone. Trzeba zwolnić każdą ręcznie.
 
 **INŻYNIERKA:** *(łamiącym się głosem)* Trzydzieści siedem...
 
@@ -304,7 +307,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: CISZA. Całkowita. W kosmosie wybuch nie wydaje dźwięku. Słychać tylko oddech inżynierki w kapsule.]`
 
-*(Obraz z zewnątrz: Horyzont z oddali. Kikuty radiatorów żarzą się do białości. Potem środek statku zapala się oślepiającym, białym światłem anihilacji. Kula światła rośnie i pochłania cztery kilometry stali. Bezgłośnie.)*
+*(Obraz z zewnątrz: Horyzont z oddali, wciąż powoli obracający się. Kadłub wokół reaktora żarzy się do białości. Potem środek statku zapala się oślepiającym, białym światłem anihilacji. Kula światła rośnie i pochłania cztery kilometry stali. Bezgłośnie.)*
 
 `▣ PODPIS: T−00:00`
 

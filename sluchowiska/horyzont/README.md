@@ -6,6 +6,6 @@ Science fiction naukowe: słuchowisko i film komiksowy z fotorealistycznych uję
 
 | Plik | Co zawiera |
 |---|---|
-| [koncepcja.md](koncepcja.md) | nauka w tle, statek, 6 wariantów przyczyny awarii, dlaczego przeżywa 10 osób, styl wizualny, głos lektora, sprawy do decyzji |
+| [koncepcja.md](koncepcja.md) | nauka w tle, statek, przyczyna awarii (impuls), dlaczego przeżywa 10 osób, styl wizualny, głos lektora, sprawy do decyzji |
 | [odc-01-scenariusz.md](odc-01-scenariusz.md) | wstęp lektora i sceny 1–8: od lotu w nadświetlnej do wejścia kapsuł w atmosferę |
 | [odc-01-ujecia.md](odc-01-ujecia.md) | 32 ujęcia: polecenie OBRAZ + polecenie RUCH dla każdego, 7 kadrów wzorcowych |
