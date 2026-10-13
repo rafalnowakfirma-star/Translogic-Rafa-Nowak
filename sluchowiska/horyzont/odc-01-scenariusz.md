@@ -2,7 +2,7 @@
 ## Odcinek 1 — sceny otwierające
 ### Scenariusz słuchowiska i filmu komiksowego
 
-Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-01-ujecia.md`)
+Czas: ok. 5–6 minut · Ujęcia: U01–U38 (polecenia do obrazu i ruchu: `odc-01-ujecia.md`)
 
 ---
 
@@ -112,7 +112,7 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 `[DŹWIĘK: Cisza. Tylko tykanie stygnącego metalu.]`
 
-*(Obraz: przez okno mostka: obca, rdzawoczerwona gwiazda. Na jej tle ciemna planeta owinięta fioletowymi burzami.)*
+*(Obraz: przez okno mostka: obca, rdzawoczerwona gwiazda. Na jej tle planeta: złote, brunatne i bordowe pustynie, rdzawe wyżyny, nad częścią globu fioletowe burze.)*
 
 **KOMPUTER:** *(już spokojnie)* Trafienie z zewnątrz. *(pauza)* Źródło... nieustalone.
 
@@ -331,15 +331,50 @@ Czas: ok. 4–5 minut · Ujęcia: U01–U32 (polecenia do obrazu i ruchu: `odc-0
 
 **▶ U32**
 
+`[DŹWIĘK: Cisza kosmosu. Tylko bardzo niski, ciepły szum.]`
 `[MUZYKA: Powolny, ogromny akord, jakby otwierał się nowy świat.]`
 
-*(Obraz: ciemna planeta owinięta fioletowymi burzami, błyskawice w chmurach, w tle rdzawe, przygasłe słońce. W atmosferę wchodzi jedenaście ognistych smug: dziesięć małych i jedna większa. Rozchodzą się, każda w inną stronę.)*
+*(Obraz: planeta z kosmosu. Ogromne pustynie lśniącego złotego, brunatnego i bordowoczerwonego piasku, rdzawe i brązowe wyżyny skalne, nad częścią globu wirują fioletowe burze. W tle przygasłe, rdzawe słońce. Jedna po drugiej, w różnych miejscach i nie w tym samym czasie, w atmosferę wchodzą jedenaście małych, jasnych punktów: dziesięć kapsuł i kapsuła serwisowa. Z tej odległości wyglądają jak meteoryty.)*
 
 **LEKTOR:** Z czterdziestu siedmiu osób przeżyło dziesięć. *(pauza)* Dziewięć z nich jeszcze o tym nie wie.
 
+**▶ U33**
+
+*(Obraz: bliżej, wciąż z orbity. Kapsuły przebijają się przez atmosferę jak spadające gwiazdy. Każda ciągnie za sobą ognistą łunę, a nad pustynią rozjarzają się długie smugi. Wchodzą w odstępach, daleko od siebie.)*
+
 **KOMPUTER:** *(z trzaskami, słabo)* Kapsuły rozproszone. Strefa lądowania... czterysta kilometrów. *(pauza)* Kapsuła serwisowa... uszkodzona. Nie wiem... gdzie spadnę.
 
+**▶ U34**
+
+`[DŹWIĘK: Wiatr. Wysoko, cienko. Potem narastający świst spadającego przedmiotu.]`
+
+*(Obraz: widok z powietrza, wysoko w atmosferze. Ognista łuna już zgasła. Daleko w dole, nad pustynią, widać zarys jednej kapsuły: osmolonej do czarności po wejściu w atmosferę, lekko dymiącej. Spada.)*
+
+**▶ U35**
+
+*(Obraz: bliżej. Czarna, dymiąca kapsuła spada nad pustynią: falujące wzniesienia piasku w kolorach złota, brązu i bordo, rdzawe skały, a pomiędzy nimi pusta, płaska przestrzeń. Tam spadnie.)*
+
 **LEKTOR:** Dziesięć kapsuł. Czterysta kilometrów obcego świata. I jedna kapsuła z narzędziami, której wszyscy będą szukać.
+
+**▶ U36**
+
+`[DŹWIĘK: Świst przechodzi w ryk. W ostatniej chwili ogłuszający huk silników.]`
+`✶ ONOMATOPEJA: FWOOOOM`
+
+*(Obraz: tuż nad ziemią. W ostatniej chwili odpalają silniki antyimpaktowe pod kapsułą. Słupy ognia biją w piasek, który rozdmuchuje się na boki kręgiem.)*
+
+**▶ U37**
+
+`[DŹWIĘK: Głuche, ciężkie uderzenie. Deszcz piasku.]`
+`✶ ONOMATOPEJA: BUUUM`
+
+*(Obraz: mimo hamowania kapsuła uderza w piasek z impetem. Fontanna piasku wylatuje w górę i na boki.)*
+
+**▶ U38**
+
+`[DŹWIĘK: Długi, szorstki szum przesuwającego się metalu po piasku, coraz wolniejszy. Potem cisza. Wiatr. Tykanie stygnącego metalu. Syk piasku osypującego się na gorący kadłub.]`
+
+*(Obraz: kapsuła sunie po piasku, ryjąc długą bruzdę, zwalnia i staje. Opada pył. Z czarnego kadłuba unosi się cienki dym. Wokół pustka.)*
 
 `[MUZYKA: Cięcie.]`
 

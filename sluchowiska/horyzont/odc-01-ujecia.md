@@ -41,7 +41,7 @@ Cramped reactor control room of a spaceship: walls of switches, manual levers an
 
 ### R6 — Planeta
 ```
-A dark, unknown alien planet seen from orbit, wrapped in swirling violet and deep purple storm systems with lightning flashes inside the clouds, a dim rust-red sun behind it, thin glowing atmosphere edge, ominous and hostile. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Wide view of an alien planet seen from orbit: vast deserts of glittering golden-yellow, brown and deep burgundy-red sand, rust-red and bronze rocky highlands, huge swirling violet storm systems over part of the globe with lightning inside the clouds, a thin hazy atmosphere glowing at the edge, a dim rust-red sun in the background, ominous, beautiful and hostile. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 
 ### R7 — Kapsuła serwisowa
@@ -201,12 +201,12 @@ Lights burst one after another down the bay like a wave, sparks rain down, the l
 ```
 
 ### U12 · 6 s · Nieznany układ
-- **Kadr:** Przez okno mostka: rdzawa gwiazda i ciemna planeta w fioletowych burzach.
+- **Kadr:** Przez okno mostka: rdzawa gwiazda i pustynna planeta, częściowo w fioletowych burzach.
 - **Dźwięk:** Komputer: „Trafienie z zewnątrz. Źródło... nieustalone.” ▣ Układ nieoznaczony na mapach.
 
 **OBRAZ**
 ```
-View through a cracked bridge window of a slowly rotating spaceship: a huge rust-red star and, in front of it, a dark alien planet wrapped in swirling violet storms with lightning flashes, frozen coolant crystals drifting past the window. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+View through a cracked bridge window of a slowly rotating spaceship: a huge rust-red star and, in front of it, an alien planet with vast golden, brown and burgundy-red deserts and rust-red rocky highlands, partly covered by swirling violet storms with lightning flashes, frozen coolant crystals drifting past the window. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
@@ -472,15 +472,93 @@ Blue liquid rises up to her chin, white light flickers through the porthole, the
 
 ## SCENA 8 — PLANETA
 
-### U32 · 8 s · Jedenaście smug
-- **Kadr:** Planeta w fioletowych burzach; w atmosferę wchodzi 11 ognistych smug.
-- **Dźwięk:** Lektor: „Z czterdziestu siedmiu osób przeżyło dziesięć...” ▣ HORYZONT
+### U32 · 8 s · Meteoryty
+- **Kadr:** Planeta z kosmosu: pustynie, rdzawe skały, fioletowe burze. W różnych miejscach i w różnym czasie w atmosferę wchodzi 11 jasnych punktów jak meteoryty.
+- **Dźwięk:** Cisza kosmosu, akord. Lektor: „Z czterdziestu siedmiu osób przeżyło dziesięć...”
 
 **OBRAZ**
 ```
-A dark alien planet wrapped in swirling violet storm systems with lightning inside the clouds, a dim rust-red sun behind it, eleven fiery streaks of atmospheric entry, ten small and one larger, burning down into the clouds and spreading apart in different directions. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+Wide view of an alien planet seen from orbit: vast deserts of glittering golden-yellow, brown and deep burgundy-red sand, rust-red and bronze rocky highlands, huge swirling violet storm systems over part of the globe with lightning inside the clouds, a thin hazy atmosphere glowing at the edge, a dim rust-red sun in the background, eleven tiny bright points entering the atmosphere like meteors at different places across the globe, far apart from each other, each leaving a short glowing streak. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
 ```
 **RUCH**
 ```
-The fiery streaks descend and slowly spread apart into the storm clouds, lightning flashes, slow push toward the planet. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+One after another, at different moments and in different places, small bright meteor-like streaks ignite in the atmosphere and burn downward; the planet slowly rotates; the camera slowly drifts closer. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U33 · 6 s · Ogniste łuny
+- **Kadr:** Bliżej, z orbity: kapsuły jak spadające gwiazdy, ogniste łuny nad pustynią.
+- **Dźwięk:** Komputer: „Kapsuły rozproszone... Nie wiem... gdzie spadnę.”
+
+**OBRAZ**
+```
+Closer orbital view over a reddish-golden desert region of an alien planet: several small objects plunging through the upper atmosphere like meteors, each a glowing white-orange plasma head with a long fiery trail lighting up the haze, far apart from each other, violet storm clouds on the horizon. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+The fiery streaks lengthen as the objects descend, appearing at staggered moments, glowing trails slowly fading behind them. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U34 · 5 s · Zarys kapsuły
+- **Kadr:** Wysoko w atmosferze, już bez ognia: daleko w dole czarna, lekko dymiąca kapsuła.
+- **Dźwięk:** Wiatr, narastający świst.
+
+**OBRAZ**
+```
+Aerial view high in the hazy sky of an alien desert planet, far below a single small capsule falling, its hull charred completely black from atmospheric entry, a thin trail of light smoke behind it, no flames, a vast desert of golden, brown and burgundy-red sand far beneath. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+The distant black capsule falls steadily away from the camera, trailing thin smoke, slight atmospheric haze movement. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U35 · 6 s · Nad pustynią
+- **Kadr:** Bliżej: czarna, dymiąca kapsuła nad falującymi wzniesieniami piasku i rdzawymi skałami.
+- **Dźwięk:** Lektor: „Dziesięć kapsuł. Czterysta kilometrów obcego świata...”
+
+**OBRAZ**
+```
+Aerial chase view following a charred black escape capsule trailing light smoke as it falls toward an alien desert: rolling dunes of glittering golden-yellow, brown and burgundy-red sand, rust-red and bronze rock formations, and an empty flat sandy plain below. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+Camera follows the falling capsule from above and behind, the desert rushing closer, smoke streaming upward. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U36 · 3 s · FWOOOOM
+- **Kadr:** Tuż nad ziemią odpalają silniki antyimpaktowe; piasek rozdmuchuje się kręgiem.
+- **Dźwięk:** Ryk silników. ✶ FWOOOOM
+
+**OBRAZ**
+```
+Low angle view of a charred black escape capsule a few meters above a flat plain of golden and burgundy-red sand, retro landing engines firing at its base, bright jets of flame blasting the ground, sand blown outward in a wide ring, rust-red rocks in the background. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+The retro engines ignite with a burst, sand blasts outward in a ring, the capsule sharply slows but keeps falling. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U37 · 3 s · Uderzenie
+- **Kadr:** Kapsuła uderza w piasek z impetem; fontanna piasku w górę i na boki.
+- **Dźwięk:** Głuche uderzenie. ✶ BUUUM
+
+**OBRAZ**
+```
+A charred black escape capsule slamming into a flat plain of golden and burgundy-red sand at an angle, a huge burst of sand thrown up into the air and sideways, dust cloud, rust-red rocks in the background. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+The capsule hits the sand hard, a fountain of sand erupts upward and outward, camera shakes from the impact. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
+```
+
+### U38 · 8 s · Bruzda
+- **Kadr:** Kapsuła sunie po piasku, ryje długą bruzdę, zwalnia i staje. Opada pył, dym.
+- **Dźwięk:** Szuranie metalu po piasku, cisza, wiatr, tykanie stygnącego metalu. ▣ HORYZONT
+
+**OBRAZ**
+```
+A charred black escape capsule sliding across a flat plain of glittering golden and burgundy-red sand, ploughing a long deep furrow behind it, sand spraying from its front edge, dust in the air, rust-red and bronze rock formations and dunes around an empty landscape, dim rust-red sun. Photorealistic cinematic film still, hard science fiction realism, believable NASA-inspired spacecraft engineering, practical lighting, volumetric light, anamorphic lens, high dynamic range, subtle film grain, color palette of deep black space, cold cyan-blue light, warning amber and overheated red-orange, 16:9 widescreen, no text, no captions, no logos.
+```
+**RUCH**
+```
+The capsule slides forward, slowing down, then comes to a stop; dust slowly settles; thin smoke rises from the hull; wind moves fine sand across the furrow. Realistic physics, smooth cinematic motion, consistent details, no morphing, no text.
 ```

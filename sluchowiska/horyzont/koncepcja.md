@@ -40,6 +40,8 @@ Fantastyka, ale zbudowana na prawdziwych teoriach. Dzięki temu widz czuje, że 
 
 **7. Hibernacja z oddychaniem płynem.** W kapsułach płuca wypełnia natlenowany płyn (perfluorowęglowodór; prawdziwe badania nad oddychaniem cieczą). Płyn chroni też ciało przed przeciążeniem. Przebudzenie oznacza wykrztuszanie go z płuc.
 
+**7a. Lądowanie kapsuł.** Z orbity kapsuła wygląda jak meteoryt: przy wejściu w atmosferę powietrze przed nią rozgrzewa się do plazmy i świeci. Potem zwalnia, ogień gaśnie, a osłona termiczna zostaje osmolona do czarności. Silniki antyimpaktowe odpalane metr–dwa nad ziemią to prawdziwe rozwiązanie: tak lądują rosyjskie kapsuły Sojuz.
+
 **8. Cząstki, których nie da się zobaczyć ani namierzyć.** W 1991 roku detektor w USA zarejestrował cząstkę z kosmosu o energii rzuconego kamienia, skupionej w jednym protonie (nazwano ją „Oh-My-God”). W 2021 roku japoński detektor złapał podobną, „Amaterasu”. Przyleciała z kierunku Pustki Lokalnej, gdzie nie ma niczego, co mogłoby ją wystrzelić. Jej źródło do dziś pozostaje zagadką. Takie cząstki lecą prawie z prędkością światła, a pola magnetyczne galaktyki zakrzywiają ich tor. Dlatego **nie da się ustalić, skąd przyleciały**.
 
 **9. Dżety relatywistyczne.** Niektóre gwiazdy neutronowe, magnetary i czarne dziury wyrzucają z biegunów wąskie strumienie materii rozpędzonej niemal do prędkości światła. Część z nich się chwieje i omiata przestrzeń jak promień latarni morskiej (np. prawdziwy układ SS 433 w naszej Galaktyce).
@@ -153,6 +155,6 @@ a woman in her late thirties, athletic build, head shaved for hibernation with s
 
 - **Imiona:** wymyślone, pasujące do 2211 (ludzkość wymieszana językowo, imiona-hybrydy). Przygotuję propozycje, kiedy zechcesz.
 - **Ładunek:** co wiezie Horyzont? (np. zarodki kolonii, maszyny terraformujące albo coś tajnego, zob. wariant E)
-- **Planeta:** jak bardzo wroga? (atmosfera, grawitacja, życie)
+- **Planeta:** ustalony wygląd: z kosmosu pustynie złote, brunatne i bordowoczerwone, rdzawe i brązowe skały, fioletowe burze nad częścią globu, przygasłe rdzawe słońce. Do decyzji: atmosfera, grawitacja, życie.
 - **Źródło impulsu:** do rozgryzienia przez ocalonych w kolejnych odcinkach.
 - **Twarz w pierścieniu A:** kogo inżynierka zostawia za szronem w scenie 6? To może być najsilniejsza rana bohaterki.
